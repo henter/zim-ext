@@ -33,11 +33,7 @@ PHP_METHOD(Zim_Http_Response, isEmpty);
 void zephir_init_static_properties_Zim_Http_Response(TSRMLS_D);
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_response___construct, 0, 0, 0)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, content, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, content)
-#endif
 #if PHP_VERSION_ID >= 70200
 	ZEND_ARG_TYPE_INFO(0, status, IS_LONG, 0)
 #else
@@ -46,11 +42,7 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_response___construct, 0, 0, 0)
 	ZEND_ARG_ARRAY_INFO(0, headers, 0)
 ZEND_END_ARG_INFO()
 
-#if PHP_VERSION_ID >= 70200
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_zim_http_response_create, 0, 0, Zim\\Http\\Response, 0)
-#else
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_http_response_create, 0, 0, IS_OBJECT, "Zim\\Http\\Response", 0)
-#endif
+ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_response_create, 0, 0, 0)
 	ZEND_ARG_INFO(0, content)
 #if PHP_VERSION_ID >= 70200
 	ZEND_ARG_TYPE_INFO(0, status, IS_LONG, 0)
@@ -68,7 +60,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_http_response___tostring, 0,
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_response_prepare, 0, 0, 1)
-	ZEND_ARG_OBJ_INFO(0, request, Zim\\Http\\Zim\\Contract\\Request, 0)
+	ZEND_ARG_OBJ_INFO(0, request, Zim\\Contract\\Request, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_response_setcontent, 0, 0, 1)

@@ -202,7 +202,7 @@ PHP_METHOD(Zim_Http_Request, getForwardedFor) {
 	ZEPHIR_MM_GROW();
 
 	zephir_read_static_property_ce(&_0, zim_http_request_ce, SL("forwardedHeaders"), PH_NOISY_CC | PH_READONLY);
-	zephir_is_iterable(&_0, 0, "zim/http/request.zep", 101);
+	zephir_is_iterable(&_0, 0, "zim/http/request.zep", 103);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0), _1)
 	{
 		ZEPHIR_INIT_NVAR(&key);
@@ -489,8 +489,8 @@ PHP_METHOD(Zim_Http_Request, getMimeType) {
 	zephir_read_static_property_ce(&_2, zim_http_request_ce, SL("formats"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_2, &format)) {
 		zephir_read_static_property_ce(&_3, zim_http_request_ce, SL("formats"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_4, &_3, &format, PH_NOISY | PH_READONLY, "zim/http/request.zep", 177 TSRMLS_CC);
-		zephir_array_fetch_long(&_1, &_4, 0, PH_NOISY, "zim/http/request.zep", 177 TSRMLS_CC);
+		zephir_array_fetch(&_4, &_3, &format, PH_NOISY | PH_READONLY, "zim/http/request.zep", 179 TSRMLS_CC);
+		zephir_array_fetch_long(&_1, &_4, 0, PH_NOISY, "zim/http/request.zep", 179 TSRMLS_CC);
 	} else {
 		ZVAL_NULL(&_1);
 	}
@@ -533,7 +533,7 @@ PHP_METHOD(Zim_Http_Request, getMimeTypes) {
 	zephir_read_static_property_ce(&_2, zim_http_request_ce, SL("formats"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_2, &format)) {
 		zephir_read_static_property_ce(&_3, zim_http_request_ce, SL("formats"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_1, &_3, &format, PH_NOISY, "zim/http/request.zep", 192 TSRMLS_CC);
+		zephir_array_fetch(&_1, &_3, &format, PH_NOISY, "zim/http/request.zep", 194 TSRMLS_CC);
 	} else {
 		array_init(&_1);
 	}
@@ -1025,7 +1025,7 @@ PHP_METHOD(Zim_Http_Request, getPort) {
 			RETURN_MM();
 		}
 	}
-	zephir_array_fetch_long(&_4, &host, 0, PH_NOISY | PH_READONLY, "zim/http/request.zep", 352 TSRMLS_CC);
+	zephir_array_fetch_long(&_4, &host, 0, PH_NOISY | PH_READONLY, "zim/http/request.zep", 354 TSRMLS_CC);
 	if (ZEPHIR_IS_STRING_IDENTICAL(&_4, "[")) {
 		ZEPHIR_INIT_VAR(&_5$$6);
 		ZVAL_STRING(&_5$$6, "]");
@@ -1621,7 +1621,7 @@ PHP_METHOD(Zim_Http_Request, preparePathInfo) {
 	}
 	_3 = !ZEPHIR_IS_STRING_IDENTICAL(&requestUri, "");
 	if (_3) {
-		zephir_array_fetch_long(&_4, &requestUri, 0, PH_NOISY | PH_READONLY, "zim/http/request.zep", 600 TSRMLS_CC);
+		zephir_array_fetch_long(&_4, &requestUri, 0, PH_NOISY | PH_READONLY, "zim/http/request.zep", 602 TSRMLS_CC);
 		_3 = !ZEPHIR_IS_STRING_IDENTICAL(&_4, "/");
 	}
 	if (_3) {

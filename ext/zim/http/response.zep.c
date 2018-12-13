@@ -188,24 +188,22 @@ PHP_METHOD(Zim_Http_Response, __construct) {
 
 	zval headers;
 	zend_long status, ZEPHIR_LAST_CALL_STATUS;
-	zval *content_param = NULL, *status_param = NULL, *headers_param = NULL, _0, _1, _2;
-	zval content;
+	zval *content = NULL, content_sub, *status_param = NULL, *headers_param = NULL, _0, _1, _2;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&content);
+	ZVAL_UNDEF(&content_sub);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
 	ZVAL_UNDEF(&_2);
 	ZVAL_UNDEF(&headers);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 0, 3, &content_param, &status_param, &headers_param);
+	zephir_fetch_params(1, 0, 3, &content, &status_param, &headers_param);
 
-	if (!content_param) {
-		ZEPHIR_INIT_VAR(&content);
-		ZVAL_STRING(&content, "");
-	} else {
-		zephir_get_strval(&content, content_param);
+	if (!content) {
+		content = &content_sub;
+		ZEPHIR_INIT_VAR(content);
+		ZVAL_STRING(content, "");
 	}
 	if (!status_param) {
 		status = 200;
@@ -225,7 +223,7 @@ PHP_METHOD(Zim_Http_Response, __construct) {
 	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 20, &headers);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("headers"), &_0);
-	ZEPHIR_CALL_METHOD(NULL, this_ptr, "setcontent", NULL, 0, &content);
+	ZEPHIR_CALL_METHOD(NULL, this_ptr, "setcontent", NULL, 0, content);
 	zephir_check_call_status();
 	ZVAL_LONG(&_1, status);
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "setstatuscode", NULL, 0, &_1);
@@ -241,11 +239,6 @@ PHP_METHOD(Zim_Http_Response, __construct) {
 /**
  * Factory method for chainability.
  *
- * Example:
- *
- *     return Response::create($body, 200)
- *         ->setSharedMaxAge(300);
- *
  * @param mixed $content The response content, see setContent()
  * @param int   $status  The response status code
  * @param array $headers An array of response headers
@@ -256,10 +249,11 @@ PHP_METHOD(Zim_Http_Response, create) {
 
 	zval headers;
 	zend_long status, ZEPHIR_LAST_CALL_STATUS;
-	zval *content = NULL, content_sub, *status_param = NULL, *headers_param = NULL, _0;
+	zval *content = NULL, content_sub, *status_param = NULL, *headers_param = NULL, __$null, _0;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&content_sub);
+	ZVAL_NULL(&__$null);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&headers);
 
@@ -268,8 +262,7 @@ PHP_METHOD(Zim_Http_Response, create) {
 
 	if (!content) {
 		content = &content_sub;
-		ZEPHIR_INIT_VAR(content);
-		ZVAL_STRING(content, "");
+		content = &__$null;
 	}
 	if (!status_param) {
 		status = 200;
@@ -636,7 +629,7 @@ PHP_METHOD(Zim_Http_Response, sendHeaders) {
 	zephir_read_property(&_1, this_ptr, SL("headers"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_CALL_METHOD(&_2, &_1, "allpreservecase", NULL, 0);
 	zephir_check_call_status();
-	zephir_is_iterable(&_2, 0, "zim/http/response.zep", 246);
+	zephir_is_iterable(&_2, 0, "zim/http/response.zep", 244);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_2), _4, _5, _3)
 	{
 		ZEPHIR_INIT_NVAR(&name);
@@ -647,7 +640,7 @@ PHP_METHOD(Zim_Http_Response, sendHeaders) {
 		}
 		ZEPHIR_INIT_NVAR(&values);
 		ZVAL_COPY(&values, _3);
-		zephir_is_iterable(&values, 0, "zim/http/response.zep", 244);
+		zephir_is_iterable(&values, 0, "zim/http/response.zep", 242);
 		ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&values), _6$$4)
 		{
 			ZEPHIR_INIT_NVAR(&value);
@@ -782,7 +775,7 @@ PHP_METHOD(Zim_Http_Response, setContent) {
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &_4$$3, "__construct", NULL, 27, &_7$$3);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&_4$$3, "zim/http/response.zep", 293 TSRMLS_CC);
+		zephir_throw_exception_debug(&_4$$3, "zim/http/response.zep", 291 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}
@@ -902,7 +895,7 @@ PHP_METHOD(Zim_Http_Response, setStatusCode) {
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &_2$$3, "__construct", NULL, 28, &_5$$3);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&_2$$3, "zim/http/response.zep", 348 TSRMLS_CC);
+		zephir_throw_exception_debug(&_2$$3, "zim/http/response.zep", 346 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}
@@ -912,7 +905,7 @@ PHP_METHOD(Zim_Http_Response, setStatusCode) {
 		if (zephir_array_isset_long(&_7$$4, code)) {
 			zephir_read_static_property_ce(&_8$$4, zim_http_response_ce, SL("statusTexts"), PH_NOISY_CC | PH_READONLY);
 			ZEPHIR_OBS_NVAR(&_6$$4);
-			zephir_array_fetch_long(&_6$$4, &_8$$4, code, PH_NOISY, "zim/http/response.zep", 351 TSRMLS_CC);
+			zephir_array_fetch_long(&_6$$4, &_8$$4, code, PH_NOISY, "zim/http/response.zep", 349 TSRMLS_CC);
 		} else {
 			ZEPHIR_INIT_NVAR(&_6$$4);
 			ZVAL_STRING(&_6$$4, "unknown status");

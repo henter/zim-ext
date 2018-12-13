@@ -6,12 +6,15 @@
  */
 namespace Zim\Http;
 
+use Zim\Contract\Request as RequestContract;
+use Zim\Contract\Response as ResponseContract;
+
 /**
  * Response represents an HTTP response.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Response implements \Zim\Contract\Response
+class Response implements ResponseContract
 {
     const HTTP_CONTINUE = 100;
     const HTTP_SWITCHING_PROTOCOLS = 101;
@@ -112,7 +115,7 @@ class Response implements \Zim\Contract\Response
      * @param int $status
      * @param array $headers
      */
-    public function __construct(string content = "", int status = 200, array headers = []) -> void
+    public function __construct(var content = "", int status = 200, array headers = []) -> void
     {
         let this->headers =  new ResponseHeaderBag(headers);
         this->setContent(content);
@@ -123,18 +126,13 @@ class Response implements \Zim\Contract\Response
     /**
      * Factory method for chainability.
      *
-     * Example:
-     *
-     *     return Response::create($body, 200)
-     *         ->setSharedMaxAge(300);
-     *
      * @param mixed $content The response content, see setContent()
      * @param int   $status  The response status code
      * @param array $headers An array of response headers
      *
      * @return static
      */
-    public static function create(content = "", int status = 200, array headers = []) -> <Response>
+    public static function create(var content = null, int status = 200, array headers = [])
     {
         return new static(content, status, headers);
     }
@@ -174,7 +172,7 @@ class Response implements \Zim\Contract\Response
      *
      * @return $this
      */
-    public function prepare(<Zim\Contract\Request> request)
+    public function prepare(<RequestContract> request)
     {
         var headers, format, mimeType, charset, length;
     

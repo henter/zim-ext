@@ -81,36 +81,20 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_config_config_offsetexists, 
 #else
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_config_config_offsetexists, 0, 1, _IS_BOOL, NULL, 0)
 #endif
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, key, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, key)
-#endif
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_config_config_offsetget, 0, 0, 1)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, key, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, key)
-#endif
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_config_config_offsetset, 0, 0, 2)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, key, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, key)
-#endif
 	ZEND_ARG_INFO(0, value)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_config_config_offsetunset, 0, 0, 1)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, key, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, key)
-#endif
 ZEND_END_ARG_INFO()
 
 ZEPHIR_INIT_FUNCS(zim_config_config_method_entry) {

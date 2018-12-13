@@ -358,19 +358,17 @@ PHP_METHOD(Zim_Config_Config, all) {
 PHP_METHOD(Zim_Config_Config, offsetExists) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *key_param = NULL;
-	zval key;
+	zval *key, key_sub;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&key);
+	ZVAL_UNDEF(&key_sub);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 1, 0, &key_param);
-
-	zephir_get_strval(&key, key_param);
+	zephir_fetch_params(1, 1, 0, &key);
 
 
-	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "has", NULL, 0, &key);
+
+	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "has", NULL, 0, key);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -385,19 +383,17 @@ PHP_METHOD(Zim_Config_Config, offsetExists) {
 PHP_METHOD(Zim_Config_Config, offsetGet) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *key_param = NULL;
-	zval key;
+	zval *key, key_sub;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&key);
+	ZVAL_UNDEF(&key_sub);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 1, 0, &key_param);
-
-	zephir_get_strval(&key, key_param);
+	zephir_fetch_params(1, 1, 0, &key);
 
 
-	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "get", NULL, 0, &key);
+
+	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "get", NULL, 0, key);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -413,20 +409,18 @@ PHP_METHOD(Zim_Config_Config, offsetGet) {
 PHP_METHOD(Zim_Config_Config, offsetSet) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *key_param = NULL, *value, value_sub;
-	zval key;
+	zval *key, key_sub, *value, value_sub;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&key);
+	ZVAL_UNDEF(&key_sub);
 	ZVAL_UNDEF(&value_sub);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 2, 0, &key_param, &value);
-
-	zephir_get_strval(&key, key_param);
+	zephir_fetch_params(1, 2, 0, &key, &value);
 
 
-	ZEPHIR_CALL_METHOD(NULL, this_ptr, "set", NULL, 0, &key, value);
+
+	ZEPHIR_CALL_METHOD(NULL, this_ptr, "set", NULL, 0, key, value);
 	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();
 
@@ -441,21 +435,19 @@ PHP_METHOD(Zim_Config_Config, offsetSet) {
 PHP_METHOD(Zim_Config_Config, offsetUnset) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *key_param = NULL, _0;
-	zval key;
+	zval *key, key_sub, _0;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&key);
+	ZVAL_UNDEF(&key_sub);
 	ZVAL_UNDEF(&_0);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 1, 0, &key_param);
+	zephir_fetch_params(1, 1, 0, &key);
 
-	zephir_get_strval(&key, key_param);
 
 
 	ZVAL_NULL(&_0);
-	ZEPHIR_CALL_METHOD(NULL, this_ptr, "set", NULL, 0, &key, &_0);
+	ZEPHIR_CALL_METHOD(NULL, this_ptr, "set", NULL, 0, key, &_0);
 	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();
 

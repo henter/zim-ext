@@ -1,0 +1,3 @@
+#!/bin/bash
+
+php -dextension=./ext/modules/zim.so  -r "print_r(get_loaded_extensions());"

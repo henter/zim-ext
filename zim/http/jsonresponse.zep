@@ -35,7 +35,7 @@ class JsonResponse extends Response
      * @param array $headers An array of response headers
      * @param bool  $json    If the data is already a JSON string
      */
-    public function __construct(data = null, int status = 200, array headers = [], bool json = false) -> void
+    public function __construct(var data = null, int status = 200, array headers = [], bool json = false) -> void
     {
         parent::__construct("", status, headers);
         if data === null {
@@ -62,7 +62,7 @@ class JsonResponse extends Response
      *
      * @return static
      */
-    public static function create(data = null, int status = 200, array headers = []) -> <JsonResponse>
+    public static function create(var data = null, int status = 200, array headers = [])
     {
         return new static(data, status, headers);
     }

@@ -28,11 +28,7 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_jsonresponse___construct, 0, 0, 0)
 #endif
 ZEND_END_ARG_INFO()
 
-#if PHP_VERSION_ID >= 70200
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_zim_http_jsonresponse_create, 0, 0, Zim\\Http\\JsonResponse, 0)
-#else
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_http_jsonresponse_create, 0, 0, IS_OBJECT, "Zim\\Http\\JsonResponse", 0)
-#endif
+ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_jsonresponse_create, 0, 0, 0)
 	ZEND_ARG_INFO(0, data)
 #if PHP_VERSION_ID >= 70200
 	ZEND_ARG_TYPE_INFO(0, status, IS_LONG, 0)
