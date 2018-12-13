@@ -1,6 +1,5 @@
 
 .zephir/
-ext/kernel
 ext/ltmain.sh
 ext/.deps
 ext/Makefile
@@ -28,3 +27,14 @@ ext/mkinstalldirs
 ext/modules/
 ext/run-tests.php
 ext/zim.la
+
+
+*.o
+*.lo
+*.log
+*.loT
+*.gch
+/.libs
+/ext/.libs
+*~
+.temp/
