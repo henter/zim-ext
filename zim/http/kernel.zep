@@ -15,6 +15,9 @@ use Zim\Http\Exception\ResponseException;
 use Zim\Routing\Router;
 use Zim\Support\Str;
 use Zim\Zim;
+use Zim\Contract\Arrayable;
+use Zim\Contract\Jsonable;
+
 class Kernel
 {
     /**
@@ -241,19 +244,33 @@ class Kernel
     protected function toResponse(resp) -> <Response>
     {
         var response;
-    
+
         if typeof resp == "object" && resp instanceof Response {
             let response = resp;
+        } elseif this->shouldBeJson(resp) {
+            let response = new JsonResponse(resp);
         } else {
-            if is_array(resp) || is_scalar(resp) || is_null(resp) {
-                let response =  new Response(resp);
-            } else {
-                throw new ResponseException(500, "invalid response");
-            }
+            let response =  new Response(resp);
         }
         return response;
     }
-    
+
+    /**
+     * Determine if the given content should be turned into JSON.
+     *
+     * @param  mixed  $content
+     * @return bool
+     */
+    protected function shouldBeJson(var content)
+    {
+        return is_array(content) || (typeof resp == "object" && (
+            content instanceof Arrayable ||
+            content instanceof Jsonable ||
+            content instanceof \ArrayObject ||
+            content instanceof \JsonSerializable ||
+        ));
+    }
+
     /**
      * will not return to fastcgi
      *

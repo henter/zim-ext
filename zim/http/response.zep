@@ -8,6 +8,8 @@ namespace Zim\Http;
 
 use Zim\Contract\Request as RequestContract;
 use Zim\Contract\Response as ResponseContract;
+use Zim\Contract\Arrayable;
+use Zim\Contract\Jsonable;
 
 /**
  * Response represents an HTTP response.
@@ -284,18 +286,60 @@ class Response implements ResponseContract
      *
      * @throws \UnexpectedValueException
      */
-    public function setContent(content)
+    public function setContent(var content)
     {
-        var tmpArray0f67bfd40374ca906cbbc56c42cdae7c;
-    
-        let tmpArray0f67bfd40374ca906cbbc56c42cdae7c = [content, "__toString"];
-        if content !== null && !(is_string(content)) && !(is_numeric(content)) && !(is_callable(tmpArray0f67bfd40374ca906cbbc56c42cdae7c)) {
+        if (this->shouldBeJson(content)) {
+            this->headers->set("Content-Type", "application/json");
+            content = this->morphToJson(content);
+        }
+
+        if content !== null &&
+            !(is_string(content)) &&
+            !(is_numeric(content)) &&
+            !(is_callable([content, "__toString"])) {
             throw new \UnexpectedValueException(sprintf("The Response content must be a string or object implementing __toString(), \"%s\" given.", gettype(content)));
         }
+
         let this->content =  (string) content;
         return this;
     }
-    
+
+
+    /**
+     * Determine if the given content should be turned into JSON.
+     *
+     * @param  mixed  $content
+     * @return bool
+     */
+    protected function shouldBeJson(var content)
+    {
+        return is_array(content) || (typeof resp == "object" && (
+            content instanceof Arrayable ||
+            content instanceof Jsonable ||
+            content instanceof \ArrayObject ||
+            content instanceof \JsonSerializable ||
+        ));
+    }
+
+    /**
+     * Morph the given content into JSON.
+     *
+     * @param  mixed   $content
+     * @return string
+     */
+    protected function morphToJson(var content)
+    {
+        if typeof resp == "object" {
+            if (content instanceof Jsonable) {
+                return content->toJson();
+            } elseif (content instanceof Arrayable) {
+                return json_encode(content->toArray());
+            }
+        }
+
+        return json_encode(content);
+    }
+
     /**
      * Gets the current response content.
      *

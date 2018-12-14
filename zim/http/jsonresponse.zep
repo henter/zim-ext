@@ -8,6 +8,9 @@
  */
 namespace Zim\Http;
 
+use Zim\Contract\Arrayble;
+use Zim\Contract\Jsonable;
+
 /**
  * Response represents an HTTP response in JSON format.
  *
@@ -120,34 +123,77 @@ class JsonResponse extends Response
         let this->data = json;
         return this->update();
     }
-    
+
     /**
-     * Sets the data to be sent as JSON.
+     * Get the json_decoded data from the response.
      *
-     * @param mixed $data
-     *
-     * @return $this
-     *
-     * @throws \InvalidArgumentException
+     * @param  bool  $assoc
+     * @param  int  $depth
+     * @return mixed
      */
-    public function setData(data = [])
+    public function getData(bool assoc = true, int depth = 512)
     {
-        var e;
-    
-        try {
-            let data =  json_encode(data, this->encodingOptions);
-        } catch \Exception, e {
-            if get_class(e) === "Exception" && 0 === strpos(e->getMessage(), "Failed calling ") {
-                throw  e->getPrevious() ? e->getPrevious() : e;
+        return json_decode(this->data, assoc, depth);
+    }
+
+    /**
+     * @param array $data
+     * @return self
+     */
+    public function setData(var data = [])
+    {
+        this->original = data;
+
+        if typeof service == "object" {
+            if (data instanceof Jsonable) {
+                this->data = data->toJson(this->encodingOptions);
+            } elseif (data instanceof \JsonSerializable) {
+                this->data = json_encode(data->jsonSerialize(), this->encodingOptions);
+            } elseif (data instanceof Arrayable) {
+                this->data = json_encode(data->toArray(), this->encodingOptions);
             }
-            throw e;
+        } else {
+            this->data = json_encode(data, this->encodingOptions);
         }
-        if json_last_error() !== JSON_ERROR_NONE {
+
+        if ! this->hasValidJson(json_last_error())) {
             throw new \InvalidArgumentException(json_last_error_msg());
         }
-        return this->setJson(data);
+
+        return this->update();
     }
-    
+
+    /**
+     * Determine if an error occurred during JSON encoding.
+     *
+     * @param  int  $jsonError
+     * @return bool
+     */
+    protected function hasValidJson(int jsonError)
+    {
+        if (jsonError === JSON_ERROR_NONE) {
+            return true;
+        }
+
+        return $this->hasEncodingOption(JSON_PARTIAL_OUTPUT_ON_ERROR) &&
+            in_array(jsonError, [
+                JSON_ERROR_RECURSION,
+                JSON_ERROR_INF_OR_NAN,
+                JSON_ERROR_UNSUPPORTED_TYPE,
+            ]);
+    }
+
+    /**
+     * Determine if a JSON encoding option is set.
+     *
+     * @param  int  $option
+     * @return bool
+     */
+    public function hasEncodingOption(int option)
+    {
+        return (bool) (this->encodingOptions & option);
+    }
+
     /**
      * Returns options used while encoding data to JSON.
      *
