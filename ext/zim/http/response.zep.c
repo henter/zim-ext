@@ -21,6 +21,7 @@
 #include "kernel/array.h"
 #include "kernel/exception.h"
 #include "ext/spl/spl_exceptions.h"
+#include "ext/spl/spl_array.h"
 
 
 /**
@@ -629,7 +630,7 @@ PHP_METHOD(Zim_Http_Response, sendHeaders) {
 	zephir_read_property(&_1, this_ptr, SL("headers"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_CALL_METHOD(&_2, &_1, "allpreservecase", NULL, 0);
 	zephir_check_call_status();
-	zephir_is_iterable(&_2, 0, "zim/http/response.zep", 244);
+	zephir_is_iterable(&_2, 0, "zim/http/response.zep", 246);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_2), _4, _5, _3)
 	{
 		ZEPHIR_INIT_NVAR(&name);
@@ -640,7 +641,7 @@ PHP_METHOD(Zim_Http_Response, sendHeaders) {
 		}
 		ZEPHIR_INIT_NVAR(&values);
 		ZVAL_COPY(&values, _3);
-		zephir_is_iterable(&values, 0, "zim/http/response.zep", 242);
+		zephir_is_iterable(&values, 0, "zim/http/response.zep", 244);
 		ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&values), _6$$4)
 		{
 			ZEPHIR_INIT_NVAR(&value);
@@ -726,62 +727,162 @@ PHP_METHOD(Zim_Http_Response, send) {
  */
 PHP_METHOD(Zim_Http_Response, setContent) {
 
+	zval _14;
 	zval _8;
-	zend_bool _1, _2, _3;
+	zend_bool _5, _6, _7;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *content, content_sub, tmpArray0f67bfd40374ca906cbbc56c42cdae7c, _0, _4$$3, _5$$3, _6$$3, _7$$3;
+	zval *content = NULL, content_sub, _0, _9, _1$$3, _2$$3, _3$$3, _4$$3, _10$$4, _11$$4, _12$$4, _13$$4;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&content_sub);
-	ZVAL_UNDEF(&tmpArray0f67bfd40374ca906cbbc56c42cdae7c);
 	ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&_9);
+	ZVAL_UNDEF(&_1$$3);
+	ZVAL_UNDEF(&_2$$3);
+	ZVAL_UNDEF(&_3$$3);
 	ZVAL_UNDEF(&_4$$3);
-	ZVAL_UNDEF(&_5$$3);
-	ZVAL_UNDEF(&_6$$3);
-	ZVAL_UNDEF(&_7$$3);
+	ZVAL_UNDEF(&_10$$4);
+	ZVAL_UNDEF(&_11$$4);
+	ZVAL_UNDEF(&_12$$4);
+	ZVAL_UNDEF(&_13$$4);
 	ZVAL_UNDEF(&_8);
+	ZVAL_UNDEF(&_14);
+
+	ZEPHIR_MM_GROW();
+	zephir_fetch_params(1, 1, 0, &content);
+
+	ZEPHIR_SEPARATE_PARAM(content);
+
+
+	ZEPHIR_CALL_METHOD(&_0, this_ptr, "shouldbejson", NULL, 0, content);
+	zephir_check_call_status();
+	if (zephir_is_true(&_0)) {
+		zephir_read_property(&_1$$3, this_ptr, SL("headers"), PH_NOISY_CC | PH_READONLY);
+		ZEPHIR_INIT_VAR(&_2$$3);
+		ZVAL_STRING(&_2$$3, "Content-Type");
+		ZEPHIR_INIT_VAR(&_3$$3);
+		ZVAL_STRING(&_3$$3, "application/json");
+		ZEPHIR_CALL_METHOD(NULL, &_1$$3, "set", NULL, 0, &_2$$3, &_3$$3);
+		zephir_check_call_status();
+		ZEPHIR_CALL_METHOD(&_4$$3, this_ptr, "morphtojson", NULL, 0, content);
+		zephir_check_call_status();
+		ZEPHIR_CPY_WRT(content, &_4$$3);
+	}
+	_5 = Z_TYPE_P(content) != IS_NULL;
+	if (_5) {
+		_5 = !((Z_TYPE_P(content) == IS_STRING));
+	}
+	_6 = _5;
+	if (_6) {
+		_6 = !(zephir_is_numeric(content));
+	}
+	_7 = _6;
+	if (_7) {
+		ZEPHIR_INIT_VAR(&_8);
+		zephir_create_array(&_8, 2, 0 TSRMLS_CC);
+		zephir_array_fast_append(&_8, content);
+		ZEPHIR_INIT_VAR(&_9);
+		ZVAL_STRING(&_9, "__toString");
+		zephir_array_fast_append(&_8, &_9);
+		_7 = !(zephir_is_callable(&_8 TSRMLS_CC));
+	}
+	if (_7) {
+		ZEPHIR_INIT_VAR(&_10$$4);
+		object_init_ex(&_10$$4, spl_ce_UnexpectedValueException);
+		ZEPHIR_INIT_VAR(&_11$$4);
+		zephir_gettype(&_11$$4, content TSRMLS_CC);
+		ZEPHIR_INIT_VAR(&_12$$4);
+		ZVAL_STRING(&_12$$4, "The Response content must be a string or object implementing __toString(), \"%s\" given.");
+		ZEPHIR_CALL_FUNCTION(&_13$$4, "sprintf", NULL, 21, &_12$$4, &_11$$4);
+		zephir_check_call_status();
+		ZEPHIR_CALL_METHOD(NULL, &_10$$4, "__construct", NULL, 26, &_13$$4);
+		zephir_check_call_status();
+		zephir_throw_exception_debug(&_10$$4, "zim/http/response.zep", 298 TSRMLS_CC);
+		ZEPHIR_MM_RESTORE();
+		return;
+	}
+	zephir_get_strval(&_14, content);
+	zephir_update_property_zval(this_ptr, SL("content"), &_14);
+	RETURN_THIS();
+
+}
+
+/**
+ * Determine if the given content should be turned into JSON.
+ *
+ * @param  mixed  $content
+ * @return bool
+ */
+PHP_METHOD(Zim_Http_Response, shouldBeJson) {
+
+	zend_bool _0, _1, _2, _3, _4;
+	zval *content, content_sub;
+	zval *this_ptr = getThis();
+
+	ZVAL_UNDEF(&content_sub);
+
+	zephir_fetch_params(0, 1, 0, &content);
+
+
+
+	_0 = Z_TYPE_P(content) == IS_ARRAY;
+	if (!(_0)) {
+		_1 = Z_TYPE_P(content) == IS_OBJECT;
+		if (_1) {
+			_2 = zephir_instance_of_ev(content, zim_contract_arrayable_ce TSRMLS_CC);
+			if (!(_2)) {
+				_2 = zephir_instance_of_ev(content, zim_contract_jsonable_ce TSRMLS_CC);
+			}
+			_3 = _2;
+			if (!(_3)) {
+				_3 = zephir_instance_of_ev(content, spl_ce_ArrayObject TSRMLS_CC);
+			}
+			_4 = _3;
+			if (!(_4)) {
+				_4 = zephir_is_instance_of(content, SL("JsonSerializable") TSRMLS_CC);
+			}
+			_1 = _4;
+		}
+		_0 = _1;
+	}
+	RETURN_BOOL(_0);
+
+}
+
+/**
+ * Morph the given content into JSON.
+ *
+ * @param  mixed   $content
+ * @return string
+ */
+PHP_METHOD(Zim_Http_Response, morphToJson) {
+
+	zend_long ZEPHIR_LAST_CALL_STATUS;
+	zval *content, content_sub, _0$$5;
+	zval *this_ptr = getThis();
+
+	ZVAL_UNDEF(&content_sub);
+	ZVAL_UNDEF(&_0$$5);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 0, &content);
 
 
 
-	ZEPHIR_INIT_VAR(&tmpArray0f67bfd40374ca906cbbc56c42cdae7c);
-	zephir_create_array(&tmpArray0f67bfd40374ca906cbbc56c42cdae7c, 2, 0 TSRMLS_CC);
-	zephir_array_fast_append(&tmpArray0f67bfd40374ca906cbbc56c42cdae7c, content);
-	ZEPHIR_INIT_VAR(&_0);
-	ZVAL_STRING(&_0, "__toString");
-	zephir_array_fast_append(&tmpArray0f67bfd40374ca906cbbc56c42cdae7c, &_0);
-	_1 = Z_TYPE_P(content) != IS_NULL;
-	if (_1) {
-		_1 = !((Z_TYPE_P(content) == IS_STRING));
+	if (Z_TYPE_P(content) == IS_OBJECT) {
+		if (zephir_instance_of_ev(content, zim_contract_jsonable_ce TSRMLS_CC)) {
+			ZEPHIR_RETURN_CALL_METHOD(content, "tojson", NULL, 0);
+			zephir_check_call_status();
+			RETURN_MM();
+		} else if (zephir_instance_of_ev(content, zim_contract_arrayable_ce TSRMLS_CC)) {
+			ZEPHIR_CALL_METHOD(&_0$$5, content, "toarray", NULL, 0);
+			zephir_check_call_status();
+			zephir_json_encode(return_value, &_0$$5, 0 );
+			RETURN_MM();
+		}
 	}
-	_2 = _1;
-	if (_2) {
-		_2 = !(zephir_is_numeric(content));
-	}
-	_3 = _2;
-	if (_3) {
-		_3 = !((zephir_is_callable(&tmpArray0f67bfd40374ca906cbbc56c42cdae7c TSRMLS_CC)));
-	}
-	if (_3) {
-		ZEPHIR_INIT_VAR(&_4$$3);
-		object_init_ex(&_4$$3, spl_ce_UnexpectedValueException);
-		ZEPHIR_INIT_VAR(&_5$$3);
-		zephir_gettype(&_5$$3, content TSRMLS_CC);
-		ZEPHIR_INIT_VAR(&_6$$3);
-		ZVAL_STRING(&_6$$3, "The Response content must be a string or object implementing __toString(), \"%s\" given.");
-		ZEPHIR_CALL_FUNCTION(&_7$$3, "sprintf", NULL, 21, &_6$$3, &_5$$3);
-		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_4$$3, "__construct", NULL, 26, &_7$$3);
-		zephir_check_call_status();
-		zephir_throw_exception_debug(&_4$$3, "zim/http/response.zep", 291 TSRMLS_CC);
-		ZEPHIR_MM_RESTORE();
-		return;
-	}
-	zephir_get_strval(&_8, content);
-	zephir_update_property_zval(this_ptr, SL("content"), &_8);
-	RETURN_THIS();
+	zephir_json_encode(return_value, content, 0 );
+	RETURN_MM();
 
 }
 
@@ -895,7 +996,7 @@ PHP_METHOD(Zim_Http_Response, setStatusCode) {
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &_2$$3, "__construct", NULL, 27, &_5$$3);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&_2$$3, "zim/http/response.zep", 346 TSRMLS_CC);
+		zephir_throw_exception_debug(&_2$$3, "zim/http/response.zep", 390 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}
@@ -905,7 +1006,7 @@ PHP_METHOD(Zim_Http_Response, setStatusCode) {
 		if (zephir_array_isset_long(&_7$$4, code)) {
 			zephir_read_static_property_ce(&_8$$4, zim_http_response_ce, SL("statusTexts"), PH_NOISY_CC | PH_READONLY);
 			ZEPHIR_OBS_NVAR(&_6$$4);
-			zephir_array_fetch_long(&_6$$4, &_8$$4, code, PH_NOISY, "zim/http/response.zep", 349 TSRMLS_CC);
+			zephir_array_fetch_long(&_6$$4, &_8$$4, code, PH_NOISY, "zim/http/response.zep", 393 TSRMLS_CC);
 		} else {
 			ZEPHIR_INIT_NVAR(&_6$$4);
 			ZVAL_STRING(&_6$$4, "unknown status");

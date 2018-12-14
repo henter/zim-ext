@@ -263,11 +263,11 @@ class Kernel
      */
     protected function shouldBeJson(var content)
     {
-        return is_array(content) || (typeof resp == "object" && (
+        return is_array(content) || (typeof content == "object" && (
             content instanceof Arrayable ||
             content instanceof Jsonable ||
             content instanceof \ArrayObject ||
-            content instanceof \JsonSerializable ||
+            content instanceof \JsonSerializable
         ));
     }
 

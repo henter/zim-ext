@@ -8,7 +8,10 @@ PHP_METHOD(Zim_Http_JsonResponse, create);
 PHP_METHOD(Zim_Http_JsonResponse, fromJsonString);
 PHP_METHOD(Zim_Http_JsonResponse, setCallback);
 PHP_METHOD(Zim_Http_JsonResponse, setJson);
+PHP_METHOD(Zim_Http_JsonResponse, getData);
 PHP_METHOD(Zim_Http_JsonResponse, setData);
+PHP_METHOD(Zim_Http_JsonResponse, hasValidJson);
+PHP_METHOD(Zim_Http_JsonResponse, hasEncodingOption);
 PHP_METHOD(Zim_Http_JsonResponse, getEncodingOptions);
 PHP_METHOD(Zim_Http_JsonResponse, setEncodingOptions);
 PHP_METHOD(Zim_Http_JsonResponse, update);
@@ -56,8 +59,37 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_jsonresponse_setjson, 0, 0, 1)
 #endif
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_jsonresponse_getdata, 0, 0, 0)
+#if PHP_VERSION_ID >= 70200
+	ZEND_ARG_TYPE_INFO(0, assoc, _IS_BOOL, 0)
+#else
+	ZEND_ARG_INFO(0, assoc)
+#endif
+#if PHP_VERSION_ID >= 70200
+	ZEND_ARG_TYPE_INFO(0, depth, IS_LONG, 0)
+#else
+	ZEND_ARG_INFO(0, depth)
+#endif
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_jsonresponse_setdata, 0, 0, 0)
 	ZEND_ARG_INFO(0, data)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_jsonresponse_hasvalidjson, 0, 0, 1)
+#if PHP_VERSION_ID >= 70200
+	ZEND_ARG_TYPE_INFO(0, jsonError, IS_LONG, 0)
+#else
+	ZEND_ARG_INFO(0, jsonError)
+#endif
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_jsonresponse_hasencodingoption, 0, 0, 1)
+#if PHP_VERSION_ID >= 70200
+	ZEND_ARG_TYPE_INFO(0, option, IS_LONG, 0)
+#else
+	ZEND_ARG_INFO(0, option)
+#endif
 ZEND_END_ARG_INFO()
 
 #if PHP_VERSION_ID >= 70200
@@ -81,7 +113,10 @@ ZEPHIR_INIT_FUNCS(zim_http_jsonresponse_method_entry) {
 	PHP_ME(Zim_Http_JsonResponse, fromJsonString, arginfo_zim_http_jsonresponse_fromjsonstring, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(Zim_Http_JsonResponse, setCallback, arginfo_zim_http_jsonresponse_setcallback, ZEND_ACC_PUBLIC)
 	PHP_ME(Zim_Http_JsonResponse, setJson, arginfo_zim_http_jsonresponse_setjson, ZEND_ACC_PUBLIC)
+	PHP_ME(Zim_Http_JsonResponse, getData, arginfo_zim_http_jsonresponse_getdata, ZEND_ACC_PUBLIC)
 	PHP_ME(Zim_Http_JsonResponse, setData, arginfo_zim_http_jsonresponse_setdata, ZEND_ACC_PUBLIC)
+	PHP_ME(Zim_Http_JsonResponse, hasValidJson, arginfo_zim_http_jsonresponse_hasvalidjson, ZEND_ACC_PROTECTED)
+	PHP_ME(Zim_Http_JsonResponse, hasEncodingOption, arginfo_zim_http_jsonresponse_hasencodingoption, ZEND_ACC_PUBLIC)
 	PHP_ME(Zim_Http_JsonResponse, getEncodingOptions, arginfo_zim_http_jsonresponse_getencodingoptions, ZEND_ACC_PUBLIC)
 	PHP_ME(Zim_Http_JsonResponse, setEncodingOptions, arginfo_zim_http_jsonresponse_setencodingoptions, ZEND_ACC_PUBLIC)
 	PHP_ME(Zim_Http_JsonResponse, update, NULL, ZEND_ACC_PROTECTED)

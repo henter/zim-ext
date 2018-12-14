@@ -12,6 +12,8 @@ PHP_METHOD(Zim_Http_Response, sendHeaders);
 PHP_METHOD(Zim_Http_Response, sendContent);
 PHP_METHOD(Zim_Http_Response, send);
 PHP_METHOD(Zim_Http_Response, setContent);
+PHP_METHOD(Zim_Http_Response, shouldBeJson);
+PHP_METHOD(Zim_Http_Response, morphToJson);
 PHP_METHOD(Zim_Http_Response, getContent);
 PHP_METHOD(Zim_Http_Response, setProtocolVersion);
 PHP_METHOD(Zim_Http_Response, getProtocolVersion);
@@ -67,6 +69,14 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_response_setcontent, 0, 0, 1)
 	ZEND_ARG_INFO(0, content)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_response_shouldbejson, 0, 0, 1)
+	ZEND_ARG_INFO(0, content)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_response_morphtojson, 0, 0, 1)
+	ZEND_ARG_INFO(0, content)
+ZEND_END_ARG_INFO()
+
 #if PHP_VERSION_ID >= 70200
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_http_response_getcontent, 0, 0, IS_STRING, 0)
 #else
@@ -117,6 +127,8 @@ ZEPHIR_INIT_FUNCS(zim_http_response_method_entry) {
 	PHP_ME(Zim_Http_Response, sendContent, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Zim_Http_Response, send, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Zim_Http_Response, setContent, arginfo_zim_http_response_setcontent, ZEND_ACC_PUBLIC)
+	PHP_ME(Zim_Http_Response, shouldBeJson, arginfo_zim_http_response_shouldbejson, ZEND_ACC_PROTECTED)
+	PHP_ME(Zim_Http_Response, morphToJson, arginfo_zim_http_response_morphtojson, ZEND_ACC_PROTECTED)
 	PHP_ME(Zim_Http_Response, getContent, arginfo_zim_http_response_getcontent, ZEND_ACC_PUBLIC)
 	PHP_ME(Zim_Http_Response, setProtocolVersion, arginfo_zim_http_response_setprotocolversion, ZEND_ACC_PUBLIC)
 	PHP_ME(Zim_Http_Response, getProtocolVersion, NULL, ZEND_ACC_PUBLIC)

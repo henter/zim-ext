@@ -21,6 +21,7 @@
 #include "kernel/string.h"
 #include "kernel/file.h"
 #include "kernel/array.h"
+#include "ext/spl/spl_array.h"
 
 
 /**
@@ -100,7 +101,7 @@ PHP_METHOD(Zim_Http_Kernel, bootstrapRoutes) {
 	if (!(Z_TYPE_P(&configs) == IS_ARRAY)) {
 		RETURN_MM_BOOL(0);
 	}
-	zephir_is_iterable(&configs, 0, "zim/http/kernel.zep", 54);
+	zephir_is_iterable(&configs, 0, "zim/http/kernel.zep", 57);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&configs), _3, _4, _2)
 	{
 		ZEPHIR_INIT_NVAR(&pattern);
@@ -193,7 +194,7 @@ PHP_METHOD(Zim_Http_Kernel, handle) {
 			if (zephir_is_instance_of(&_1, SL("Throwable") TSRMLS_CC)) {
 				zend_clear_exception(TSRMLS_C);
 				ZEPHIR_CPY_WRT(&e, &_1);
-				zephir_throw_exception_debug(&e, "zim/http/kernel.zep", 79 TSRMLS_CC);
+				zephir_throw_exception_debug(&e, "zim/http/kernel.zep", 82 TSRMLS_CC);
 				ZEPHIR_MM_RESTORE();
 				return;
 			}
@@ -260,7 +261,7 @@ PHP_METHOD(Zim_Http_Kernel, guessController) {
 	ZEPHIR_CONCAT_VSV(&_3, &_2, "/Controller/*", &suffix);
 	ZEPHIR_CALL_FUNCTION(&files, "glob", NULL, 87, &_3);
 	zephir_check_call_status();
-	zephir_is_iterable(&files, 0, "zim/http/kernel.zep", 106);
+	zephir_is_iterable(&files, 0, "zim/http/kernel.zep", 109);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&files), _4)
 	{
 		ZEPHIR_INIT_NVAR(&file);
@@ -342,12 +343,12 @@ PHP_METHOD(Zim_Http_Kernel, getDefaultRoute) {
 	if (zephir_array_isset_long(&segments, 1)) {
 		ZEPHIR_CPY_WRT(&tmpListCA, &segments);
 		ZEPHIR_OBS_VAR(&c);
-		zephir_array_fetch_long(&c, &tmpListCA, 0, PH_NOISY, "zim/http/kernel.zep", 133 TSRMLS_CC);
+		zephir_array_fetch_long(&c, &tmpListCA, 0, PH_NOISY, "zim/http/kernel.zep", 136 TSRMLS_CC);
 		ZEPHIR_OBS_VAR(&a);
-		zephir_array_fetch_long(&a, &tmpListCA, 1, PH_NOISY, "zim/http/kernel.zep", 134 TSRMLS_CC);
+		zephir_array_fetch_long(&a, &tmpListCA, 1, PH_NOISY, "zim/http/kernel.zep", 137 TSRMLS_CC);
 	} else {
 		ZEPHIR_OBS_NVAR(&c);
-		zephir_array_fetch_long(&c, &segments, 0, PH_NOISY, "zim/http/kernel.zep", 136 TSRMLS_CC);
+		zephir_array_fetch_long(&c, &segments, 0, PH_NOISY, "zim/http/kernel.zep", 139 TSRMLS_CC);
 		ZEPHIR_INIT_NVAR(&a);
 		ZVAL_STRING(&a, "index");
 	}
@@ -358,7 +359,7 @@ PHP_METHOD(Zim_Http_Kernel, getDefaultRoute) {
 		ZEPHIR_INIT_NVAR(&c);
 		ZVAL_STRING(&c, "Index");
 		ZEPHIR_OBS_NVAR(&a);
-		zephir_array_fetch_long(&a, &segments, 0, PH_NOISY, "zim/http/kernel.zep", 143 TSRMLS_CC);
+		zephir_array_fetch_long(&a, &segments, 0, PH_NOISY, "zim/http/kernel.zep", 146 TSRMLS_CC);
 	}
 	ZEPHIR_INIT_VAR(&tmpArray22fcc7b55e175de76dd5545a6ed7e004);
 	zephir_create_array(&tmpArray22fcc7b55e175de76dd5545a6ed7e004, 2, 0 TSRMLS_CC);
@@ -412,9 +413,9 @@ PHP_METHOD(Zim_Http_Kernel, dispatchToDefault) {
 	ZEPHIR_CALL_METHOD(&tmpListCA, this_ptr, "getdefaultroute", NULL, 0, request);
 	zephir_check_call_status();
 	ZEPHIR_OBS_VAR(&c);
-	zephir_array_fetch_long(&c, &tmpListCA, 0, PH_NOISY, "zim/http/kernel.zep", 171 TSRMLS_CC);
+	zephir_array_fetch_long(&c, &tmpListCA, 0, PH_NOISY, "zim/http/kernel.zep", 174 TSRMLS_CC);
 	ZEPHIR_OBS_VAR(&a);
-	zephir_array_fetch_long(&a, &tmpListCA, 1, PH_NOISY, "zim/http/kernel.zep", 172 TSRMLS_CC);
+	zephir_array_fetch_long(&a, &tmpListCA, 1, PH_NOISY, "zim/http/kernel.zep", 175 TSRMLS_CC);
 	zephir_read_property(&_0, this_ptr, SL("zim"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_INIT_VAR(&_1);
 	ZEPHIR_CONCAT_SVS(&_1, "App\\Controller\\", &c, "Controller");
@@ -431,7 +432,7 @@ PHP_METHOD(Zim_Http_Kernel, dispatchToDefault) {
 		ZEPHIR_CALL_METHOD(&actionClass, &controller, "getactionclass", NULL, 0, &a);
 		zephir_check_call_status();
 		if (!(zephir_class_exists(&actionClass, 1 TSRMLS_CC))) {
-			ZEPHIR_THROW_EXCEPTION_DEBUG_STR(zim_http_exception_notfoundexception_ce, "action not found", "zim/http/kernel.zep", 185);
+			ZEPHIR_THROW_EXCEPTION_DEBUG_STR(zim_http_exception_notfoundexception_ce, "action not found", "zim/http/kernel.zep", 188);
 			return;
 		}
 		zephir_create_array(&callablee, 2, 0 TSRMLS_CC);
@@ -506,12 +507,12 @@ PHP_METHOD(Zim_Http_Kernel, dispatchToRouter) {
 		if (!(zephir_is_callable(&callablee TSRMLS_CC))) {
 			ZEPHIR_INIT_VAR(&_6$$4);
 			object_init_ex(&_6$$4, zim_http_exception_notfoundexception_ce);
-			zephir_array_fetch_long(&_7$$4, &callablee, 1, PH_NOISY | PH_READONLY, "zim/http/kernel.zep", 207 TSRMLS_CC);
+			zephir_array_fetch_long(&_7$$4, &callablee, 1, PH_NOISY | PH_READONLY, "zim/http/kernel.zep", 210 TSRMLS_CC);
 			ZEPHIR_INIT_VAR(&_8$$4);
 			ZEPHIR_CONCAT_SV(&_8$$4, "action not found ", &_7$$4);
 			ZEPHIR_CALL_METHOD(NULL, &_6$$4, "__construct", NULL, 89, &_8$$4);
 			zephir_check_call_status();
-			zephir_throw_exception_debug(&_6$$4, "zim/http/kernel.zep", 207 TSRMLS_CC);
+			zephir_throw_exception_debug(&_6$$4, "zim/http/kernel.zep", 210 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
 			return;
 		}
@@ -570,11 +571,11 @@ PHP_METHOD(Zim_Http_Kernel, doDispatch) {
 		ZEPHIR_INIT_VAR(&_1$$3);
 		zephir_create_array(&_1$$3, 2, 0 TSRMLS_CC);
 		ZEPHIR_INIT_VAR(&_2$$3);
-		zephir_array_fetch_long(&_3$$3, callablee, 0, PH_NOISY | PH_READONLY, "zim/http/kernel.zep", 224 TSRMLS_CC);
+		zephir_array_fetch_long(&_3$$3, callablee, 0, PH_NOISY | PH_READONLY, "zim/http/kernel.zep", 227 TSRMLS_CC);
 		zephir_get_class(&_2$$3, &_3$$3, 0 TSRMLS_CC);
 		zephir_array_fast_append(&_1$$3, &_2$$3);
 		ZEPHIR_OBS_VAR(&_4$$3);
-		zephir_array_fetch_long(&_4$$3, callablee, 1, PH_NOISY, "zim/http/kernel.zep", 224 TSRMLS_CC);
+		zephir_array_fetch_long(&_4$$3, callablee, 1, PH_NOISY, "zim/http/kernel.zep", 227 TSRMLS_CC);
 		zephir_array_fast_append(&_1$$3, &_4$$3);
 		ZEPHIR_INIT_NVAR(&_2$$3);
 		ZVAL_STRING(&_2$$3, "callable");
@@ -623,16 +624,14 @@ PHP_METHOD(Zim_Http_Kernel, doDispatch) {
  */
 PHP_METHOD(Zim_Http_Kernel, toResponse) {
 
-	zend_bool _0, _1$$4, _2$$4;
+	zend_bool _0;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *resp, resp_sub, response, _3$$6, _4$$6, _5$$6;
+	zval *resp, resp_sub, response, _1;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&resp_sub);
 	ZVAL_UNDEF(&response);
-	ZVAL_UNDEF(&_3$$6);
-	ZVAL_UNDEF(&_4$$6);
-	ZVAL_UNDEF(&_5$$6);
+	ZVAL_UNDEF(&_1);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 0, &resp);
@@ -643,36 +642,64 @@ PHP_METHOD(Zim_Http_Kernel, toResponse) {
 	if (_0) {
 		_0 = zephir_instance_of_ev(resp, zim_http_response_ce TSRMLS_CC);
 	}
+	ZEPHIR_CALL_METHOD(&_1, this_ptr, "shouldbejson", NULL, 0, resp);
+	zephir_check_call_status();
 	if (_0) {
 		ZEPHIR_CPY_WRT(&response, resp);
+	} else if (zephir_is_true(&_1)) {
+		ZEPHIR_INIT_NVAR(&response);
+		object_init_ex(&response, zim_http_jsonresponse_ce);
+		ZEPHIR_CALL_METHOD(NULL, &response, "__construct", NULL, 81, resp);
+		zephir_check_call_status();
 	} else {
-		_1$$4 = Z_TYPE_P(resp) == IS_ARRAY;
-		if (!(_1$$4)) {
-			_1$$4 = zephir_is_scalar(resp);
-		}
-		_2$$4 = _1$$4;
-		if (!(_2$$4)) {
-			_2$$4 = Z_TYPE_P(resp) == IS_NULL;
-		}
-		if (_2$$4) {
-			ZEPHIR_INIT_NVAR(&response);
-			object_init_ex(&response, zim_http_response_ce);
-			ZEPHIR_CALL_METHOD(NULL, &response, "__construct", NULL, 20, resp);
-			zephir_check_call_status();
-		} else {
-			ZEPHIR_INIT_VAR(&_3$$6);
-			object_init_ex(&_3$$6, zim_http_exception_responseexception_ce);
-			ZVAL_LONG(&_4$$6, 500);
-			ZEPHIR_INIT_VAR(&_5$$6);
-			ZVAL_STRING(&_5$$6, "invalid response");
-			ZEPHIR_CALL_METHOD(NULL, &_3$$6, "__construct", NULL, 90, &_4$$6, &_5$$6);
-			zephir_check_call_status();
-			zephir_throw_exception_debug(&_3$$6, "zim/http/kernel.zep", 251 TSRMLS_CC);
-			ZEPHIR_MM_RESTORE();
-			return;
-		}
+		ZEPHIR_INIT_NVAR(&response);
+		object_init_ex(&response, zim_http_response_ce);
+		ZEPHIR_CALL_METHOD(NULL, &response, "__construct", NULL, 20, resp);
+		zephir_check_call_status();
 	}
 	RETURN_CCTOR(&response);
+
+}
+
+/**
+ * Determine if the given content should be turned into JSON.
+ *
+ * @param  mixed  $content
+ * @return bool
+ */
+PHP_METHOD(Zim_Http_Kernel, shouldBeJson) {
+
+	zend_bool _0, _1, _2, _3, _4;
+	zval *content, content_sub;
+	zval *this_ptr = getThis();
+
+	ZVAL_UNDEF(&content_sub);
+
+	zephir_fetch_params(0, 1, 0, &content);
+
+
+
+	_0 = Z_TYPE_P(content) == IS_ARRAY;
+	if (!(_0)) {
+		_1 = Z_TYPE_P(content) == IS_OBJECT;
+		if (_1) {
+			_2 = zephir_instance_of_ev(content, zim_contract_arrayable_ce TSRMLS_CC);
+			if (!(_2)) {
+				_2 = zephir_instance_of_ev(content, zim_contract_jsonable_ce TSRMLS_CC);
+			}
+			_3 = _2;
+			if (!(_3)) {
+				_3 = zephir_instance_of_ev(content, spl_ce_ArrayObject TSRMLS_CC);
+			}
+			_4 = _3;
+			if (!(_4)) {
+				_4 = zephir_is_instance_of(content, SL("JsonSerializable") TSRMLS_CC);
+			}
+			_1 = _4;
+		}
+		_0 = _1;
+	}
+	RETURN_BOOL(_0);
 
 }
 

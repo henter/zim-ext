@@ -12,6 +12,7 @@ PHP_METHOD(Zim_Http_Kernel, dispatchToDefault);
 PHP_METHOD(Zim_Http_Kernel, dispatchToRouter);
 PHP_METHOD(Zim_Http_Kernel, doDispatch);
 PHP_METHOD(Zim_Http_Kernel, toResponse);
+PHP_METHOD(Zim_Http_Kernel, shouldBeJson);
 PHP_METHOD(Zim_Http_Kernel, terminate);
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_kernel___construct, 0, 0, 2)
@@ -77,6 +78,10 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_http_kernel_toresponse, 0, 1
 	ZEND_ARG_INFO(0, resp)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_kernel_shouldbejson, 0, 0, 1)
+	ZEND_ARG_INFO(0, content)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_kernel_terminate, 0, 0, 2)
 	ZEND_ARG_OBJ_INFO(0, request, Zim\\Http\\Request, 0)
 	ZEND_ARG_OBJ_INFO(0, response, Zim\\Http\\Response, 0)
@@ -92,6 +97,7 @@ ZEPHIR_INIT_FUNCS(zim_http_kernel_method_entry) {
 	PHP_ME(Zim_Http_Kernel, dispatchToRouter, arginfo_zim_http_kernel_dispatchtorouter, ZEND_ACC_PUBLIC)
 	PHP_ME(Zim_Http_Kernel, doDispatch, arginfo_zim_http_kernel_dodispatch, ZEND_ACC_PROTECTED)
 	PHP_ME(Zim_Http_Kernel, toResponse, arginfo_zim_http_kernel_toresponse, ZEND_ACC_PROTECTED)
+	PHP_ME(Zim_Http_Kernel, shouldBeJson, arginfo_zim_http_kernel_shouldbejson, ZEND_ACC_PROTECTED)
 	PHP_ME(Zim_Http_Kernel, terminate, arginfo_zim_http_kernel_terminate, ZEND_ACC_PUBLIC)
 	PHP_FE_END
 };

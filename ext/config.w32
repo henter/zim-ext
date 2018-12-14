@@ -12,7 +12,7 @@ if (PHP_ZIM != "no") {
   
   ADD_SOURCES(configure_module_dirname + "/zim/event", "httpevent.zep.c dispatcher.zep.c dispatchevent.zep.c event.zep.c listener.zep.c listeneron.zep.c requestevent.zep.c responseevent.zep.c terminateevent.zep.c", "zim");
 	ADD_SOURCES(configure_module_dirname + "/zim/http/exception", "exceptioninterface.zep.c exception.zep.c methodnotallowedexception.zep.c notfoundexception.zep.c responseexception.zep.c", "zim");
-	ADD_SOURCES(configure_module_dirname + "/zim/contract", "response.zep.c action.zep.c config.zep.c request.zep.c", "zim");
+	ADD_SOURCES(configure_module_dirname + "/zim/contract", "response.zep.c action.zep.c config.zep.c request.zep.c arrayable.zep.c jsonable.zep.c", "zim");
 	ADD_SOURCES(configure_module_dirname + "/zim/container", "container.zep.c bindingresolutionexception.zep.c boundmethod.zep.c boundmethodcallclosurezero.zep.c containergetclosureclosurezero.zep.c containersetclosureone.zep.c contextualbindingbuilder.zep.c entrynotfoundexception.zep.c", "zim");
 	ADD_SOURCES(configure_module_dirname + "/zim/http", "controller.zep.c headerbag.zep.c parameterbag.zep.c response.zep.c action.zep.c headerutils.zep.c jsonresponse.zep.c kernel.zep.c request.zep.c responseheaderbag.zep.c serverbag.zep.c", "zim");
 	ADD_SOURCES(configure_module_dirname + "/zim/service", "service.zep.c logservice.zep.c", "zim");

@@ -129,9 +129,9 @@ PHP_METHOD(Zim_Routing_RouteCompiler, compile) {
 	ZEPHIR_OBS_VAR(&regex);
 	zephir_array_fetch_string(&regex, &result, SL("regex"), PH_NOISY, "zim/routing/routecompiler.zep", 57 TSRMLS_CC);
 	object_init_ex(return_value, zim_routing_compiledroute_ce);
-	ZEPHIR_CALL_FUNCTION(&_8, "array_unique", NULL, 106, &variables);
+	ZEPHIR_CALL_FUNCTION(&_8, "array_unique", NULL, 105, &variables);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 107, &staticPrefix, &regex, &tokens, &pathVariables, &_8);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 106, &staticPrefix, &regex, &tokens, &pathVariables, &_8);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -317,7 +317,7 @@ PHP_METHOD(Zim_Routing_RouteCompiler, compilePattern) {
 		ZVAL_STRING(&_11$$3, "Cannot use UTF-8 route patterns without setting the \"utf8\" option for route \"%s\".");
 		ZEPHIR_CALL_FUNCTION(&_12$$3, "sprintf", &_13, 21, &_11$$3, &_10$$3);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_9$$3, "__construct", NULL, 108, &_12$$3);
+		ZEPHIR_CALL_METHOD(NULL, &_9$$3, "__construct", NULL, 107, &_12$$3);
 		zephir_check_call_status();
 		zephir_throw_exception_debug(&_9$$3, "zim/routing/routecompiler.zep", 73 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
@@ -334,7 +334,7 @@ PHP_METHOD(Zim_Routing_RouteCompiler, compilePattern) {
 		ZVAL_STRING(&_16$$4, "Cannot mix UTF-8 requirements with non-UTF-8 pattern \"%s\".");
 		ZEPHIR_CALL_FUNCTION(&_17$$4, "sprintf", &_13, 21, &_16$$4, pattern);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_15$$4, "__construct", NULL, 108, &_17$$4);
+		ZEPHIR_CALL_METHOD(NULL, &_15$$4, "__construct", NULL, 107, &_17$$4);
 		zephir_check_call_status();
 		zephir_throw_exception_debug(&_15$$4, "zim/routing/routecompiler.zep", 76 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
@@ -417,7 +417,7 @@ PHP_METHOD(Zim_Routing_RouteCompiler, compilePattern) {
 			ZVAL_STRING(&_50$$9, "Variable name \"%s\" cannot start with a digit in route pattern \"%s\". Please use a different name.");
 			ZEPHIR_CALL_FUNCTION(&_51$$9, "sprintf", &_13, 21, &_50$$9, &varName, pattern);
 			zephir_check_call_status();
-			ZEPHIR_CALL_METHOD(NULL, &_49$$9, "__construct", &_52, 109, &_51$$9);
+			ZEPHIR_CALL_METHOD(NULL, &_49$$9, "__construct", &_52, 108, &_51$$9);
 			zephir_check_call_status();
 			zephir_throw_exception_debug(&_49$$9, "zim/routing/routecompiler.zep", 98 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
@@ -430,7 +430,7 @@ PHP_METHOD(Zim_Routing_RouteCompiler, compilePattern) {
 			ZVAL_STRING(&_54$$10, "Route pattern \"%s\" cannot reference variable name \"%s\" more than once.");
 			ZEPHIR_CALL_FUNCTION(&_55$$10, "sprintf", &_13, 21, &_54$$10, pattern, &varName);
 			zephir_check_call_status();
-			ZEPHIR_CALL_METHOD(NULL, &_53$$10, "__construct", NULL, 108, &_55$$10);
+			ZEPHIR_CALL_METHOD(NULL, &_53$$10, "__construct", NULL, 107, &_55$$10);
 			zephir_check_call_status();
 			zephir_throw_exception_debug(&_53$$10, "zim/routing/routecompiler.zep", 101 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
@@ -444,7 +444,7 @@ PHP_METHOD(Zim_Routing_RouteCompiler, compilePattern) {
 			ZVAL_LONG(&_58$$11, 32);
 			ZEPHIR_CALL_FUNCTION(&_59$$11, "sprintf", &_13, 21, &_57$$11, &varName, &_58$$11, pattern);
 			zephir_check_call_status();
-			ZEPHIR_CALL_METHOD(NULL, &_56$$11, "__construct", &_52, 109, &_59$$11);
+			ZEPHIR_CALL_METHOD(NULL, &_56$$11, "__construct", &_52, 108, &_59$$11);
 			zephir_check_call_status();
 			zephir_throw_exception_debug(&_56$$11, "zim/routing/routecompiler.zep", 104 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
@@ -561,7 +561,7 @@ PHP_METHOD(Zim_Routing_RouteCompiler, compilePattern) {
 				ZVAL_STRING(&_93$$18, "Cannot use UTF-8 route requirements without setting the \"utf8\" option for variable \"%s\" in pattern \"%s\".");
 				ZEPHIR_CALL_FUNCTION(&_94$$18, "sprintf", &_13, 21, &_93$$18, &varName, pattern);
 				zephir_check_call_status();
-				ZEPHIR_CALL_METHOD(NULL, &_92$$18, "__construct", NULL, 108, &_94$$18);
+				ZEPHIR_CALL_METHOD(NULL, &_92$$18, "__construct", NULL, 107, &_94$$18);
 				zephir_check_call_status();
 				zephir_throw_exception_debug(&_92$$18, "zim/routing/routecompiler.zep", 135 TSRMLS_CC);
 				ZEPHIR_MM_RESTORE();
@@ -578,7 +578,7 @@ PHP_METHOD(Zim_Routing_RouteCompiler, compilePattern) {
 				ZVAL_STRING(&_97$$19, "Cannot mix UTF-8 requirement with non-UTF-8 charset for variable \"%s\" in pattern \"%s\".");
 				ZEPHIR_CALL_FUNCTION(&_98$$19, "sprintf", &_13, 21, &_97$$19, &varName, pattern);
 				zephir_check_call_status();
-				ZEPHIR_CALL_METHOD(NULL, &_96$$19, "__construct", NULL, 108, &_98$$19);
+				ZEPHIR_CALL_METHOD(NULL, &_96$$19, "__construct", NULL, 107, &_98$$19);
 				zephir_check_call_status();
 				zephir_throw_exception_debug(&_96$$19, "zim/routing/routecompiler.zep", 138 TSRMLS_CC);
 				ZEPHIR_MM_RESTORE();
@@ -719,7 +719,7 @@ PHP_METHOD(Zim_Routing_RouteCompiler, compilePattern) {
 	zephir_check_call_status();
 	zephir_array_update_string(return_value, SL("staticPrefix"), &_126, PH_COPY | PH_SEPARATE);
 	zephir_array_update_string(return_value, SL("regex"), &regexp, PH_COPY | PH_SEPARATE);
-	ZEPHIR_CALL_FUNCTION(&_126, "array_reverse", NULL, 110, &tokens);
+	ZEPHIR_CALL_FUNCTION(&_126, "array_reverse", NULL, 109, &tokens);
 	zephir_check_call_status();
 	zephir_array_update_string(return_value, SL("tokens"), &_126, PH_COPY | PH_SEPARATE);
 	zephir_array_update_string(return_value, SL("variables"), &variables, PH_COPY | PH_SEPARATE);
@@ -990,7 +990,7 @@ PHP_METHOD(Zim_Routing_RouteCompiler, computeRegexp) {
 					ZEPHIR_INIT_VAR(&_17$$8);
 					ZVAL_STRING(&_17$$8, ")?");
 					ZVAL_LONG(&_18$$8, ((zephir_get_numberval(&nbTokens) - firstOptional) - zephir_get_numberval(&_16$$8)));
-					ZEPHIR_CALL_FUNCTION(&_19$$8, "str_repeat", NULL, 111, &_17$$8, &_18$$8);
+					ZEPHIR_CALL_FUNCTION(&_19$$8, "str_repeat", NULL, 110, &_17$$8, &_18$$8);
 					zephir_check_call_status();
 					zephir_concat_self(&regexp, &_19$$8 TSRMLS_CC);
 				}

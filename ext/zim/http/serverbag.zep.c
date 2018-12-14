@@ -183,7 +183,7 @@ PHP_METHOD(Zim_Http_ServerBag, getHeaders) {
 				ZVAL_LONG(&_25$$11, 6);
 				ZEPHIR_INIT_VAR(&_26$$11);
 				zephir_substr(&_26$$11, &authorizationHeader, 6 , 0, ZEPHIR_SUBSTR_NO_LENGTH);
-				ZEPHIR_CALL_FUNCTION(&_27$$11, "base64_decode", NULL, 101, &_26$$11);
+				ZEPHIR_CALL_FUNCTION(&_27$$11, "base64_decode", NULL, 100, &_26$$11);
 				zephir_check_call_status();
 				ZEPHIR_INIT_VAR(&exploded);
 				zephir_fast_explode_str(&exploded, SL(":"), &_27$$11, 2  TSRMLS_CC);
@@ -212,7 +212,7 @@ PHP_METHOD(Zim_Http_ServerBag, getHeaders) {
 		zephir_array_fetch_string(&_32$$16, &headers, SL("PHP_AUTH_PW"), PH_NOISY | PH_READONLY, "zim/http/serverbag.zep", 92 TSRMLS_CC);
 		ZEPHIR_INIT_VAR(&_33$$16);
 		ZEPHIR_CONCAT_VSV(&_33$$16, &_31$$16, ":", &_32$$16);
-		ZEPHIR_CALL_FUNCTION(&_34$$16, "base64_encode", NULL, 102, &_33$$16);
+		ZEPHIR_CALL_FUNCTION(&_34$$16, "base64_encode", NULL, 101, &_33$$16);
 		zephir_check_call_status();
 		ZEPHIR_INIT_VAR(&_35$$16);
 		ZEPHIR_CONCAT_SV(&_35$$16, "Basic ", &_34$$16);

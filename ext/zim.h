@@ -25,6 +25,8 @@
 #include "zim/container/containersetclosureone.zep.h"
 #include "zim/container/contextualbindingbuilder.zep.h"
 #include "zim/container/entrynotfoundexception.zep.h"
+#include "zim/contract/arrayable.zep.h"
+#include "zim/contract/jsonable.zep.h"
 #include "zim/debug/errorhandler.zep.h"
 #include "zim/debug/exceptionhandler.zep.h"
 #include "zim/debug/fatalerrorexception.zep.h"

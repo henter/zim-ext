@@ -30,6 +30,8 @@ if test "$PHP_ZIM" = "yes"; then
 	zim/container/containersetclosureone.zep.c
 	zim/container/contextualbindingbuilder.zep.c
 	zim/container/entrynotfoundexception.zep.c
+	zim/contract/arrayable.zep.c
+	zim/contract/jsonable.zep.c
 	zim/debug/errorhandler.zep.c
 	zim/debug/exceptionhandler.zep.c
 	zim/debug/fatalerrorexception.zep.c

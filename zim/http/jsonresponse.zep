@@ -32,6 +32,11 @@ class JsonResponse extends Response
     // 15 === JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
     const DEFAULT_ENCODING_OPTIONS = 15;
 
+    const JSON_PARTIAL_OUTPUT_ON_ERROR = 512;
+    const JSON_ERROR_RECURSION = 6;
+    const JSON_ERROR_INF_OR_NAN = 7;
+    const JSON_ERROR_UNSUPPORTED_TYPE = 8;
+
     /**
      * @param mixed $data    The response data
      * @param int   $status  The response status code
@@ -142,21 +147,21 @@ class JsonResponse extends Response
      */
     public function setData(var data = [])
     {
-        this->original = data;
+        let this->original = data;
 
-        if typeof service == "object" {
+        if typeof data == "object" {
             if (data instanceof Jsonable) {
-                this->data = data->toJson(this->encodingOptions);
+                let this->data = data->toJson(this->encodingOptions);
             } elseif (data instanceof \JsonSerializable) {
-                this->data = json_encode(data->jsonSerialize(), this->encodingOptions);
+                let this->data = json_encode(data->jsonSerialize(), this->encodingOptions);
             } elseif (data instanceof Arrayable) {
-                this->data = json_encode(data->toArray(), this->encodingOptions);
+                let this->data = json_encode(data->toArray(), this->encodingOptions);
             }
         } else {
-            this->data = json_encode(data, this->encodingOptions);
+            let this->data = json_encode(data, this->encodingOptions);
         }
 
-        if ! this->hasValidJson(json_last_error())) {
+        if !(this->hasValidJson(json_last_error())) {
             throw new \InvalidArgumentException(json_last_error_msg());
         }
 
@@ -175,11 +180,11 @@ class JsonResponse extends Response
             return true;
         }
 
-        return $this->hasEncodingOption(JSON_PARTIAL_OUTPUT_ON_ERROR) &&
+        return this->hasEncodingOption(self::JSON_PARTIAL_OUTPUT_ON_ERROR) &&
             in_array(jsonError, [
-                JSON_ERROR_RECURSION,
-                JSON_ERROR_INF_OR_NAN,
-                JSON_ERROR_UNSUPPORTED_TYPE,
+                self::JSON_ERROR_RECURSION,
+                self::JSON_ERROR_INF_OR_NAN,
+                self::JSON_ERROR_UNSUPPORTED_TYPE
             ]);
     }
 

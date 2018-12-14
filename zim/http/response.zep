@@ -290,7 +290,7 @@ class Response implements ResponseContract
     {
         if (this->shouldBeJson(content)) {
             this->headers->set("Content-Type", "application/json");
-            content = this->morphToJson(content);
+            let content = this->morphToJson(content);
         }
 
         if content !== null &&
@@ -313,11 +313,11 @@ class Response implements ResponseContract
      */
     protected function shouldBeJson(var content)
     {
-        return is_array(content) || (typeof resp == "object" && (
+        return is_array(content) || (typeof content == "object" && (
             content instanceof Arrayable ||
             content instanceof Jsonable ||
             content instanceof \ArrayObject ||
-            content instanceof \JsonSerializable ||
+            content instanceof \JsonSerializable
         ));
     }
 
@@ -329,7 +329,7 @@ class Response implements ResponseContract
      */
     protected function morphToJson(var content)
     {
-        if typeof resp == "object" {
+        if typeof content == "object" {
             if (content instanceof Jsonable) {
                 return content->toJson();
             } elseif (content instanceof Arrayable) {

@@ -28,6 +28,8 @@ zend_class_entry *zim_contract_response_ce;
 zend_class_entry *zim_contract_action_ce;
 zend_class_entry *zim_contract_config_ce;
 zend_class_entry *zim_contract_request_ce;
+zend_class_entry *zim_contract_arrayable_ce;
+zend_class_entry *zim_contract_jsonable_ce;
 zend_class_entry *zim_event_httpevent_ce;
 zend_class_entry *zim_http_exception_exception_ce;
 zend_class_entry *zim_container_container_ce;
@@ -93,6 +95,8 @@ static PHP_MINIT_FUNCTION(zim)
 	ZEPHIR_INIT(Zim_Contract_Action);
 	ZEPHIR_INIT(Zim_Contract_Config);
 	ZEPHIR_INIT(Zim_Contract_Request);
+	ZEPHIR_INIT(Zim_Contract_Arrayable);
+	ZEPHIR_INIT(Zim_Contract_Jsonable);
 	ZEPHIR_INIT(Zim_Event_HttpEvent);
 	ZEPHIR_INIT(Zim_Http_Exception_Exception);
 	ZEPHIR_INIT(Zim_Container_Container);
