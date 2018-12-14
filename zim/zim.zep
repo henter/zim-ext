@@ -23,6 +23,14 @@ use Zim\Config\Config;
 class Zim extends Container
 {
     const VERSION = "Zim (1.0.0)";
+
+    /**
+     * The current globally available container (if any).
+     *
+     * @var static
+     */
+    protected static instance;
+
     /**
      * All of the loaded configuration files.
      *
@@ -52,6 +60,7 @@ class Zim extends Container
      * @var string
      */
     protected basePath;
+
     public function __construct() -> void
     {
         let this->basePath =  dirname(APP_PATH);
@@ -60,7 +69,32 @@ class Zim extends Container
         this->bootstrapConfig();
         this->registerServices();
     }
-    
+
+    /**
+     * Set the globally available instance of the container.
+     *
+     * @return self
+     */
+    public static function getInstance() -> <Container>
+    {
+        if is_null(self::instance) {
+            let self::instance =  new static();
+        }
+        return self::instance;
+    }
+
+    /**
+     * Set the shared instance of the container.
+     *
+     * @param  self $container
+     * @return self
+     */
+    public static function setInstance(<Container> container = null)
+    {
+        let self::instance = container;
+        return self::instance;
+    }
+
     /**
      * Bootstrap the application container.
      *
@@ -121,14 +155,14 @@ class Zim extends Container
      *
      * @param  \Zim\Service\Service|string $service
      */
-    public function register(service)
+    public function register(var service)
     {
         var name;
-    
-        if !(service instanceof Service) {
-            let service =  new {service}(this);
+        if !(typeof service == "object" && service instanceof Service) {
+            //let service =  new {service}(this);
+            let service = this->make(service);
         }
-        let name =  get_class(service);
+        let name = get_class(service);
         if array_key_exists(name, this->loadedServices) {
             return;
         }
@@ -164,11 +198,8 @@ class Zim extends Container
      */
     protected function bootService(<Service> service)
     {
-        var tmpArrayd10e3de436c4a2ee65c988ca6be39bed;
-    
         if method_exists(service, "boot") {
-            let tmpArrayd10e3de436c4a2ee65c988ca6be39bed = [service, "boot"];
-            return this->call(tmpArrayd10e3de436c4a2ee65c988ca6be39bed);
+            return this->call([service, "boot"]);
         }
         return false;
     }
@@ -305,9 +336,9 @@ class Zim extends Container
     public static function app(make = null)
     {
         if is_null(make) {
-            return Zim::getInstance();
+            return self::instance;
         }
-        return Zim::getInstance()->make(make);
+        return self::instance->make(make);
     }
     
     /**

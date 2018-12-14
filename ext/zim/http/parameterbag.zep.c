@@ -157,7 +157,7 @@ PHP_METHOD(Zim_Http_ParameterBag, add) {
 
 
 	zephir_read_property(&_0, this_ptr, SL("parameters"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_FUNCTION(&_1, "array_replace", NULL, 19, &_0, &parameters);
+	ZEPHIR_CALL_FUNCTION(&_1, "array_replace", NULL, 18, &_0, &parameters);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("parameters"), &_1);
 	ZEPHIR_MM_RESTORE();
@@ -303,7 +303,7 @@ PHP_METHOD(Zim_Http_ParameterBag, getIterator) {
 
 	object_init_ex(return_value, zephir_get_internal_ce(SL("arrayiterator")));
 	zephir_read_property(&_0, this_ptr, SL("parameters"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 18, &_0);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 17, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 

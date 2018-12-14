@@ -293,7 +293,7 @@ PHP_METHOD(Zim_Config_Config, prepend) {
 	ZEPHIR_CALL_METHOD(&myArray, this_ptr, "get", NULL, 0, &key);
 	zephir_check_call_status();
 	ZEPHIR_MAKE_REF(&myArray);
-	ZEPHIR_CALL_FUNCTION(NULL, "array_unshift", NULL, 29, &myArray, value);
+	ZEPHIR_CALL_FUNCTION(NULL, "array_unshift", NULL, 28, &myArray, value);
 	ZEPHIR_UNREF(&myArray);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "set", NULL, 0, &key, &myArray);

@@ -242,7 +242,7 @@ class Kernel
     {
         var response;
     
-        if resp instanceof Response {
+        if typeof resp == "object" && resp instanceof Response {
             let response = resp;
         } else {
             if is_array(resp) || is_scalar(resp) || is_null(resp) {

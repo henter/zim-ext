@@ -3,7 +3,6 @@ extern zend_class_entry *zim_support_arr_ce;
 
 ZEPHIR_INIT_CLASS(Zim_Support_Arr);
 
-PHP_METHOD(Zim_Support_Arr, value);
 PHP_METHOD(Zim_Support_Arr, accessible);
 PHP_METHOD(Zim_Support_Arr, exists);
 PHP_METHOD(Zim_Support_Arr, get);
@@ -11,10 +10,6 @@ PHP_METHOD(Zim_Support_Arr, has);
 PHP_METHOD(Zim_Support_Arr, set);
 PHP_METHOD(Zim_Support_Arr, _parseIniString);
 PHP_METHOD(Zim_Support_Arr, _cast);
-
-ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_support_arr_value, 0, 0, 1)
-	ZEND_ARG_INFO(0, value)
-ZEND_END_ARG_INFO()
 
 #if PHP_VERSION_ID >= 70200
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_support_arr_accessible, 0, 1, _IS_BOOL, 0)
@@ -80,7 +75,6 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_support_arr__cast, 0, 0, 1)
 ZEND_END_ARG_INFO()
 
 ZEPHIR_INIT_FUNCS(zim_support_arr_method_entry) {
-	PHP_ME(Zim_Support_Arr, value, arginfo_zim_support_arr_value, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(Zim_Support_Arr, accessible, arginfo_zim_support_arr_accessible, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(Zim_Support_Arr, exists, arginfo_zim_support_arr_exists, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(Zim_Support_Arr, get, arginfo_zim_support_arr_get, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)

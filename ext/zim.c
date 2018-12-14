@@ -230,7 +230,12 @@ static PHP_MINFO_FUNCTION(zim)
 	php_info_print_table_row(2, "Build Date", __DATE__ " " __TIME__ );
 	php_info_print_table_row(2, "Powered by Zephir", "Version " PHP_ZIM_ZEPVERSION);
 	php_info_print_table_end();
-	
+		php_info_print_table_start();
+	php_info_print_table_header(2, "Zim Framework", "Enabled");
+	php_info_print_table_row(2, "Wechat", "henter");
+	php_info_print_table_row(2, "Github", "https://github.com/henter/zim");
+	php_info_print_table_end();
+
 	DISPLAY_INI_ENTRIES();
 }
 

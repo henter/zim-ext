@@ -106,7 +106,7 @@ PHP_METHOD(Zim_Http_JsonResponse, __construct) {
 	if (Z_TYPE_P(data) == IS_NULL) {
 		ZEPHIR_INIT_NVAR(data);
 		object_init_ex(data, spl_ce_ArrayObject);
-		ZEPHIR_CALL_METHOD(NULL, data, "__construct", NULL, 72);
+		ZEPHIR_CALL_METHOD(NULL, data, "__construct", NULL, 71);
 		zephir_check_call_status();
 	}
 	if (json) {
@@ -168,7 +168,7 @@ PHP_METHOD(Zim_Http_JsonResponse, create) {
 
 	object_init_ex(return_value, zim_http_jsonresponse_ce);
 	ZVAL_LONG(&_0, status);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 82, data, &_0, &headers);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 81, data, &_0, &headers);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -210,7 +210,7 @@ PHP_METHOD(Zim_Http_JsonResponse, fromJsonString) {
 
 	object_init_ex(return_value, zim_http_jsonresponse_ce);
 	ZVAL_BOOL(&_0, 1);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 82, data, status, headers, &_0);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 81, data, status, headers, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -406,7 +406,7 @@ PHP_METHOD(Zim_Http_JsonResponse, setCallback) {
 			zephir_preg_match(&_3$$4, &pattern, &part, &_2$$4, 0, 0 , 0  TSRMLS_CC);
 			_4$$4 = !zephir_is_true(&_3$$4);
 			if (!(_4$$4)) {
-				ZEPHIR_CALL_FUNCTION(&_5$$4, "in_array", &_6, 83, &part, &reserved, &__$true);
+				ZEPHIR_CALL_FUNCTION(&_5$$4, "in_array", &_6, 82, &part, &reserved, &__$true);
 				zephir_check_call_status();
 				_4$$4 = zephir_is_true(&_5$$4);
 			}
@@ -546,14 +546,14 @@ PHP_METHOD(Zim_Http_JsonResponse, setData) {
 			return;
 		}
 	}
-	ZEPHIR_CALL_FUNCTION(&_10, "json_last_error", NULL, 84);
+	ZEPHIR_CALL_FUNCTION(&_10, "json_last_error", NULL, 83);
 	zephir_check_call_status();
 	if (!ZEPHIR_IS_LONG_IDENTICAL(&_10, 0)) {
 		ZEPHIR_INIT_VAR(&_11$$6);
 		object_init_ex(&_11$$6, spl_ce_InvalidArgumentException);
-		ZEPHIR_CALL_FUNCTION(&_12$$6, "json_last_error_msg", NULL, 85);
+		ZEPHIR_CALL_FUNCTION(&_12$$6, "json_last_error_msg", NULL, 84);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_11$$6, "__construct", NULL, 28, &_12$$6);
+		ZEPHIR_CALL_METHOD(NULL, &_11$$6, "__construct", NULL, 27, &_12$$6);
 		zephir_check_call_status();
 		zephir_throw_exception_debug(&_11$$6, "zim/http/jsonresponse.zep", 146 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
@@ -657,7 +657,7 @@ PHP_METHOD(Zim_Http_JsonResponse, update) {
 		zephir_read_property(&_5$$3, this_ptr, SL("data"), PH_NOISY_CC | PH_READONLY);
 		ZEPHIR_INIT_NVAR(&_2$$3);
 		ZVAL_STRING(&_2$$3, "/**/%s(%s);");
-		ZEPHIR_CALL_FUNCTION(&_6$$3, "sprintf", NULL, 22, &_2$$3, &_4$$3, &_5$$3);
+		ZEPHIR_CALL_FUNCTION(&_6$$3, "sprintf", NULL, 21, &_2$$3, &_4$$3, &_5$$3);
 		zephir_check_call_status();
 		ZEPHIR_RETURN_CALL_METHOD(this_ptr, "setcontent", NULL, 0, &_6$$3);
 		zephir_check_call_status();

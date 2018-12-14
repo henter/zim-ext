@@ -141,7 +141,7 @@ PHP_METHOD(Zim_Http_HeaderBag, getCacheControlHeader) {
 
 	zephir_read_property(&_0, this_ptr, SL("cacheControl"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_MAKE_REF(&_0);
-	ZEPHIR_CALL_FUNCTION(NULL, "ksort", NULL, 15, &_0);
+	ZEPHIR_CALL_FUNCTION(NULL, "ksort", NULL, 14, &_0);
 	ZEPHIR_UNREF(&_0);
 	zephir_check_call_status();
 	zephir_read_property(&_2, this_ptr, SL("cacheControl"), PH_NOISY_CC | PH_READONLY);
@@ -184,7 +184,7 @@ PHP_METHOD(Zim_Http_HeaderBag, __toString) {
 		RETURN_MM_STRING("");
 	}
 	ZEPHIR_MAKE_REF(&headers);
-	ZEPHIR_CALL_FUNCTION(NULL, "ksort", NULL, 15, &headers);
+	ZEPHIR_CALL_FUNCTION(NULL, "ksort", NULL, 14, &headers);
 	ZEPHIR_UNREF(&headers);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&content);
@@ -202,7 +202,7 @@ PHP_METHOD(Zim_Http_HeaderBag, __toString) {
 		ZVAL_COPY(&values, _0);
 		ZEPHIR_INIT_NVAR(&_3$$4);
 		ZVAL_STRING(&_3$$4, "-");
-		ZEPHIR_CALL_FUNCTION(&_4$$4, "ucwords", &_5, 16, &name, &_3$$4);
+		ZEPHIR_CALL_FUNCTION(&_4$$4, "ucwords", &_5, 15, &name, &_3$$4);
 		zephir_check_call_status();
 		ZEPHIR_CPY_WRT(&name, &_4$$4);
 		zephir_is_iterable(&values, 0, "zim/http/headerbag.zep", 73);
@@ -479,7 +479,7 @@ PHP_METHOD(Zim_Http_HeaderBag, set) {
 	ZEPHIR_INIT_NVAR(&key);
 	zephir_fast_str_replace(&key, &_1, &_2, &_0 TSRMLS_CC);
 	if (Z_TYPE_P(values) == IS_ARRAY) {
-		ZEPHIR_CALL_FUNCTION(&_3$$3, "array_values", NULL, 17, values);
+		ZEPHIR_CALL_FUNCTION(&_3$$3, "array_values", NULL, 16, values);
 		zephir_check_call_status();
 		ZEPHIR_CPY_WRT(values, &_3$$3);
 		_4$$3 = replace == 1;
@@ -646,7 +646,7 @@ PHP_METHOD(Zim_Http_HeaderBag, getIterator) {
 
 	object_init_ex(return_value, zephir_get_internal_ce(SL("arrayiterator")));
 	zephir_read_property(&_0, this_ptr, SL("headers"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 18, &_0);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 17, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 

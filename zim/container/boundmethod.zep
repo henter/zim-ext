@@ -63,7 +63,7 @@ class BoundMethod
         var method;
     
         if !(is_array(callback)) {
-            return  deft instanceof Closure ? {deft}()  : deft;
+            return (typeof deft == "object" && deft instanceof Closure) ? {deft}() : deft;
         }
         // Here we need to turn the array callable into a Class@method string we can use to
         // examine the container and see if there are any method bindings for this given
@@ -72,7 +72,7 @@ class BoundMethod
         if container->hasMethodBinding(method) {
             return container->callMethodBinding(method, callback[0]);
         }
-        return  deft instanceof Closure ? {deft}()  : deft;
+        return  (typeof deft == "object" && deft instanceof Closure) ? {deft}() : deft;
     }
     
     /**

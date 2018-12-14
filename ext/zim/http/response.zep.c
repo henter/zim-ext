@@ -220,7 +220,7 @@ PHP_METHOD(Zim_Http_Response, __construct) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	object_init_ex(&_0, zim_http_responseheaderbag_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 20, &headers);
+	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 19, &headers);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("headers"), &_0);
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "setcontent", NULL, 0, content);
@@ -279,7 +279,7 @@ PHP_METHOD(Zim_Http_Response, create) {
 
 	object_init_ex(return_value, zim_http_response_ce);
 	ZVAL_LONG(&_0, status);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 21, content, &_0, &headers);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 20, content, &_0, &headers);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -317,7 +317,7 @@ PHP_METHOD(Zim_Http_Response, __toString) {
 	zephir_read_property(&_2, this_ptr, SL("statusText"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_INIT_VAR(&_3);
 	ZVAL_STRING(&_3, "HTTP/%s %s %s");
-	ZEPHIR_CALL_FUNCTION(&_4, "sprintf", NULL, 22, &_3, &_0, &_1, &_2);
+	ZEPHIR_CALL_FUNCTION(&_4, "sprintf", NULL, 21, &_3, &_0, &_1, &_2);
 	zephir_check_call_status();
 	zephir_read_property(&_5, this_ptr, SL("headers"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_CALL_METHOD(&_6, this_ptr, "getcontent", NULL, 0);
@@ -480,7 +480,7 @@ PHP_METHOD(Zim_Http_Response, prepare) {
 		zephir_check_call_status();
 		ZEPHIR_INIT_NVAR(&_8$$4);
 		ZVAL_STRING(&_8$$4, "text/");
-		ZEPHIR_CALL_FUNCTION(&_15$$4, "stripos", NULL, 23, &_14$$4, &_8$$4);
+		ZEPHIR_CALL_FUNCTION(&_15$$4, "stripos", NULL, 22, &_14$$4, &_8$$4);
 		zephir_check_call_status();
 		_16$$4 = ZEPHIR_IS_LONG_IDENTICAL(&_15$$4, 0);
 		if (_16$$4) {
@@ -490,7 +490,7 @@ PHP_METHOD(Zim_Http_Response, prepare) {
 			zephir_check_call_status();
 			ZEPHIR_INIT_NVAR(&_8$$4);
 			ZVAL_STRING(&_8$$4, "charset");
-			ZEPHIR_CALL_FUNCTION(&_18$$4, "stripos", NULL, 23, &_17$$4, &_8$$4);
+			ZEPHIR_CALL_FUNCTION(&_18$$4, "stripos", NULL, 22, &_17$$4, &_8$$4);
 			zephir_check_call_status();
 			_16$$4 = ZEPHIR_IS_FALSE_IDENTICAL(&_18$$4);
 		}
@@ -621,7 +621,7 @@ PHP_METHOD(Zim_Http_Response, sendHeaders) {
 
 	ZEPHIR_MM_GROW();
 
-	ZEPHIR_CALL_FUNCTION(&_0, "headers_sent", NULL, 24);
+	ZEPHIR_CALL_FUNCTION(&_0, "headers_sent", NULL, 23);
 	zephir_check_call_status();
 	if (zephir_is_true(&_0)) {
 		RETURN_THIS();
@@ -648,7 +648,7 @@ PHP_METHOD(Zim_Http_Response, sendHeaders) {
 			ZEPHIR_INIT_LNVAR(_7$$5);
 			ZEPHIR_CONCAT_VSV(&_7$$5, &name, ": ", &value);
 			zephir_read_property(&_8$$5, this_ptr, SL("statusCode"), PH_NOISY_CC | PH_READONLY);
-			ZEPHIR_CALL_FUNCTION(NULL, "header", &_9, 25, &_7$$5, &__$false, &_8$$5);
+			ZEPHIR_CALL_FUNCTION(NULL, "header", &_9, 24, &_7$$5, &__$false, &_8$$5);
 			zephir_check_call_status();
 		} ZEND_HASH_FOREACH_END();
 		ZEPHIR_INIT_NVAR(&value);
@@ -660,10 +660,10 @@ PHP_METHOD(Zim_Http_Response, sendHeaders) {
 	zephir_read_property(&_12, this_ptr, SL("statusText"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_INIT_VAR(&_13);
 	ZVAL_STRING(&_13, "HTTP/%s %s %s");
-	ZEPHIR_CALL_FUNCTION(&_14, "sprintf", NULL, 22, &_13, &_10, &_11, &_12);
+	ZEPHIR_CALL_FUNCTION(&_14, "sprintf", NULL, 21, &_13, &_10, &_11, &_12);
 	zephir_check_call_status();
 	zephir_read_property(&_15, this_ptr, SL("statusCode"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_FUNCTION(NULL, "header", &_9, 25, &_14, &__$true, &_15);
+	ZEPHIR_CALL_FUNCTION(NULL, "header", &_9, 24, &_14, &__$true, &_15);
 	zephir_check_call_status();
 	RETURN_THIS();
 
@@ -706,7 +706,7 @@ PHP_METHOD(Zim_Http_Response, send) {
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "sendcontent", NULL, 0);
 	zephir_check_call_status();
 	if ((zephir_function_exists_ex(SL("fastcgi_finish_request") TSRMLS_CC) == SUCCESS)) {
-		ZEPHIR_CALL_FUNCTION(NULL, "fastcgi_finish_request", NULL, 26);
+		ZEPHIR_CALL_FUNCTION(NULL, "fastcgi_finish_request", NULL, 25);
 		zephir_check_call_status();
 	}
 	RETURN_THIS();
@@ -771,9 +771,9 @@ PHP_METHOD(Zim_Http_Response, setContent) {
 		zephir_gettype(&_5$$3, content TSRMLS_CC);
 		ZEPHIR_INIT_VAR(&_6$$3);
 		ZVAL_STRING(&_6$$3, "The Response content must be a string or object implementing __toString(), \"%s\" given.");
-		ZEPHIR_CALL_FUNCTION(&_7$$3, "sprintf", NULL, 22, &_6$$3, &_5$$3);
+		ZEPHIR_CALL_FUNCTION(&_7$$3, "sprintf", NULL, 21, &_6$$3, &_5$$3);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_4$$3, "__construct", NULL, 27, &_7$$3);
+		ZEPHIR_CALL_METHOD(NULL, &_4$$3, "__construct", NULL, 26, &_7$$3);
 		zephir_check_call_status();
 		zephir_throw_exception_debug(&_4$$3, "zim/http/response.zep", 291 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
@@ -891,9 +891,9 @@ PHP_METHOD(Zim_Http_Response, setStatusCode) {
 		ZEPHIR_INIT_VAR(&_3$$3);
 		ZVAL_STRING(&_3$$3, "The HTTP status code \"%s\" is not valid.");
 		ZVAL_LONG(&_4$$3, code);
-		ZEPHIR_CALL_FUNCTION(&_5$$3, "sprintf", NULL, 22, &_3$$3, &_4$$3);
+		ZEPHIR_CALL_FUNCTION(&_5$$3, "sprintf", NULL, 21, &_3$$3, &_4$$3);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_2$$3, "__construct", NULL, 28, &_5$$3);
+		ZEPHIR_CALL_METHOD(NULL, &_2$$3, "__construct", NULL, 27, &_5$$3);
 		zephir_check_call_status();
 		zephir_throw_exception_debug(&_2$$3, "zim/http/response.zep", 346 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();

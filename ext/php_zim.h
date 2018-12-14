@@ -13,9 +13,9 @@
 #define PHP_ZIM_NAME        "zim"
 #define PHP_ZIM_VERSION     "0.0.1"
 #define PHP_ZIM_EXTNAME     "zim"
-#define PHP_ZIM_AUTHOR      ""
+#define PHP_ZIM_AUTHOR      "Henter <henter@henter.me>"
 #define PHP_ZIM_ZEPVERSION  "0.11.9-$Id$"
-#define PHP_ZIM_DESCRIPTION ""
+#define PHP_ZIM_DESCRIPTION "The Zim framework"
 
 
 

@@ -37,6 +37,13 @@ ZEPHIR_INIT_CLASS(Zim_Zim) {
 	ZEPHIR_REGISTER_CLASS_EX(Zim, Zim, zim, zim, zim_container_container_ce, zim_zim_method_entry, 0);
 
 	/**
+	 * The current globally available container (if any).
+	 *
+	 * @var static
+	 */
+	zend_declare_property_null(zim_zim_ce, SL("instance"), ZEND_ACC_PROTECTED|ZEND_ACC_STATIC TSRMLS_CC);
+
+	/**
 	 * All of the loaded configuration files.
 	 *
 	 * @var array
@@ -89,7 +96,7 @@ PHP_METHOD(Zim_Zim, __construct) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	ZEPHIR_GET_CONSTANT(&_0, "APP_PATH");
-	ZEPHIR_CALL_FUNCTION(&_1, "dirname", NULL, 131, &_0);
+	ZEPHIR_CALL_FUNCTION(&_1, "dirname", NULL, 130, &_0);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("basePath"), &_1);
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "registererrorhandling", NULL, 0);
@@ -101,6 +108,65 @@ PHP_METHOD(Zim_Zim, __construct) {
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "registerservices", NULL, 0);
 	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();
+
+}
+
+/**
+ * Set the globally available instance of the container.
+ *
+ * @return self
+ */
+PHP_METHOD(Zim_Zim, getInstance) {
+
+	zval _0, _2, _1$$3;
+	zend_long ZEPHIR_LAST_CALL_STATUS;
+	zval *this_ptr = getThis();
+
+	ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&_2);
+	ZVAL_UNDEF(&_1$$3);
+
+	ZEPHIR_MM_GROW();
+
+	zephir_read_static_property_ce(&_0, zim_zim_ce, SL("instance"), PH_NOISY_CC | PH_READONLY);
+	if (Z_TYPE_P(&_0) == IS_NULL) {
+		ZEPHIR_INIT_VAR(&_1$$3);
+		object_init_ex(&_1$$3, zim_zim_ce);
+		ZEPHIR_CALL_METHOD(NULL, &_1$$3, "__construct", NULL, 131);
+		zephir_check_call_status();
+		zend_update_static_property(zim_zim_ce, ZEND_STRL("instance"), &_1$$3);
+	}
+	zephir_read_static_property_ce(&_2, zim_zim_ce, SL("instance"), PH_NOISY_CC | PH_READONLY);
+	RETURN_CTOR(&_2);
+
+}
+
+/**
+ * Set the shared instance of the container.
+ *
+ * @param  self $container
+ * @return self
+ */
+PHP_METHOD(Zim_Zim, setInstance) {
+
+	zval *container = NULL, container_sub, __$null, _0;
+	zval *this_ptr = getThis();
+
+	ZVAL_UNDEF(&container_sub);
+	ZVAL_NULL(&__$null);
+	ZVAL_UNDEF(&_0);
+
+	zephir_fetch_params(0, 0, 1, &container);
+
+	if (!container) {
+		container = &container_sub;
+		container = &__$null;
+	}
+
+
+	zend_update_static_property(zim_zim_ce, ZEND_STRL("instance"), container);
+	zephir_read_static_property_ce(&_0, zim_zim_ce, SL("instance"), PH_NOISY_CC | PH_READONLY);
+	RETURN_CTORW(&_0);
 
 }
 
@@ -232,7 +298,7 @@ PHP_METHOD(Zim_Zim, registerServices) {
 		ZEPHIR_INIT_NVAR(&services);
 		array_init(&services);
 	}
-	zephir_is_iterable(&services, 0, "zim/zim.zep", 107);
+	zephir_is_iterable(&services, 0, "zim/zim.zep", 141);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&services), _3)
 	{
 		ZEPHIR_INIT_NVAR(&service);
@@ -266,16 +332,16 @@ PHP_METHOD(Zim_Zim, version) {
  */
 PHP_METHOD(Zim_Zim, register) {
 
-	zend_class_entry *_1$$3;
+	zend_bool _0;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *service = NULL, service_sub, name, _2, _3, _0$$3;
+	zval *service = NULL, service_sub, name, _2, _3, _1$$3;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&service_sub);
 	ZVAL_UNDEF(&name);
 	ZVAL_UNDEF(&_2);
 	ZVAL_UNDEF(&_3);
-	ZVAL_UNDEF(&_0$$3);
+	ZVAL_UNDEF(&_1$$3);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 0, &service);
@@ -283,15 +349,14 @@ PHP_METHOD(Zim_Zim, register) {
 	ZEPHIR_SEPARATE_PARAM(service);
 
 
-	if (!(zephir_instance_of_ev(service, zim_service_service_ce TSRMLS_CC))) {
-		ZEPHIR_INIT_NVAR(service);
-		zephir_fetch_safe_class(&_0$$3, service);
-		_1$$3 = zephir_fetch_class_str_ex(Z_STRVAL_P(&_0$$3), Z_STRLEN_P(&_0$$3), ZEND_FETCH_CLASS_AUTO);
-		object_init_ex(service, _1$$3);
-		if (zephir_has_constructor(service TSRMLS_CC)) {
-			ZEPHIR_CALL_METHOD(NULL, service, "__construct", NULL, 0, this_ptr);
-			zephir_check_call_status();
-		}
+	_0 = Z_TYPE_P(service) == IS_OBJECT;
+	if (_0) {
+		_0 = zephir_instance_of_ev(service, zim_service_service_ce TSRMLS_CC);
+	}
+	if (!(_0)) {
+		ZEPHIR_CALL_METHOD(&_1$$3, this_ptr, "make", NULL, 0, service);
+		zephir_check_call_status();
+		ZEPHIR_CPY_WRT(service, &_1$$3);
 	}
 	ZEPHIR_INIT_VAR(&name);
 	zephir_get_class(&name, service, 0 TSRMLS_CC);
@@ -336,7 +401,7 @@ PHP_METHOD(Zim_Zim, boot) {
 		RETURN_MM_NULL();
 	}
 	zephir_read_property(&_1, this_ptr, SL("loadedServices"), PH_NOISY_CC | PH_READONLY);
-	zephir_is_iterable(&_1, 0, "zim/zim.zep", 156);
+	zephir_is_iterable(&_1, 0, "zim/zim.zep", 190);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_1), _2)
 	{
 		ZEPHIR_INIT_NVAR(&s);
@@ -362,12 +427,13 @@ PHP_METHOD(Zim_Zim, boot) {
  */
 PHP_METHOD(Zim_Zim, bootService) {
 
+	zval _0$$3;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *service, service_sub, tmpArrayd10e3de436c4a2ee65c988ca6be39bed, _0$$3;
+	zval *service, service_sub, _1$$3;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&service_sub);
-	ZVAL_UNDEF(&tmpArrayd10e3de436c4a2ee65c988ca6be39bed);
+	ZVAL_UNDEF(&_1$$3);
 	ZVAL_UNDEF(&_0$$3);
 
 	ZEPHIR_MM_GROW();
@@ -376,13 +442,13 @@ PHP_METHOD(Zim_Zim, bootService) {
 
 
 	if ((zephir_method_exists_ex(service, SL("boot") TSRMLS_CC) == SUCCESS)) {
-		ZEPHIR_INIT_VAR(&tmpArrayd10e3de436c4a2ee65c988ca6be39bed);
-		zephir_create_array(&tmpArrayd10e3de436c4a2ee65c988ca6be39bed, 2, 0 TSRMLS_CC);
-		zephir_array_fast_append(&tmpArrayd10e3de436c4a2ee65c988ca6be39bed, service);
 		ZEPHIR_INIT_VAR(&_0$$3);
-		ZVAL_STRING(&_0$$3, "boot");
-		zephir_array_fast_append(&tmpArrayd10e3de436c4a2ee65c988ca6be39bed, &_0$$3);
-		ZEPHIR_RETURN_CALL_METHOD(this_ptr, "call", NULL, 0, &tmpArrayd10e3de436c4a2ee65c988ca6be39bed);
+		zephir_create_array(&_0$$3, 2, 0 TSRMLS_CC);
+		zephir_array_fast_append(&_0$$3, service);
+		ZEPHIR_INIT_VAR(&_1$$3);
+		ZVAL_STRING(&_1$$3, "boot");
+		zephir_array_fast_append(&_0$$3, &_1$$3);
+		ZEPHIR_RETURN_CALL_METHOD(this_ptr, "call", NULL, 0, &_0$$3);
 		zephir_check_call_status();
 		RETURN_MM();
 	}
@@ -650,7 +716,7 @@ PHP_METHOD(Zim_Zim, registerErrorHandling) {
 	ZEPHIR_MM_GROW();
 
 	ZVAL_LONG(&_0, 32767);
-	ZEPHIR_CALL_FUNCTION(NULL, "error_reporting", NULL, 39, &_0);
+	ZEPHIR_CALL_FUNCTION(NULL, "error_reporting", NULL, 38, &_0);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(&_1, this_ptr, "inconsole", NULL, 0);
 	zephir_check_call_status();
@@ -748,12 +814,13 @@ PHP_METHOD(Zim_Zim, fire) {
 PHP_METHOD(Zim_Zim, app) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *make = NULL, make_sub, __$null, _0;
+	zval *make = NULL, make_sub, __$null, _0$$3, _1;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&make_sub);
 	ZVAL_NULL(&__$null);
-	ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&_0$$3);
+	ZVAL_UNDEF(&_1);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 0, 1, &make);
@@ -765,13 +832,11 @@ PHP_METHOD(Zim_Zim, app) {
 
 
 	if (Z_TYPE_P(make) == IS_NULL) {
-		ZEPHIR_RETURN_CALL_SELF("getinstance", NULL, 0);
-		zephir_check_call_status();
-		RETURN_MM();
+		zephir_read_static_property_ce(&_0$$3, zim_zim_ce, SL("instance"), PH_NOISY_CC | PH_READONLY);
+		RETURN_CTOR(&_0$$3);
 	}
-	ZEPHIR_CALL_SELF(&_0, "getinstance", NULL, 0);
-	zephir_check_call_status();
-	ZEPHIR_RETURN_CALL_METHOD(&_0, "make", NULL, 0, make);
+	zephir_read_static_property_ce(&_1, zim_zim_ce, SL("instance"), PH_NOISY_CC | PH_READONLY);
+	ZEPHIR_RETURN_CALL_METHOD(&_1, "make", NULL, 0, make);
 	zephir_check_call_status();
 	RETURN_MM();
 

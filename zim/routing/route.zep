@@ -453,7 +453,7 @@ class Route
     public static function __callStatic(string method, array parameters)
     {
         var call;
-    
+
         if !(self::registrar) {
             let self::registrar =  new Registrar(\Zim\Zim::app("router"));
         }

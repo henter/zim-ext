@@ -108,13 +108,11 @@ class Registrar
      */
     public function __call(string method, array parameters)
     {
-        var parmeters, k, v;
+        var k, v, all;
+
         if in_array(method, this->passthru) {
-            var all;
-            let all[] = method;
-            for k, v in parmeters {
-                let all[] = v;
-            }
+            let all = parameters;
+            array_unshift(all, method);
             //return this->registrarRoute(method, ...parameters);
             return call_user_func_array([this, "registrarRoute"], all);
         }

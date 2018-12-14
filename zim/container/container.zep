@@ -166,10 +166,13 @@ class Container
         // If the factory is not a Closure, it means it is just a class name which is
         // bound into this container to the abstract type and we will just wrap it
         // up inside its own Closure to give us more convenience when extending.
-        if !(concrete instanceof Closure) {
+        if !(typeof concrete == "object" && concrete instanceof Closure) {
             let concrete =  this->getClosure(abstractt, concrete);
         }
-        let this->bindings[abstractt] =  compact("concrete", "shared");
+        let this->bindings[abstractt] = [
+            "concrete": concrete,
+            "shared": shared
+        ];
     }
     
     /**
@@ -472,7 +475,8 @@ class Container
         // Next we need to see if a contextual binding might be bound under an alias of the
         // given abstract type. So, we will need to check if any aliases exist with this
         // type and then spin through them and check for contextual bindings on these.
-        if empty(this->abstractAliases[abstractt]) {
+        //TODO check ? empty => !isset
+        if !isset this->abstractAliases[abstractt] {
             return;
         }
         for alias in this->abstractAliases[abstractt] {
@@ -511,7 +515,7 @@ class Container
      */
     protected function isBuildable(concrete, string abstractt) -> bool
     {
-        return concrete === abstractt || concrete instanceof Closure;
+        return concrete === abstractt || (typeof concrete == "object" && concrete instanceof Closure);
     }
     
     /**
@@ -632,7 +636,7 @@ class Container
     
         let concrete =  this->getContextualConcrete("$" . parameter->name);
         if !(is_null(concrete)) {
-            return  concrete instanceof Closure ? {concrete}(this)  : concrete;
+            return (typeof concrete == "object" && concrete instanceof Closure) ? {concrete}(this) : concrete;
         }
         if parameter->isDefaultValueAvailable() {
             return parameter->getDefaultValue();
@@ -842,7 +846,7 @@ class Container
      */
     public function set(string key, value)
     {
-        this->bind(key,  value instanceof Closure ? value  : new ContainersetClosureOne(value));
+        this->bind(key, (typeof value == "object" && value instanceof Closure) ? value  : new ContainersetClosureOne(value));
     }
     
     /**

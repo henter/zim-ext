@@ -162,7 +162,7 @@ PHP_METHOD(Zim_Http_ServerBag, getHeaders) {
 		if (Z_TYPE_P(&authorizationHeader) != IS_NULL) {
 			ZEPHIR_INIT_VAR(&_18$$10);
 			ZVAL_STRING(&_18$$10, "basic ");
-			ZEPHIR_CALL_FUNCTION(&_19$$10, "stripos", NULL, 23, &authorizationHeader, &_18$$10);
+			ZEPHIR_CALL_FUNCTION(&_19$$10, "stripos", NULL, 22, &authorizationHeader, &_18$$10);
 			zephir_check_call_status();
 			zephir_read_property(&_20$$10, this_ptr, SL("parameters"), PH_NOISY_CC | PH_READONLY);
 			ZEPHIR_OBS_VAR(&_21$$10);
@@ -171,19 +171,19 @@ PHP_METHOD(Zim_Http_ServerBag, getHeaders) {
 			if (_22$$10) {
 				ZEPHIR_INIT_NVAR(&_18$$10);
 				ZVAL_STRING(&_18$$10, "digest ");
-				ZEPHIR_CALL_FUNCTION(&_23$$10, "stripos", NULL, 23, &authorizationHeader, &_18$$10);
+				ZEPHIR_CALL_FUNCTION(&_23$$10, "stripos", NULL, 22, &authorizationHeader, &_18$$10);
 				zephir_check_call_status();
 				_22$$10 = ZEPHIR_IS_LONG_IDENTICAL(&_23$$10, 0);
 			}
 			ZEPHIR_INIT_NVAR(&_18$$10);
 			ZVAL_STRING(&_18$$10, "bearer ");
-			ZEPHIR_CALL_FUNCTION(&_24$$10, "stripos", NULL, 23, &authorizationHeader, &_18$$10);
+			ZEPHIR_CALL_FUNCTION(&_24$$10, "stripos", NULL, 22, &authorizationHeader, &_18$$10);
 			zephir_check_call_status();
 			if (ZEPHIR_IS_LONG_IDENTICAL(&_19$$10, 0)) {
 				ZVAL_LONG(&_25$$11, 6);
 				ZEPHIR_INIT_VAR(&_26$$11);
 				zephir_substr(&_26$$11, &authorizationHeader, 6 , 0, ZEPHIR_SUBSTR_NO_LENGTH);
-				ZEPHIR_CALL_FUNCTION(&_27$$11, "base64_decode", NULL, 102, &_26$$11);
+				ZEPHIR_CALL_FUNCTION(&_27$$11, "base64_decode", NULL, 101, &_26$$11);
 				zephir_check_call_status();
 				ZEPHIR_INIT_VAR(&exploded);
 				zephir_fast_explode_str(&exploded, SL(":"), &_27$$11, 2  TSRMLS_CC);
@@ -212,7 +212,7 @@ PHP_METHOD(Zim_Http_ServerBag, getHeaders) {
 		zephir_array_fetch_string(&_32$$16, &headers, SL("PHP_AUTH_PW"), PH_NOISY | PH_READONLY, "zim/http/serverbag.zep", 92 TSRMLS_CC);
 		ZEPHIR_INIT_VAR(&_33$$16);
 		ZEPHIR_CONCAT_VSV(&_33$$16, &_31$$16, ":", &_32$$16);
-		ZEPHIR_CALL_FUNCTION(&_34$$16, "base64_encode", NULL, 103, &_33$$16);
+		ZEPHIR_CALL_FUNCTION(&_34$$16, "base64_encode", NULL, 102, &_33$$16);
 		zephir_check_call_status();
 		ZEPHIR_INIT_VAR(&_35$$16);
 		ZEPHIR_CONCAT_SV(&_35$$16, "Basic ", &_34$$16);

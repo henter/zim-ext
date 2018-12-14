@@ -134,11 +134,11 @@ PHP_METHOD(Zim_Debug_FlattenException, createFromThrowable) {
 	}
 	ZEPHIR_CALL_METHOD(&_0, exception, "getmessage", NULL, 0);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &e, "setmessage", NULL, 58, &_0);
+	ZEPHIR_CALL_METHOD(NULL, &e, "setmessage", NULL, 57, &_0);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(&_1, exception, "getcode", NULL, 0);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &e, "setcode", NULL, 59, &_1);
+	ZEPHIR_CALL_METHOD(NULL, &e, "setcode", NULL, 58, &_1);
 	zephir_check_call_status();
 	if (zephir_instance_of_ev(exception, zim_http_exception_exceptioninterface_ce TSRMLS_CC)) {
 		ZEPHIR_CALL_METHOD(&scode, exception, "getstatuscode", NULL, 0);
@@ -154,11 +154,11 @@ PHP_METHOD(Zim_Debug_FlattenException, createFromThrowable) {
 		statusCode = 500;
 	}
 	ZVAL_LONG(&_4, statusCode);
-	ZEPHIR_CALL_METHOD(NULL, &e, "setstatuscode", NULL, 60, &_4);
+	ZEPHIR_CALL_METHOD(NULL, &e, "setstatuscode", NULL, 59, &_4);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &e, "setheaders", NULL, 61, &headers);
+	ZEPHIR_CALL_METHOD(NULL, &e, "setheaders", NULL, 60, &headers);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &e, "settracefromthrowable", NULL, 62, exception);
+	ZEPHIR_CALL_METHOD(NULL, &e, "settracefromthrowable", NULL, 61, exception);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&_5);
 	if (zephir_instance_of_ev(exception, zim_debug_fatalerrorexception_ce TSRMLS_CC)) {
@@ -168,22 +168,22 @@ PHP_METHOD(Zim_Debug_FlattenException, createFromThrowable) {
 		ZEPHIR_INIT_NVAR(&_5);
 		zephir_get_class(&_5, exception, 0 TSRMLS_CC);
 	}
-	ZEPHIR_CALL_METHOD(NULL, &e, "setclass", NULL, 63, &_5);
+	ZEPHIR_CALL_METHOD(NULL, &e, "setclass", NULL, 62, &_5);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(&_6, exception, "getfile", NULL, 0);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &e, "setfile", NULL, 64, &_6);
+	ZEPHIR_CALL_METHOD(NULL, &e, "setfile", NULL, 63, &_6);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(&_7, exception, "getline", NULL, 0);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &e, "setline", NULL, 65, &_7);
+	ZEPHIR_CALL_METHOD(NULL, &e, "setline", NULL, 64, &_7);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(&previous, exception, "getprevious", NULL, 0);
 	zephir_check_call_status();
 	if (zephir_is_instance_of(&previous, SL("Throwable") TSRMLS_CC)) {
 		ZEPHIR_CALL_STATIC(&_8$$5, "createfromthrowable", NULL, 0, &previous);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &e, "setprevious", NULL, 66, &_8$$5);
+		ZEPHIR_CALL_METHOD(NULL, &e, "setprevious", NULL, 65, &_8$$5);
 		zephir_check_call_status();
 	}
 	RETURN_CCTOR(&e);
@@ -346,7 +346,7 @@ PHP_METHOD(Zim_Debug_FlattenException, setClass) {
 		_2 = ZEPHIR_IS_LONG_IDENTICAL(&_4, 0);
 	}
 	if (_2) {
-		ZEPHIR_CALL_FUNCTION(&_5, "get_parent_class", NULL, 67, classs);
+		ZEPHIR_CALL_FUNCTION(&_5, "get_parent_class", NULL, 66, classs);
 		zephir_check_call_status();
 		ZEPHIR_INIT_NVAR(&_0);
 		ZEPHIR_CONCAT_VS(&_0, &_5, "@anonymous");
@@ -462,7 +462,7 @@ PHP_METHOD(Zim_Debug_FlattenException, setMessage) {
 		}
 		ZEPHIR_INIT_VAR(&_4$$3);
 		ZVAL_STRING(&_4$$3, "/class@anonymous\\x00.*?\\.php0x?[0-9a-fA-F]++/");
-		ZEPHIR_CALL_FUNCTION(&_5$$3, "preg_replace_callback", NULL, 68, &_4$$3, &_2$$3, message);
+		ZEPHIR_CALL_FUNCTION(&_5$$3, "preg_replace_callback", NULL, 67, &_4$$3, &_2$$3, message);
 		zephir_check_call_status();
 		ZEPHIR_CPY_WRT(message, &_5$$3);
 	}
@@ -657,7 +657,7 @@ PHP_METHOD(Zim_Debug_FlattenException, setTrace) {
 			ZEPHIR_INIT_NVAR(&parts);
 			zephir_fast_explode_str(&parts, SL("\\"), &_4$$4, LONG_MAX TSRMLS_CC);
 			ZEPHIR_MAKE_REF(&parts);
-			ZEPHIR_CALL_FUNCTION(&classs, "array_pop", &_5, 6, &parts);
+			ZEPHIR_CALL_FUNCTION(&classs, "array_pop", &_5, 5, &parts);
 			ZEPHIR_UNREF(&parts);
 			zephir_check_call_status();
 			ZEPHIR_INIT_NVAR(&namespacee);
@@ -814,7 +814,7 @@ PHP_METHOD(Zim_Debug_FlattenException, flattenArgs) {
 			zephir_array_fast_append(return_value, &_3$$4);
 			RETURN_MM();
 		}
-		ZEPHIR_CALL_FUNCTION(&_4$$3, "is_float", &_5, 69, &value);
+		ZEPHIR_CALL_FUNCTION(&_4$$3, "is_float", &_5, 68, &value);
 		zephir_check_call_status();
 		if (zephir_instance_of_ev(&value, zephir_get_internal_ce(SL("__php_incomplete_class")) TSRMLS_CC)) {
 			ZEPHIR_INIT_NVAR(&_6$$5);
@@ -855,7 +855,7 @@ PHP_METHOD(Zim_Debug_FlattenException, flattenArgs) {
 				zephir_array_fast_append(&_14$$9, &_15$$9);
 				ZVAL_LONG(&_17$$9, (zephir_get_numberval(level) + 1));
 				ZVAL_LONG(&_18$$9, (zephir_get_numberval(count) + 1));
-				ZEPHIR_CALL_METHOD(&_16$$9, this_ptr, "flattenargs", &_19, 70, &value, &_17$$9, &_18$$9);
+				ZEPHIR_CALL_METHOD(&_16$$9, this_ptr, "flattenargs", &_19, 69, &value, &_17$$9, &_18$$9);
 				zephir_check_call_status();
 				zephir_array_fast_append(&_14$$9, &_16$$9);
 				zephir_array_update_zval(&result, &key, &_14$$9, PH_COPY | PH_SEPARATE);
@@ -898,7 +898,7 @@ PHP_METHOD(Zim_Debug_FlattenException, flattenArgs) {
 			ZEPHIR_INIT_NVAR(&_29$$14);
 			ZVAL_STRING(&_29$$14, "resource");
 			zephir_array_fast_append(&_28$$14, &_29$$14);
-			ZEPHIR_CALL_FUNCTION(&_30$$14, "get_resource_type", &_31, 71, &value);
+			ZEPHIR_CALL_FUNCTION(&_30$$14, "get_resource_type", &_31, 70, &value);
 			zephir_check_call_status();
 			zephir_array_fast_append(&_28$$14, &_30$$14);
 			zephir_array_update_zval(&result, &key, &_28$$14, PH_COPY | PH_SEPARATE);
@@ -936,7 +936,7 @@ PHP_METHOD(Zim_Debug_FlattenException, getClassNameFromIncomplete) {
 
 	ZEPHIR_INIT_VAR(&myArray);
 	object_init_ex(&myArray, spl_ce_ArrayObject);
-	ZEPHIR_CALL_METHOD(NULL, &myArray, "__construct", NULL, 72, value);
+	ZEPHIR_CALL_METHOD(NULL, &myArray, "__construct", NULL, 71, value);
 	zephir_check_call_status();
 	zephir_array_fetch_string(&_0, &myArray, SL("__PHP_Incomplete_Class_Name"), PH_NOISY | PH_READONLY, "zim/debug/flattenexception.zep", 286 TSRMLS_CC);
 	RETURN_CTOR(&_0);

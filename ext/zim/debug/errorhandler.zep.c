@@ -101,7 +101,7 @@ PHP_METHOD(Zim_Debug_ErrorHandler, register) {
 	if (Z_TYPE_P(handler) == IS_NULL) {
 		ZEPHIR_INIT_NVAR(handler);
 		object_init_ex(handler, zim_debug_errorhandler_ce);
-		ZEPHIR_CALL_METHOD(NULL, handler, "__construct", NULL, 33);
+		ZEPHIR_CALL_METHOD(NULL, handler, "__construct", NULL, 32);
 		zephir_check_call_status();
 	}
 	ZEPHIR_INIT_VAR(&tmpArray333792ecce577a1de0b52951dff6478e);
@@ -110,10 +110,10 @@ PHP_METHOD(Zim_Debug_ErrorHandler, register) {
 	ZEPHIR_INIT_VAR(&_0);
 	ZVAL_STRING(&_0, "handleError");
 	zephir_array_fast_append(&tmpArray333792ecce577a1de0b52951dff6478e, &_0);
-	ZEPHIR_CALL_FUNCTION(&prev, "set_error_handler", &_1, 34, &tmpArray333792ecce577a1de0b52951dff6478e);
+	ZEPHIR_CALL_FUNCTION(&prev, "set_error_handler", &_1, 33, &tmpArray333792ecce577a1de0b52951dff6478e);
 	zephir_check_call_status();
 	if (Z_TYPE_P(&prev) == IS_NULL) {
-		ZEPHIR_CALL_FUNCTION(NULL, "restore_error_handler", NULL, 35);
+		ZEPHIR_CALL_FUNCTION(NULL, "restore_error_handler", NULL, 34);
 		zephir_check_call_status();
 		ZEPHIR_INIT_VAR(&tmpArray81691361fa84c744e100422140b616a2);
 		zephir_create_array(&tmpArray81691361fa84c744e100422140b616a2, 2, 0 TSRMLS_CC);
@@ -122,7 +122,7 @@ PHP_METHOD(Zim_Debug_ErrorHandler, register) {
 		ZVAL_STRING(&_2$$4, "handleError");
 		zephir_array_fast_append(&tmpArray81691361fa84c744e100422140b616a2, &_2$$4);
 		zephir_read_property(&_3$$4, handler, SL("thrownErrors"), PH_NOISY_CC | PH_READONLY);
-		ZEPHIR_CALL_FUNCTION(NULL, "set_error_handler", &_1, 34, &tmpArray81691361fa84c744e100422140b616a2, &_3$$4);
+		ZEPHIR_CALL_FUNCTION(NULL, "set_error_handler", &_1, 33, &tmpArray81691361fa84c744e100422140b616a2, &_3$$4);
 		zephir_check_call_status();
 	}
 	ZEPHIR_INIT_VAR(&tmpArrayd0d8b94be8374b419e6b740b5ad5bed2);
@@ -131,9 +131,9 @@ PHP_METHOD(Zim_Debug_ErrorHandler, register) {
 	ZEPHIR_INIT_NVAR(&_0);
 	ZVAL_STRING(&_0, "handleException");
 	zephir_array_fast_append(&tmpArrayd0d8b94be8374b419e6b740b5ad5bed2, &_0);
-	ZEPHIR_CALL_FUNCTION(&prev, "set_exception_handler", NULL, 36, &tmpArrayd0d8b94be8374b419e6b740b5ad5bed2);
+	ZEPHIR_CALL_FUNCTION(&prev, "set_exception_handler", NULL, 35, &tmpArrayd0d8b94be8374b419e6b740b5ad5bed2);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, handler, "setexceptionhandler", NULL, 37, &prev);
+	ZEPHIR_CALL_METHOD(NULL, handler, "setexceptionhandler", NULL, 36, &prev);
 	zephir_check_call_status();
 	RETVAL_ZVAL(handler, 1, 0);
 	RETURN_MM();
@@ -160,7 +160,7 @@ PHP_METHOD(Zim_Debug_ErrorHandler, __construct) {
 	ZVAL_STRING(&_1, "Exception");
 	ZEPHIR_INIT_VAR(&_2);
 	ZVAL_STRING(&_2, "trace");
-	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 38, &_1, &_2);
+	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 37, &_1, &_2);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("traceReflector"), &_0);
 	zephir_read_property(&_3, this_ptr, SL("traceReflector"), PH_NOISY_CC | PH_READONLY);
@@ -242,7 +242,7 @@ PHP_METHOD(Zim_Debug_ErrorHandler, handleError) {
 	line = zephir_get_intval(line_param);
 
 
-	ZEPHIR_CALL_FUNCTION(&level, "error_reporting", NULL, 39);
+	ZEPHIR_CALL_FUNCTION(&level, "error_reporting", NULL, 38);
 	zephir_check_call_status();
 	_0 = (((((int) (zephir_get_numberval(&level)) | 4096) | 256) | 8192) | 16384);
 	ZEPHIR_INIT_NVAR(&level);
@@ -260,10 +260,10 @@ PHP_METHOD(Zim_Debug_ErrorHandler, handleError) {
 	ZVAL_LONG(&_4, 0);
 	ZVAL_LONG(&_5, type);
 	ZVAL_LONG(&_6, line);
-	ZEPHIR_CALL_METHOD(NULL, &errorAsException, "__construct", NULL, 40, &msg, &_4, &_5, &file, &_6);
+	ZEPHIR_CALL_METHOD(NULL, &errorAsException, "__construct", NULL, 39, &msg, &_4, &_5, &file, &_6);
 	zephir_check_call_status();
 	zephir_read_property(&_4, this_ptr, SL("traceReflector"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_METHOD(&_7, &errorAsException, "gettrace", NULL, 41);
+	ZEPHIR_CALL_METHOD(&_7, &errorAsException, "gettrace", NULL, 40);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, &_4, "setvalue", NULL, 0, &errorAsException, &_7);
 	zephir_check_call_status();
@@ -311,7 +311,7 @@ PHP_METHOD(Zim_Debug_ErrorHandler, handleException) {
 	if (!(zephir_instance_of_ev(exception, zend_exception_get_default(TSRMLS_C) TSRMLS_CC))) {
 		ZEPHIR_INIT_NVAR(exception);
 		object_init_ex(exception, zim_debug_fatalerrorexception_ce);
-		ZEPHIR_CALL_METHOD(NULL, exception, "__construct", NULL, 42, exception);
+		ZEPHIR_CALL_METHOD(NULL, exception, "__construct", NULL, 41, exception);
 		zephir_check_call_status();
 	}
 	ZEPHIR_INIT_VAR(&handlerException);
@@ -323,7 +323,7 @@ PHP_METHOD(Zim_Debug_ErrorHandler, handleException) {
 	/* try_start_1: */
 
 		if (Z_TYPE_P(&exceptionHandler) != IS_NULL) {
-			ZEPHIR_RETURN_CALL_FUNCTION("\call_user_func", NULL, 43, &exceptionHandler, exception);
+			ZEPHIR_RETURN_CALL_FUNCTION("\call_user_func", NULL, 42, &exceptionHandler, exception);
 			zephir_check_call_status_or_jump(try_end_1);
 			RETURN_MM();
 		}
@@ -351,7 +351,7 @@ PHP_METHOD(Zim_Debug_ErrorHandler, handleException) {
 		ZEPHIR_MM_RESTORE();
 		return;
 	}
-	ZEPHIR_CALL_METHOD(NULL, this_ptr, "handleexception", NULL, 44, &handlerException);
+	ZEPHIR_CALL_METHOD(NULL, this_ptr, "handleexception", NULL, 43, &handlerException);
 	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();
 

@@ -290,7 +290,7 @@ PHP_METHOD(Zim_Routing_Route, setPath) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	ZVAL_STRING(&_0, "?<");
-	ZEPHIR_CALL_FUNCTION(&_1, "strpbrk", NULL, 105, &pattern, &_0);
+	ZEPHIR_CALL_FUNCTION(&_1, "strpbrk", NULL, 104, &pattern, &_0);
 	zephir_check_call_status();
 	if (!ZEPHIR_IS_FALSE_IDENTICAL(&_1)) {
 		ZEPHIR_INIT_VAR(&_2$$3);
@@ -301,7 +301,7 @@ PHP_METHOD(Zim_Routing_Route, setPath) {
 		zephir_array_fast_append(&_2$$3, &_3$$3);
 		ZEPHIR_INIT_NVAR(&_3$$3);
 		ZVAL_STRING(&_3$$3, "#\\{(\\w++)(<.*?>)?(\\?[^\\}]*+)?\\}#");
-		ZEPHIR_CALL_FUNCTION(&_4$$3, "preg_replace_callback", NULL, 68, &_3$$3, &_2$$3, &pattern);
+		ZEPHIR_CALL_FUNCTION(&_4$$3, "preg_replace_callback", NULL, 67, &_3$$3, &_2$$3, &pattern);
 		zephir_check_call_status();
 		zephir_get_strval(&pattern, &_4$$3);
 	}
@@ -425,7 +425,7 @@ PHP_METHOD(Zim_Routing_Route, setMethods) {
 	zephir_get_arrval(&_0, methods);
 	ZEPHIR_INIT_VAR(&_1);
 	ZVAL_STRING(&_1, "strtoupper");
-	ZEPHIR_CALL_FUNCTION(&_2, "array_map", NULL, 78, &_1, &_0);
+	ZEPHIR_CALL_FUNCTION(&_2, "array_map", NULL, 77, &_1, &_0);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("methods"), &_2);
 	zephir_update_property_zval(this_ptr, SL("compiled"), &__$null);
@@ -1049,9 +1049,9 @@ PHP_METHOD(Zim_Routing_Route, sanitizeRequirement) {
 		object_init_ex(&_0$$3, spl_ce_InvalidArgumentException);
 		ZEPHIR_INIT_VAR(&_1$$3);
 		ZVAL_STRING(&_1$$3, "Routing requirement for \"%s\" must be a string.");
-		ZEPHIR_CALL_FUNCTION(&_2$$3, "sprintf", &_3, 22, &_1$$3, key);
+		ZEPHIR_CALL_FUNCTION(&_2$$3, "sprintf", &_3, 21, &_1$$3, key);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_0$$3, "__construct", NULL, 28, &_2$$3);
+		ZEPHIR_CALL_METHOD(NULL, &_0$$3, "__construct", NULL, 27, &_2$$3);
 		zephir_check_call_status();
 		zephir_throw_exception_debug(&_0$$3, "zim/routing/route.zep", 430 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
@@ -1084,9 +1084,9 @@ PHP_METHOD(Zim_Routing_Route, sanitizeRequirement) {
 		object_init_ex(&_14$$6, spl_ce_InvalidArgumentException);
 		ZEPHIR_INIT_VAR(&_15$$6);
 		ZVAL_STRING(&_15$$6, "Routing requirement for \"%s\" cannot be empty.");
-		ZEPHIR_CALL_FUNCTION(&_16$$6, "sprintf", &_3, 22, &_15$$6, key);
+		ZEPHIR_CALL_FUNCTION(&_16$$6, "sprintf", &_3, 21, &_15$$6, key);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_14$$6, "__construct", NULL, 28, &_16$$6);
+		ZEPHIR_CALL_METHOD(NULL, &_14$$6, "__construct", NULL, 27, &_16$$6);
 		zephir_check_call_status();
 		zephir_throw_exception_debug(&_14$$6, "zim/routing/route.zep", 439 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
@@ -1139,7 +1139,7 @@ PHP_METHOD(Zim_Routing_Route, __callStatic) {
 		ZVAL_STRING(&_4$$3, "router");
 		ZEPHIR_CALL_CE_STATIC(&_2$$3, zim_zim_ce, "app", &_3, 0, &_4$$3);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_1$$3, "__construct", NULL, 106, &_2$$3);
+		ZEPHIR_CALL_METHOD(NULL, &_1$$3, "__construct", NULL, 105, &_2$$3);
 		zephir_check_call_status();
 		zend_update_static_property(zim_routing_route_ce, ZEND_STRL("registrar"), &_1$$3);
 	}

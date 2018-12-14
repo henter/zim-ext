@@ -12,9 +12,8 @@
 #include <Zend/zend_interfaces.h>
 
 #include "kernel/main.h"
-#include "kernel/memory.h"
-#include "Zend/zend_closures.h"
 #include "kernel/object.h"
+#include "kernel/memory.h"
 #include "kernel/fcall.h"
 #include "kernel/array.h"
 #include "kernel/operators.h"
@@ -30,37 +29,6 @@ ZEPHIR_INIT_CLASS(Zim_Support_Arr) {
 }
 
 /**
- * Return the default value of the given value.
- *
- * @param  mixed  $value
- * @return mixed
- */
-PHP_METHOD(Zim_Support_Arr, value) {
-
-	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *value, value_sub, _0;
-	zval *this_ptr = getThis();
-
-	ZVAL_UNDEF(&value_sub);
-	ZVAL_UNDEF(&_0);
-
-	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 1, 0, &value);
-
-
-
-	ZEPHIR_INIT_VAR(&_0);
-	if (zephir_instance_of_ev(value, zend_ce_closure TSRMLS_CC)) {
-		ZEPHIR_CALL_ZVAL_FUNCTION(&_0, value, NULL, 0);
-		zephir_check_call_status();
-	} else {
-		ZEPHIR_CPY_WRT(&_0, value);
-	}
-	RETURN_CCTOR(&_0);
-
-}
-
-/**
  * Determine whether the given value is array accessible.
  *
  * @param  mixed  $value
@@ -68,7 +36,7 @@ PHP_METHOD(Zim_Support_Arr, value) {
  */
 PHP_METHOD(Zim_Support_Arr, accessible) {
 
-	zend_bool _0;
+	zend_bool _0, _1;
 	zval *value, value_sub;
 	zval *this_ptr = getThis();
 
@@ -80,7 +48,11 @@ PHP_METHOD(Zim_Support_Arr, accessible) {
 
 	_0 = Z_TYPE_P(value) == IS_ARRAY;
 	if (!(_0)) {
-		_0 = zephir_is_instance_of(value, SL("ArrayAccess") TSRMLS_CC);
+		_1 = Z_TYPE_P(value) == IS_OBJECT;
+		if (_1) {
+			_1 = zephir_is_instance_of(value, SL("ArrayAccess") TSRMLS_CC);
+		}
+		_0 = _1;
 	}
 	RETURN_BOOL(_0);
 
@@ -95,6 +67,7 @@ PHP_METHOD(Zim_Support_Arr, accessible) {
  */
 PHP_METHOD(Zim_Support_Arr, exists) {
 
+	zend_bool _0;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
 	zval *myArray, myArray_sub, *key, key_sub;
 	zval *this_ptr = getThis();
@@ -107,7 +80,11 @@ PHP_METHOD(Zim_Support_Arr, exists) {
 
 
 
-	if (zephir_is_instance_of(myArray, SL("ArrayAccess") TSRMLS_CC)) {
+	_0 = Z_TYPE_P(myArray) == IS_OBJECT;
+	if (_0) {
+		_0 = zephir_is_instance_of(myArray, SL("ArrayAccess") TSRMLS_CC);
+	}
+	if (_0) {
 		ZEPHIR_RETURN_CALL_METHOD(myArray, "offsetexists", NULL, 0, key);
 		zephir_check_call_status();
 		RETURN_MM();
@@ -127,7 +104,7 @@ PHP_METHOD(Zim_Support_Arr, exists) {
 PHP_METHOD(Zim_Support_Arr, get) {
 
 	zend_bool _10$$7;
-	zephir_fcall_cache_entry *_9 = NULL, *_12 = NULL, *_14 = NULL;
+	zephir_fcall_cache_entry *_9 = NULL, *_12 = NULL;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
 	zval key;
 	zval *myArray = NULL, myArray_sub, *key_param = NULL, *deft = NULL, deft_sub, __$null, segment, _0, _1, _3, _4, _6, *_7, _2$$5, _5$$6, _8$$7, _11$$7, _13$$8;
@@ -163,8 +140,7 @@ PHP_METHOD(Zim_Support_Arr, get) {
 	ZEPHIR_CALL_STATIC(&_0, "accessible", NULL, 0, myArray);
 	zephir_check_call_status();
 	if (!(zephir_is_true(&_0))) {
-		ZEPHIR_RETURN_CALL_STATIC("value", NULL, 0, deft);
-		zephir_check_call_status();
+		RETVAL_ZVAL(deft, 1, 0);
 		RETURN_MM();
 	}
 	if (Z_TYPE_P(&key) == IS_NULL) {
@@ -174,7 +150,7 @@ PHP_METHOD(Zim_Support_Arr, get) {
 	ZEPHIR_CALL_STATIC(&_1, "exists", NULL, 0, myArray, &key);
 	zephir_check_call_status();
 	if (zephir_is_true(&_1)) {
-		zephir_array_fetch(&_2$$5, myArray, &key, PH_NOISY | PH_READONLY, "zim/support/arr.zep", 63 TSRMLS_CC);
+		zephir_array_fetch(&_2$$5, myArray, &key, PH_NOISY | PH_READONLY, "zim/support/arr.zep", 52 TSRMLS_CC);
 		RETURN_CTOR(&_2$$5);
 	}
 	ZEPHIR_INIT_VAR(&_3);
@@ -184,16 +160,15 @@ PHP_METHOD(Zim_Support_Arr, get) {
 	if (ZEPHIR_IS_FALSE_IDENTICAL(&_4)) {
 		ZEPHIR_INIT_VAR(&_5$$6);
 		if (zephir_array_isset(myArray, &key)) {
-			zephir_array_fetch(&_5$$6, myArray, &key, PH_NOISY, "zim/support/arr.zep", 66 TSRMLS_CC);
+			zephir_array_fetch(&_5$$6, myArray, &key, PH_NOISY, "zim/support/arr.zep", 55 TSRMLS_CC);
 		} else {
-			ZEPHIR_CALL_STATIC(&_5$$6, "value", NULL, 0, deft);
-			zephir_check_call_status();
+			ZEPHIR_CPY_WRT(&_5$$6, deft);
 		}
 		RETURN_CCTOR(&_5$$6);
 	}
 	ZEPHIR_INIT_VAR(&_6);
 	zephir_fast_explode_str(&_6, SL("."), &key, LONG_MAX TSRMLS_CC);
-	zephir_is_iterable(&_6, 0, "zim/support/arr.zep", 75);
+	zephir_is_iterable(&_6, 0, "zim/support/arr.zep", 64);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_6), _7)
 	{
 		ZEPHIR_INIT_NVAR(&segment);
@@ -207,11 +182,10 @@ PHP_METHOD(Zim_Support_Arr, get) {
 			_10$$7 = zephir_is_true(&_11$$7);
 		}
 		if (_10$$7) {
-			zephir_array_fetch(&_13$$8, myArray, &segment, PH_NOISY | PH_READONLY, "zim/support/arr.zep", 70 TSRMLS_CC);
+			zephir_array_fetch(&_13$$8, myArray, &segment, PH_NOISY | PH_READONLY, "zim/support/arr.zep", 59 TSRMLS_CC);
 			ZEPHIR_CPY_WRT(myArray, &_13$$8);
 		} else {
-			ZEPHIR_RETURN_CALL_STATIC("value", &_14, 0, deft);
-			zephir_check_call_status();
+			RETVAL_ZVAL(deft, 1, 0);
 			RETURN_MM();
 		}
 	} ZEND_HASH_FOREACH_END();
@@ -269,7 +243,7 @@ PHP_METHOD(Zim_Support_Arr, has) {
 	if (ZEPHIR_IS_IDENTICAL(keys, &tmpArray40cd750bba9870f18aada2478b24840a)) {
 		RETURN_MM_BOOL(0);
 	}
-	zephir_is_iterable(keys, 0, "zim/support/arr.zep", 113);
+	zephir_is_iterable(keys, 0, "zim/support/arr.zep", 102);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(keys), _1)
 	{
 		ZEPHIR_INIT_NVAR(&key);
@@ -282,7 +256,7 @@ PHP_METHOD(Zim_Support_Arr, has) {
 		}
 		ZEPHIR_INIT_NVAR(&_4$$6);
 		zephir_fast_explode_str(&_4$$6, SL("."), &key, LONG_MAX TSRMLS_CC);
-		zephir_is_iterable(&_4$$6, 0, "zim/support/arr.zep", 112);
+		zephir_is_iterable(&_4$$6, 0, "zim/support/arr.zep", 101);
 		ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_4$$6), _5$$6)
 		{
 			ZEPHIR_INIT_NVAR(&segment);
@@ -296,7 +270,7 @@ PHP_METHOD(Zim_Support_Arr, has) {
 				_8$$8 = zephir_is_true(&_9$$8);
 			}
 			if (_8$$8) {
-				zephir_array_fetch(&_10$$9, &subKeyArray, &segment, PH_NOISY | PH_READONLY, "zim/support/arr.zep", 107 TSRMLS_CC);
+				zephir_array_fetch(&_10$$9, &subKeyArray, &segment, PH_NOISY | PH_READONLY, "zim/support/arr.zep", 96 TSRMLS_CC);
 				ZEPHIR_CPY_WRT(&subKeyArray, &_10$$9);
 			} else {
 				RETURN_MM_BOOL(0);
@@ -345,7 +319,7 @@ PHP_METHOD(Zim_Support_Arr, set) {
 	}
 	ZEPHIR_CALL_STATIC(&ret, "_parseinistring", NULL, 0, &key, value);
 	zephir_check_call_status();
-	ZEPHIR_RETURN_CALL_FUNCTION("array_merge_recursive", NULL, 119, &myArray, &ret);
+	ZEPHIR_RETURN_CALL_FUNCTION("array_merge_recursive", NULL, 118, &myArray, &ret);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -423,7 +397,7 @@ PHP_METHOD(Zim_Support_Arr, _cast) {
 
 
 	if (Z_TYPE_P(ini) == IS_ARRAY) {
-		zephir_is_iterable(ini, 1, "zim/support/arr.zep", 160);
+		zephir_is_iterable(ini, 1, "zim/support/arr.zep", 149);
 		ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(ini), _1$$3, _2$$3, _0$$3)
 		{
 			ZEPHIR_INIT_NVAR(&key);

@@ -5,17 +5,6 @@ use ArrayAccess;
 class Arr
 {
     /**
-     * Return the default value of the given value.
-     *
-     * @param  mixed  $value
-     * @return mixed
-     */
-    public static function value(value)
-    {
-        return value instanceof \Closure ? {value}()  : value;
-    }
-
-    /**
      * Determine whether the given value is array accessible.
      *
      * @param  mixed  $value
@@ -23,7 +12,7 @@ class Arr
      */
     public static function accessible(value) -> bool
     {
-        return is_array(value) || value instanceof ArrayAccess;
+        return is_array(value) || (typeof value == "object" && value instanceof ArrayAccess);
     }
     
     /**
@@ -35,7 +24,7 @@ class Arr
      */
     public static function exists(myArray, key) -> bool
     {
-        if myArray instanceof ArrayAccess {
+        if typeof myArray == "object" && myArray instanceof ArrayAccess {
             return myArray->offsetExists(key);
         }
         return array_key_exists(key, myArray);
@@ -54,7 +43,7 @@ class Arr
         var segment;
     
         if !(static::accessible(myArray)) {
-            return static::value(deft);
+            return deft;
         }
         if is_null(key) {
             return myArray;
@@ -63,13 +52,13 @@ class Arr
             return myArray[key];
         }
         if strpos(key, ".") === false {
-            return  isset myArray[key] ? myArray[key]  : static::value(deft);
+            return  isset myArray[key] ? myArray[key]  : deft;
         }
         for segment in explode(".", key) {
             if static::accessible(myArray) && static::exists(myArray, segment) {
                 let myArray = myArray[segment];
             } else {
-                return static::value(deft);
+                return deft;
             }
         }
         return myArray;

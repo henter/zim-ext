@@ -77,7 +77,7 @@ PHP_METHOD(Zim_Http_Exception_MethodNotAllowedException, __construct) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	ZVAL_STRING(&_0, "strtoupper");
-	ZEPHIR_CALL_FUNCTION(&_1, "array_map", NULL, 78, &_0, &allowedMethods);
+	ZEPHIR_CALL_FUNCTION(&_1, "array_map", NULL, 77, &_0, &allowedMethods);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("allowedMethods"), &_1);
 	ZEPHIR_INIT_NVAR(&_0);

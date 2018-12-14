@@ -56,11 +56,11 @@ PHP_METHOD(Zim_Debug_FlattenExceptionsetMessageClosureZero, __invoke) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	zephir_array_fetch_long(&_1, m, 0, PH_NOISY | PH_READONLY, "zim/debug/flattenexceptionsetmessageclosurezero.zep", 13 TSRMLS_CC);
-	ZEPHIR_CALL_FUNCTION(&_2, "\class_exists", NULL, 73, &_1, &__$false);
+	ZEPHIR_CALL_FUNCTION(&_2, "\class_exists", NULL, 72, &_1, &__$false);
 	zephir_check_call_status();
 	if (zephir_is_true(&_2)) {
 		zephir_array_fetch_long(&_3, m, 0, PH_NOISY | PH_READONLY, "zim/debug/flattenexceptionsetmessageclosurezero.zep", 13 TSRMLS_CC);
-		ZEPHIR_CALL_FUNCTION(&_4, "get_parent_class", NULL, 67, &_3);
+		ZEPHIR_CALL_FUNCTION(&_4, "get_parent_class", NULL, 66, &_3);
 		zephir_check_call_status();
 		ZEPHIR_CONCAT_VS(&_0, &_4, "@anonymous");
 	} else {

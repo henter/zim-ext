@@ -347,19 +347,19 @@ PHP_METHOD(Zim_Container_Container, isAlias) {
  */
 PHP_METHOD(Zim_Container_Container, bind) {
 
+	zval _2;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zend_bool shared;
-	zval *abstractt_param = NULL, *concrete = NULL, concrete_sub, *shared_param = NULL, __$null, _0$$4, _1, _2, _3;
+	zend_bool shared, _0;
+	zval *abstractt_param = NULL, *concrete = NULL, concrete_sub, *shared_param = NULL, __$null, _3, _1$$4;
 	zval abstractt;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&abstractt);
 	ZVAL_UNDEF(&concrete_sub);
 	ZVAL_NULL(&__$null);
-	ZVAL_UNDEF(&_0$$4);
-	ZVAL_UNDEF(&_1);
-	ZVAL_UNDEF(&_2);
 	ZVAL_UNDEF(&_3);
+	ZVAL_UNDEF(&_1$$4);
+	ZVAL_UNDEF(&_2);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 2, &abstractt_param, &concrete, &shared_param);
@@ -383,18 +383,22 @@ PHP_METHOD(Zim_Container_Container, bind) {
 	if (Z_TYPE_P(concrete) == IS_NULL) {
 		ZEPHIR_CPY_WRT(concrete, &abstractt);
 	}
-	if (!(zephir_instance_of_ev(concrete, zend_ce_closure TSRMLS_CC))) {
-		ZEPHIR_CALL_METHOD(&_0$$4, this_ptr, "getclosure", NULL, 0, &abstractt, concrete);
-		zephir_check_call_status();
-		ZEPHIR_CPY_WRT(concrete, &_0$$4);
+	_0 = Z_TYPE_P(concrete) == IS_OBJECT;
+	if (_0) {
+		_0 = zephir_instance_of_ev(concrete, zend_ce_closure TSRMLS_CC);
 	}
-	ZEPHIR_INIT_VAR(&_1);
-	ZVAL_STRING(&_1, "concrete");
+	if (!(_0)) {
+		ZEPHIR_CALL_METHOD(&_1$$4, this_ptr, "getclosure", NULL, 0, &abstractt, concrete);
+		zephir_check_call_status();
+		ZEPHIR_CPY_WRT(concrete, &_1$$4);
+	}
 	ZEPHIR_INIT_VAR(&_2);
-	ZVAL_STRING(&_2, "shared");
-	ZEPHIR_CALL_FUNCTION(&_3, "compact", NULL, 2, &_1, &_2);
-	zephir_check_call_status();
-	zephir_update_property_array(this_ptr, SL("bindings"), &abstractt, &_3 TSRMLS_CC);
+	zephir_create_array(&_2, 2, 0 TSRMLS_CC);
+	zephir_array_update_string(&_2, SL("concrete"), concrete, PH_COPY | PH_SEPARATE);
+	ZEPHIR_INIT_VAR(&_3);
+	ZVAL_BOOL(&_3, shared);
+	zephir_array_update_string(&_2, SL("shared"), &_3, PH_COPY | PH_SEPARATE);
+	zephir_update_property_array(this_ptr, SL("bindings"), &abstractt, &_2 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 
 }
@@ -424,7 +428,7 @@ PHP_METHOD(Zim_Container_Container, getClosure) {
 
 
 	object_init_ex(return_value, zim_container_containergetclosureclosurezero_ce);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 3, &abstractt, &concrete);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 2, &abstractt, &concrete);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -506,8 +510,8 @@ PHP_METHOD(Zim_Container_Container, parseBindMethod) {
 
 
 	if (Z_TYPE_P(method) == IS_ARRAY) {
-		zephir_array_fetch_long(&_0$$3, method, 0, PH_NOISY | PH_READONLY, "zim/container/container.zep", 225 TSRMLS_CC);
-		zephir_array_fetch_long(&_1$$3, method, 1, PH_NOISY | PH_READONLY, "zim/container/container.zep", 225 TSRMLS_CC);
+		zephir_array_fetch_long(&_0$$3, method, 0, PH_NOISY | PH_READONLY, "zim/container/container.zep", 228 TSRMLS_CC);
+		zephir_array_fetch_long(&_1$$3, method, 1, PH_NOISY | PH_READONLY, "zim/container/container.zep", 228 TSRMLS_CC);
 		ZEPHIR_CONCAT_VSV(return_value, &_0$$3, "@", &_1$$3);
 		return;
 	}
@@ -542,8 +546,8 @@ PHP_METHOD(Zim_Container_Container, callMethodBinding) {
 
 
 	zephir_read_property(&_0, this_ptr, SL("methodBindings"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch(&_1, &_0, &method, PH_NOISY | PH_READONLY, "zim/container/container.zep", 239 TSRMLS_CC);
-	ZEPHIR_RETURN_CALL_FUNCTION("call_user_func", NULL, 4, &_1, instance, this_ptr);
+	zephir_array_fetch(&_1, &_0, &method, PH_NOISY | PH_READONLY, "zim/container/container.zep", 242 TSRMLS_CC);
+	ZEPHIR_RETURN_CALL_FUNCTION("call_user_func", NULL, 3, &_1, instance, this_ptr);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -656,7 +660,7 @@ PHP_METHOD(Zim_Container_Container, extend) {
 	zephir_read_property(&_1, this_ptr, SL("instances"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_1, &abstractt)) {
 		zephir_read_property(&_2$$3, this_ptr, SL("instances"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_3$$3, &_2$$3, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 286 TSRMLS_CC);
+		zephir_array_fetch(&_3$$3, &_2$$3, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 289 TSRMLS_CC);
 		ZEPHIR_CALL_ZVAL_FUNCTION(&_4$$3, closure, NULL, 0, &_3$$3, this_ptr);
 		zephir_check_call_status();
 		zephir_update_property_array(this_ptr, SL("instances"), &abstractt, &_4$$3 TSRMLS_CC);
@@ -736,7 +740,7 @@ PHP_METHOD(Zim_Container_Container, removeAbstractAlias) {
 		RETURN_MM_NULL();
 	}
 	zephir_read_property(&_1, this_ptr, SL("abstractAliases"), PH_NOISY_CC | PH_READONLY);
-	zephir_is_iterable(&_1, 0, "zim/container/container.zep", 329);
+	zephir_is_iterable(&_1, 0, "zim/container/container.zep", 332);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_1), _3, _4, _2)
 	{
 		ZEPHIR_INIT_NVAR(&abstractt);
@@ -747,7 +751,7 @@ PHP_METHOD(Zim_Container_Container, removeAbstractAlias) {
 		}
 		ZEPHIR_INIT_NVAR(&aliases);
 		ZVAL_COPY(&aliases, _2);
-		zephir_is_iterable(&aliases, 0, "zim/container/container.zep", 328);
+		zephir_is_iterable(&aliases, 0, "zim/container/container.zep", 331);
 		ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&aliases), _6$$4, _7$$4, _5$$4)
 		{
 			ZEPHIR_INIT_NVAR(&index);
@@ -760,7 +764,7 @@ PHP_METHOD(Zim_Container_Container, removeAbstractAlias) {
 			ZVAL_COPY(&alias, _5$$4);
 			if (ZEPHIR_IS_EQUAL(&alias, &searched)) {
 				zephir_read_property(&_8$$6, this_ptr, SL("abstractAliases"), PH_NOISY_CC | PH_READONLY);
-				zephir_array_fetch(&_9$$6, &_8$$6, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 324 TSRMLS_CC);
+				zephir_array_fetch(&_9$$6, &_8$$6, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 327 TSRMLS_CC);
 				zephir_array_unset(&_9$$6, &index, PH_SEPARATE);
 			}
 		} ZEND_HASH_FOREACH_END();
@@ -919,15 +923,15 @@ PHP_METHOD(Zim_Container_Container, get) {
 			ZEPHIR_CALL_METHOD(&_1$$4, this_ptr, "has", NULL, 0, id);
 			zephir_check_call_status();
 			if (zephir_is_true(&_1$$4)) {
-				zephir_throw_exception_debug(&e, "zim/container/container.zep", 380 TSRMLS_CC);
+				zephir_throw_exception_debug(&e, "zim/container/container.zep", 383 TSRMLS_CC);
 				ZEPHIR_MM_RESTORE();
 				return;
 			}
 			ZEPHIR_INIT_VAR(&_2$$4);
 			object_init_ex(&_2$$4, zim_container_entrynotfoundexception_ce);
-			ZEPHIR_CALL_METHOD(NULL, &_2$$4, "__construct", NULL, 5);
+			ZEPHIR_CALL_METHOD(NULL, &_2$$4, "__construct", NULL, 4);
 			zephir_check_call_status();
-			zephir_throw_exception_debug(&_2$$4, "zim/container/container.zep", 382 TSRMLS_CC);
+			zephir_throw_exception_debug(&_2$$4, "zim/container/container.zep", 385 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
 			return;
 		}
@@ -997,7 +1001,7 @@ PHP_METHOD(Zim_Container_Container, resolve) {
 	}
 	if (_4) {
 		zephir_read_property(&_5$$3, this_ptr, SL("instances"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_6$$3, &_5$$3, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 403 TSRMLS_CC);
+		zephir_array_fetch(&_6$$3, &_5$$3, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 406 TSRMLS_CC);
 		RETURN_CTOR(&_6$$3);
 	}
 	zephir_update_property_array_append(this_ptr, SL("with"), &parameters TSRMLS_CC);
@@ -1014,7 +1018,7 @@ PHP_METHOD(Zim_Container_Container, resolve) {
 	}
 	ZEPHIR_CALL_METHOD(&_8, this_ptr, "getextenders", NULL, 0, &abstractt);
 	zephir_check_call_status();
-	zephir_is_iterable(&_8, 0, "zim/container/container.zep", 424);
+	zephir_is_iterable(&_8, 0, "zim/container/container.zep", 427);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_8), _9)
 	{
 		ZEPHIR_INIT_NVAR(&extender);
@@ -1036,7 +1040,7 @@ PHP_METHOD(Zim_Container_Container, resolve) {
 	zephir_update_property_array(this_ptr, SL("resolved"), &abstractt, &__$true TSRMLS_CC);
 	zephir_read_property(&_13, this_ptr, SL("with"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_MAKE_REF(&_13);
-	ZEPHIR_CALL_FUNCTION(NULL, "array_pop", NULL, 6, &_13);
+	ZEPHIR_CALL_FUNCTION(NULL, "array_pop", NULL, 5, &_13);
 	ZEPHIR_UNREF(&_13);
 	zephir_check_call_status();
 	RETURN_CCTOR(&obj);
@@ -1077,8 +1081,8 @@ PHP_METHOD(Zim_Container_Container, getConcrete) {
 	zephir_read_property(&_0, this_ptr, SL("bindings"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_0, &abstractt)) {
 		zephir_read_property(&_1$$4, this_ptr, SL("bindings"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_2$$4, &_1$$4, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 453 TSRMLS_CC);
-		zephir_array_fetch_string(&_3$$4, &_2$$4, SL("concrete"), PH_NOISY | PH_READONLY, "zim/container/container.zep", 453 TSRMLS_CC);
+		zephir_array_fetch(&_2$$4, &_1$$4, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 456 TSRMLS_CC);
+		zephir_array_fetch_string(&_3$$4, &_2$$4, SL("concrete"), PH_NOISY | PH_READONLY, "zim/container/container.zep", 456 TSRMLS_CC);
 		RETURN_CTOR(&_3$$4);
 	}
 	RETURN_CTOR(&abstractt);
@@ -1095,7 +1099,7 @@ PHP_METHOD(Zim_Container_Container, getContextualConcrete) {
 
 	zephir_fcall_cache_entry *_0 = NULL;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *abstractt_param = NULL, binding, alias, _1, _2, _3, _4, *_5;
+	zval *abstractt_param = NULL, binding, alias, _1, _2, _3, *_4;
 	zval abstractt;
 	zval *this_ptr = getThis();
 
@@ -1105,7 +1109,6 @@ PHP_METHOD(Zim_Container_Container, getContextualConcrete) {
 	ZVAL_UNDEF(&_1);
 	ZVAL_UNDEF(&_2);
 	ZVAL_UNDEF(&_3);
-	ZVAL_UNDEF(&_4);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 0, &abstractt_param);
@@ -1119,18 +1122,16 @@ PHP_METHOD(Zim_Container_Container, getContextualConcrete) {
 		RETURN_CCTOR(&binding);
 	}
 	zephir_read_property(&_1, this_ptr, SL("abstractAliases"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_OBS_VAR(&_2);
-	zephir_array_fetch(&_2, &_1, &abstractt, PH_NOISY, "zim/container/container.zep", 475 TSRMLS_CC);
-	if (ZEPHIR_IS_EMPTY(&_2)) {
+	if (!(zephir_array_isset(&_1, &abstractt))) {
 		RETURN_MM_NULL();
 	}
-	zephir_read_property(&_3, this_ptr, SL("abstractAliases"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch(&_4, &_3, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 478 TSRMLS_CC);
-	zephir_is_iterable(&_4, 0, "zim/container/container.zep", 484);
-	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_4), _5)
+	zephir_read_property(&_2, this_ptr, SL("abstractAliases"), PH_NOISY_CC | PH_READONLY);
+	zephir_array_fetch(&_3, &_2, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 482 TSRMLS_CC);
+	zephir_is_iterable(&_3, 0, "zim/container/container.zep", 488);
+	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_3), _4)
 	{
 		ZEPHIR_INIT_NVAR(&alias);
-		ZVAL_COPY(&alias, _5);
+		ZVAL_COPY(&alias, _4);
 		ZEPHIR_CALL_METHOD(&binding, this_ptr, "findincontextualbindings", &_0, 0, &alias);
 		zephir_check_call_status();
 		if (!(Z_TYPE_P(&binding) == IS_NULL)) {
@@ -1177,13 +1178,13 @@ PHP_METHOD(Zim_Container_Container, findInContextualBindings) {
 	}
 	zephir_read_property(&_1, this_ptr, SL("buildStack"), PH_NOISY_CC | PH_READONLY);
 	zephir_read_property(&_2, this_ptr, SL("buildStack"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch_long(&end, &_1, (zephir_fast_count_int(&_2 TSRMLS_CC) - 1), PH_NOISY | PH_READONLY, "zim/container/container.zep", 499 TSRMLS_CC);
+	zephir_array_fetch_long(&end, &_1, (zephir_fast_count_int(&_2 TSRMLS_CC) - 1), PH_NOISY | PH_READONLY, "zim/container/container.zep", 503 TSRMLS_CC);
 	zephir_read_property(&_3, this_ptr, SL("contextual"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch(&_4, &_3, &end, PH_READONLY, "zim/container/container.zep", 500 TSRMLS_CC);
+	zephir_array_fetch(&_4, &_3, &end, PH_READONLY, "zim/container/container.zep", 504 TSRMLS_CC);
 	if (zephir_array_isset(&_4, &abstractt)) {
 		zephir_read_property(&_5$$4, this_ptr, SL("contextual"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_6$$4, &_5$$4, &end, PH_NOISY | PH_READONLY, "zim/container/container.zep", 501 TSRMLS_CC);
-		zephir_array_fetch(&_7$$4, &_6$$4, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 501 TSRMLS_CC);
+		zephir_array_fetch(&_6$$4, &_5$$4, &end, PH_NOISY | PH_READONLY, "zim/container/container.zep", 505 TSRMLS_CC);
+		zephir_array_fetch(&_7$$4, &_6$$4, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 505 TSRMLS_CC);
 		RETURN_CTOR(&_7$$4);
 	}
 	ZEPHIR_MM_RESTORE();
@@ -1199,7 +1200,7 @@ PHP_METHOD(Zim_Container_Container, findInContextualBindings) {
  */
 PHP_METHOD(Zim_Container_Container, isBuildable) {
 
-	zend_bool _0;
+	zend_bool _0, _1;
 	zval abstractt;
 	zval *concrete, concrete_sub, *abstractt_param = NULL;
 	zval *this_ptr = getThis();
@@ -1215,7 +1216,11 @@ PHP_METHOD(Zim_Container_Container, isBuildable) {
 
 	_0 = ZEPHIR_IS_IDENTICAL(concrete, &abstractt);
 	if (!(_0)) {
-		_0 = zephir_instance_of_ev(concrete, zend_ce_closure TSRMLS_CC);
+		_1 = Z_TYPE_P(concrete) == IS_OBJECT;
+		if (_1) {
+			_1 = zephir_instance_of_ev(concrete, zend_ce_closure TSRMLS_CC);
+		}
+		_0 = _1;
 	}
 	RETURN_MM_BOOL(_0);
 
@@ -1275,9 +1280,9 @@ PHP_METHOD(Zim_Container_Container, build) {
 	}
 	ZEPHIR_INIT_VAR(&reflector);
 	object_init_ex(&reflector, zephir_get_internal_ce(SL("reflectionclass")));
-	ZEPHIR_CALL_METHOD(NULL, &reflector, "__construct", NULL, 7, &concrete);
+	ZEPHIR_CALL_METHOD(NULL, &reflector, "__construct", NULL, 6, &concrete);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(&_3, &reflector, "isinstantiable", NULL, 8);
+	ZEPHIR_CALL_METHOD(&_3, &reflector, "isinstantiable", NULL, 7);
 	zephir_check_call_status();
 	if (!(zephir_is_true(&_3))) {
 		ZEPHIR_RETURN_CALL_METHOD(this_ptr, "notinstantiable", NULL, 0, &concrete);
@@ -1285,12 +1290,12 @@ PHP_METHOD(Zim_Container_Container, build) {
 		RETURN_MM();
 	}
 	zephir_update_property_array_append(this_ptr, SL("buildStack"), &concrete TSRMLS_CC);
-	ZEPHIR_CALL_METHOD(&constructor, &reflector, "getconstructor", NULL, 9);
+	ZEPHIR_CALL_METHOD(&constructor, &reflector, "getconstructor", NULL, 8);
 	zephir_check_call_status();
 	if (Z_TYPE_P(&constructor) == IS_NULL) {
 		zephir_read_property(&_4$$5, this_ptr, SL("buildStack"), PH_NOISY_CC | PH_READONLY);
 		ZEPHIR_MAKE_REF(&_4$$5);
-		ZEPHIR_CALL_FUNCTION(NULL, "array_pop", &_5, 6, &_4$$5);
+		ZEPHIR_CALL_FUNCTION(NULL, "array_pop", &_5, 5, &_4$$5);
 		ZEPHIR_UNREF(&_4$$5);
 		zephir_check_call_status();
 		zephir_fetch_safe_class(&_6$$5, &concrete);
@@ -1308,10 +1313,10 @@ PHP_METHOD(Zim_Container_Container, build) {
 	zephir_check_call_status();
 	zephir_read_property(&_8, this_ptr, SL("buildStack"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_MAKE_REF(&_8);
-	ZEPHIR_CALL_FUNCTION(NULL, "array_pop", &_5, 6, &_8);
+	ZEPHIR_CALL_FUNCTION(NULL, "array_pop", &_5, 5, &_8);
 	ZEPHIR_UNREF(&_8);
 	zephir_check_call_status();
-	ZEPHIR_RETURN_CALL_METHOD(&reflector, "newinstanceargs", NULL, 10, &instances);
+	ZEPHIR_RETURN_CALL_METHOD(&reflector, "newinstanceargs", NULL, 9, &instances);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -1347,7 +1352,7 @@ PHP_METHOD(Zim_Container_Container, resolveDependencies) {
 
 	ZEPHIR_INIT_VAR(&results);
 	array_init(&results);
-	zephir_is_iterable(&dependencies, 0, "zim/container/container.zep", 586);
+	zephir_is_iterable(&dependencies, 0, "zim/container/container.zep", 590);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&dependencies), _0)
 	{
 		ZEPHIR_INIT_NVAR(&dependency);
@@ -1357,7 +1362,7 @@ PHP_METHOD(Zim_Container_Container, resolveDependencies) {
 		if (zephir_is_true(&_1$$3)) {
 			ZEPHIR_CALL_METHOD(&_3$$4, this_ptr, "getparameteroverride", &_4, 0, &dependency);
 			zephir_check_call_status();
-			zephir_array_append(&results, &_3$$4, PH_SEPARATE, "zim/container/container.zep", 578);
+			zephir_array_append(&results, &_3$$4, PH_SEPARATE, "zim/container/container.zep", 582);
 			continue;
 		}
 		ZEPHIR_INIT_LNVAR(_5$$3);
@@ -1370,7 +1375,7 @@ PHP_METHOD(Zim_Container_Container, resolveDependencies) {
 			ZEPHIR_CALL_METHOD(&_5$$3, this_ptr, "resolveclass", &_8, 0, &dependency);
 			zephir_check_call_status();
 		}
-		zephir_array_append(&results, &_5$$3, PH_SEPARATE, "zim/container/container.zep", 584);
+		zephir_array_append(&results, &_5$$3, PH_SEPARATE, "zim/container/container.zep", 588);
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&dependency);
 	RETURN_CCTOR(&results);
@@ -1431,7 +1436,7 @@ PHP_METHOD(Zim_Container_Container, getParameterOverride) {
 	zephir_check_call_status();
 	ZEPHIR_OBS_VAR(&_2);
 	zephir_read_property(&_2, dependency, SL("name"), PH_NOISY_CC);
-	zephir_array_fetch(&_1, &_0, &_2, PH_NOISY | PH_READONLY, "zim/container/container.zep", 608 TSRMLS_CC);
+	zephir_array_fetch(&_1, &_0, &_2, PH_NOISY | PH_READONLY, "zim/container/container.zep", 612 TSRMLS_CC);
 	RETURN_CTOR(&_1);
 
 }
@@ -1458,7 +1463,7 @@ PHP_METHOD(Zim_Container_Container, getLastParameterOverride) {
 	if (zephir_fast_count_int(&_1 TSRMLS_CC)) {
 		zephir_read_property(&_2, this_ptr, SL("with"), PH_NOISY_CC | PH_READONLY);
 		ZEPHIR_MAKE_REF(&_2);
-		ZEPHIR_CALL_FUNCTION(&_0, "end", NULL, 11, &_2);
+		ZEPHIR_CALL_FUNCTION(&_0, "end", NULL, 10, &_2);
 		ZEPHIR_UNREF(&_2);
 		zephir_check_call_status();
 	} else {
@@ -1478,15 +1483,16 @@ PHP_METHOD(Zim_Container_Container, getLastParameterOverride) {
  */
 PHP_METHOD(Zim_Container_Container, resolvePrimitive) {
 
+	zend_bool _3$$3;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *parameter, parameter_sub, concrete, _0, _1, _3, _2$$3;
+	zval *parameter, parameter_sub, concrete, _0, _1, _4, _2$$3;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&parameter_sub);
 	ZVAL_UNDEF(&concrete);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
-	ZVAL_UNDEF(&_3);
+	ZVAL_UNDEF(&_4);
 	ZVAL_UNDEF(&_2$$3);
 
 	ZEPHIR_MM_GROW();
@@ -1501,7 +1507,11 @@ PHP_METHOD(Zim_Container_Container, resolvePrimitive) {
 	zephir_check_call_status();
 	if (!(Z_TYPE_P(&concrete) == IS_NULL)) {
 		ZEPHIR_INIT_VAR(&_2$$3);
-		if (zephir_instance_of_ev(&concrete, zend_ce_closure TSRMLS_CC)) {
+		_3$$3 = Z_TYPE_P(&concrete) == IS_OBJECT;
+		if (_3$$3) {
+			_3$$3 = zephir_instance_of_ev(&concrete, zend_ce_closure TSRMLS_CC);
+		}
+		if (_3$$3) {
 			ZEPHIR_CALL_ZVAL_FUNCTION(&_2$$3, &concrete, NULL, 0, this_ptr);
 			zephir_check_call_status();
 		} else {
@@ -1509,9 +1519,9 @@ PHP_METHOD(Zim_Container_Container, resolvePrimitive) {
 		}
 		RETURN_CCTOR(&_2$$3);
 	}
-	ZEPHIR_CALL_METHOD(&_3, parameter, "isdefaultvalueavailable", NULL, 0);
+	ZEPHIR_CALL_METHOD(&_4, parameter, "isdefaultvalueavailable", NULL, 0);
 	zephir_check_call_status();
-	if (zephir_is_true(&_3)) {
+	if (zephir_is_true(&_4)) {
 		ZEPHIR_RETURN_CALL_METHOD(parameter, "getdefaultvalue", NULL, 0);
 		zephir_check_call_status();
 		RETURN_MM();
@@ -1574,7 +1584,7 @@ PHP_METHOD(Zim_Container_Container, resolveClass) {
 				zephir_check_call_status();
 				RETURN_MM();
 			}
-			zephir_throw_exception_debug(&e, "zim/container/container.zep", 661 TSRMLS_CC);
+			zephir_throw_exception_debug(&e, "zim/container/container.zep", 665 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
 			return;
 		}
@@ -1623,9 +1633,9 @@ PHP_METHOD(Zim_Container_Container, notInstantiable) {
 	}
 	ZEPHIR_INIT_VAR(&_2);
 	object_init_ex(&_2, zim_container_bindingresolutionexception_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_2, "__construct", NULL, 5, &message);
+	ZEPHIR_CALL_METHOD(NULL, &_2, "__construct", NULL, 4, &message);
 	zephir_check_call_status();
-	zephir_throw_exception_debug(&_2, "zim/container/container.zep", 683 TSRMLS_CC);
+	zephir_throw_exception_debug(&_2, "zim/container/container.zep", 687 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 	return;
 
@@ -1658,9 +1668,9 @@ PHP_METHOD(Zim_Container_Container, unresolvablePrimitive) {
 	ZVAL_STRING(&message, "Unresolvable dependency resolving [{parameter}] in class {parameter->getDeclaringClass()->getName()}");
 	ZEPHIR_INIT_VAR(&_0);
 	object_init_ex(&_0, zim_container_bindingresolutionexception_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 5, &message);
+	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 4, &message);
 	zephir_check_call_status();
-	zephir_throw_exception_debug(&_0, "zim/container/container.zep", 699 TSRMLS_CC);
+	zephir_throw_exception_debug(&_0, "zim/container/container.zep", 703 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 	return;
 
@@ -1713,14 +1723,14 @@ PHP_METHOD(Zim_Container_Container, getAlias) {
 		RETURN_CTOR(&abstractt);
 	}
 	zephir_read_property(&_1, this_ptr, SL("aliases"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch(&_2, &_1, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 725 TSRMLS_CC);
+	zephir_array_fetch(&_2, &_1, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 729 TSRMLS_CC);
 	if (ZEPHIR_IS_IDENTICAL(&_2, &abstractt)) {
-		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_LogicException, "[{abstractt}] is aliased to itself.", "zim/container/container.zep", 726);
+		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_LogicException, "[{abstractt}] is aliased to itself.", "zim/container/container.zep", 730);
 		return;
 	}
 	zephir_read_property(&_3, this_ptr, SL("aliases"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch(&_4, &_3, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 728 TSRMLS_CC);
-	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "getalias", NULL, 12, &_4);
+	zephir_array_fetch(&_4, &_3, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 732 TSRMLS_CC);
+	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "getalias", NULL, 11, &_4);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -1758,7 +1768,7 @@ PHP_METHOD(Zim_Container_Container, getExtenders) {
 	zephir_read_property(&_1, this_ptr, SL("extenders"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_1, &abstractt)) {
 		zephir_read_property(&_2$$3, this_ptr, SL("extenders"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_3$$3, &_2$$3, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 743 TSRMLS_CC);
+		zephir_array_fetch(&_3$$3, &_2$$3, &abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 747 TSRMLS_CC);
 		RETURN_CTOR(&_3$$3);
 	}
 	ZEPHIR_INIT_VAR(&tmpArray40cd750bba9870f18aada2478b24840a);
@@ -1983,6 +1993,7 @@ PHP_METHOD(Zim_Container_Container, setInstance) {
  */
 PHP_METHOD(Zim_Container_Container, set) {
 
+	zend_bool _1;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
 	zval *key_param = NULL, *value, value_sub, _0;
 	zval key;
@@ -1999,12 +2010,16 @@ PHP_METHOD(Zim_Container_Container, set) {
 
 
 	ZEPHIR_INIT_VAR(&_0);
-	if (zephir_instance_of_ev(value, zend_ce_closure TSRMLS_CC)) {
+	_1 = Z_TYPE_P(value) == IS_OBJECT;
+	if (_1) {
+		_1 = zephir_instance_of_ev(value, zend_ce_closure TSRMLS_CC);
+	}
+	if (_1) {
 		ZEPHIR_CPY_WRT(&_0, value);
 	} else {
 		ZEPHIR_INIT_NVAR(&_0);
 		object_init_ex(&_0, zim_container_containersetclosureone_ce);
-		ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 13, value);
+		ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 12, value);
 		zephir_check_call_status();
 	}
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "bind", NULL, 0, &key, &_0);

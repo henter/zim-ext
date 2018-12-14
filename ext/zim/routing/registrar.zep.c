@@ -223,31 +223,26 @@ PHP_METHOD(Zim_Routing_Registrar, doMatch) {
  */
 PHP_METHOD(Zim_Routing_Registrar, __call) {
 
-	zend_string *_3$$3;
-	zend_ulong _2$$3;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval parameters, _4$$3, _8$$6;
-	zval *method_param = NULL, *parameters_param = NULL, parmeters, k, v, _0, _6, _10, _11, _12, _13, all$$3, *_1$$3, _5$$3, _7$$5, _9$$6;
+	zval parameters, _1$$3, _5$$5;
+	zval *method_param = NULL, *parameters_param = NULL, all, _0, _3, _7, _8, _9, _10, _2$$3, _4$$4, _6$$5;
 	zval method;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&method);
-	ZVAL_UNDEF(&parmeters);
-	ZVAL_UNDEF(&k);
-	ZVAL_UNDEF(&v);
+	ZVAL_UNDEF(&all);
 	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_6);
+	ZVAL_UNDEF(&_3);
+	ZVAL_UNDEF(&_7);
+	ZVAL_UNDEF(&_8);
+	ZVAL_UNDEF(&_9);
 	ZVAL_UNDEF(&_10);
-	ZVAL_UNDEF(&_11);
-	ZVAL_UNDEF(&_12);
-	ZVAL_UNDEF(&_13);
-	ZVAL_UNDEF(&all$$3);
-	ZVAL_UNDEF(&_5$$3);
-	ZVAL_UNDEF(&_7$$5);
-	ZVAL_UNDEF(&_9$$6);
+	ZVAL_UNDEF(&_2$$3);
+	ZVAL_UNDEF(&_4$$4);
+	ZVAL_UNDEF(&_6$$5);
 	ZVAL_UNDEF(&parameters);
-	ZVAL_UNDEF(&_4$$3);
-	ZVAL_UNDEF(&_8$$6);
+	ZVAL_UNDEF(&_1$$3);
+	ZVAL_UNDEF(&_5$$5);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 2, 0, &method_param, &parameters_param);
@@ -258,61 +253,50 @@ PHP_METHOD(Zim_Routing_Registrar, __call) {
 
 	zephir_read_property(&_0, this_ptr, SL("passthru"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_fast_in_array(&method, &_0 TSRMLS_CC)) {
-		zephir_array_append(&all$$3, &method, PH_SEPARATE, "zim/routing/registrar.zep", 114);
-		zephir_is_iterable(&parmeters, 0, "zim/routing/registrar.zep", 119);
-		ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&parmeters), _2$$3, _3$$3, _1$$3)
-		{
-			ZEPHIR_INIT_NVAR(&k);
-			if (_3$$3 != NULL) { 
-				ZVAL_STR_COPY(&k, _3$$3);
-			} else {
-				ZVAL_LONG(&k, _2$$3);
-			}
-			ZEPHIR_INIT_NVAR(&v);
-			ZVAL_COPY(&v, _1$$3);
-			zephir_array_append(&all$$3, &v, PH_SEPARATE, "zim/routing/registrar.zep", 116);
-		} ZEND_HASH_FOREACH_END();
-		ZEPHIR_INIT_NVAR(&v);
-		ZEPHIR_INIT_NVAR(&k);
-		ZEPHIR_INIT_VAR(&_4$$3);
-		zephir_create_array(&_4$$3, 2, 0 TSRMLS_CC);
-		zephir_array_fast_append(&_4$$3, this_ptr);
-		ZEPHIR_INIT_VAR(&_5$$3);
-		ZVAL_STRING(&_5$$3, "registrarRoute");
-		zephir_array_fast_append(&_4$$3, &_5$$3);
-		ZEPHIR_CALL_USER_FUNC_ARRAY(return_value, &_4$$3, &all$$3);
+		ZEPHIR_CPY_WRT(&all, &parameters);
+		ZEPHIR_MAKE_REF(&all);
+		ZEPHIR_CALL_FUNCTION(NULL, "array_unshift", NULL, 28, &all, &method);
+		ZEPHIR_UNREF(&all);
+		zephir_check_call_status();
+		ZEPHIR_INIT_VAR(&_1$$3);
+		zephir_create_array(&_1$$3, 2, 0 TSRMLS_CC);
+		zephir_array_fast_append(&_1$$3, this_ptr);
+		ZEPHIR_INIT_VAR(&_2$$3);
+		ZVAL_STRING(&_2$$3, "registrarRoute");
+		zephir_array_fast_append(&_1$$3, &_2$$3);
+		ZEPHIR_CALL_USER_FUNC_ARRAY(return_value, &_1$$3, &all);
 		zephir_check_call_status();
 		RETURN_MM();
 	}
-	zephir_read_property(&_6, this_ptr, SL("allowedAttributes"), PH_NOISY_CC | PH_READONLY);
-	if (zephir_fast_in_array(&method, &_6 TSRMLS_CC)) {
-		zephir_array_fetch_long(&_7$$5, &parameters, 0, PH_NOISY | PH_READONLY, "zim/routing/registrar.zep", 122 TSRMLS_CC);
-		ZEPHIR_RETURN_CALL_METHOD(this_ptr, "attribute", NULL, 0, &method, &_7$$5);
+	zephir_read_property(&_3, this_ptr, SL("allowedAttributes"), PH_NOISY_CC | PH_READONLY);
+	if (zephir_fast_in_array(&method, &_3 TSRMLS_CC)) {
+		zephir_array_fetch_long(&_4$$4, &parameters, 0, PH_NOISY | PH_READONLY, "zim/routing/registrar.zep", 120 TSRMLS_CC);
+		ZEPHIR_RETURN_CALL_METHOD(this_ptr, "attribute", NULL, 0, &method, &_4$$4);
 		zephir_check_call_status();
 		RETURN_MM();
 	}
 	if (ZEPHIR_IS_STRING(&method, "match")) {
-		ZEPHIR_INIT_VAR(&_8$$6);
-		zephir_create_array(&_8$$6, 2, 0 TSRMLS_CC);
-		zephir_array_fast_append(&_8$$6, this_ptr);
-		ZEPHIR_INIT_VAR(&_9$$6);
-		ZVAL_STRING(&_9$$6, "doMatch");
-		zephir_array_fast_append(&_8$$6, &_9$$6);
-		ZEPHIR_CALL_USER_FUNC_ARRAY(return_value, &_8$$6, &parameters);
+		ZEPHIR_INIT_VAR(&_5$$5);
+		zephir_create_array(&_5$$5, 2, 0 TSRMLS_CC);
+		zephir_array_fast_append(&_5$$5, this_ptr);
+		ZEPHIR_INIT_VAR(&_6$$5);
+		ZVAL_STRING(&_6$$5, "doMatch");
+		zephir_array_fast_append(&_5$$5, &_6$$5);
+		ZEPHIR_CALL_USER_FUNC_ARRAY(return_value, &_5$$5, &parameters);
 		zephir_check_call_status();
 		RETURN_MM();
 	}
-	ZEPHIR_INIT_VAR(&_10);
-	object_init_ex(&_10, spl_ce_BadMethodCallException);
-	ZEPHIR_INIT_VAR(&_11);
-	ZVAL_STRING(&_11, "Method %s::%s does not exist.");
-	ZEPHIR_INIT_VAR(&_12);
-	ZVAL_STRING(&_12, "Registrar");
-	ZEPHIR_CALL_FUNCTION(&_13, "sprintf", NULL, 22, &_11, &_12, &method);
+	ZEPHIR_INIT_VAR(&_7);
+	object_init_ex(&_7, spl_ce_BadMethodCallException);
+	ZEPHIR_INIT_VAR(&_8);
+	ZVAL_STRING(&_8, "Method %s::%s does not exist.");
+	ZEPHIR_INIT_VAR(&_9);
+	ZVAL_STRING(&_9, "Registrar");
+	ZEPHIR_CALL_FUNCTION(&_10, "sprintf", NULL, 21, &_8, &_9, &method);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &_10, "__construct", NULL, 104, &_13);
+	ZEPHIR_CALL_METHOD(NULL, &_7, "__construct", NULL, 103, &_10);
 	zephir_check_call_status();
-	zephir_throw_exception_debug(&_10, "zim/routing/registrar.zep", 128 TSRMLS_CC);
+	zephir_throw_exception_debug(&_7, "zim/routing/registrar.zep", 126 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 	return;
 
