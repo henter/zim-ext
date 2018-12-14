@@ -17,9 +17,9 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_event_event_fire, 0, 0, 1)
 #endif
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_event_event_listen, 0, 0, 1)
+ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_event_event_listen, 0, 0, 2)
 	ZEND_ARG_INFO(0, event)
-	ZEND_ARG_ARRAY_INFO(0, payload, 0)
+	ZEND_ARG_INFO(0, listener)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_event_event_on, 0, 0, 1)

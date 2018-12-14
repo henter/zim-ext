@@ -89,31 +89,24 @@ PHP_METHOD(Zim_Event_Event, fire) {
 
 /**
  * @param $event
- * @param array $payload
+ * @param callable $listener
  */
 PHP_METHOD(Zim_Event_Event, listen) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
 	zephir_fcall_cache_entry *_1 = NULL;
-	zval payload;
-	zval *event, event_sub, *payload_param = NULL, _0, _2, _3;
+	zval *event, event_sub, *listener, listener_sub, _0, _2, _3;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&event_sub);
+	ZVAL_UNDEF(&listener_sub);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_2);
 	ZVAL_UNDEF(&_3);
-	ZVAL_UNDEF(&payload);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 1, 1, &event, &payload_param);
+	zephir_fetch_params(1, 2, 0, &event, &listener);
 
-	if (!payload_param) {
-		ZEPHIR_INIT_VAR(&payload);
-		array_init(&payload);
-	} else {
-		zephir_get_arrval(&payload, payload_param);
-	}
 
 
 	ZEPHIR_CALL_CE_STATIC(&_0, zim_zim_ce, "getinstance", &_1, 0);
@@ -122,7 +115,7 @@ PHP_METHOD(Zim_Event_Event, listen) {
 	ZVAL_STRING(&_3, "event");
 	ZEPHIR_CALL_METHOD(&_2, &_0, "make", NULL, 0, &_3);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &_2, "listen", NULL, 0, event, &payload);
+	ZEPHIR_CALL_METHOD(NULL, &_2, "listen", NULL, 0, event, listener);
 	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();
 
