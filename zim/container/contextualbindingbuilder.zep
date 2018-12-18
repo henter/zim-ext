@@ -55,7 +55,7 @@ class ContextualBindingBuilder
     {
         var concretes, concrete;
     
-        let concretes =  is_array(this->concrete) ? this->concrete  : [this->concrete];
+        let concretes = is_array(this->concrete) ? this->concrete : [this->concrete];
         for concrete in concretes {
             this->container->addContextualBinding(concrete, this->needs, implementation);
         }

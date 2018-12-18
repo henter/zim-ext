@@ -28,7 +28,7 @@ class ExceptionHandler
     public function __construct(bool debug = true, fileLinkFormat = null) -> void
     {
         let this->debug = debug;
-        let this->charset =  ini_get("default_charset") ? ini_get("default_charset") : "UTF-8";
+        let this->charset = ini_get("default_charset") ? ini_get("default_charset") : "UTF-8";
         let this->fileLinkFormat = fileLinkFormat;
     }
     
@@ -75,7 +75,7 @@ class ExceptionHandler
         var name, value;
     
         if !(exception instanceof FlattenException) {
-            let exception =  FlattenException::create(exception);
+            let exception = FlattenException::create(exception);
         }
         if !(headers_sent()) {
             header(sprintf("HTTP/1.0 %s", exception->getStatusCode()));
@@ -105,12 +105,12 @@ class ExceptionHandler
         }
         let content = "";
         try {
-            let count =  count(exception->getAllPrevious());
-            let total =  count + 1;
+            let count = count(exception->getAllPrevious());
+            let total = count + 1;
             for position, e in exception->toArray() {
-                let ind =  count - position + 1;
-                let classs =  this->formatClass(e["class"]);
-                let message =  nl2br(this->escapeHtml(e["message"]));
+                let ind = count - position + 1;
+                let classs = this->formatClass(e["class"]);
+                let message = nl2br(this->escapeHtml(e["message"]));
                 let content .= sprintf("                    <div class=\"trace trace-as-html\">
                         <table class=\"trace-details\">
                             <thead class=\"trace-head\"><tr><th>
@@ -140,8 +140,8 @@ class ExceptionHandler
         } catch \Exception, e {
             // something nasty happened and we cannot throw an exception anymore
             if this->debug {
-                let e =  FlattenException::create(e);
-                let title =  sprintf("Exception thrown when handling an exception (%s: %s)", e->getClass(), this->escapeHtml(e->getMessage()));
+                let e = FlattenException::create(e);
+                let title = sprintf("Exception thrown when handling an exception (%s: %s)", e->getClass(), this->escapeHtml(e->getMessage()));
             } else {
                 let title = "Whoops, looks like something went wrong.";
             }
@@ -213,7 +213,7 @@ class ExceptionHandler
     {
         var parts;
     
-        let parts =  explode("\\", classs);
+        let parts = explode("\\", classs);
         return sprintf("<abbr title=\"%s\">%s</abbr>", classs, array_pop(parts));
     }
     
@@ -221,14 +221,14 @@ class ExceptionHandler
     {
         var file, fmt, i, f, k, tmpI1, link;
 
-        let file =  this->escapeHtml( preg_match("#[^/\\\\]*+$#", path, file) ? file[0]  : path);
-        let fmt =  this->fileLinkFormat;
+        let file = this->escapeHtml( preg_match("#[^/\\\\]*+$#", path, file) ? file[0] : path);
+        let fmt = this->fileLinkFormat;
         if !(fmt) {
-            return sprintf("<span class=\"block trace-file-path\">in <a title=\"%s%3$s\"><strong>%s</strong>%s</a></span>", this->escapeHtml(path), file,  0 < line ? " line " . line  : "");
+            return sprintf("<span class=\"block trace-file-path\">in <a title=\"%s%3$s\"><strong>%s</strong>%s</a></span>", this->escapeHtml(path), file,  0 < line ? " line " . line : "");
         }
         let f = fmt;
-        let i =  strpos(f, "&", max(strrpos(f, "%f"), strrpos(f, "%l"))) ? strpos(f, "&", max(strrpos(f, "%f"), strrpos(f, "%l"))) : strlen(f);
-        let fmt =  array_merge([substr(f, 0, i)], preg_split("/&([^>]++)>/", substr(f, i), -1, PREG_SPLIT_DELIM_CAPTURE));
+        let i = strpos(f, "&", max(strrpos(f, "%f"), strrpos(f, "%l"))) ? strpos(f, "&", max(strrpos(f, "%f"), strrpos(f, "%l"))) : strlen(f);
+        let fmt = array_merge([substr(f, 0, i)], preg_split("/&([^>]++)>/", substr(f, i), -1, PREG_SPLIT_DELIM_CAPTURE));
 
         let i = 1;
         loop {
@@ -240,14 +240,14 @@ class ExceptionHandler
 
             let k = fmt[i];
             if 0 === strpos(path, k) {
-                let path =  substr_replace(path, fmt[i], 0, strlen(k));
+                let path = substr_replace(path, fmt[i], 0, strlen(k));
                 break;
             }
 
             let i++;
         }
         let link = strtr(fmt[0], ["%f" : path, "%l" : line]);
-        return sprintf("<span class=\"block trace-file-path\">in <a href=\"%s\" title=\"Go to source\"><strong>%s</string>%s</a></span>", this->escapeHtml(link), file,  0 < line ? " line " . line  : "");
+        return sprintf("<span class=\"block trace-file-path\">in <a href=\"%s\" title=\"Go to source\"><strong>%s</string>%s</a></span>", this->escapeHtml(link), file,  0 < line ? " line " . line : "");
     }
 
     /**
@@ -261,23 +261,23 @@ class ExceptionHandler
     {
         var result, key, item, formattedValue;
     
-        let result =  [];
+        let result = [];
         for key, item in args {
             if item[0] === "object" {
-                let formattedValue =  sprintf("<em>object</em>(%s)", this->formatClass(item[1]));
+                let formattedValue = sprintf("<em>object</em>(%s)", this->formatClass(item[1]));
             } elseif "array" === item[0] {
-                let formattedValue =  sprintf("<em>array</em>(%s)",  is_array(item[1]) ? this->formatArgs(item[1])  : item[1]);
+                let formattedValue = sprintf("<em>array</em>(%s)",  is_array(item[1]) ? this->formatArgs(item[1]) : item[1]);
             } elseif "null" === item[0] {
                 let formattedValue = "<em>null</em>";
             } elseif "boolean" === item[0] {
-                let formattedValue =  "<em>" . strtolower(var_export(item[1], true)) . "</em>";
+                let formattedValue = "<em>" . strtolower(var_export(item[1], true)) . "</em>";
             } elseif "resource" === item[0] {
                 let formattedValue = "<em>resource</em>";
             } else {
-                let formattedValue =  str_replace("
+                let formattedValue = str_replace("
 ", "", this->escapeHtml(var_export(item[1], true)));
             }
-            let result[] = is_int(key) ? formattedValue  : sprintf("'%s' => %s", this->escapeHtml(key), formattedValue);
+            let result[] = is_int(key) ? formattedValue : sprintf("'%s' => %s", this->escapeHtml(key), formattedValue);
         }
         return implode(", ", result);
     }

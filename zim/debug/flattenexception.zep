@@ -35,13 +35,13 @@ class FlattenException
     {
         var e, previous, scode;
     
-        let e =  new static();
+        let e = new static();
         e->setMessage(exception->getMessage());
         e->setCode(exception->getCode());
         if exception instanceof \Zim\Http\Exception\ExceptionInterface {
-            let scode =  exception->getStatusCode();
-            let statusCode =  scode;
-            let headers =  array_merge(headers, exception->getHeaders());
+            let scode = exception->getStatusCode();
+            let statusCode = scode;
+            let headers = array_merge(headers, exception->getHeaders());
         }
         if !statusCode {
             let statusCode = 500;
@@ -49,10 +49,10 @@ class FlattenException
         e->setStatusCode(statusCode);
         e->setHeaders(headers);
         e->setTraceFromThrowable(exception);
-        e->setClass( exception instanceof FatalErrorException ? exception->getOriginalClassName()  : get_class(exception));
+        e->setClass( exception instanceof FatalErrorException ? exception->getOriginalClassName() : get_class(exception));
         e->setFile(exception->getFile());
         e->setLine(exception->getLine());
-        let previous =  exception->getPrevious();
+        let previous = exception->getPrevious();
         if previous instanceof \Throwable {
             e->setPrevious(static::createFromThrowable(previous));
         }
@@ -110,7 +110,7 @@ class FlattenException
      */
     public function setClass(classs)
     {
-        let this->classs =  classs[0] === "c" && 0 === strpos(classs, "class@anonymous\0") ? get_parent_class(classs) . "@anonymous"  : classs;
+        let this->classs = classs[0] === "c" && 0 === strpos(classs, "class@anonymous\0") ? get_parent_class(classs) . "@anonymous" : classs;
         return this;
     }
     
@@ -153,7 +153,7 @@ class FlattenException
     public function setMessage(message)
     {
         if strpos(message, "class@anonymous\0") !== false {
-            let message =  preg_replace_callback("/class@anonymous\\x00.*?\\.php0x?[0-9a-fA-F]++/", new FlattenExceptionsetMessageClosureOne(), message);
+            let message = preg_replace_callback("/class@anonymous\\x00.*?\\.php0x?[0-9a-fA-F]++/", new FlattenExceptionsetMessageClosureOne(), message);
         }
         let this->message = message;
         return this;
@@ -191,12 +191,12 @@ class FlattenException
     {
         var exceptions, e;
     
-        let exceptions =  [];
+        let exceptions = [];
         let e = this;
-        let e =  e->getPrevious();
+        let e = e->getPrevious();
         while (e) {
             let exceptions[] = e;
-        let e =  e->getPrevious();
+        let e = e->getPrevious();
         }
         return exceptions;
     }
@@ -218,25 +218,25 @@ class FlattenException
     {
         var entry, classs, namespacee, parts;
     
-        let this->trace =  [];
-        let this->trace[] =  ["namespace" : "", "short_class" : "", "class" : "", "type" : "", "function" : "", "file" : file, "line" : line, "args" : []];
+        let this->trace = [];
+        let this->trace[] = ["namespace" : "", "short_class" : "", "class" : "", "type" : "", "function" : "", "file" : file, "line" : line, "args" : []];
         for entry in trace {
             let classs = "";
             let namespacee = "";
             if isset entry["class"] {
-                let parts =  explode("\\", entry["class"]);
-                let classs =  array_pop(parts);
-                let namespacee =  implode("\\", parts);
+                let parts = explode("\\", entry["class"]);
+                let classs = array_pop(parts);
+                let namespacee = implode("\\", parts);
             }
-            let this->trace[] =  [
+            let this->trace[] = [
                 "namespace" : namespacee,
                 "short_class" : classs,
-                "class" :  isset entry["class"] ? entry["class"]  : "",
-                "type" :  isset entry["type"] ? entry["type"]  : "",
-                "function" :  isset entry["function"] ? entry["function"]  : null,
-                "file" :  isset entry["file"] ? entry["file"]  : null,
-                "line" :  isset entry["line"] ? entry["line"]  : null,
-                "args" :  isset entry["args"] ? this->flattenArgs(entry["args"])  : []];
+                "class" :  isset entry["class"] ? entry["class"] : "",
+                "type" :  isset entry["type"] ? entry["type"] : "",
+                "function" :  isset entry["function"] ? entry["function"] : null,
+                "file" :  isset entry["file"] ? entry["file"] : null,
+                "line" :  isset entry["line"] ? entry["line"] : null,
+                "args" :  isset entry["args"] ? this->flattenArgs(entry["args"]) : []];
         }
         return this;
     }
@@ -245,34 +245,34 @@ class FlattenException
     {
         var result, key, value;
     
-        let result =  [];
+        let result = [];
         for key, value in args {
             if count > 10000 {
                 return ["array", "*SKIPPED over 10000 entries*"];
             }
             if value instanceof \__PHP_Incomplete_Class {
                 // is_object() returns false on PHP<=7.1
-                let result[key] =  ["incomplete-object", this->getClassNameFromIncomplete(value)];
+                let result[key] = ["incomplete-object", this->getClassNameFromIncomplete(value)];
             } elseif is_object(value) {
-                let result[key] =  ["object", get_class(value)];
+                let result[key] = ["object", get_class(value)];
             } elseif is_array(value) {
                 if level > 10 {
-                    let result[key] =  ["array", "*DEEP NESTED ARRAY*"];
+                    let result[key] = ["array", "*DEEP NESTED ARRAY*"];
                 } else {
-                    let result[key] =  ["array", this->flattenArgs(value, level + 1, count + 1)];
+                    let result[key] = ["array", this->flattenArgs(value, level + 1, count + 1)];
                 }
             } elseif null === value {
-                let result[key] =  ["null", null];
+                let result[key] = ["null", null];
             } elseif is_bool(value) {
-                let result[key] =  ["boolean", value];
+                let result[key] = ["boolean", value];
             } elseif is_int(value) {
-                let result[key] =  ["integer", value];
+                let result[key] = ["integer", value];
             } elseif is_float(value) {
-                let result[key] =  ["float", value];
+                let result[key] = ["float", value];
             } elseif is_resource(value) {
-                let result[key] =  ["resource", get_resource_type(value)];
+                let result[key] = ["resource", get_resource_type(value)];
             } else {
-                let result[key] =  ["string", (string) value];
+                let result[key] = ["string", (string) value];
             }
         }
         return result;
@@ -282,7 +282,7 @@ class FlattenException
     {
         var myArray;
     
-        let myArray =  new \ArrayObject(value);
+        let myArray = new \ArrayObject(value);
         return myArray["__PHP_Incomplete_Class_Name"];
     }
 

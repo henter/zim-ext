@@ -95,7 +95,7 @@ class Request implements RequestContract
         var key, host;
     
         for key in self::forwardedHeaders {
-            let host =  this->headers->get(key);
+            let host = this->headers->get(key);
             if host {
                 return current(host);
             }
@@ -116,15 +116,15 @@ class Request implements RequestContract
      */
     public function initialize(array query = [], array request = [], array attributes = [], array server = [], content = null) -> void
     {
-        let this->request =  new ParameterBag(request);
-        let this->query =  new ParameterBag(query);
-        let this->attributes =  new ParameterBag(attributes);
-        let this->server =  new ServerBag(server);
-        let this->headers =  new HeaderBag(this->server->getHeaders());
+        let this->request = new ParameterBag(request);
+        let this->query = new ParameterBag(query);
+        let this->attributes = new ParameterBag(attributes);
+        let this->server = new ServerBag(server);
+        let this->headers = new HeaderBag(this->server->getHeaders());
         let this->content = content;
-        let this->pathInfo =  null;
-        let this->requestUri =  null;
-        let this->method =  null;
+        let this->pathInfo = null;
+        let this->requestUri = null;
+        let this->method = null;
     }
     
     /**
@@ -136,13 +136,13 @@ class Request implements RequestContract
     {
         var request, methods, data;
     
-        let request =  new static(_GET, _POST, [], _SERVER);
+        let request = new static(_GET, _POST, [], _SERVER);
         let methods = ["PUT", "DELETE", "PATCH"];
         if 0 === strpos(request->headers->get("CONTENT_TYPE"), "application/x-www-form-urlencoded") &&
             in_array(strtoupper(request->server->get("REQUEST_METHOD", "GET")), methods)
         {
             parse_str(request->getContent(), data);
-            let request->request =  new ParameterBag(data);
+            let request->request = new ParameterBag(data);
         }
         return request;
     }
@@ -176,7 +176,7 @@ class Request implements RequestContract
         if self::formats === null {
             static::initializeFormats();
         }
-        return  isset self::formats[format] ? self::formats[format][0]  : null;
+        return  isset self::formats[format] ? self::formats[format][0] : null;
     }
     
     /**
@@ -191,7 +191,7 @@ class Request implements RequestContract
         if self::formats === null {
             static::initializeFormats();
         }
-        return  isset self::formats[format] ? self::formats[format]  : [];
+        return  isset self::formats[format] ? self::formats[format] : [];
     }
     
     /**
@@ -199,7 +199,7 @@ class Request implements RequestContract
      */
     protected static function initializeFormats() -> void
     {
-        let self::formats =  ["html" : ["text/html", "application/xhtml+xml"], "txt" : ["text/plain"], "js" : ["application/javascript", "application/x-javascript", "text/javascript"], "css" : ["text/css"], "json" : ["application/json", "application/x-json"], "jsonld" : ["application/ld+json"], "xml" : ["text/xml", "application/xml", "application/x-xml"], "rdf" : ["application/rdf+xml"], "atom" : ["application/atom+xml"], "rss" : ["application/rss+xml"], "form" : ["application/x-www-form-urlencoded"]];
+        let self::formats = ["html" : ["text/html", "application/xhtml+xml"], "txt" : ["text/plain"], "js" : ["application/javascript", "application/x-javascript", "text/javascript"], "css" : ["text/css"], "json" : ["application/json", "application/x-json"], "jsonld" : ["application/ld+json"], "xml" : ["text/xml", "application/xml", "application/x-xml"], "rdf" : ["application/rdf+xml"], "atom" : ["application/atom+xml"], "rss" : ["application/rss+xml"], "form" : ["application/x-www-form-urlencoded"]];
     }
     
     /**
@@ -210,11 +210,11 @@ class Request implements RequestContract
      */
     public function __clone() -> void
     {
-        let this->query =  clone this->query;
-        let this->request =  clone this->request;
-        let this->attributes =  clone this->attributes;
-        let this->server =  clone this->server;
-        let this->headers =  clone this->headers;
+        let this->query = clone this->query;
+        let this->request = clone this->request;
+        let this->attributes = clone this->attributes;
+        let this->server = clone this->server;
+        let this->headers = clone this->headers;
     }
     
     /**
@@ -227,7 +227,7 @@ class Request implements RequestContract
         var content, e;
     
         try {
-            let content =  this->getContent();
+            let content = this->getContent();
         } catch \LogicException, e {
             return trigger_error(e, E_USER_ERROR);
         }
@@ -273,15 +273,15 @@ class Request implements RequestContract
     {
         var result;
     
-        let result =  this->attributes->get(key, this);
+        let result = this->attributes->get(key, this);
         if this !== result {
             return result;
         }
-        let result =  this->query->get(key, this);
+        let result = this->query->get(key, this);
         if this !== result {
             return result;
         }
-        let result =  this->request->get(key, this);
+        let result = this->request->get(key, this);
         if this !== result {
             return result;
         }
@@ -305,7 +305,7 @@ class Request implements RequestContract
     public function getPathInfo() -> string
     {
         if this->pathInfo === null {
-            let this->pathInfo =  this->preparePathInfo();
+            let this->pathInfo = this->preparePathInfo();
         }
         return this->pathInfo;
     }
@@ -317,14 +317,14 @@ class Request implements RequestContract
      */
     public function getScheme() -> string
     {
-        return  this->isSecure() ? "https"  : "http";
+        return  this->isSecure() ? "https" : "http";
     }
     
     public function isSecure()
     {
         var https;
     
-        let https =  this->server->get("HTTPS");
+        let https = this->server->get("HTTPS");
         return !(empty(https)) && strtolower(https) !== "off";
     }
     
@@ -342,25 +342,25 @@ class Request implements RequestContract
     {
         var host, pos;
     
-        let host =  this->getForwardedFor();
+        let host = this->getForwardedFor();
         if host {
             //nothing
             let host = host;
         } else {
-        let host =  this->headers->get("HOST");
+        let host = this->headers->get("HOST");
         if !(host) {
             return this->server->get("SERVER_PORT");
         }
         }
         if host[0] === "[" {
-            let pos =  strpos(host, ":", strrpos(host, "]"));
+            let pos = strpos(host, ":", strrpos(host, "]"));
         } else {
-            let pos =  strrpos(host, ":");
+            let pos = strrpos(host, ":");
         }
         if pos !== false {
             return (int) substr(host, pos + 1);
         }
-        return  this->getScheme() === "https" ? 443  : 80;
+        return  this->getScheme() === "https" ? 443 : 80;
     }
     
     /**
@@ -374,8 +374,8 @@ class Request implements RequestContract
     {
         var scheme, port;
     
-        let scheme =  this->getScheme();
-        let port =  this->getPort();
+        let scheme = this->getScheme();
+        let port = this->getPort();
         if scheme == "http" && 80 == port || scheme == "https" && 443 == port {
             return this->getHost();
         }
@@ -390,7 +390,7 @@ class Request implements RequestContract
     public function getRequestUri() -> string
     {
         if this->requestUri === null {
-            let this->requestUri =  this->prepareRequestUri();
+            let this->requestUri = this->prepareRequestUri();
         }
         return this->requestUri;
     }
@@ -419,9 +419,9 @@ class Request implements RequestContract
     {
         var qs;
     
-        let qs =  this->getQueryString();
+        let qs = this->getQueryString();
         if qs !== null {
-            let qs =  "?" . qs;
+            let qs = "?" . qs;
         }
         return this->getSchemeAndHttpHost() . this->getPathInfo() . qs;
     }
@@ -438,8 +438,8 @@ class Request implements RequestContract
     {
         var qs;
     
-        let qs =  static::normalizeQueryString(this->server->get("QUERY_STRING"));
-        return  qs === "" ? null  : qs;
+        let qs = static::normalizeQueryString(this->server->get("QUERY_STRING"));
+        return  qs === "" ? null : qs;
     }
     
     /**
@@ -456,16 +456,16 @@ class Request implements RequestContract
     {
         var host;
     
-        let host =  this->getForwardedFor();
+        let host = this->getForwardedFor();
         if host {
             //nothing
             let host = host;
         } else {
-        let host =  this->headers->get("HOST");
+        let host = this->headers->get("HOST");
         if !(host) {
-            let host =  this->server->get("SERVER_NAME");
+            let host = this->server->get("SERVER_NAME");
             if !(host) {
-                let host =  this->server->get("SERVER_ADDR", "");
+                let host = this->server->get("SERVER_ADDR", "");
             }
         }
         }
@@ -492,11 +492,11 @@ class Request implements RequestContract
         var method;
     
         if this->method === null {
-            let this->method =  strtoupper(this->server->get("REQUEST_METHOD", "GET"));
+            let this->method = strtoupper(this->server->get("REQUEST_METHOD", "GET"));
             if this->method === "POST" {
-                let method =  this->headers->get("X-HTTP-METHOD-OVERRIDE");
+                let method = this->headers->get("X-HTTP-METHOD-OVERRIDE");
                 if method {
-                    let this->method =  strtoupper(method);
+                    let this->method = strtoupper(method);
                 }
             }
         }
@@ -540,7 +540,7 @@ class Request implements RequestContract
     {
         var currentContentIsResource, resourcee;
     
-        let currentContentIsResource =  is_resource(this->content);
+        let currentContentIsResource = is_resource(this->content);
         if asResource === true {
             if currentContentIsResource {
                 rewind(this->content);
@@ -548,12 +548,12 @@ class Request implements RequestContract
             }
             // Content passed in parameter (test)
             if is_string(this->content) {
-                let resourcee =  fopen("php://temp", "r+");
+                let resourcee = fopen("php://temp", "r+");
                 fwrite(resourcee, this->content);
                 rewind(resourcee);
                 return resourcee;
             }
-            let this->content =  false;
+            let this->content = false;
             return fopen("php://input", "rb");
         }
         if currentContentIsResource {
@@ -561,7 +561,7 @@ class Request implements RequestContract
             return stream_get_contents(this->content);
         }
         if this->content === null || this->content === false {
-            let this->content =  file_get_contents("php://input");
+            let this->content = file_get_contents("php://input");
         }
         return this->content;
     }
@@ -573,11 +573,11 @@ class Request implements RequestContract
     {
         var requestUri, schemeAndHttpHost;
     
-        let requestUri =  this->server->get("REQUEST_URI");
+        let requestUri = this->server->get("REQUEST_URI");
         // HTTP proxy reqs setup request URI with scheme and host [and port] + the URL path, only use URL path
-        let schemeAndHttpHost =  this->getSchemeAndHttpHost();
+        let schemeAndHttpHost = this->getSchemeAndHttpHost();
         if 0 === strpos(requestUri, schemeAndHttpHost) {
-            let requestUri =  substr(requestUri, strlen(schemeAndHttpHost));
+            let requestUri = substr(requestUri, strlen(schemeAndHttpHost));
         }
         return requestUri;
     }
@@ -591,17 +591,17 @@ class Request implements RequestContract
     {
         var requestUri, pos;
     
-        let requestUri =  this->getRequestUri();
+        let requestUri = this->getRequestUri();
         if requestUri === null {
             return "/";
         }
         // Remove the query string from REQUEST_URI
-        let pos =  strpos(requestUri, "?");
+        let pos = strpos(requestUri, "?");
         if pos !== false {
-            let requestUri =  substr(requestUri, 0, pos);
+            let requestUri = substr(requestUri, 0, pos);
         }
         if requestUri !== "" && substr(requestUri, 0, 1) !== "/" {
-            let requestUri =  "/" . requestUri;
+            let requestUri = "/" . requestUri;
         }
         return requestUri;
     }

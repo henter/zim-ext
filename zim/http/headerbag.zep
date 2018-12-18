@@ -40,7 +40,7 @@ class HeaderBag implements \IteratorAggregate, \Countable
     {
         var parts;
 
-        let parts =  HeaderUtils::split(header, ",=");
+        let parts = HeaderUtils::split(header, ",=");
         return HeaderUtils::combine(parts);
     }
     
@@ -59,14 +59,14 @@ class HeaderBag implements \IteratorAggregate, \Countable
     {
         var headers, content, name, values, value;
     
-        let headers =  this->all();
+        let headers = this->all();
         if !(headers) {
             return "";
         }
         ksort(headers);
         let content = "";
         for name, values in headers {
-            let name =  ucwords(name, "-");
+            let name = ucwords(name, "-");
             for value in values {
                 let content = content.name . ":". value . "\r\n";
             }
@@ -101,7 +101,7 @@ class HeaderBag implements \IteratorAggregate, \Countable
      */
     public function replace(array headers = []) -> void
     {
-        let this->headers =  [];
+        let this->headers = [];
         this->add(headers);
     }
     
@@ -132,16 +132,16 @@ class HeaderBag implements \IteratorAggregate, \Countable
     {
         var headers;
     
-        let key =  str_replace("_", "-", strtolower(key));
-        let headers =  this->all();
+        let key = str_replace("_", "-", strtolower(key));
+        let headers = this->all();
         if !(array_key_exists(key, headers)) {
             if deft === null {
-                return  first ? null  : [];
+                return  first ? null : [];
             }
-            return  first ? deft  : [deft];
+            return  first ? deft : [deft];
         }
         if first {
-            return count(headers[key]) ? headers[key][0]  : deft;
+            return count(headers[key]) ? headers[key][0] : deft;
         }
         return headers[key];
     }
@@ -155,17 +155,17 @@ class HeaderBag implements \IteratorAggregate, \Countable
      */
     public function set(string key, values, bool replace = true) -> void
     {
-        let key =  str_replace("_", "-", strtolower(key));
+        let key = str_replace("_", "-", strtolower(key));
         if is_array(values) {
-            let values =  array_values(values);
+            let values = array_values(values);
             if replace === true || !(isset this->headers[key]) {
                 let this->headers[key] = values;
             } else {
-                let this->headers[key] =  array_merge(this->headers[key], values);
+                let this->headers[key] = array_merge(this->headers[key], values);
             }
         } else {
             if replace === true || !(isset this->headers[key]) {
-                let this->headers[key] =  [values];
+                let this->headers[key] = [values];
             } else {
                 let this->headers[key][] = values;
             }
@@ -204,7 +204,7 @@ class HeaderBag implements \IteratorAggregate, \Countable
      */
     public function remove(string key) -> void
     {
-        let key =  str_replace("_", "-", strtolower(key));
+        let key = str_replace("_", "-", strtolower(key));
         unset this->headers[key];
     
     }

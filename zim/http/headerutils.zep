@@ -42,7 +42,7 @@ class HeaderUtils
         var quotedSeparators, matches;
         let matches = [];
     
-        let quotedSeparators =  preg_quote(separators, "/");
+        let quotedSeparators = preg_quote(separators, "/");
         preg_match_all("
             /
                 (?!\\s)
@@ -80,10 +80,10 @@ class HeaderUtils
     {
         var assoc, part, name, value;
     
-        let assoc =  [];
+        let assoc = [];
         for part in parts {
-            let name =  strtolower(part[0]);
-            let value =  isset part[1] ? part[1]  : true;
+            let name = strtolower(part[0]);
+            let value = isset part[1] ? part[1] : true;
             let assoc[name] = value;
         }
         return assoc;
@@ -105,12 +105,12 @@ class HeaderUtils
     {
         var parts, name, value;
     
-        let parts =  [];
+        let parts = [];
         for name, value in assoc {
             if value === true {
                 let parts[] = name;
             } else {
-                let parts[] =  name . "=" . self::quote(value);
+                let parts[] = name . "=" . self::quote(value);
             }
         }
         return implode(separator . " ", parts);
@@ -149,9 +149,9 @@ class HeaderUtils
         let matches = tmpmatches;
     
         let separator = separators[0];
-        let partSeparators =  substr(separators, 1);
+        let partSeparators = substr(separators, 1);
         let i = 0;
-        let partMatches =  [];
+        let partMatches = [];
         for match in matches {
             if isset match["separator"] && match["separator"] === separator {
                 let i++;
@@ -159,7 +159,7 @@ class HeaderUtils
                 let partMatches[i][] = match;
             }
         }
-        let parts =  [];
+        let parts = [];
         if partSeparators {
             for matches in partMatches {
                 let parts[] = self::groupParts(matches, partSeparators);

@@ -52,7 +52,7 @@ class Arr
             return myArray[key];
         }
         if strpos(key, ".") === false {
-            return  isset myArray[key] ? myArray[key]  : deft;
+            return  isset myArray[key] ? myArray[key] : deft;
         }
         for segment in explode(".", key) {
             if static::accessible(myArray) && static::exists(myArray, segment) {
@@ -119,7 +119,7 @@ class Arr
             let myArray = value;
             return myArray;
         }
-        let ret =  static::_parseIniString(key, value);
+        let ret = static::_parseIniString(key, value);
         return array_merge_recursive(myArray, ret);
     }
     
@@ -127,13 +127,13 @@ class Arr
     {
         var pos, key;
     
-        let value =  static::_cast(value);
-        let pos =  strpos(path, ".");
+        let value = static::_cast(value);
+        let pos = strpos(path, ".");
         if pos === false {
             return [path : value];
         }
-        let key =  substr(path, 0, pos);
-        let path =  substr(path, pos + 1);
+        let key = substr(path, 0, pos);
+        let path = substr(path, pos + 1);
         return [key : static::_parseIniString(path, value)];
     }
     

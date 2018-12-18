@@ -36,9 +36,9 @@ class ResponseHeaderBag extends HeaderBag
     {
         var headers, name, value;
     
-        let headers =  [];
+        let headers = [];
         for name, value in this->all() {
-            let headers[isset this->headerNames[name] ? this->headerNames[name]  : name] = value;
+            let headers[isset this->headerNames[name] ? this->headerNames[name] : name] = value;
         }
         return headers;
     }
@@ -48,7 +48,7 @@ class ResponseHeaderBag extends HeaderBag
      */
     public function replace(array headers = []) -> void
     {
-        let this->headerNames =  [];
+        let this->headerNames = [];
         parent::replace(headers);
         if !(isset this->headers["cache-control"]) {
             this->set("Cache-Control", "");
@@ -65,16 +65,16 @@ class ResponseHeaderBag extends HeaderBag
     {
         var uniqueKey, cacheHeaders, computed;
     
-        let uniqueKey =  str_replace("_", "-", strtolower(key));
+        let uniqueKey = str_replace("_", "-", strtolower(key));
         let this->headerNames[uniqueKey] = key;
         parent::set(key, values, replace);
         // ensure the cache-control header has sensible defaults
         let cacheHeaders = ["cache-control", "etag", "last-modified", "expires"];
         if in_array(uniqueKey, cacheHeaders, true) {
-            let computed =  this->computeCacheControlValue();
-            let this->headers["cache-control"] =  [computed];
+            let computed = this->computeCacheControlValue();
+            let this->headers["cache-control"] = [computed];
             let this->headerNames["cache-control"] = "Cache-Control";
-            let this->computedCacheControl =  this->parseCacheControl(computed);
+            let this->computedCacheControl = this->parseCacheControl(computed);
         }
     }
     
@@ -85,12 +85,12 @@ class ResponseHeaderBag extends HeaderBag
     {
         var uniqueKey;
     
-        let uniqueKey =  str_replace("_", "-", strtolower(key));
+        let uniqueKey = str_replace("_", "-", strtolower(key));
         unset this->headerNames[uniqueKey];
         
         parent::remove(key);
         if uniqueKey === "cache-control" {
-            let this->computedCacheControl =  [];
+            let this->computedCacheControl = [];
         }
         if uniqueKey === "date" {
             this->initDate();
@@ -116,7 +116,7 @@ class ResponseHeaderBag extends HeaderBag
             // conservative by default
             return "private, must-revalidate";
         }
-        let header =  this->getCacheControlHeader();
+        let header = this->getCacheControlHeader();
         if isset this->cacheControl["public"] || isset this->cacheControl["private"] {
             return header;
         }
@@ -131,7 +131,7 @@ class ResponseHeaderBag extends HeaderBag
     {
         var now;
     
-        let now =  \DateTime::createFromFormat("U", time());
+        let now = \DateTime::createFromFormat("U", time());
         now->setTimezone(new \DateTimeZone("UTC"));
         this->set("Date", now->format("D, d M Y H:i:s") . " GMT");
     }

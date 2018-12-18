@@ -26,13 +26,13 @@ class ServerBag extends ParameterBag
     {
         var headers, contentHeaders, key, value, authorizationHeader, exploded, tmpListHeadersPHP_AUTH_USERHeadersPHP_AUTH_PW;
     
-        let headers =  [];
-        let contentHeaders =  ["CONTENT_LENGTH" : true, "CONTENT_MD5" : true, "CONTENT_TYPE" : true];
+        let headers = [];
+        let contentHeaders = ["CONTENT_LENGTH" : true, "CONTENT_MD5" : true, "CONTENT_TYPE" : true];
         for key, value in this->parameters {
             if 0 === strpos(key, "HTTP_") {
                 //$headers[substr($key, 5)] = $value;
                 //zephir
-                let key =  substr(key, 5);
+                let key = substr(key, 5);
                 let headers[key] = value;
             } elseif isset contentHeaders[key] {
                 let headers[key] = value;
@@ -40,7 +40,7 @@ class ServerBag extends ParameterBag
         }
         if isset this->parameters["PHP_AUTH_USER"] {
             let headers["PHP_AUTH_USER"] = this->parameters["PHP_AUTH_USER"];
-            let headers["PHP_AUTH_PW"] =  isset this->parameters["PHP_AUTH_PW"] ? this->parameters["PHP_AUTH_PW"]  : "";
+            let headers["PHP_AUTH_PW"] = isset this->parameters["PHP_AUTH_PW"] ? this->parameters["PHP_AUTH_PW"] : "";
         } else {
             /*
              * php-cgi under Apache does not pass HTTP Basic user/pass to PHP by default
@@ -55,7 +55,7 @@ class ServerBag extends ParameterBag
              * RewriteCond %{REQUEST_FILENAME} !-f
              * RewriteRule ^(.*)$ app.php [QSA,L]
              */
-            let authorizationHeader =  null;
+            let authorizationHeader = null;
             if isset this->parameters["HTTP_AUTHORIZATION"] {
                 let authorizationHeader = this->parameters["HTTP_AUTHORIZATION"];
             } elseif isset this->parameters["REDIRECT_HTTP_AUTHORIZATION"] {
@@ -64,7 +64,7 @@ class ServerBag extends ParameterBag
             if authorizationHeader !== null {
                 if 0 === stripos(authorizationHeader, "basic ") {
                     // Decode AUTHORIZATION header into PHP_AUTH_USER and PHP_AUTH_PW when authorization header is basic
-                    let exploded =  explode(":", base64_decode(substr(authorizationHeader, 6)), 2);
+                    let exploded = explode(":", base64_decode(substr(authorizationHeader, 6)), 2);
                     if 2 == count(exploded) {
                         let tmpListHeadersPHP_AUTH_USERHeadersPHP_AUTH_PW = exploded;
                         let headers["PHP_AUTH_USER"] = tmpListHeadersPHP_AUTH_USERHeadersPHP_AUTH_PW[0];
@@ -89,7 +89,7 @@ class ServerBag extends ParameterBag
         }
         // PHP_AUTH_USER/PHP_AUTH_PW
         if isset headers["PHP_AUTH_USER"] {
-            let headers["AUTHORIZATION"] =  "Basic " . base64_encode(headers["PHP_AUTH_USER"] . ":" . headers["PHP_AUTH_PW"]);
+            let headers["AUTHORIZATION"] = "Basic " . base64_encode(headers["PHP_AUTH_USER"] . ":" . headers["PHP_AUTH_PW"]);
         } elseif isset headers["PHP_AUTH_DIGEST"] {
             let headers["AUTHORIZATION"] = headers["PHP_AUTH_DIGEST"];
         }

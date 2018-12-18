@@ -81,7 +81,7 @@ class Kernel
         } catch \Throwable, e {
             throw e;
         }
-        let respEvent =  new ResponseEvent(request, response);
+        let respEvent = new ResponseEvent(request, response);
         Event::fire(respEvent);
         return respEvent->getResponse()->prepare(request);
     }
@@ -102,9 +102,9 @@ class Kernel
             return ucfirst(uri);
         }
         let suffix = "Controller.php";
-        let files =  glob(APP_PATH . "/Controller/*" . suffix);
+        let files = glob(APP_PATH . "/Controller/*" . suffix);
         for file in files {
-            let name =  Str::replaceLast(suffix, "", basename(file));
+            let name = Str::replaceLast(suffix, "", basename(file));
             if uri === strtolower(name) {
                 return name;
             }
@@ -127,7 +127,7 @@ class Kernel
     {
         var segments, c, a, tmpListCA;
     
-        let segments =  array_filter(explode("/", trim(request->getPathInfo(), "/")));
+        let segments = array_filter(explode("/", trim(request->getPathInfo(), "/")));
         if !(segments) {
             return ["Index", "index"];
         }
@@ -142,7 +142,7 @@ class Kernel
             let a = "index";
         }
         //如果 FooController 不存在，则尝试调度到 IndexController@fooAction
-        let c =  this->guessController(c);
+        let c = this->guessController(c);
         if !(c) {
             let c = "Index";
             let a = segments[0];
@@ -177,18 +177,18 @@ class Kernel
         /**
          * @var Controller $controller
          */
-        let controller =  this->zim->make("App\\Controller\\" . c . "Controller");
+        let controller = this->zim->make("App\\Controller\\" . c . "Controller");
         //try controller action ?
-        let method =  controller->getAction(a);
+        let method = controller->getAction(a);
         if method {
-            let callablee =  [controller, method];
+            let callablee = [controller, method];
         } else {
             //try controller action class
-            let actionClass =  controller->getActionClass(a);
+            let actionClass = controller->getActionClass(a);
             if !(class_exists(actionClass)) {
                 throw new NotFoundException("action not found");
             }
-            let callablee =  [this->zim->make(actionClass), "execute"];
+            let callablee = [this->zim->make(actionClass), "execute"];
         }
         return this->doDispatch(request, callablee);
     }
@@ -229,9 +229,9 @@ class Kernel
         } else {
             request->attributes->set("callable", ["Closure", "Closure"]);
         }
-        let e =  new DispatchEvent(request);
+        let e = new DispatchEvent(request);
         Event::fire(e);
-        let resp =  e->getResponse();
+        let resp = e->getResponse();
         if resp {
             return resp->prepare(request);
         }
@@ -251,7 +251,7 @@ class Kernel
         } elseif this->shouldBeJson(resp) {
             let response = new JsonResponse(resp);
         } else {
-            let response =  new Response(resp);
+            let response = new Response(resp);
         }
         return response;
     }

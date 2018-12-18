@@ -20,13 +20,13 @@ class FatalErrorException extends \ErrorException
     {
         var severity;
 
-        let this->originalClassName =  get_class(e);
+        let this->originalClassName = get_class(e);
         if e instanceof \ParseError {
-            let severity =  E_PARSE;
+            let severity = E_PARSE;
         } elseif e instanceof \TypeError {
-            let severity =  E_RECOVERABLE_ERROR;
+            let severity = E_RECOVERABLE_ERROR;
         } else {
-            let severity =  E_ERROR;
+            let severity = E_ERROR;
         }
         parent::__construct(e->getMessage(), e->getCode(), severity, e->getFile(), e->getLine(), e->getPrevious());
         this->setTrace(e->getTrace());
@@ -41,7 +41,7 @@ class FatalErrorException extends \ErrorException
     {
         var traceReflector;
     
-        let traceReflector =  new \ReflectionProperty("Exception", "trace");
+        let traceReflector = new \ReflectionProperty("Exception", "trace");
         traceReflector->setAccessible(true);
         traceReflector->setValue(this, trace);
     }

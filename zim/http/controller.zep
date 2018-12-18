@@ -48,7 +48,7 @@ class Controller
      */
     public function getActionClass(uri)
     {
-        return  isset this->actions[uri] ? this->actions[uri]  : null;
+        return  isset this->actions[uri] ? this->actions[uri] : null;
     }
     
     /**

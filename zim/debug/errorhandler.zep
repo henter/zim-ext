@@ -68,7 +68,7 @@ class ErrorHandler
         var prev;
     
         if handler === null {
-            let handler =  new static();
+            let handler = new static();
         }
         let prev = set_error_handler([handler, "handleError"]);
         if prev === null {
@@ -82,7 +82,7 @@ class ErrorHandler
     
     public function __construct() -> void
     {
-        let this->traceReflector =  new \ReflectionProperty("Exception", "trace");
+        let this->traceReflector = new \ReflectionProperty("Exception", "trace");
         this->traceReflector->setAccessible(true);
     }
     
@@ -118,11 +118,11 @@ class ErrorHandler
     {
         var level, msg, errorAsException;
     
-        let level =  error_reporting();
+        let level = error_reporting();
         let level = level | E_RECOVERABLE_ERROR | E_USER_ERROR | E_DEPRECATED | E_USER_DEPRECATED;
-        let type =  type & (level | this->screamedErrors);
-        let msg =  this->levels[type] . ": " . message;
-        let errorAsException =  new \ErrorException(msg, 0, type, file, line);
+        let type = type & (level | this->screamedErrors);
+        let msg = this->levels[type] . ": " . message;
+        let errorAsException = new \ErrorException(msg, 0, type, file, line);
         this->traceReflector->setValue(errorAsException, errorAsException->getTrace());
         throw errorAsException;
     }
@@ -139,16 +139,16 @@ class ErrorHandler
         var handlerException, exceptionHandler;
     
         if !(exception instanceof \Exception) {
-            let exception =  new FatalErrorException(exception);
+            let exception = new FatalErrorException(exception);
         }
-        let handlerException =  null;
-        let exceptionHandler =  this->exceptionHandler;
-        let this->exceptionHandler =  null;
+        let handlerException = null;
+        let exceptionHandler = this->exceptionHandler;
+        let this->exceptionHandler = null;
         try {
             if exceptionHandler !== null {
                 return call_user_func(exceptionHandler, exception);
             }
-            let handlerException =  handlerException ? handlerException : exception;
+            let handlerException = handlerException ? handlerException : exception;
         } catch \Throwable, handlerException {
         }
         if exception === handlerException {

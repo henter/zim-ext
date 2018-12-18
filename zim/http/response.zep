@@ -119,7 +119,7 @@ class Response implements ResponseContract
      */
     public function __construct(var content = "", int status = 200, array headers = []) -> void
     {
-        let this->headers =  new ResponseHeaderBag(headers);
+        let this->headers = new ResponseHeaderBag(headers);
         this->setContent(content);
         this->setStatusCode(status);
         this->setProtocolVersion("1.0");
@@ -162,7 +162,7 @@ class Response implements ResponseContract
      */
     public function __clone() -> void
     {
-        let this->headers =  clone this->headers;
+        let this->headers = clone this->headers;
     }
     
     /**
@@ -178,7 +178,7 @@ class Response implements ResponseContract
     {
         var headers, format, mimeType, charset, length;
     
-        let headers =  this->headers;
+        let headers = this->headers;
         if this->isInformational() || this->isEmpty() {
             this->setContent(null);
             headers->remove("Content-Type");
@@ -186,14 +186,14 @@ class Response implements ResponseContract
         } else {
             // Content-type based on the Request
             if !(headers->has("Content-Type")) {
-                let format =  request->getRequestFormat();
-                let mimeType =  request->getMimeType(format);
+                let format = request->getRequestFormat();
+                let mimeType = request->getMimeType(format);
                 if format !== null && mimeType {
                     headers->set("Content-Type", mimeType);
                 }
             }
             // Fix Content-Type
-            let charset =  this->charset ? this->charset : "UTF-8";
+            let charset = this->charset ? this->charset : "UTF-8";
             if !(headers->has("Content-Type")) {
                 headers->set("Content-Type", "text/html; charset=" . charset);
             } elseif 0 === stripos(headers->get("Content-Type"), "text/") && false === stripos(headers->get("Content-Type"), "charset") {
@@ -206,7 +206,7 @@ class Response implements ResponseContract
             }
             if request->isMethod("HEAD") {
                 // cf. RFC2616 14.13
-                let length =  headers->get("Content-Length");
+                let length = headers->get("Content-Length");
                 this->setContent(null);
                 if length {
                     headers->set("Content-Length", length);
@@ -300,7 +300,7 @@ class Response implements ResponseContract
             throw new \UnexpectedValueException(sprintf("The Response content must be a string or object implementing __toString(), \"%s\" given.", gettype(content)));
         }
 
-        let this->content =  (string) content;
+        let this->content = (string) content;
         return this;
     }
 
@@ -392,7 +392,7 @@ class Response implements ResponseContract
             throw new \InvalidArgumentException(sprintf("The HTTP status code \"%s\" is not valid.", code));
         }
         if text === null {
-            let this->statusText =  isset self::statusTexts[code] ? self::statusTexts[code]  : "unknown status";
+            let this->statusText = isset self::statusTexts[code] ? self::statusTexts[code] : "unknown status";
             return this;
         }
         if text === false {

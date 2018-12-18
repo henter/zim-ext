@@ -42,7 +42,7 @@ class BoundMethod
         // We will assume an @ sign is used to delimit the class name from the method
         // name. We will split on this @ sign and then build a callable array that
         // we can pass right back into the "call" method for dependency binding.
-        let method =  count(segments) === 2 ? segments[1]  : defaultMethod;
+        let method = count(segments) === 2 ? segments[1] : defaultMethod;
         if is_null(method) {
             throw new InvalidArgumentException("Method not provided.");
         }
@@ -68,7 +68,7 @@ class BoundMethod
         // Here we need to turn the array callable into a Class@method string we can use to
         // examine the container and see if there are any method bindings for this given
         // method. If there are, we can call this method binding callback immediately.
-        let method =  static::normalizeMethod(callback);
+        let method = static::normalizeMethod(callback);
         if container->hasMethodBinding(method) {
             return container->callMethodBinding(method, callback[0]);
         }
@@ -85,7 +85,7 @@ class BoundMethod
     {
         var classs;
     
-        let classs =  is_string(callback[0]) ? callback[0]  : get_class(callback[0]);
+        let classs = is_string(callback[0]) ? callback[0] : get_class(callback[0]);
         return "{classs}@{callback[1]}";
     }
     
@@ -101,7 +101,7 @@ class BoundMethod
     {
         var dependencies, parameter, tmpListParametersDependencies, tmpparams, tmpdeps;
     
-        let dependencies =  [];
+        let dependencies = [];
         for parameter in static::getCallReflector(callback)->getParameters() {
             let tmpListParametersDependencies = static::addDependencyForCallParameter(container, parameter, parameters, dependencies);
             if isset tmpListParametersDependencies[1] {
@@ -125,9 +125,9 @@ class BoundMethod
     public static function getCallReflector(callback) -> <\ReflectionFunctionAbstract>
     {
         if is_string(callback) && strpos(callback, "::") !== false {
-            let callback =  explode("::", callback);
+            let callback = explode("::", callback);
         }
-        return  is_array(callback) ? new ReflectionMethod(callback[0], callback[1])  : new ReflectionFunction(callback);
+        return  is_array(callback) ? new ReflectionMethod(callback[0], callback[1]) : new ReflectionFunction(callback);
     }
     
     /**
@@ -150,9 +150,9 @@ class BoundMethod
             unset parameters[parameter->getClass()->name];
         
         } elseif parameter->getClass() {
-            let dependencies[] =  container->make(parameter->getClass()->name);
+            let dependencies[] = container->make(parameter->getClass()->name);
         } elseif parameter->isDefaultValueAvailable() {
-            let dependencies[] =  parameter->getDefaultValue();
+            let dependencies[] = parameter->getDefaultValue();
         }
         return [parameters, dependencies];
     }

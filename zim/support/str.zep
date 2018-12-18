@@ -29,7 +29,7 @@ class Str
      */
     public static function after(string subject, string search) -> string
     {
-        return  search === "" ? subject  : array_reverse(explode(search, subject, 2))[0];
+        return  search === "" ? subject : array_reverse(explode(search, subject, 2))[0];
     }
     
     /**
@@ -41,7 +41,7 @@ class Str
      */
     public static function before(string subject, string search) -> string
     {
-        return  search === "" ? subject  : explode(search, subject)[0];
+        return  search === "" ? subject : explode(search, subject)[0];
     }
     
     /**
@@ -55,7 +55,7 @@ class Str
         if isset self::camelCache[value] {
             return self::camelCache[value];
         }
-        let self::camelCache[value] =  lcfirst(self::studly(value));
+        let self::camelCache[value] = lcfirst(self::studly(value));
         return self::camelCache[value];
     }
     
@@ -110,7 +110,7 @@ class Str
     {
         var quoted;
     
-        let quoted =  preg_quote(cap, "/");
+        let quoted = preg_quote(cap, "/");
         return preg_replace("/(?:" . quoted . ")+$/u", "", value) . cap;
     }
     
@@ -196,12 +196,12 @@ class Str
         var stringg, len, size, bytes;
     
         let stringg = "";
-        let len =  strlen(stringg);
+        let len = strlen(stringg);
         while (len < length) {
-            let size =  length - len;
-            let bytes =  random_bytes(size);
+            let size = length - len;
+            let bytes = random_bytes(size);
             let stringg = stringg.substr(str_replace(["/", "+", "="], "", base64_encode(bytes)), 0, size);
-            let len =  strlen(stringg);
+            let len = strlen(stringg);
         }
         return stringg;
     }
@@ -219,7 +219,7 @@ class Str
         var value;
     
         for value in replace {
-            let subject =  static::replaceFirst(search, value, subject);
+            let subject = static::replaceFirst(search, value, subject);
         }
         return subject;
     }
@@ -239,7 +239,7 @@ class Str
         if search == "" {
             return subject;
         }
-        let position =  strpos(subject, search);
+        let position = strpos(subject, search);
         if position !== false {
             return substr_replace(subject, replace, position, strlen(search));
         }
@@ -258,7 +258,7 @@ class Str
     {
         var position;
     
-        let position =  strrpos(subject, search);
+        let position = strrpos(subject, search);
         if position !== false {
             return substr_replace(subject, replace, position, strlen(search));
         }
@@ -276,7 +276,7 @@ class Str
     {
         var quoted;
     
-        let quoted =  preg_quote(prefix, "/");
+        let quoted = preg_quote(prefix, "/");
         return prefix . preg_replace("/^(?:" . quoted . ")+/u", "", value);
     }
     
@@ -318,8 +318,8 @@ class Str
             return self::snakeCache[key][delimiter];
         }
         if !(ctype_lower(value)) {
-            let tmpValue =  preg_replace("/\\s+/u", "", ucwords(value));
-            let tmpValue =  static::lower(preg_replace("/(.)(?=[A-Z])/u", "$1" . delimiter, tmpValue));
+            let tmpValue = preg_replace("/\\s+/u", "", ucwords(value));
+            let tmpValue = static::lower(preg_replace("/(.)(?=[A-Z])/u", "$1" . delimiter, tmpValue));
             let value = tmpValue;
         }
         let self::snakeCache[key][delimiter] = value;
@@ -363,7 +363,7 @@ class Str
         let tmpValue = ucwords(str_replace(["-", "_"], " ", value));
         let value = tmpValue;
 
-        let self::studlyCache[key] =  str_replace(" ", "", value);
+        let self::studlyCache[key] = str_replace(" ", "", value);
         return self::studlyCache[key];
     }
     

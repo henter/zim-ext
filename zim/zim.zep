@@ -78,7 +78,7 @@ class Zim extends Container
     public static function getInstance() -> <Container>
     {
         if is_null(self::instance) {
-            let self::instance =  new static();
+            let self::instance = new static();
         }
         return self::instance;
     }
@@ -96,7 +96,7 @@ class Zim extends Container
         this->instance("event", new Dispatcher());
         this->instance("router", new Router());
         this->instance("env", this->env());
-        let this->aliases =  [
+        let this->aliases = [
             "Zim\\Zim": "zim",
             "Zim\\Container\\Container" : "zim",
             "Zim\\Config\\Config" : "config",
@@ -122,7 +122,7 @@ class Zim extends Container
         //base services
         this->register("Zim\\Service\\LogService");
         //services from config
-        let services =  self::config("app.services") ? self::config("app.services") : [];
+        let services = self::config("app.services") ? self::config("app.services") : [];
         for service in services {
             this->register(service);
         }
@@ -147,7 +147,7 @@ class Zim extends Container
     {
         var name;
         if !(typeof service == "object" && service instanceof Service) {
-            //let service =  new {service}(this);
+            //let service = new {service}(this);
             let service = this->make(service);
         }
         let name = get_class(service);
@@ -175,7 +175,7 @@ class Zim extends Container
         for s in this->loadedServices {
             this->bootService(s);
         }
-        let this->booted =  true;
+        let this->booted = true;
     }
     
     /**
@@ -211,7 +211,7 @@ class Zim extends Container
     public function basePath(path = null) -> string
     {
         if this->basePath {
-            return this->basePath . ( path ? "/" . path  : path);
+            return this->basePath . ( path ? "/" . path : path);
         }
         if this->inConsole() {
             let this->basePath = getcwd();

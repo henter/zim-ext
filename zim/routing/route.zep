@@ -63,7 +63,7 @@ class Route
      */
     public function setParameters(array parameters)
     {
-        let this->parameters =  this->mergeDefaults(parameters);
+        let this->parameters = this->mergeDefaults(parameters);
         //TODO
         unset this->parameters["_controller"];
         unset this->parameters["_action"];
@@ -87,7 +87,7 @@ class Route
     {
         var defaults, key, value;
     
-        let defaults =  this->getDefaults();
+        let defaults = this->getDefaults();
         for key, value in params {
             if !(is_int(key)) && value !== null {
                 let defaults[key] = value;
@@ -118,17 +118,17 @@ class Route
     public function setPath(string pattern)
     {
         if strpbrk(pattern, "?<") !== false {
-            let pattern =  preg_replace_callback("#\\{(\\w++)(<.*?>)?(\\?[^\\}]*+)?\\}#", [this, "setPathCallback"], pattern);
+            let pattern = preg_replace_callback("#\\{(\\w++)(<.*?>)?(\\?[^\\}]*+)?\\}#", [this, "setPathCallback"], pattern);
         }
-        let this->path =  "/" . ltrim(trim(pattern), "/");
-        let this->compiled =  null;
+        let this->path = "/" . ltrim(trim(pattern), "/");
+        let this->compiled = null;
         return this;
     }
 
     private function setPathCallback(array m)
     {
         if strlen(m[3]) > 0 {
-            this->setDefault(m[1],  m[3] !== "?" ? substr(m[3], 1)  : null);
+            this->setDefault(m[1],  m[3] !== "?" ? substr(m[3], 1) : null);
         }
 
         if strlen(m[2]) > 0 {
@@ -191,7 +191,7 @@ class Route
         for name, option in options {
             let this->options[name] = option;
         }
-        let this->compiled =  null;
+        let this->compiled = null;
         return this;
     }
     
@@ -208,7 +208,7 @@ class Route
     public function setOption(string name, value)
     {
         let this->options[name] = value;
-        let this->compiled =  null;
+        let this->compiled = null;
         return this;
     }
     
@@ -221,7 +221,7 @@ class Route
      */
     public function getOption(string name)
     {
-        return  isset this->options[name] ? this->options[name]  : null;
+        return  isset this->options[name] ? this->options[name] : null;
     }
     
     /**
@@ -257,7 +257,7 @@ class Route
      */
     public function setDefaults(array defaults)
     {
-        let this->defaults =  [];
+        let this->defaults = [];
         return this->addDefaults(defaults);
     }
     
@@ -277,7 +277,7 @@ class Route
         for name, deft in defaults {
             let this->defaults[name] = deft;
         }
-        let this->compiled =  null;
+        let this->compiled = null;
         return this;
     }
     
@@ -290,7 +290,7 @@ class Route
      */
     public function getDefault(string name)
     {
-        return  isset this->defaults[name] ? this->defaults[name]  : null;
+        return  isset this->defaults[name] ? this->defaults[name] : null;
     }
     
     /**
@@ -316,7 +316,7 @@ class Route
     public function setDefault(string name, deft)
     {
         let this->defaults[name] = deft;
-        let this->compiled =  null;
+        let this->compiled = null;
         return this;
     }
     
@@ -341,7 +341,7 @@ class Route
      */
     public function setRequirements(array requirements)
     {
-        let this->requirements =  [];
+        let this->requirements = [];
         return this->addRequirements(requirements);
     }
     
@@ -359,9 +359,9 @@ class Route
         var key, regex;
     
         for key, regex in requirements {
-            let this->requirements[key] =  this->sanitizeRequirement(key, regex);
+            let this->requirements[key] = this->sanitizeRequirement(key, regex);
         }
-        let this->compiled =  null;
+        let this->compiled = null;
         return this;
     }
     
@@ -374,7 +374,7 @@ class Route
      */
     public function getRequirement(string key)
     {
-        return  isset this->requirements[key] ? this->requirements[key]  : null;
+        return  isset this->requirements[key] ? this->requirements[key] : null;
     }
     
     /**
@@ -399,8 +399,8 @@ class Route
      */
     public function setRequirement(string key, string regex)
     {
-        let this->requirements[key] =  this->sanitizeRequirement(key, regex);
-        let this->compiled =  null;
+        let this->requirements[key] = this->sanitizeRequirement(key, regex);
+        let this->compiled = null;
         return this;
     }
     
@@ -419,17 +419,17 @@ class Route
         if this->compiled !== null {
             return this->compiled;
         }
-        let this->compiled =  RouteCompiler::compile(this);
+        let this->compiled = RouteCompiler::compile(this);
         return this->compiled;
     }
     
     protected function sanitizeRequirement(string key, string regex)
     {
         if regex !== "" && substr(regex, 0, 1) === "^" {
-            let regex =  (string) substr(regex, 1);
+            let regex = (string) substr(regex, 1);
         }
         if substr(regex, -1) === "$" {
-            let regex =  substr(regex, 0, -1);
+            let regex = substr(regex, 0, -1);
         }
         if regex === "" {
             throw new \InvalidArgumentException(sprintf("Routing requirement for \"%s\" cannot be empty.", key));
@@ -451,7 +451,7 @@ class Route
         var call;
 
         if !(self::registrar) {
-            let self::registrar =  new Registrar(\Zim\Zim::app("router"));
+            let self::registrar = new Registrar(\Zim\Zim::app("router"));
         }
         let call = [self::registrar, method];
         return call_user_func_array(call, parameters);

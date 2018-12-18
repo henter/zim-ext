@@ -130,7 +130,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
     {
         var route;
     
-        let prefix =  trim(trim(prefix), "/");
+        let prefix = trim(trim(prefix), "/");
         if prefix === "" {
             return;
         }
@@ -148,10 +148,10 @@ class RouteCollection implements \IteratorAggregate, \Countable
     {
         var prefixedRoutes, name, route;
     
-        let prefixedRoutes =  [];
+        let prefixedRoutes = [];
         for name, route in this->routes {
             let prefixedRoutes[prefix . name] = route;
-            let name =  route->getDefault("_canonical_route");
+            let name = route->getDefault("_canonical_route");
             if name !== null {
                 route->setDefault("_canonical_route", prefix . name);
             }

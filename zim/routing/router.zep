@@ -57,7 +57,7 @@ class Router
         if is_array(info) && !(empty(info["name"])) {
             let name = info["name"];
         } else {
-            let name =  sha1(json_encode(methods) . uri);
+            let name = sha1(json_encode(methods) . uri);
         }
         return this->routes->add(name, this->createRoute(methods, uri, info));
     }
@@ -77,23 +77,23 @@ class Router
         let requirements = [];
         let options = [];
         if is_callable(info) {
-            let defaults =  ["_callable" : info];
+            let defaults = ["_callable" : info];
         } else {
             if is_array(info) {
-                let methods =  isset info["methods"] ? info["methods"]  : [];
-                let defaults =  isset info["defaults"] ? info["defaults"]  : [];
-                let requirements =  isset info["requirements"] ? info["requirements"]  : [];
-                let options =  isset info["options"] ? info["options"]  : [];
+                let methods = isset info["methods"] ? info["methods"] : [];
+                let defaults = isset info["defaults"] ? info["defaults"] : [];
+                let requirements = isset info["requirements"] ? info["requirements"] : [];
+                let options = isset info["options"] ? info["options"] : [];
                 let tmpListControllerAction = explode("@", info["use"]);
                 let controller = tmpListControllerAction[0];
                 let action = tmpListControllerAction[1];
-                let defaults["_controller"] =  "App\\Controller\\" . str_replace("/", "\\", controller) . "Controller";
-                let defaults["_action"] =  action . "Action";
+                let defaults["_controller"] = "App\\Controller\\" . str_replace("/", "\\", controller) . "Controller";
+                let defaults["_action"] = action . "Action";
             } elseif strpos(info, "@") {
                 let tmpListControllerAction = explode("@", info);
                 let controller = tmpListControllerAction[0];
                 let action = tmpListControllerAction[1];
-                let defaults =  [
+                let defaults = [
                     "_controller" : "App\\Controller\\" . str_replace("/", "\\", controller) . "Controller",
                     "_action" : action . "Action"
                 ];
@@ -123,7 +123,7 @@ class Router
         var route;
     
         let this->method = method;
-        let this->allow =  [];
+        let this->allow = [];
         let route = this->matchCollection(rawurldecode(path));
         if route {
             return route;
@@ -148,7 +148,7 @@ class Router
         var name, route, compiledRoute, staticPrefix, requiredMethods, method, matches;
         for name, route in this->routes->all() {
             let compiledRoute = route->compile();
-            let staticPrefix =  compiledRoute->getStaticPrefix();
+            let staticPrefix = compiledRoute->getStaticPrefix();
             // check the static prefix of the URL first. Only use the more expensive preg_match when it matches
             if staticPrefix === "" || 0 === strpos(path, staticPrefix) {
                 // no-op
@@ -164,10 +164,10 @@ class Router
             var_dump("not match", path, route->getPath(), compiledRoute->getRegex());
                 continue;
             }
-            let requiredMethods =  route->getMethods();
+            let requiredMethods = route->getMethods();
             if requiredMethods {
                 // HEAD and GET are equivalent as per RFC
-                let method =  this->method;
+                let method = this->method;
                 if method === "HEAD" {
                     let method = "GET";
                 }

@@ -69,9 +69,9 @@ class Dispatcher
         let tmpListEventPayload = this->parseEventAndPayload(event, payload);
         let event = tmpListEventPayload[0];
         let payload = tmpListEventPayload[1];
-        let responses =  [];
+        let responses = [];
         for listener in this->getListeners(event) {
-            let response =  {listener}(event, payload);
+            let response = {listener}(event, payload);
             // If a response is returned from the listener and event halting is enabled
             // we will just return this response, and not call the rest of the event
             // listeners. Otherwise we will add the response on the response list.
@@ -86,7 +86,7 @@ class Dispatcher
             }
             let responses[] = response;
         }
-        return  halt ? null  : responses;
+        return  halt ? null : responses;
     }
     
     /**
@@ -115,8 +115,8 @@ class Dispatcher
     {
         var listeners;
     
-        let listeners =  isset this->listeners[eventName] ? this->listeners[eventName]  : [];
-        return  class_exists(eventName, false) ? this->addInterfaceListeners(eventName, listeners)  : listeners;
+        let listeners = isset this->listeners[eventName] ? this->listeners[eventName] : [];
+        return  class_exists(eventName, false) ? this->addInterfaceListeners(eventName, listeners) : listeners;
     }
     
     /**
@@ -134,7 +134,7 @@ class Dispatcher
             if isset this->listeners[interfacee] {
                 for names in this->listeners[interfacee] {
                     let names = typeof names == "array" ? names : [names];
-                    let listeners =  array_merge(listeners, names);
+                    let listeners = array_merge(listeners, names);
                 }
             }
         }

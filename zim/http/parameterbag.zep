@@ -56,7 +56,7 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function add(array parameters = []) -> void
     {
-        let this->parameters =  array_replace(this->parameters, parameters);
+        let this->parameters = array_replace(this->parameters, parameters);
     }
     
     /**
@@ -69,7 +69,7 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function get(string key, deft = null)
     {
-        return  array_key_exists(key, this->parameters) ? this->parameters[key]  : deft;
+        return  array_key_exists(key, this->parameters) ? this->parameters[key] : deft;
     }
     
     /**

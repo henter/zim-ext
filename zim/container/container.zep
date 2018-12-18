@@ -83,10 +83,10 @@ class Container
     {
         var aliases, concretes, c;
     
-        let aliases =  [];
-        let concretes =  is_array(concrete) ? concrete  : [concrete];
+        let aliases = [];
+        let concretes = is_array(concrete) ? concrete : [concrete];
         for c in concretes {
-            let aliases[] =  this->getAlias(c);
+            let aliases[] = this->getAlias(c);
         }
         return new ContextualBindingBuilder(this, aliases);
     }
@@ -119,7 +119,7 @@ class Container
     public function resolved(var abstractt) -> bool
     {
         if this->isAlias(abstractt) {
-            let abstractt =  this->getAlias(abstractt);
+            let abstractt = this->getAlias(abstractt);
         }
         return isset this->resolved[abstractt] || isset this->instances[abstractt];
     }
@@ -167,7 +167,7 @@ class Container
         // bound into this container to the abstract type and we will just wrap it
         // up inside its own Closure to give us more convenience when extending.
         if !(typeof concrete == "object" && concrete instanceof Closure) {
-            let concrete =  this->getClosure(abstractt, concrete);
+            let concrete = this->getClosure(abstractt, concrete);
         }
         let this->bindings[abstractt] = [
             "concrete": concrete,
@@ -278,9 +278,9 @@ class Container
      */
     public function extend(var abstractt, <Closure> closure)
     {
-        let abstractt =  this->getAlias(abstractt);
+        let abstractt = this->getAlias(abstractt);
         if isset this->instances[abstractt] {
-            let this->instances[abstractt] =  {closure}(this->instances[abstractt], this);
+            let this->instances[abstractt] = {closure}(this->instances[abstractt], this);
         } else {
             let this->extenders[abstractt][] = closure;
         }
@@ -392,7 +392,7 @@ class Container
         var needsContextualBuild, concrete, obj, extender;
 
         let abstractt = this->getAlias(abstractt);
-        let needsContextualBuild =  !(empty(parameters)) || !(is_null(this->getContextualConcrete(abstractt)));
+        let needsContextualBuild = !(empty(parameters)) || !(is_null(this->getContextualConcrete(abstractt)));
         // If an instance of the type is currently being managed as a singleton we'll
         // just return an existing instance instead of instantiating new instances
         // so the developer can keep using the same objects instance every time.
@@ -413,7 +413,7 @@ class Container
         // and apply them to the object being built. This allows for the extension
         // of services, such as changing configuration or decorating the object.
         for extender in this->getExtenders(abstractt) {
-            let obj =  {extender}(obj, this);
+            let obj = {extender}(obj, this);
         }
         // If the requested type is registered as a singleton we'll want to cache off
         // the instances in "memory" so we can return it later without creating an
@@ -474,7 +474,7 @@ class Container
             return;
         }
         for alias in this->abstractAliases[abstractt] {
-            let binding =  this->findInContextualBindings(alias);
+            let binding = this->findInContextualBindings(alias);
             if !(is_null(binding)) {
                 return binding;
             }
@@ -532,7 +532,7 @@ class Container
             (concrete instanceof ContainergetClosureClosureZero || concrete instanceof Closure) {
             return {concrete}(this, this->getLastParameterOverride());
         }
-        let reflector =  new ReflectionClass(concrete);
+        let reflector = new ReflectionClass(concrete);
         // If the type is not instantiable, the developer is attempting to resolve
         // an abstract type such as an Interface of Abstract Class and there is
         // no binding registered for the abstractions so we need to bail out.
@@ -540,7 +540,7 @@ class Container
             return this->notInstantiable(concrete);
         }
         let this->buildStack[] = concrete;
-        let constructor =  reflector->getConstructor();
+        let constructor = reflector->getConstructor();
         // If there are no constructors, that means there are no dependencies then
         // we can just resolve the instances of the objects right away, without
         // resolving any other types or dependencies out of these containers.
@@ -548,7 +548,7 @@ class Container
             array_pop(this->buildStack);
             return new {concrete}();
         }
-        let dependencies =  constructor->getParameters();
+        let dependencies = constructor->getParameters();
         // Once we have all the constructor's parameters we can create each of the
         // dependency instances and then use the reflection instances to make a
         // new instance of this class, injecting the created dependencies in.
@@ -567,19 +567,19 @@ class Container
     {
         var results, dependency;
 
-        let results =  [];
+        let results = [];
         for dependency in dependencies {
             // If this dependency has a override for this particular build we will use
             // that instead as the value. Otherwise, we will continue with this run
             // of resolutions and let reflection attempt to determine the result.
             if this->hasParameterOverride(dependency) {
-                let results[] =  this->getParameterOverride(dependency);
+                let results[] = this->getParameterOverride(dependency);
                 continue;
             }
             // If the class is null, it means the dependency is a string or some other
             // primitive type which we can not resolve since it is not a class and
             // we will just bomb out with an error since we have no-where to go.
-            let results[] =  is_null(dependency->getClass()) ? this->resolvePrimitive(dependency)  : this->resolveClass(dependency);
+            let results[] = is_null(dependency->getClass()) ? this->resolvePrimitive(dependency) : this->resolveClass(dependency);
         }
         return results;
     }
@@ -613,7 +613,7 @@ class Container
      */
     protected function getLastParameterOverride() -> array
     {
-        return  count(this->with) ? end(this->with)  : [];
+        return  count(this->with) ? end(this->with) : [];
     }
 
     /**
@@ -628,7 +628,7 @@ class Container
     {
         var concrete;
 
-        let concrete =  this->getContextualConcrete("$" . parameter->name);
+        let concrete = this->getContextualConcrete("$" . parameter->name);
         if !(is_null(concrete)) {
             return (typeof concrete == "object" && concrete instanceof Closure) ? {concrete}(this) : concrete;
         }
@@ -673,7 +673,7 @@ class Container
         var previous, message;
 
         if !(empty(this->buildStack)) {
-            let previous =  implode(", ", this->buildStack);
+            let previous = implode(", ", this->buildStack);
             let message = "Target [{concrete}] is not instantiable while building [{previous}].";
         } else {
             let message = "Target [{concrete}] is not instantiable.";
@@ -784,7 +784,7 @@ class Container
      */
     public function forgetInstances()
     {
-        let this->instances =  [];
+        let this->instances = [];
     }
     
     /**
@@ -809,7 +809,7 @@ class Container
     public static function getInstance() -> <Container>
     {
         if is_null(self::instance) {
-            let self::instance =  new static();
+            let self::instance = new static();
         }
         return self::instance;
     }
@@ -835,7 +835,7 @@ class Container
      */
     public function set(var key, value)
     {
-        this->bind(key, (typeof value == "object" && value instanceof Closure) ? value  : new ContainersetClosureOne(value));
+        this->bind(key, (typeof value == "object" && value instanceof Closure) ? value : new ContainersetClosureOne(value));
     }
     
     /**

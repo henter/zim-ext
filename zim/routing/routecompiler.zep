@@ -53,7 +53,7 @@ class RouteCompiler
         let result = self::compilePattern(route, path);
 
         let pathVariables = result["variables"];
-        let variables =  array_merge(variables, pathVariables);
+        let variables = array_merge(variables, pathVariables);
         return new CompiledRoute(
             result["staticPrefix"],
             result["regex"],
@@ -84,19 +84,19 @@ class RouteCompiler
         // in case of nested "{}", e.g. {foo{bar}}. This in ensured because \w does not match "{" or "}" itself.
         preg_match_all(self::REGEX_PATTERN, pattern, matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
         for match in matches {
-            let varName =  substr(match[0][0], 1, -1);
+            let varName = substr(match[0][0], 1, -1);
             // get all static text preceding the current variable
-            let precedingText =  substr(pattern, pos, match[0][1] - pos);
-            let pos =  match[0][1] + strlen(match[0][0]);
+            let precedingText = substr(pattern, pos, match[0][1] - pos);
+            let pos = match[0][1] + strlen(match[0][0]);
             if strlen(precedingText) == 0 {
                 let precedingChar = "";
             } elseif useUtf8 {
                 preg_match("/.$/u", precedingText, precedingChar);
                 let precedingChar = precedingChar[0];
             } else {
-                let precedingChar =  substr(precedingText, -1);
+                let precedingChar = substr(precedingText, -1);
             }
-            let isSeparator =  "" !== precedingChar && false !== strpos(self::SEPARATORS, precedingChar);
+            let isSeparator = "" !== precedingChar && false !== strpos(self::SEPARATORS, precedingChar);
             // A PCRE subpattern name must start with a non-digit. Also a PHP variable cannot start with a digit so the
             // variable would not be usable as a Controller action argument.
             if preg_match("/^\d/", varName) {
@@ -109,14 +109,14 @@ class RouteCompiler
                 throw new \DomainException(sprintf("Variable name \"%s\" cannot be longer than %s characters in route pattern \"%s\". Please use a shorter name.", varName, self::VARIABLE_MAXIMUM_LENGTH, pattern));
             }
             if isSeparator && precedingText !== precedingChar {
-                let tokens[] =  ["text", substr(precedingText, 0, -strlen(precedingChar))];
+                let tokens[] = ["text", substr(precedingText, 0, -strlen(precedingChar))];
             } elseif !isSeparator && strlen(precedingText) > 0 {
-                let tokens[] =  ["text", precedingText];
+                let tokens[] = ["text", precedingText];
             }
             let regexp = route->getRequirement(varName);
             if regexp === null {
-                let followingPattern =  (string) substr(pattern, pos);
-                let nextSeparator =  self::findNextSeparator(followingPattern, useUtf8);
+                let followingPattern = (string) substr(pattern, pos);
+                let nextSeparator = self::findNextSeparator(followingPattern, useUtf8);
                 let regexp = sprintf(
                     "[^%s%s]+",
                     preg_quote(defaultSeparator, self::REGEX_DELIMITER),
@@ -129,7 +129,7 @@ class RouteCompiler
                 }
             } else {
                 if !preg_match("//u", regexp) {
-                    let useUtf8 =  false;
+                    let useUtf8 = false;
                 } elseif !needsUtf8 && preg_match(self::REGEX_UTF8_FULL, regexp) {
                     throw new \LogicException(sprintf("Cannot use UTF-8 route requirements without setting the \"utf8\" option for variable \"%s\" in pattern \"%s\".", varName, pattern));
                 }
@@ -165,7 +165,7 @@ class RouteCompiler
         for i in range(0, count(tokens) - 1) {
             let regexp .= self::computeRegexp(tokens, i, firstOptional);
         }
-        let regexp =  self::REGEX_DELIMITER . "^" . regexp . "$" . self::REGEX_DELIMITER . "sD";
+        let regexp = self::REGEX_DELIMITER . "^" . regexp . "$" . self::REGEX_DELIMITER . "sD";
         // enable Utf8 matching if really required
         if needsUtf8 {
             let regexp .= "u";
@@ -190,7 +190,7 @@ class RouteCompiler
     protected static function determineStaticPrefix(<Route> route, array tokens)
     {
         if tokens[0][0] !== "text" {
-            return  route->hasDefault(tokens[0][3]) || tokens[0][1] === "/" ? ""  : tokens[0][1];
+            return  route->hasDefault(tokens[0][3]) || tokens[0][1] === "/" ? "" : tokens[0][1];
         }
 
         var prefix;
@@ -258,7 +258,7 @@ class RouteCompiler
                     let nbTokens = count(tokens);
                     if nbTokens - 1 == index {
                         // Close the optional subpatterns
-                        let regexp .= str_repeat(")?", nbTokens - firstOptional - ( 0 === firstOptional ? 1  : 0));
+                        let regexp .= str_repeat(")?", nbTokens - firstOptional - ( 0 === firstOptional ? 1 : 0));
                     }
                 }
                 return regexp;

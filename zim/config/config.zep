@@ -63,13 +63,13 @@ class Config implements ArrayAccess, \Zim\Contract\Config
     {
         var config, key, deft;
     
-        let config =  [];
+        let config = [];
         for key, deft in keys {
             if is_numeric(key) {
                 //php-to-zephir error
                 //list($key, $deft) = [$deft, null];
                 let key = deft;
-                let deft =  null;
+                let deft = null;
             }
             let config[key] = Arr::get(this->items, key, deft);
         }
@@ -87,9 +87,9 @@ class Config implements ArrayAccess, \Zim\Contract\Config
     {
         var keys;
     
-        let keys =  is_array(key) ? key  : [key : value];
+        let keys = is_array(key) ? key : [key : value];
         for key, value in keys {
-            let this->items =  Arr::set(this->items, key, value);
+            let this->items = Arr::set(this->items, key, value);
         }
     }
     
@@ -104,7 +104,7 @@ class Config implements ArrayAccess, \Zim\Contract\Config
     {
         var myArray;
     
-        let myArray =  this->get(key);
+        let myArray = this->get(key);
         array_unshift(myArray, value);
         this->set(key, myArray);
     }
@@ -120,7 +120,7 @@ class Config implements ArrayAccess, \Zim\Contract\Config
     {
         var myArray;
     
-        let myArray =  this->get(key);
+        let myArray = this->get(key);
         let myArray[] = value;
         this->set(key, myArray);
     }

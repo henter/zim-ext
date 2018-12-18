@@ -20,8 +20,8 @@ class MethodNotAllowedException extends \RuntimeException
     {
         var message;
     
-        let this->allowedMethods =  array_map("strtoupper", allowedMethods);
-        let message =  "Allowed methods " . implode(",", allowedMethods);
+        let this->allowedMethods = array_map("strtoupper", allowedMethods);
+        let message = "Allowed methods " . implode(",", allowedMethods);
         parent::__construct(message, code, previous);
     }
     

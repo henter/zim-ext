@@ -18,7 +18,7 @@ class Listener
     {
         var callback;
     
-        let callback =  this->callback;
+        let callback = this->callback;
         return {callback}(event, payload);
     }
 
