@@ -67,17 +67,17 @@ class RouteCompiler
     {
         var tokens, variables, matches, pos, defaultSeparator, useUtf8, needsUtf8, match, varName, precedingText, precedingChar, isSeparator, regexp, followingPattern, nextSeparator, firstOptional, i, token, nbToken;
     
-        let tokens =  [];
-        let variables =  [];
-        let matches =  [];
+        let tokens = [];
+        let variables = [];
+        let matches = [];
         let pos = 0;
         let defaultSeparator = "/";
-        let useUtf8 =  preg_match("//u", pattern);
-        let needsUtf8 =  route->getOption("utf8");
-        if !(needsUtf8) && useUtf8 && preg_match(self::REGEX_UTF8, pattern) {
+        let useUtf8 = preg_match("//u", pattern);
+        let needsUtf8 = route->getOption("utf8");
+        if !needsUtf8 && useUtf8 && preg_match(self::REGEX_UTF8, pattern) {
             throw new \LogicException(sprintf("Cannot use UTF-8 route patterns without setting the \"utf8\" option for route \"%s\".", route->getPath()));
         }
-        if !(useUtf8) && needsUtf8 {
+        if !useUtf8 && needsUtf8 {
             throw new \LogicException(sprintf("Cannot mix UTF-8 requirements with non-UTF-8 pattern \"%s\".", pattern));
         }
         // Match all variables enclosed in "{}" and iterate over them. But we only want to match the innermost variable
@@ -110,7 +110,7 @@ class RouteCompiler
             }
             if isSeparator && precedingText !== precedingChar {
                 let tokens[] =  ["text", substr(precedingText, 0, -strlen(precedingChar))];
-            } elseif !(isSeparator) && strlen(precedingText) > 0 {
+            } elseif !isSeparator && strlen(precedingText) > 0 {
                 let tokens[] =  ["text", precedingText];
             }
             let regexp =  route->getRequirement(varName);
@@ -233,7 +233,6 @@ class RouteCompiler
         var token, regexp, nbTokens;
 
         let token = tokens[index];
-        var_dump(1111111, index, token, typeof token);
 
         if token[0] === "text" {
             return preg_quote(token[1], self::REGEX_DELIMITER);
@@ -265,12 +264,12 @@ class RouteCompiler
     {
         int i;
         let i = 0;
-        for i in range(0, strlen(regexp)) {
+        for i in range(0, strlen(regexp) - 1) {
             if self::at(regexp, i) === "\\" {
                 let i++;
                 continue;
             }
-            if self::at(regexp, i) !== "(" || self::at(regexp, i + 2) == "" {
+            if self::at(regexp, i) !== "(" || !self::at(regexp, i + 2) {
                 continue;
             }
             let i++;

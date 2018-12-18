@@ -125,12 +125,13 @@ class Route
         return this;
     }
 
-    private function setPathCallback(m)
+    private function setPathCallback(array m)
     {
-        if isset m[3][0] {
+        if strlen(m[3]) > 0 {
             this->setDefault(m[1],  m[3] !== "?" ? substr(m[3], 1)  : null);
         }
-        if isset m[2][0] {
+
+        if strlen(m[2]) > 0 {
             this->setRequirement(m[1], substr(m[2], 1, -1));
         }
         return "{" . m[1] . "}";
@@ -422,11 +423,8 @@ class Route
         return this->compiled;
     }
     
-    protected function sanitizeRequirement(key, regex)
+    protected function sanitizeRequirement(string key, string regex)
     {
-        if !(is_string(regex)) {
-            throw new \InvalidArgumentException(sprintf("Routing requirement for \"%s\" must be a string.", key));
-        }
         if regex !== "" && substr(regex, 0, 1) === "^" {
             let regex =  (string) substr(regex, 1);
         }

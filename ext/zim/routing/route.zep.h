@@ -74,7 +74,7 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_routing_route_setpath, 0, 0, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_routing_route_setpathcallback, 0, 0, 1)
-	ZEND_ARG_INFO(0, m)
+	ZEND_ARG_ARRAY_INFO(0, m, 0)
 ZEND_END_ARG_INFO()
 
 #if PHP_VERSION_ID >= 70200
@@ -228,8 +228,16 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_routing_route_compile, 0, 0,
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_routing_route_sanitizerequirement, 0, 0, 2)
+#if PHP_VERSION_ID >= 70200
+	ZEND_ARG_TYPE_INFO(0, key, IS_STRING, 0)
+#else
 	ZEND_ARG_INFO(0, key)
+#endif
+#if PHP_VERSION_ID >= 70200
+	ZEND_ARG_TYPE_INFO(0, regex, IS_STRING, 0)
+#else
 	ZEND_ARG_INFO(0, regex)
+#endif
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_routing_route___callstatic, 0, 0, 2)
