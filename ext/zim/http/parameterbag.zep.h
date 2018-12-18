@@ -14,6 +14,7 @@ PHP_METHOD(Zim_Http_ParameterBag, has);
 PHP_METHOD(Zim_Http_ParameterBag, remove);
 PHP_METHOD(Zim_Http_ParameterBag, getIterator);
 PHP_METHOD(Zim_Http_ParameterBag, count);
+zend_object *zephir_init_properties_Zim_Http_ParameterBag(zend_class_entry *class_type TSRMLS_DC);
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_parameterbag___construct, 0, 0, 0)
 	ZEND_ARG_ARRAY_INFO(0, parameters, 0)

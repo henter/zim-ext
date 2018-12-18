@@ -9,6 +9,7 @@ PHP_METHOD(Zim_Routing_RouteCompiler, determineStaticPrefix);
 PHP_METHOD(Zim_Routing_RouteCompiler, findNextSeparator);
 PHP_METHOD(Zim_Routing_RouteCompiler, computeRegexp);
 PHP_METHOD(Zim_Routing_RouteCompiler, transformCapturingGroupsToNonCapturings);
+PHP_METHOD(Zim_Routing_RouteCompiler, strat);
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_routing_routecompiler_compile, 0, 0, 1)
 	ZEND_ARG_OBJ_INFO(0, route, Zim\\Routing\\Route, 0)
@@ -67,6 +68,19 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_routing_routecompiler_transformcapturinggroup
 #endif
 ZEND_END_ARG_INFO()
 
+#if PHP_VERSION_ID >= 70200
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_routing_routecompiler_strat, 0, 2, IS_STRING, 0)
+#else
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_routing_routecompiler_strat, 0, 2, IS_STRING, NULL, 0)
+#endif
+	ZEND_ARG_INFO(0, s)
+#if PHP_VERSION_ID >= 70200
+	ZEND_ARG_TYPE_INFO(0, i, IS_LONG, 0)
+#else
+	ZEND_ARG_INFO(0, i)
+#endif
+ZEND_END_ARG_INFO()
+
 ZEPHIR_INIT_FUNCS(zim_routing_routecompiler_method_entry) {
 	PHP_ME(Zim_Routing_RouteCompiler, compile, arginfo_zim_routing_routecompiler_compile, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(Zim_Routing_RouteCompiler, compilePattern, arginfo_zim_routing_routecompiler_compilepattern, ZEND_ACC_PROTECTED|ZEND_ACC_STATIC)
@@ -74,5 +88,6 @@ ZEPHIR_INIT_FUNCS(zim_routing_routecompiler_method_entry) {
 	PHP_ME(Zim_Routing_RouteCompiler, findNextSeparator, arginfo_zim_routing_routecompiler_findnextseparator, ZEND_ACC_PROTECTED|ZEND_ACC_STATIC)
 	PHP_ME(Zim_Routing_RouteCompiler, computeRegexp, arginfo_zim_routing_routecompiler_computeregexp, ZEND_ACC_PROTECTED|ZEND_ACC_STATIC)
 	PHP_ME(Zim_Routing_RouteCompiler, transformCapturingGroupsToNonCapturings, arginfo_zim_routing_routecompiler_transformcapturinggroupstononcapturings, ZEND_ACC_PROTECTED|ZEND_ACC_STATIC)
+	PHP_ME(Zim_Routing_RouteCompiler, strat, arginfo_zim_routing_routecompiler_strat, ZEND_ACC_PROTECTED|ZEND_ACC_STATIC)
 	PHP_FE_END
 };

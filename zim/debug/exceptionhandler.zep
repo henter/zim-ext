@@ -228,7 +228,7 @@ class ExceptionHandler
             return sprintf("<span class=\"block trace-file-path\">in <a title=\"%s%3$s\"><strong>%s</strong>%s</a></span>", this->escapeHtml(path), file,  0 < line ? " line " . line  : "");
         }
         let f = fmt;
-        let i =  strpos(f, "&", max(strrpos(f, "%f"), strrpos(f, "%l"))) ? strpos(f, "&", max(strrpos(f, "%f"), strrpos(f, "%l"))) : \strlen(f);
+        let i =  strpos(f, "&", max(strrpos(f, "%f"), strrpos(f, "%l"))) ? strpos(f, "&", max(strrpos(f, "%f"), strrpos(f, "%l"))) : strlen(f);
         let fmt =  array_merge([substr(f, 0, i)], preg_split("/&([^>]++)>/", substr(f, i), -1, PREG_SPLIT_DELIM_CAPTURE));
 
         let i = 1;
@@ -241,7 +241,7 @@ class ExceptionHandler
 
             let k = fmt[i];
             if 0 === strpos(path, k) {
-                let path =  substr_replace(path, fmt[i], 0, \strlen(k));
+                let path =  substr_replace(path, fmt[i], 0, strlen(k));
                 break;
             }
 

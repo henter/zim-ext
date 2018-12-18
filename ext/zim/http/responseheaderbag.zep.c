@@ -252,7 +252,7 @@ PHP_METHOD(Zim_Http_ResponseHeaderBag, set) {
 	ZEPHIR_INIT_NVAR(&_4);
 	ZVAL_STRING(&_4, "expires");
 	zephir_array_fast_append(&tmpArrayd0d6087f950982817b4a268511aa1623, &_4);
-	ZEPHIR_CALL_FUNCTION(&_5, "in_array", NULL, 82, &uniqueKey, &tmpArrayd0d6087f950982817b4a268511aa1623, &__$true);
+	ZEPHIR_CALL_FUNCTION(&_5, "in_array", NULL, 80, &uniqueKey, &tmpArrayd0d6087f950982817b4a268511aa1623, &__$true);
 	zephir_check_call_status();
 	if (zephir_is_true(&_5)) {
 		ZEPHIR_CALL_METHOD(&computed, this_ptr, "computecachecontrolvalue", NULL, 0);

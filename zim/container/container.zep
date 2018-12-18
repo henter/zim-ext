@@ -97,11 +97,11 @@ class Container
      * @param  string  $abstract
      * @return bool
      */
-    public function bound(string abstractt) -> bool
+    public function bound(var abstractt) -> bool
     {
         return isset this->bindings[abstractt] || isset this->instances[abstractt] || this->isAlias(abstractt);
     }
-    
+
     /**
      *  {@inheritdoc}
      */
@@ -109,43 +109,43 @@ class Container
     {
         return this->bound(id);
     }
-    
+
     /**
      * Determine if the given abstract type has been resolved.
      *
      * @param  string  $abstract
      * @return bool
      */
-    public function resolved(string abstractt) -> bool
+    public function resolved(var abstractt) -> bool
     {
         if this->isAlias(abstractt) {
             let abstractt =  this->getAlias(abstractt);
         }
         return isset this->resolved[abstractt] || isset this->instances[abstractt];
     }
-    
+
     /**
      * Determine if a given type is shared.
      *
      * @param  string  $abstract
      * @return bool
      */
-    public function isShared(string abstractt) -> bool
+    public function isShared(var abstractt) -> bool
     {
         return isset this->instances[abstractt] || isset this->bindings[abstractt]["shared"] && this->bindings[abstractt]["shared"] === true;
     }
-    
+
     /**
      * Determine if a given string is an alias.
      *
      * @param  string  $name
      * @return bool
      */
-    public function isAlias(string name) -> bool
+    public function isAlias(var name) -> bool
     {
         return isset this->aliases[name];
     }
-    
+
     /**
      * Register a binding with the container.
      *
@@ -154,7 +154,7 @@ class Container
      * @param  bool  $shared
      * @return void
      */
-    public function bind(string abstractt, concrete = null, bool shared = false)
+    public function bind(var abstractt, var concrete = null, bool shared = false)
     {
         // If no concrete type was given, we will simply set the concrete type to the
         // abstract type. After that, the concrete type to be registered as shared
@@ -174,7 +174,7 @@ class Container
             "shared": shared
         ];
     }
-    
+
     /**
      * Get the Closure to be used when building a type.
      *
@@ -182,11 +182,11 @@ class Container
      * @param  string  $concrete
      * @return \Closure
      */
-    protected function getClosure(string abstractt, string concrete) -> <ContainergetClosureClosureZero>
+    protected function getClosure(var abstractt, var concrete) -> <ContainergetClosureClosureZero>
     {
         return new ContainergetClosureClosureZero(abstractt, concrete);
     }
-    
+
     /**
      * Determine if the container has a method binding.
      *
@@ -197,7 +197,7 @@ class Container
     {
         return isset this->methodBindings[method];
     }
-    
+
     /**
      * Bind a callback to resolve with Container::call.
      *
@@ -205,17 +205,14 @@ class Container
      * @param  \Closure  $callback
      * @return void
      */
-    public function bindMethod(method, <\Closure> callback)
+    public function bindMethod(string method, <Closure> callback)
     {
-        var tmpThis1;
-    
-        
-        this->parseBindMethod(method);
-        let tmpThis1 = this;
-        
-        let this->methodBindings[tmpThis1] = callback;
+        var name;
+        let name = this->parseBindMethod(method);
+
+        let this->methodBindings[name] = callback;
     }
-    
+
     /**
      * Get the method to be bound in class@method format.
      *
@@ -229,7 +226,7 @@ class Container
         }
         return method;
     }
-    
+
     /**
      * Get the method binding for the given method.
      *
@@ -241,7 +238,7 @@ class Container
     {
         return call_user_func(this->methodBindings[method], instance, this);
     }
-    
+
     /**
      * Add a contextual binding to the container.
      *
@@ -250,17 +247,14 @@ class Container
      * @param  \Closure|string  $implementation
      * @return void
      */
-    public function addContextualBinding(string concrete, string abstractt, implementation)
+    public function addContextualBinding(var concrete, var abstractt, implementation)
     {
-        var tmpThis1;
-    
-        
-        this->getAlias(abstractt);
-        let tmpThis1 = this;
-        
-        let this->contextual[concrete][tmpThis1] = implementation;
+        var name;
+        let name = this->getAlias(abstractt);
+
+        let this->contextual[concrete][name] = implementation;
     }
-    
+
     /**
      * Register a shared binding in the container.
      *
@@ -268,11 +262,11 @@ class Container
      * @param  \Closure|string|null  $concrete
      * @return void
      */
-    public function singleton(string abstractt, concrete = null)
+    public function singleton(var abstractt, var concrete = null)
     {
         this->bind(abstractt, concrete, true);
     }
-    
+
     /**
      * "Extend" an abstract type in the container.
      *
@@ -282,7 +276,7 @@ class Container
      *
      * @throws \InvalidArgumentException
      */
-    public function extend(string abstractt, <Closure> closure)
+    public function extend(var abstractt, <Closure> closure)
     {
         let abstractt =  this->getAlias(abstractt);
         if isset this->instances[abstractt] {
@@ -291,7 +285,7 @@ class Container
             let this->extenders[abstractt][] = closure;
         }
     }
-    
+
     /**
      * Register an existing instance as shared in the container.
      *
@@ -299,25 +293,25 @@ class Container
      * @param  mixed   $instance
      * @return mixed
      */
-    public function instance(string abstractt, instance)
+    public function instance(var abstractt, instance)
     {
         this->removeAbstractAlias(abstractt);
         unset this->aliases[abstractt];
-        
+
         let this->instances[abstractt] = instance;
         return instance;
     }
-    
+
     /**
      * Remove an alias from the contextual binding alias cache.
      *
      * @param  string  $searched
      * @return void
      */
-    protected function removeAbstractAlias(string searched)
+    protected function removeAbstractAlias(var searched)
     {
         var abstractt, aliases, index, alias;
-    
+
         if !(isset this->aliases[searched]) {
             return;
         }
@@ -325,12 +319,12 @@ class Container
             for index, alias in aliases {
                 if alias == searched {
                     unset this->abstractAliases[abstractt][index];
-                
+
                 }
             }
         }
     }
-    
+
     /**
      * Alias a type to a different name.
      *
@@ -338,12 +332,12 @@ class Container
      * @param  string  $alias
      * @return void
      */
-    public function alias(string abstractt, string alias)
+    public function alias(var abstractt, var alias)
     {
         let this->aliases[alias] = abstractt;
         let this->abstractAliases[abstractt][] = alias;
     }
-    
+
     /**
      * Call the given Closure / class@method and inject its dependencies.
      *
@@ -356,7 +350,7 @@ class Container
     {
         return BoundMethod::call(this, callback, parameters, defaultMethod);
     }
-    
+
     /**
      * Resolve the given type from the container.
      *
@@ -364,18 +358,18 @@ class Container
      * @param  array  $parameters
      * @return mixed
      */
-    public function make(string abstractt, array parameters = [])
+    public function make(var abstractt, array parameters = [])
     {
         return this->resolve(abstractt, parameters);
     }
-    
+
     /**
      * get service
      */
     public function get(id)
     {
         var e;
-    
+
         try {
             return this->resolve(id);
         } catch Exception, e {
@@ -385,7 +379,7 @@ class Container
             throw new EntryNotFoundException();
         }
     }
-    
+
     /**
      * Resolve the given type from the container.
      *
@@ -393,11 +387,11 @@ class Container
      * @param  array  $parameters
      * @return mixed
      */
-    protected function resolve(string abstractt, array parameters = [])
+    protected function resolve(var abstractt, array parameters = [])
     {
         var needsContextualBuild, concrete, obj, extender;
-    
-        let abstractt =  this->getAlias(abstractt);
+
+        let abstractt = this->getAlias(abstractt);
         let needsContextualBuild =  !(empty(parameters)) || !(is_null(this->getContextualConcrete(abstractt)));
         // If an instance of the type is currently being managed as a singleton we'll
         // just return an existing instance instead of instantiating new instances
@@ -406,14 +400,14 @@ class Container
             return this->instances[abstractt];
         }
         let this->with[] = parameters;
-        let concrete =  this->getConcrete(abstractt);
+        let concrete = this->getConcrete(abstractt);
         // We're ready to instantiate an instance of the concrete type registered for
         // the binding. This will instantiate the types, as well as resolve any of
         // its "nested" dependencies recursively until all have gotten resolved.
         if this->isBuildable(concrete, abstractt) {
-            let obj =  this->build(concrete);
+            let obj = this->build(concrete);
         } else {
-            let obj =  this->make(concrete);
+            let obj = this->make(concrete);
         }
         // If we defined any extenders for this type, we'll need to spin through them
         // and apply them to the object being built. This allows for the extension
@@ -434,18 +428,18 @@ class Container
         array_pop(this->with);
         return obj;
     }
-    
+
     /**
      * Get the concrete type for a given abstract.
      *
      * @param  string  $abstract
      * @return mixed   $concrete
      */
-    protected function getConcrete(string abstractt)
+    protected function getConcrete(var abstractt)
     {
         var concrete;
-    
-        let concrete =  this->getContextualConcrete(abstractt);
+
+        let concrete = this->getContextualConcrete(abstractt);
         if !(is_null(concrete)) {
             return concrete;
         }
@@ -457,18 +451,18 @@ class Container
         }
         return abstractt;
     }
-    
+
     /**
      * Get the contextual concrete binding for the given abstract.
      *
      * @param  string  $abstract
      * @return string|null
      */
-    protected function getContextualConcrete(string abstractt)
+    protected function getContextualConcrete(var abstractt)
     {
         var binding, alias;
-    
-        let binding =  this->findInContextualBindings(abstractt);
+
+        let binding = this->findInContextualBindings(abstractt);
         if !(is_null(binding)) {
             return binding;
         }
@@ -486,17 +480,17 @@ class Container
             }
         }
     }
-    
+
     /**
      * Find the concrete binding for the given abstract in the contextual binding array.
      *
      * @param  string  $abstract
      * @return string|null
      */
-    protected function findInContextualBindings(string abstractt)
+    protected function findInContextualBindings(var abstractt)
     {
         var end;
-    
+
         if count(this->buildStack) == 0 {
             return null;
         }
@@ -505,7 +499,7 @@ class Container
             return this->contextual[end][abstractt];
         }
     }
-    
+
     /**
      * Determine if the given concrete is buildable.
      *
@@ -513,30 +507,30 @@ class Container
      * @param  string  $abstract
      * @return bool
      */
-    protected function isBuildable(concrete, string abstractt) -> bool
+    protected function isBuildable(var concrete, var abstractt) -> bool
     {
         return concrete === abstractt || (typeof concrete == "object" && concrete instanceof Closure);
     }
-    
+
     /**
      * Instantiate a concrete instance of the given type.
      *
-     * @param  string  $concrete
+     * @param  string $concrete
      * @return mixed
      *
      * @throws \Zim\Container\BindingResolutionException
      */
-    public function build(string concrete)
+    public function build(var concrete)
     {
         var reflector, constructor, dependencies, instances;
-    
+
         // If the concrete type is actually a Closure, we will just execute it and
         // hand back the results of the functions, which allows functions to be
         // used as resolvers for more fine-tuned resolution of these objects.
         //if concrete instanceof Closure {
-        if typeof concrete != "string" && is_callable(concrete) {
-            //return {concrete}(this, this->getLastParameterOverride());
-            return call_user_func_array(concrete, [this, this->getLastParameterOverride()]);
+        if typeof concrete == "object" &&
+            (concrete instanceof ContainergetClosureClosureZero || concrete instanceof Closure) {
+            return {concrete}(this, this->getLastParameterOverride());
         }
         let reflector =  new ReflectionClass(concrete);
         // If the type is not instantiable, the developer is attempting to resolve
@@ -558,11 +552,11 @@ class Container
         // Once we have all the constructor's parameters we can create each of the
         // dependency instances and then use the reflection instances to make a
         // new instance of this class, injecting the created dependencies in.
-        let instances =  this->resolveDependencies(dependencies);
+        let instances = this->resolveDependencies(dependencies);
         array_pop(this->buildStack);
         return reflector->newInstanceArgs(instances);
     }
-    
+
     /**
      * Resolve all of the dependencies from the ReflectionParameters.
      *
@@ -572,7 +566,7 @@ class Container
     protected function resolveDependencies(array dependencies) -> array
     {
         var results, dependency;
-    
+
         let results =  [];
         for dependency in dependencies {
             // If this dependency has a override for this particular build we will use
@@ -589,7 +583,7 @@ class Container
         }
         return results;
     }
-    
+
     /**
      * Determine if the given dependency has a parameter override.
      *
@@ -600,7 +594,7 @@ class Container
     {
         return array_key_exists(dependency->name, this->getLastParameterOverride());
     }
-    
+
     /**
      * Get a parameter override for a dependency.
      *
@@ -611,7 +605,7 @@ class Container
     {
         return this->getLastParameterOverride()[dependency->name];
     }
-    
+
     /**
      * Get the last parameter override.
      *
@@ -621,7 +615,7 @@ class Container
     {
         return  count(this->with) ? end(this->with)  : [];
     }
-    
+
     /**
      * Resolve a non-class hinted primitive dependency.
      *
@@ -633,7 +627,7 @@ class Container
     protected function resolvePrimitive(<ReflectionParameter> parameter)
     {
         var concrete;
-    
+
         let concrete =  this->getContextualConcrete("$" . parameter->name);
         if !(is_null(concrete)) {
             return (typeof concrete == "object" && concrete instanceof Closure) ? {concrete}(this) : concrete;
@@ -643,7 +637,7 @@ class Container
         }
         this->unresolvablePrimitive(parameter);
     }
-    
+
     /**
      * Resolve a class based dependency from the container.
      *
@@ -655,7 +649,7 @@ class Container
     protected function resolveClass(<ReflectionParameter> parameter)
     {
         var e;
-    
+
         try {
             return this->make(parameter->getClass()->name);
         } catch BindingResolutionException, e {
@@ -665,19 +659,19 @@ class Container
             throw e;
         }
     }
-    
+
     /**
      * Throw an exception that the concrete is not instantiable.
      *
-     * @param  string  $concrete
+     * @param  string $concrete
      * @return void
      *
      * @throws \Zim\Container\BindingResolutionException
      */
-    protected function notInstantiable(string concrete)
+    protected function notInstantiable(var concrete)
     {
         var previous, message;
-    
+
         if !(empty(this->buildStack)) {
             let previous =  implode(", ", this->buildStack);
             let message = "Target [{concrete}] is not instantiable while building [{previous}].";
@@ -686,7 +680,7 @@ class Container
         }
         throw new BindingResolutionException(message);
     }
-    
+
     /**
      * Throw an exception for an unresolvable primitive.
      *
@@ -698,8 +692,7 @@ class Container
     protected function unresolvablePrimitive(<ReflectionParameter> parameter)
     {
         var message;
-    
-        let message = "Unresolvable dependency resolving [{parameter}] in class {parameter->getDeclaringClass()->getName()}";
+        let message = "Unresolvable dependency resolving [{".parameter."}] in class {".parameter->getDeclaringClass()->getName()."}";
         throw new BindingResolutionException(message);
     }
 
@@ -712,7 +705,7 @@ class Container
     {
         return this->bindings;
     }
-    
+
     /**
      * Get the alias for an abstract if available.
      *
@@ -721,71 +714,67 @@ class Container
      *
      * @throws \LogicException
      */
-    public function getAlias(string abstractt) -> string
+    public function getAlias(var abstractt)
     {
-        if !(isset this->aliases[abstractt]) {
+        if ! isset this->aliases[abstractt] {
             return abstractt;
         }
         if this->aliases[abstractt] === abstractt {
-            throw new LogicException("[{abstractt}] is aliased to itself.");
+            throw new LogicException("[{".abstractt."}] is aliased to itself.");
         }
         return this->getAlias(this->aliases[abstractt]);
     }
-    
+
     /**
      * Get the extender callbacks for a given type.
      *
      * @param  string  $abstract
      * @return array
      */
-    protected function getExtenders(string abstractt) -> array
+    protected function getExtenders(var abstractt) -> array
     {
-        var tmpArray40cd750bba9870f18aada2478b24840a;
-    
-        let abstractt =  this->getAlias(abstractt);
+        let abstractt = this->getAlias(abstractt);
         if isset this->extenders[abstractt] {
             return this->extenders[abstractt];
         }
-        let tmpArray40cd750bba9870f18aada2478b24840a = [];
-        return tmpArray40cd750bba9870f18aada2478b24840a;
+        return [];
     }
-    
+
     /**
      * Remove all of the extender callbacks for a given type.
      *
      * @param  string  $abstract
      * @return void
      */
-    public function forgetExtenders(string abstractt)
+    public function forgetExtenders(var abstractt)
     {
         var ext;
         let ext = this->getAlias(abstractt);
         unset this->extenders[ext];
     }
-    
+
     /**
      * Drop all of the stale instances and aliases.
      *
      * @param  string  $abstract
      * @return void
      */
-    protected function dropStaleInstances(string abstractt)
+    protected function dropStaleInstances(var abstractt)
     {
         unset this->instances[abstractt];
         unset this->aliases[abstractt];
-    
+
     }
-    
+
     /**
      * Remove a resolved instance from the instance cache.
      *
      * @param  string  $abstract
      * @return void
      */
-    public function forgetInstance(string abstractt)
+    public function forgetInstance(var abstractt)
     {
         unset this->instances[abstractt];
-    
     }
     
     /**
@@ -805,11 +794,11 @@ class Container
      */
     public function flush()
     {
-        let this->aliases =  [];
-        let this->resolved =  [];
-        let this->bindings =  [];
-        let this->instances =  [];
-        let this->abstractAliases =  [];
+        let this->aliases = [];
+        let this->resolved = [];
+        let this->bindings = [];
+        let this->instances = [];
+        let this->abstractAliases = [];
     }
     
     /**
@@ -844,7 +833,7 @@ class Container
      * @param  mixed   $value
      * @return void
      */
-    public function set(string key, value)
+    public function set(var key, value)
     {
         this->bind(key, (typeof value == "object" && value instanceof Closure) ? value  : new ContainersetClosureOne(value));
     }
@@ -855,12 +844,11 @@ class Container
      * @param  string  $key
      * @return void
      */
-    public function remove(string key)
+    public function remove(var key)
     {
         unset this->bindings[key];
         unset this->instances[key];
         unset this->resolved[key];
-    
     }
 
 }

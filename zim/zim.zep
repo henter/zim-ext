@@ -64,7 +64,8 @@ class Zim extends Container
     public function __construct() -> void
     {
         let this->basePath =  dirname(APP_PATH);
-        this->registerErrorHandling();
+        error_reporting(E_ALL);
+        //this->registerErrorHandling();
         this->bootstrapContainer();
         this->bootstrapConfig();
         this->registerServices();
@@ -330,15 +331,15 @@ class Zim extends Container
     }
     
     /**
-     * @param null $make
+     * @param string $name
      * @return mixed
      */
-    public static function app(make = null)
+    public static function app(var name = null)
     {
-        if is_null(make) {
+        if is_null(name) {
             return self::instance;
         }
-        return self::instance->make(make);
+        return self::instance->make(name);
     }
     
     /**

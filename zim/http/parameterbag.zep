@@ -10,7 +10,7 @@ class ParameterBag implements \IteratorAggregate, \Countable
     /**
      * Parameter storage.
      */
-    protected parameters;
+    protected parameters = [];
     /**
      * @param array $parameters An array of parameters
      */

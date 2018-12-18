@@ -14,9 +14,10 @@
 #include "kernel/main.h"
 #include "kernel/memory.h"
 #include "kernel/array.h"
-#include "kernel/fcall.h"
 #include "kernel/operators.h"
+#include "kernel/object.h"
 #include "kernel/concat.h"
+#include "kernel/fcall.h"
 
 
 ZEPHIR_INIT_CLASS(Zim_Debug_FlattenExceptionsetMessageClosureZero) {
@@ -38,7 +39,7 @@ PHP_METHOD(Zim_Debug_FlattenExceptionsetMessageClosureZero, __construct) {
 PHP_METHOD(Zim_Debug_FlattenExceptionsetMessageClosureZero, __invoke) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *m, m_sub, __$false, _0, _1, _2, _3, _4;
+	zval *m, m_sub, __$false, _0, _1, _2, _3;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&m_sub);
@@ -47,7 +48,6 @@ PHP_METHOD(Zim_Debug_FlattenExceptionsetMessageClosureZero, __invoke) {
 	ZVAL_UNDEF(&_1);
 	ZVAL_UNDEF(&_2);
 	ZVAL_UNDEF(&_3);
-	ZVAL_UNDEF(&_4);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 0, &m);
@@ -56,13 +56,11 @@ PHP_METHOD(Zim_Debug_FlattenExceptionsetMessageClosureZero, __invoke) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	zephir_array_fetch_long(&_1, m, 0, PH_NOISY | PH_READONLY, "zim/debug/flattenexceptionsetmessageclosurezero.zep", 13 TSRMLS_CC);
-	ZEPHIR_CALL_FUNCTION(&_2, "\class_exists", NULL, 72, &_1, &__$false);
-	zephir_check_call_status();
-	if (zephir_is_true(&_2)) {
-		zephir_array_fetch_long(&_3, m, 0, PH_NOISY | PH_READONLY, "zim/debug/flattenexceptionsetmessageclosurezero.zep", 13 TSRMLS_CC);
-		ZEPHIR_CALL_FUNCTION(&_4, "get_parent_class", NULL, 66, &_3);
+	if (zephir_class_exists(&_1, zephir_is_true(&__$false)  TSRMLS_CC)) {
+		zephir_array_fetch_long(&_2, m, 0, PH_NOISY | PH_READONLY, "zim/debug/flattenexceptionsetmessageclosurezero.zep", 13 TSRMLS_CC);
+		ZEPHIR_CALL_FUNCTION(&_3, "get_parent_class", NULL, 65, &_2);
 		zephir_check_call_status();
-		ZEPHIR_CONCAT_VS(&_0, &_4, "@anonymous");
+		ZEPHIR_CONCAT_VS(&_0, &_3, "@anonymous");
 	} else {
 		zephir_array_fetch_long(&_0, m, 0, PH_NOISY, "zim/debug/flattenexceptionsetmessageclosurezero.zep", 13 TSRMLS_CC);
 	}

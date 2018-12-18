@@ -64,7 +64,11 @@ ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_zim_routing_router_match, 0, 1, Z
 #else
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_routing_router_match, 0, 1, IS_OBJECT, "Zim\\Routing\\Route", 0)
 #endif
+#if PHP_VERSION_ID >= 70200
+	ZEND_ARG_TYPE_INFO(0, path, IS_STRING, 0)
+#else
 	ZEND_ARG_INFO(0, path)
+#endif
 #if PHP_VERSION_ID >= 70200
 	ZEND_ARG_TYPE_INFO(0, method, IS_STRING, 0)
 #else

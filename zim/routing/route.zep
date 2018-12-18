@@ -44,16 +44,16 @@ class Route
      *
      * @param string          $path         The path pattern to match
      * @param array           $defaults     An array of default parameter values
-     * @param string|string[] $methods      A required HTTP method or an array of restricted methods
      * @param array           $requirements An array of requirements for parameters (regexes)
+     * @param string|string[] $methods      A required HTTP method or an array of restricted methods
      * @param array           $options      An array of options
      */
-    public function __construct(string path, array defaults = [], methods = [], array requirements = [], array options = []) -> void
+    public function __construct(string path, array defaults = [], array requirements = [], var methods = [], array options = []) -> void
     {
         this->setPath(path);
         this->addDefaults(defaults);
-        this->setMethods(methods);
         this->addRequirements(requirements);
+        this->setMethods(methods);
         this->addOptions(options);
     }
     
@@ -120,8 +120,6 @@ class Route
         if strpbrk(pattern, "?<") !== false {
             let pattern =  preg_replace_callback("#\\{(\\w++)(<.*?>)?(\\?[^\\}]*+)?\\}#", [this, "setPathCallback"], pattern);
         }
-        // A pattern must start with a slash and must not have multiple slashes at the beginning because the
-        // generated path for this route would be confused with a network path, e.g. '//domain.com/path'.
         let this->path =  "/" . ltrim(trim(pattern), "/");
         let this->compiled =  null;
         return this;
@@ -155,14 +153,14 @@ class Route
      *
      * This method implements a fluent interface.
      *
-     * @param string|string[] $methods The method or an array of methods
+     * @param string[] $methods The method or an array of methods
      *
      * @return $this
      */
-    public function setMethods(methods)
+    public function setMethods(array methods)
     {
-        let this->methods =  array_map("strtoupper", (array) methods);
-        let this->compiled =  null;
+        let this->methods = array_map("strtoupper", methods);
+        let this->compiled = null;
         return this;
     }
     
@@ -429,7 +427,7 @@ class Route
         if !(is_string(regex)) {
             throw new \InvalidArgumentException(sprintf("Routing requirement for \"%s\" must be a string.", key));
         }
-        if regex !== "" && regex[0] === "^" {
+        if regex !== "" && substr(regex, 0, 1) === "^" {
             let regex =  (string) substr(regex, 1);
         }
         if substr(regex, -1) === "$" {

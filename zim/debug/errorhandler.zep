@@ -65,20 +65,17 @@ class ErrorHandler
      */
     public static function register(<self> handler = null)
     {
-        var tmpArray333792ecce577a1de0b52951dff6478e, prev, tmpArray81691361fa84c744e100422140b616a2, tmpArrayd0d8b94be8374b419e6b740b5ad5bed2;
+        var prev;
     
         if handler === null {
             let handler =  new static();
         }
-        let tmpArray333792ecce577a1de0b52951dff6478e = [handler, "handleError"];
-        let prev =  set_error_handler(tmpArray333792ecce577a1de0b52951dff6478e);
+        let prev = set_error_handler([handler, "handleError"]);
         if prev === null {
             restore_error_handler();
-            let tmpArray81691361fa84c744e100422140b616a2 = [handler, "handleError"];
-            set_error_handler(tmpArray81691361fa84c744e100422140b616a2, handler->thrownErrors);
+            set_error_handler([handler, "handleError"], handler->thrownErrors);
         }
-        let tmpArrayd0d8b94be8374b419e6b740b5ad5bed2 = [handler, "handleException"];
-        let prev =  set_exception_handler(tmpArrayd0d8b94be8374b419e6b740b5ad5bed2);
+        let prev = set_exception_handler([handler, "handleException"]);
         handler->setExceptionHandler(prev);
         return handler;
     }
@@ -100,7 +97,7 @@ class ErrorHandler
     {
         var prev;
     
-        let prev =  this->exceptionHandler;
+        let prev = this->exceptionHandler;
         let this->exceptionHandler = handler;
         return prev;
     }
@@ -149,7 +146,7 @@ class ErrorHandler
         let this->exceptionHandler =  null;
         try {
             if exceptionHandler !== null {
-                return \call_user_func(exceptionHandler, exception);
+                return call_user_func(exceptionHandler, exception);
             }
             let handlerException =  handlerException ? handlerException : exception;
         } catch \Throwable, handlerException {

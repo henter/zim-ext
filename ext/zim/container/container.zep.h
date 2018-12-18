@@ -65,11 +65,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_container_container_bound, 0
 #else
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_container_container_bound, 0, 1, _IS_BOOL, NULL, 0)
 #endif
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_has, 0, 0, 1)
@@ -81,11 +77,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_container_container_resolved
 #else
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_container_container_resolved, 0, 1, _IS_BOOL, NULL, 0)
 #endif
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 ZEND_END_ARG_INFO()
 
 #if PHP_VERSION_ID >= 70200
@@ -93,11 +85,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_container_container_isshared
 #else
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_container_container_isshared, 0, 1, _IS_BOOL, NULL, 0)
 #endif
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 ZEND_END_ARG_INFO()
 
 #if PHP_VERSION_ID >= 70200
@@ -105,19 +93,11 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_container_container_isalias,
 #else
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_container_container_isalias, 0, 1, _IS_BOOL, NULL, 0)
 #endif
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, name)
-#endif
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_bind, 0, 0, 1)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 	ZEND_ARG_INFO(0, concrete)
 #if PHP_VERSION_ID >= 70200
 	ZEND_ARG_TYPE_INFO(0, shared, _IS_BOOL, 0)
@@ -131,16 +111,8 @@ ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_zim_container_container_getclosur
 #else
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_container_container_getclosure, 0, 2, IS_OBJECT, "Zim\\Container\\ContainergetClosureClosureZero", 0)
 #endif
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, concrete, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, concrete)
-#endif
 ZEND_END_ARG_INFO()
 
 #if PHP_VERSION_ID >= 70200
@@ -156,7 +128,11 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_container_container_hasmetho
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_bindmethod, 0, 0, 2)
+#if PHP_VERSION_ID >= 70200
+	ZEND_ARG_TYPE_INFO(0, method, IS_STRING, 0)
+#else
 	ZEND_ARG_INFO(0, method)
+#endif
 	ZEND_ARG_OBJ_INFO(0, callback, Closure, 0)
 ZEND_END_ARG_INFO()
 
@@ -178,65 +154,33 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_callmethodbinding, 0, 0, 
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_addcontextualbinding, 0, 0, 3)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, concrete, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, concrete)
-#endif
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 	ZEND_ARG_INFO(0, implementation)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_singleton, 0, 0, 1)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 	ZEND_ARG_INFO(0, concrete)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_extend, 0, 0, 2)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 	ZEND_ARG_OBJ_INFO(0, closure, Closure, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_instance, 0, 0, 2)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 	ZEND_ARG_INFO(0, instance)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_removeabstractalias, 0, 0, 1)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, searched, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, searched)
-#endif
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_alias, 0, 0, 2)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, alias, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, alias)
-#endif
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_call, 0, 0, 1)
@@ -246,11 +190,7 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_call, 0, 0, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_make, 0, 0, 1)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 	ZEND_ARG_ARRAY_INFO(0, parameters, 0)
 ZEND_END_ARG_INFO()
 
@@ -259,36 +199,20 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_get, 0, 0, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_resolve, 0, 0, 1)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 	ZEND_ARG_ARRAY_INFO(0, parameters, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_getconcrete, 0, 0, 1)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_getcontextualconcrete, 0, 0, 1)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_findincontextualbindings, 0, 0, 1)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 ZEND_END_ARG_INFO()
 
 #if PHP_VERSION_ID >= 70200
@@ -297,19 +221,11 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_container_container_isbuilda
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_container_container_isbuildable, 0, 2, _IS_BOOL, NULL, 0)
 #endif
 	ZEND_ARG_INFO(0, concrete)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_build, 0, 0, 1)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, concrete, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, concrete)
-#endif
 ZEND_END_ARG_INFO()
 
 #if PHP_VERSION_ID >= 70200
@@ -348,11 +264,7 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_resolveclass, 0, 0, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_notinstantiable, 0, 0, 1)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, concrete, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, concrete)
-#endif
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_unresolvableprimitive, 0, 0, 1)
@@ -366,16 +278,8 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_container_container_getbindi
 #endif
 ZEND_END_ARG_INFO()
 
-#if PHP_VERSION_ID >= 70200
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_container_container_getalias, 0, 1, IS_STRING, 0)
-#else
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_container_container_getalias, 0, 1, IS_STRING, NULL, 0)
-#endif
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
+ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_getalias, 0, 0, 1)
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 ZEND_END_ARG_INFO()
 
 #if PHP_VERSION_ID >= 70200
@@ -383,35 +287,19 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_container_container_getexten
 #else
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_container_container_getextenders, 0, 1, IS_ARRAY, NULL, 0)
 #endif
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_forgetextenders, 0, 0, 1)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_dropstaleinstances, 0, 0, 1)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_forgetinstance, 0, 0, 1)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, abstractt, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, abstractt)
-#endif
 ZEND_END_ARG_INFO()
 
 #if PHP_VERSION_ID >= 70200
@@ -426,20 +314,12 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_setinstance, 0, 0, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_set, 0, 0, 2)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, key, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, key)
-#endif
 	ZEND_ARG_INFO(0, value)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_container_remove, 0, 0, 1)
-#if PHP_VERSION_ID >= 70200
-	ZEND_ARG_TYPE_INFO(0, key, IS_STRING, 0)
-#else
 	ZEND_ARG_INFO(0, key)
-#endif
 ZEND_END_ARG_INFO()
 
 ZEPHIR_INIT_FUNCS(zim_container_container_method_entry) {

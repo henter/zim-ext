@@ -41,8 +41,8 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_routing_route___construct, 0, 0, 1)
 	ZEND_ARG_INFO(0, path)
 #endif
 	ZEND_ARG_ARRAY_INFO(0, defaults, 0)
-	ZEND_ARG_INFO(0, methods)
 	ZEND_ARG_ARRAY_INFO(0, requirements, 0)
+	ZEND_ARG_INFO(0, methods)
 	ZEND_ARG_ARRAY_INFO(0, options, 0)
 ZEND_END_ARG_INFO()
 
@@ -85,7 +85,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_routing_route_getmethods, 0,
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_routing_route_setmethods, 0, 0, 1)
-	ZEND_ARG_INFO(0, methods)
+	ZEND_ARG_ARRAY_INFO(0, methods, 0)
 ZEND_END_ARG_INFO()
 
 #if PHP_VERSION_ID >= 70200

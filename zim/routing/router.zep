@@ -31,7 +31,7 @@ class Router
      */
     public function __construct(<RouteCollection> routes = null) -> void
     {
-        let this->routes =  routes ? routes : new RouteCollection();
+        let this->routes = routes ? routes : new RouteCollection();
     }
     
     /**
@@ -57,7 +57,7 @@ class Router
         if is_array(info) && !(empty(info["name"])) {
             let name = info["name"];
         } else {
-            let name =  sha1(\json_encode(methods) . uri);
+            let name =  sha1(json_encode(methods) . uri);
         }
         return this->routes->add(name, this->createRoute(methods, uri, info));
     }
@@ -76,7 +76,6 @@ class Router
     
         let requirements = [];
         let options = [];
-        ;
         if is_callable(info) {
             let defaults =  ["_callable" : info];
         } else {
@@ -90,16 +89,17 @@ class Router
                 let action = tmpListControllerAction[1];
                 let defaults["_controller"] =  "App\\Controller\\" . str_replace("/", "\\", controller) . "Controller";
                 let defaults["_action"] =  action . "Action";
-            } else {
-                if strpos(info, "@") {
-                    let tmpListControllerAction = explode("@", info);
-                    let controller = tmpListControllerAction[0];
-                    let action = tmpListControllerAction[1];
-                    let defaults =  ["_controller" : "App\\Controller\\" . str_replace("/", "\\", controller) . "Controller", "_action" : action . "Action"];
-                }
+            } elseif strpos(info, "@") {
+                let tmpListControllerAction = explode("@", info);
+                let controller = tmpListControllerAction[0];
+                let action = tmpListControllerAction[1];
+                let defaults =  [
+                    "_controller" : "App\\Controller\\" . str_replace("/", "\\", controller) . "Controller",
+                    "_action" : action . "Action"
+                ];
             }
         }
-        return new Route(uri, defaults, methods, requirements, options);
+        return new Route(uri, defaults, requirements, methods, options);
     }
     
     /**
@@ -114,24 +114,24 @@ class Router
     }
     
     /**
-     * @param $path
+     * @param string $path
      * @param string $method
      * @return Route
      */
-    public function match(path, string method = "GET") -> <Route>
+    public function match(string path, string method = "GET") -> <Route>
     {
         var route;
     
         let this->method = method;
         let this->allow =  [];
-        let route =  this->matchCollection(rawurldecode(path));
+        let route = this->matchCollection(rawurldecode(path));
         if route {
             return route;
         }
         if path === "/" && !(this->allow) {
             throw new NotFoundException();
         }
-        throw  0 < count(this->allow) ? new MethodNotAllowedException(array_unique(this->allow))  : new NotFoundException(sprintf("No routes found for \"%s\".", path));
+        throw  0 < count(this->allow) ? new MethodNotAllowedException(array_unique(this->allow)) : new NotFoundException(sprintf("No routes found for \"%s\".", path));
     }
     
     /**
@@ -145,9 +145,8 @@ class Router
      */
     protected function matchCollection(string path)
     {
-        var name, route, compiledRoute, staticPrefix, tmp1, tmp2, requiredMethods, method, matches;
-
-        for name, route in this->routes {
+        var name, route, compiledRoute, staticPrefix, requiredMethods, method, matches;
+        for name, route in this->routes->all() {
             let compiledRoute = route->compile();
             let staticPrefix =  compiledRoute->getStaticPrefix();
             // check the static prefix of the URL first. Only use the more expensive preg_match when it matches
@@ -162,6 +161,7 @@ class Router
                 continue;
             }
             if !(preg_match(compiledRoute->getRegex(), path, matches)) {
+            var_dump("not match", path, route->getPath(), compiledRoute->getRegex());
                 continue;
             }
             let requiredMethods =  route->getMethods();
@@ -172,7 +172,7 @@ class Router
                     let method = "GET";
                 }
                 if !(in_array(method, requiredMethods)) {
-                    let this->allow =  array_merge(this->allow, requiredMethods);
+                    let this->allow = array_merge(this->allow, requiredMethods);
                     continue;
                 }
             }

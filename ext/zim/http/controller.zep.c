@@ -206,7 +206,7 @@ PHP_METHOD(Zim_Http_Controller, getAction) {
 		ZEPHIR_CONCAT_VS(return_value, uri, "Action");
 		RETURN_MM();
 	}
-	ZEPHIR_CALL_FUNCTION(&_1, "get_class_methods", NULL, 13, this_ptr);
+	ZEPHIR_CALL_FUNCTION(&_1, "get_class_methods", NULL, 14, this_ptr);
 	zephir_check_call_status();
 	zephir_is_iterable(&_1, 0, "zim/http/controller.zep", 70);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_1), _2)

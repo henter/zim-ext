@@ -34,6 +34,8 @@ ZEPHIR_INIT_CLASS(Zim_Http_ParameterBag) {
 	 */
 	zend_declare_property_null(zim_http_parameterbag_ce, SL("parameters"), ZEND_ACC_PROTECTED TSRMLS_CC);
 
+	zim_http_parameterbag_ce->create_object = zephir_init_properties_Zim_Http_ParameterBag;
+
 	zend_class_implements(zim_http_parameterbag_ce TSRMLS_CC, 1, zend_ce_aggregate);
 	zend_class_implements(zim_http_parameterbag_ce TSRMLS_CC, 1, spl_ce_Countable);
 	return SUCCESS;
@@ -157,7 +159,7 @@ PHP_METHOD(Zim_Http_ParameterBag, add) {
 
 
 	zephir_read_property(&_0, this_ptr, SL("parameters"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_FUNCTION(&_1, "array_replace", NULL, 18, &_0, &parameters);
+	ZEPHIR_CALL_FUNCTION(&_1, "array_replace", NULL, 19, &_0, &parameters);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("parameters"), &_1);
 	ZEPHIR_MM_RESTORE();
@@ -303,7 +305,7 @@ PHP_METHOD(Zim_Http_ParameterBag, getIterator) {
 
 	object_init_ex(return_value, zephir_get_internal_ce(SL("arrayiterator")));
 	zephir_read_property(&_0, this_ptr, SL("parameters"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 17, &_0);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 18, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -324,6 +326,29 @@ PHP_METHOD(Zim_Http_ParameterBag, count) {
 
 	zephir_read_property(&_0, this_ptr, SL("parameters"), PH_NOISY_CC | PH_READONLY);
 	RETURN_LONG(zephir_fast_count_int(&_0 TSRMLS_CC));
+
+}
+
+zend_object *zephir_init_properties_Zim_Http_ParameterBag(zend_class_entry *class_type TSRMLS_DC) {
+
+		zval _0, _1$$3;
+		ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&_1$$3);
+
+		ZEPHIR_MM_GROW();
+	
+	{
+		zval local_this_ptr, *this_ptr = &local_this_ptr;
+		ZEPHIR_CREATE_OBJECT(this_ptr, class_type);
+		zephir_read_property(&_0, this_ptr, SL("parameters"), PH_NOISY_CC | PH_READONLY);
+		if (Z_TYPE_P(&_0) == IS_NULL) {
+			ZEPHIR_INIT_VAR(&_1$$3);
+			array_init(&_1$$3);
+			zephir_update_property_zval(this_ptr, SL("parameters"), &_1$$3);
+		}
+		ZEPHIR_MM_RESTORE();
+		return Z_OBJ_P(this_ptr);
+	}
 
 }
 

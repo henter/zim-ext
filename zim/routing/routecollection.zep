@@ -24,10 +24,10 @@ class RouteCollection implements \IteratorAggregate, \Countable
      * @var Route[]
      */
     protected routes = [];
+
     public function __clone() -> void
     {
         var name, route;
-    
         for name, route in this->routes {
             let this->routes[name] = clone route;
         }
@@ -89,29 +89,24 @@ class RouteCollection implements \IteratorAggregate, \Countable
      */
     public function get(string name)
     {
-        return  isset this->routes[name] ? this->routes[name]  : null;
+        return isset this->routes[name] ? this->routes[name] : null;
     }
     
     /**
      * Removes a route or an array of routes by name from the collection.
      *
-     * @param string|string[] $name The route name or an array of route names
+     * @param string $name The route name or an array of route names
      */
-    public function remove(name) -> void
+    public function remove(string name) -> void
     {
-        var n;
-    
-        for n in (array) name {
-            unset this->routes[n];
-        
-        }
+        unset this->routes[name];
     }
     
     /**
      * Adds a route collection at the end of the current set by appending all
      * routes of the added collection.
      */
-    public function addCollection(<self> collection) -> void
+    public function addCollection(<RouteCollection> collection) -> void
     {
         var name, route;
     
@@ -221,12 +216,12 @@ class RouteCollection implements \IteratorAggregate, \Countable
     /**
      * Sets the HTTP methods (e.g. 'POST') all child routes are restricted to.
      *
-     * @param string|string[] $methods The method or an array of methods
+     * @param string[] $methods The method or an array of methods
      */
-    public function setMethods(methods) -> void
+    public function setMethods(array methods) -> void
     {
         var route;
-    
+
         for route in this->routes {
             route->setMethods(methods);
         }

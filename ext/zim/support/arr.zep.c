@@ -319,7 +319,7 @@ PHP_METHOD(Zim_Support_Arr, set) {
 	}
 	ZEPHIR_CALL_STATIC(&ret, "_parseinistring", NULL, 0, &key, value);
 	zephir_check_call_status();
-	ZEPHIR_RETURN_CALL_FUNCTION("array_merge_recursive", NULL, 117, &myArray, &ret);
+	ZEPHIR_RETURN_CALL_FUNCTION("array_merge_recursive", NULL, 113, &myArray, &ret);
 	zephir_check_call_status();
 	RETURN_MM();
 

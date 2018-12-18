@@ -577,7 +577,7 @@ class Request implements RequestContract
         // HTTP proxy reqs setup request URI with scheme and host [and port] + the URL path, only use URL path
         let schemeAndHttpHost =  this->getSchemeAndHttpHost();
         if 0 === strpos(requestUri, schemeAndHttpHost) {
-            let requestUri =  substr(requestUri, \strlen(schemeAndHttpHost));
+            let requestUri =  substr(requestUri, strlen(schemeAndHttpHost));
         }
         return requestUri;
     }
@@ -600,7 +600,7 @@ class Request implements RequestContract
         if pos !== false {
             let requestUri =  substr(requestUri, 0, pos);
         }
-        if requestUri !== "" && requestUri[0] !== "/" {
+        if requestUri !== "" && substr(requestUri, 0, 1) !== "/" {
             let requestUri =  "/" . requestUri;
         }
         return requestUri;

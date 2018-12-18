@@ -12,7 +12,7 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_containergetclosureclosurezero___co
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_container_containergetclosureclosurezero___invoke, 0, 0, 1)
-	ZEND_ARG_INFO(0, container)
+	ZEND_ARG_OBJ_INFO(0, container, Zim\\Container\\Container, 0)
 	ZEND_ARG_INFO(0, parameters)
 ZEND_END_ARG_INFO()
 

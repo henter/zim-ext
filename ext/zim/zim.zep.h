@@ -93,7 +93,7 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_zim_fire, 0, 0, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_zim_app, 0, 0, 0)
-	ZEND_ARG_INFO(0, make)
+	ZEND_ARG_INFO(0, name)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_zim_config, 0, 0, 0)

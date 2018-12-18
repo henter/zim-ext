@@ -51,11 +51,15 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_routing_routecollection_get, 0, 0, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_routing_routecollection_remove, 0, 0, 1)
+#if PHP_VERSION_ID >= 70200
+	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
+#else
 	ZEND_ARG_INFO(0, name)
+#endif
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_routing_routecollection_addcollection, 0, 0, 1)
-	ZEND_ARG_OBJ_INFO(0, collection, Zim\\Routing\\self, 0)
+	ZEND_ARG_OBJ_INFO(0, collection, Zim\\Routing\\RouteCollection, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_routing_routecollection_addprefix, 0, 0, 1)
@@ -89,7 +93,7 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_routing_routecollection_addoptions, 0, 0, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_routing_routecollection_setmethods, 0, 0, 1)
-	ZEND_ARG_INFO(0, methods)
+	ZEND_ARG_ARRAY_INFO(0, methods, 0)
 ZEND_END_ARG_INFO()
 
 ZEPHIR_INIT_FUNCS(zim_routing_routecollection_method_entry) {

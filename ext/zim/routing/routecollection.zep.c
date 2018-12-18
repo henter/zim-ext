@@ -108,7 +108,7 @@ PHP_METHOD(Zim_Routing_RouteCollection, getIterator) {
 
 	object_init_ex(return_value, zephir_get_internal_ce(SL("arrayiterator")));
 	zephir_read_property(&_0, this_ptr, SL("routes"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 17, &_0);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 18, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -214,34 +214,25 @@ PHP_METHOD(Zim_Routing_RouteCollection, get) {
 /**
  * Removes a route or an array of routes by name from the collection.
  *
- * @param string|string[] $name The route name or an array of route names
+ * @param string $name The route name or an array of route names
  */
 PHP_METHOD(Zim_Routing_RouteCollection, remove) {
 
-	zval _0;
-	zval *name, name_sub, n, *_1, _2$$3;
+	zval *name_param = NULL, _0;
+	zval name;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&name_sub);
-	ZVAL_UNDEF(&n);
-	ZVAL_UNDEF(&_2$$3);
+	ZVAL_UNDEF(&name);
 	ZVAL_UNDEF(&_0);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 1, 0, &name);
+	zephir_fetch_params(1, 1, 0, &name_param);
+
+	zephir_get_strval(&name, name_param);
 
 
-
-	zephir_get_arrval(&_0, name);
-	zephir_is_iterable(&_0, 0, "zim/routing/routecollection.zep", 108);
-	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0), _1)
-	{
-		ZEPHIR_INIT_NVAR(&n);
-		ZVAL_COPY(&n, _1);
-		zephir_read_property(&_2$$3, this_ptr, SL("routes"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_unset(&_2$$3, &n, PH_SEPARATE);
-	} ZEND_HASH_FOREACH_END();
-	ZEPHIR_INIT_NVAR(&n);
+	zephir_read_property(&_0, this_ptr, SL("routes"), PH_NOISY_CC | PH_READONLY);
+	zephir_array_unset(&_0, &name, PH_SEPARATE);
 	ZEPHIR_MM_RESTORE();
 
 }
@@ -271,7 +262,7 @@ PHP_METHOD(Zim_Routing_RouteCollection, addCollection) {
 
 	ZEPHIR_CALL_METHOD(&_0, collection, "all", NULL, 0);
 	zephir_check_call_status();
-	zephir_is_iterable(&_0, 0, "zim/routing/routecollection.zep", 125);
+	zephir_is_iterable(&_0, 0, "zim/routing/routecollection.zep", 120);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_0), _2, _3, _1)
 	{
 		ZEPHIR_INIT_NVAR(&name);
@@ -345,7 +336,7 @@ PHP_METHOD(Zim_Routing_RouteCollection, addPrefix) {
 		RETURN_MM_NULL();
 	}
 	zephir_read_property(&_2, this_ptr, SL("routes"), PH_NOISY_CC | PH_READONLY);
-	zephir_is_iterable(&_2, 0, "zim/routing/routecollection.zep", 147);
+	zephir_is_iterable(&_2, 0, "zim/routing/routecollection.zep", 142);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_2), _3)
 	{
 		ZEPHIR_INIT_NVAR(&route);
@@ -397,7 +388,7 @@ PHP_METHOD(Zim_Routing_RouteCollection, addNamePrefix) {
 	ZEPHIR_INIT_VAR(&prefixedRoutes);
 	array_init(&prefixedRoutes);
 	zephir_read_property(&_0, this_ptr, SL("routes"), PH_NOISY_CC | PH_READONLY);
-	zephir_is_iterable(&_0, 0, "zim/routing/routecollection.zep", 164);
+	zephir_is_iterable(&_0, 0, "zim/routing/routecollection.zep", 159);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_0), _2, _3, _1)
 	{
 		ZEPHIR_INIT_NVAR(&name);
@@ -457,7 +448,7 @@ PHP_METHOD(Zim_Routing_RouteCollection, addDefaults) {
 
 	if (zephir_fast_count_int(&defaults TSRMLS_CC) > 0) {
 		zephir_read_property(&_0$$3, this_ptr, SL("routes"), PH_NOISY_CC | PH_READONLY);
-		zephir_is_iterable(&_0$$3, 0, "zim/routing/routecollection.zep", 182);
+		zephir_is_iterable(&_0$$3, 0, "zim/routing/routecollection.zep", 177);
 		ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0$$3), _1$$3)
 		{
 			ZEPHIR_INIT_NVAR(&route);
@@ -497,7 +488,7 @@ PHP_METHOD(Zim_Routing_RouteCollection, addRequirements) {
 
 	if (zephir_fast_count_int(&requirements TSRMLS_CC) > 0) {
 		zephir_read_property(&_0$$3, this_ptr, SL("routes"), PH_NOISY_CC | PH_READONLY);
-		zephir_is_iterable(&_0$$3, 0, "zim/routing/routecollection.zep", 200);
+		zephir_is_iterable(&_0$$3, 0, "zim/routing/routecollection.zep", 195);
 		ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0$$3), _1$$3)
 		{
 			ZEPHIR_INIT_NVAR(&route);
@@ -537,7 +528,7 @@ PHP_METHOD(Zim_Routing_RouteCollection, addOptions) {
 
 	if (zephir_fast_count_int(&options TSRMLS_CC) > 0) {
 		zephir_read_property(&_0$$3, this_ptr, SL("routes"), PH_NOISY_CC | PH_READONLY);
-		zephir_is_iterable(&_0$$3, 0, "zim/routing/routecollection.zep", 218);
+		zephir_is_iterable(&_0$$3, 0, "zim/routing/routecollection.zep", 213);
 		ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0$$3), _1$$3)
 		{
 			ZEPHIR_INIT_NVAR(&route);
@@ -554,30 +545,32 @@ PHP_METHOD(Zim_Routing_RouteCollection, addOptions) {
 /**
  * Sets the HTTP methods (e.g. 'POST') all child routes are restricted to.
  *
- * @param string|string[] $methods The method or an array of methods
+ * @param string[] $methods The method or an array of methods
  */
 PHP_METHOD(Zim_Routing_RouteCollection, setMethods) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *methods, methods_sub, route, _0, *_1;
+	zval *methods_param = NULL, route, _0, *_1;
+	zval methods;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&methods_sub);
+	ZVAL_UNDEF(&methods);
 	ZVAL_UNDEF(&route);
 	ZVAL_UNDEF(&_0);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 1, 0, &methods);
+	zephir_fetch_params(1, 1, 0, &methods_param);
 
+	zephir_get_arrval(&methods, methods_param);
 
 
 	zephir_read_property(&_0, this_ptr, SL("routes"), PH_NOISY_CC | PH_READONLY);
-	zephir_is_iterable(&_0, 0, "zim/routing/routecollection.zep", 233);
+	zephir_is_iterable(&_0, 0, "zim/routing/routecollection.zep", 228);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0), _1)
 	{
 		ZEPHIR_INIT_NVAR(&route);
 		ZVAL_COPY(&route, _1);
-		ZEPHIR_CALL_METHOD(NULL, &route, "setmethods", NULL, 0, methods);
+		ZEPHIR_CALL_METHOD(NULL, &route, "setmethods", NULL, 0, &methods);
 		zephir_check_call_status();
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&route);

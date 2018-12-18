@@ -82,8 +82,8 @@ class RouteCompiler
             let varName =  substr(match[0][0], 1, -1);
             // get all static text preceding the current variable
             let precedingText =  substr(pattern, pos, match[0][1] - pos);
-            let pos =  match[0][1] + \strlen(match[0][0]);
-            if !(\strlen(precedingText)) {
+            let pos =  match[0][1] + strlen(match[0][0]);
+            if !(strlen(precedingText)) {
                 let precedingChar = "";
             } elseif useUtf8 {
                 preg_match("/.$/u", precedingText, precedingChar);
@@ -104,8 +104,8 @@ class RouteCompiler
                 throw new \DomainException(sprintf("Variable name \"%s\" cannot be longer than %s characters in route pattern \"%s\". Please use a shorter name.", varName, self::VARIABLE_MAXIMUM_LENGTH, pattern));
             }
             if isSeparator && precedingText !== precedingChar {
-                let tokens[] =  ["text", substr(precedingText, 0, -\strlen(precedingChar))];
-            } elseif !(isSeparator) && \strlen(precedingText) > 0 {
+                let tokens[] =  ["text", substr(precedingText, 0, -strlen(precedingChar))];
+            } elseif !(isSeparator) && strlen(precedingText) > 0 {
                 let tokens[] =  ["text", precedingText];
             }
             let regexp =  route->getRequirement(varName);
@@ -142,12 +142,12 @@ class RouteCompiler
             let tokens[] =  ["variable",  isSeparator ? precedingChar  : "", regexp, varName];
             let variables[] = varName;
         }
-        if pos < \strlen(pattern) {
+        if pos < strlen(pattern) {
             let tokens[] =  ["text", substr(pattern, pos)];
         }
         // find the first optional token
         let firstOptional =  PHP_INT_MAX;
-        let i =  count(tokens) - 1;
+        let i = count(tokens) - 1;
         for i in range(count(tokens) - 1, 0) {
             let token = tokens[i];
             if token[0] === "variable" && route->hasDefault(token[3]) {
@@ -175,12 +175,8 @@ class RouteCompiler
                 }
             }
         }
-        return [
-            "staticPrefix" : self::determineStaticPrefix(route, tokens),
-            "regex" : regexp,
-            "tokens" : array_reverse(tokens),
-            "variables" : variables
-        ];
+        let tmpArraybd8ddaaf9600b692848ab052089377c5 = ["staticPrefix" : self::determineStaticPrefix(route, tokens), "regex" : regexp, "tokens" : array_reverse(tokens), "variables" : variables];
+        return tmpArraybd8ddaaf9600b692848ab052089377c5;
     }
     
     /**
@@ -209,24 +205,21 @@ class RouteCompiler
             // return empty string if pattern is empty or false (false which can be returned by substr)
             return "";
         }
-
         // first remove all placeholders from the pattern so we can find the next real static character
-        let pattern = preg_replace("#\\{\\w+\\}#", "", pattern);
+        let pattern =  preg_replace("#\\{\\w+\\}#", "", pattern);
         if pattern === "" {
             return "";
         }
+        var tmp_pattern;
+        let tmp_pattern = pattern;
         if useUtf8 {
-            var patternResult;
-            preg_match("/^./u", pattern, patternResult);
-            let pattern = patternResult;
+            preg_match("/^./u", tmp_pattern, tmp_pattern);
         }
-
         var ret = "";
-        if strpos(self::SEPARATORS, pattern[0]) !== false {
-            let ret = pattern[0];
+        if strpos(self::SEPARATORS, tmp_pattern[0]) !== false {
+            let ret = tmp_pattern[0];
         }
         return ret;
-        //return strpos(self::SEPARATORS, pattern[0]) !== false ? pattern[0] : "";
     }
     
     /**
@@ -241,18 +234,23 @@ class RouteCompiler
     protected static function computeRegexp(array tokens, int index, int firstOptional) -> string
     {
         var token, regexp, nbTokens;
-    
-        let token = tokens[index];
-        if token[0] === "text" {
+
+        if isset tokens[index] {
+            let token = tokens[index];
+        } else {
+            return "";
+        }
+        if self::strat(token, 0) === "text" {
             // Text tokens
-            return preg_quote(token[1], self::REGEX_DELIMITER);
+            return preg_quote(self::strat(token, 1), self::REGEX_DELIMITER);
         } else {
             // Variable tokens
             if 0 === index && 0 === firstOptional {
                 // When the only token is an optional variable token, the separator is required
                 return sprintf("%s(?P<%s>%s)?", preg_quote(token[1], self::REGEX_DELIMITER), token[3], token[2]);
             } else {
-                let regexp =  sprintf("%s(?P<%s>%s)", preg_quote(token[1], self::REGEX_DELIMITER), token[3], token[2]);
+                //let regexp = sprintf("%s(?P<%s>%s)", preg_quote(token[1], self::REGEX_DELIMITER), token[3], token[2]);
+                let regexp = sprintf("%s(?P<%s>%s)", preg_quote(self::strat(token, 1), self::REGEX_DELIMITER), self::strat(token, 3), self::strat(token, 2));
                 if index >= firstOptional {
                     // Enclose each optional token in a subpattern to make it optional.
                     // "?:" means it is non-capturing, i.e. the portion of the subject string that
@@ -269,7 +267,7 @@ class RouteCompiler
         }
         return "";
     }
-    
+
     protected static function transformCapturingGroupsToNonCapturings(string regexp)
     {
         int i, i2;
@@ -298,5 +296,10 @@ class RouteCompiler
         }
         return regexp;
     }
+
+    protected static function strat(var s, int i) -> string {
+        return substr(s, i, 1);
+    }
+
 
 }

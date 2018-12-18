@@ -10,15 +10,23 @@
 
 define('APP_PATH', '/Users/henter/Dev/zim-php/app');
 
-//Route::match(['GET', 'POST'], '/henter', function(\Zim\Http\Request $req, \Zim\Config\Config $config) {
-//    return new \Zim\Http\JsonResponse([
-//        'req_path' => $req->getPathInfo(),
-//        'config' => $config->all(),
-//    ]);
-//});
+function getRequest($method, $uri)
+{
+    $query = $request = $attr = $server = [];
+    $server['REQUEST_METHOD'] = $method;
+    $server['REQUEST_URI'] = $uri;
+    return new \Zim\Http\Request($query, $request, $attr, $server);
+}
 
 //$zim = Zim\Zim::getInstance();
 $zim = new \Zim\Zim();
 $zim->singleton(\Zim\Http\Kernel::class);
+
+$http = $zim->make(\Zim\Http\Kernel::class);
+
+$request = getRequest('GET', 'test_route1/333');
+$response = $http->handle($request);
+var_dump($response);
+
 
 return $zim;

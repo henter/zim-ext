@@ -46,9 +46,9 @@ class Kernel
     {
         var configs, pattern, to;
     
-        let configs =  Zim::config("routes");
+        let configs = Zim::config("routes");
         //just in-case if routes.php not returned any configs as the value would be 1
-        if !(is_array(configs)) {
+        if typeof configs != "array" {
             return false;
         }
         for pattern, to in configs {
@@ -68,16 +68,16 @@ class Kernel
     
         this->zim->instance("request", request);
         this->zim->boot();
-        let requestEvent =  new RequestEvent(request);
+        let requestEvent = new RequestEvent(request);
         Event::fire(requestEvent);
-        let resp =  requestEvent->getResponse();
+        let resp = requestEvent->getResponse();
         if resp {
             return resp->prepare(request);
         }
         try {
-            let response =  this->dispatchToRouter(request);
+            let response = this->dispatchToRouter(request);
         } catch NotFoundException, e {
-            let response =  this->dispatchToDefault(request);
+            let response = this->dispatchToDefault(request);
         } catch \Throwable, e {
             throw e;
         }
@@ -202,11 +202,11 @@ class Kernel
     {
         var route, callablee;
     
-        let route =  this->router->matchRequest(request);
-        let callablee =  route->getDefault("_callable");
-        if !(callablee) {
-            let callablee =  [this->zim->make(route->getDefault("_controller")), route->getDefault("_action")];
-            if !(is_callable(callablee)) {
+        let route = this->router->matchRequest(request);
+        let callablee = route->getDefault("_callable");
+        if !callablee {
+            let callablee = [this->zim->make(route->getDefault("_controller")), route->getDefault("_action")];
+            if !is_callable(callablee) {
                 throw new NotFoundException("action not found " . callablee[1]);
             }
         }

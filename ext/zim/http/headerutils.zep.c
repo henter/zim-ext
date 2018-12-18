@@ -87,7 +87,7 @@ PHP_METHOD(Zim_Http_HeaderUtils, split) {
 	array_init(&matches);
 	ZEPHIR_INIT_VAR(&_0);
 	ZVAL_STRING(&_0, "/");
-	ZEPHIR_CALL_FUNCTION(&quotedSeparators, "preg_quote", NULL, 78, &separators, &_0);
+	ZEPHIR_CALL_FUNCTION(&quotedSeparators, "preg_quote", NULL, 76, &separators, &_0);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&_1);
 	ZEPHIR_CONCAT_SVSVS(&_1, "\n            /\n                (?!\\s)\n                    (?:\n                        # quoted-string\n                        \"(?:[^\"\\\\]|\\\\.)*(?:\"|\\\\|$)\n                    |\n                        # token\n                        [^\"", &quotedSeparators, "]+\n                    )+\n                (?<!\\s)\n            |\n                # separator\n                \\s*\n                (?<separator>[", &quotedSeparators, "])\n                \\s*\n            /x");
@@ -270,7 +270,7 @@ PHP_METHOD(Zim_Http_HeaderUtils, quote) {
 	}
 	ZEPHIR_INIT_VAR(&_4);
 	ZVAL_STRING(&_4, "\"\\\"");
-	ZEPHIR_CALL_FUNCTION(&_5, "addcslashes", NULL, 79, &s, &_4);
+	ZEPHIR_CALL_FUNCTION(&_5, "addcslashes", NULL, 77, &s, &_4);
 	zephir_check_call_status();
 	ZEPHIR_CONCAT_SVS(return_value, "\"", &_5, "\"");
 	RETURN_MM();
@@ -304,7 +304,7 @@ PHP_METHOD(Zim_Http_HeaderUtils, unquote) {
 	ZVAL_STRING(&_0, "/\\\\(.)|\"/");
 	ZEPHIR_INIT_VAR(&_1);
 	ZVAL_STRING(&_1, "$1");
-	ZEPHIR_RETURN_CALL_FUNCTION("preg_replace", NULL, 80, &_0, &_1, &s);
+	ZEPHIR_RETURN_CALL_FUNCTION("preg_replace", NULL, 78, &_0, &_1, &s);
 	zephir_check_call_status();
 	RETURN_MM();
 

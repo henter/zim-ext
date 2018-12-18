@@ -84,7 +84,7 @@ PHP_METHOD(Zim_Container_BoundMethod, call) {
 	}
 	ZEPHIR_INIT_VAR(&_2);
 	object_init_ex(&_2, zim_container_boundmethodcallclosurezero_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_2, "__construct", NULL, 29, container, callback, &parameters);
+	ZEPHIR_CALL_METHOD(NULL, &_2, "__construct", NULL, 30, container, callback, &parameters);
 	zephir_check_call_status();
 	ZEPHIR_RETURN_CALL_STATIC("callboundmethod", NULL, 0, container, callback, &_2);
 	zephir_check_call_status();
@@ -378,11 +378,11 @@ PHP_METHOD(Zim_Container_BoundMethod, getCallReflector) {
 		object_init_ex(&_4, zephir_get_internal_ce(SL("reflectionmethod")));
 		zephir_array_fetch_long(&_5, callback, 0, PH_NOISY | PH_READONLY, "zim/container/boundmethod.zep", 130 TSRMLS_CC);
 		zephir_array_fetch_long(&_6, callback, 1, PH_NOISY | PH_READONLY, "zim/container/boundmethod.zep", 130 TSRMLS_CC);
-		ZEPHIR_CALL_METHOD(NULL, &_4, "__construct", NULL, 30, &_5, &_6);
+		ZEPHIR_CALL_METHOD(NULL, &_4, "__construct", NULL, 31, &_5, &_6);
 		zephir_check_call_status();
 	} else {
 		object_init_ex(&_4, zephir_get_internal_ce(SL("reflectionfunction")));
-		ZEPHIR_CALL_METHOD(NULL, &_4, "__construct", NULL, 31, callback);
+		ZEPHIR_CALL_METHOD(NULL, &_4, "__construct", NULL, 32, callback);
 		zephir_check_call_status();
 	}
 	RETURN_CCTOR(&_4);

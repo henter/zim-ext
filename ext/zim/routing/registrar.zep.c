@@ -255,7 +255,7 @@ PHP_METHOD(Zim_Routing_Registrar, __call) {
 	if (zephir_fast_in_array(&method, &_0 TSRMLS_CC)) {
 		ZEPHIR_CPY_WRT(&all, &parameters);
 		ZEPHIR_MAKE_REF(&all);
-		ZEPHIR_CALL_FUNCTION(NULL, "array_unshift", NULL, 28, &all, &method);
+		ZEPHIR_CALL_FUNCTION(NULL, "array_unshift", NULL, 29, &all, &method);
 		ZEPHIR_UNREF(&all);
 		zephir_check_call_status();
 		ZEPHIR_INIT_VAR(&_1$$3);
@@ -292,9 +292,9 @@ PHP_METHOD(Zim_Routing_Registrar, __call) {
 	ZVAL_STRING(&_8, "Method %s::%s does not exist.");
 	ZEPHIR_INIT_VAR(&_9);
 	ZVAL_STRING(&_9, "Registrar");
-	ZEPHIR_CALL_FUNCTION(&_10, "sprintf", NULL, 21, &_8, &_9, &method);
+	ZEPHIR_CALL_FUNCTION(&_10, "sprintf", NULL, 22, &_8, &_9, &method);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &_7, "__construct", NULL, 102, &_10);
+	ZEPHIR_CALL_METHOD(NULL, &_7, "__construct", NULL, 100, &_10);
 	zephir_check_call_status();
 	zephir_throw_exception_debug(&_7, "zim/routing/registrar.zep", 126 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
