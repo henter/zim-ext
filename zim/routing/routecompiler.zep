@@ -16,6 +16,12 @@ namespace Zim\Routing;
  */
 class RouteCompiler
 {
+    const REGEX_PATTERN_START = "#^\{\w+\}#";
+    const REGEX_PATTERN = "#\{\w+\}#";
+    const REGEX_UTF8 = "/[\x80-\xFF]/";
+    const REGEX_UTF8_FULL = "/[\x80-\xFF]|(?<!\\\\)\\\\(?:\\\\\\\\)*+(?-i:X|[pP][\{CLMNPSZ]|x\{[A-Fa-f0-9]{3})/";
+    //"//for ide highlight issue
+
     const REGEX_DELIMITER = "#";
     /**
      * This string defines the characters that are automatically considered separators in front of
@@ -40,27 +46,26 @@ class RouteCompiler
      */
     public static function compile(<Route> route)
     {
-        var variables, path, result, staticPrefix, pathVariables, pathParam, tokens, regex;
+        var variables, path, result, pathVariables;
     
-        let variables =  [];
-        let path =  route->getPath();
-        let result =  self::compilePattern(route, path);
-        let staticPrefix = result["staticPrefix"];
+        let variables = [];
+        let path = route->getPath();
+        let result = self::compilePattern(route, path);
+
         let pathVariables = result["variables"];
-        for pathParam in pathVariables {
-            if pathParam === "_fragment" {
-                throw new \InvalidArgumentException(sprintf("Route pattern \"%s\" cannot contain \"_fragment\" as a path parameter.", route->getPath()));
-            }
-        }
         let variables =  array_merge(variables, pathVariables);
-        let tokens = result["tokens"];
-        let regex = result["regex"];
-        return new CompiledRoute(staticPrefix, regex, tokens, pathVariables, array_unique(variables));
+        return new CompiledRoute(
+            result["staticPrefix"],
+            result["regex"],
+            result["tokens"],
+            pathVariables,
+            array_unique(variables)
+        );
     }
     
     protected static function compilePattern(<Route> route, pattern)
     {
-        var tokens, variables, matches, pos, defaultSeparator, useUtf8, needsUtf8, match, varName, precedingText, precedingChar, isSeparator, regexp, followingPattern, nextSeparator, firstOptional, i, token, nbToken, tmpArraybd8ddaaf9600b692848ab052089377c5;
+        var tokens, variables, matches, pos, defaultSeparator, useUtf8, needsUtf8, match, varName, precedingText, precedingChar, isSeparator, regexp, followingPattern, nextSeparator, firstOptional, i, token, nbToken;
     
         let tokens =  [];
         let variables =  [];
@@ -69,7 +74,7 @@ class RouteCompiler
         let defaultSeparator = "/";
         let useUtf8 =  preg_match("//u", pattern);
         let needsUtf8 =  route->getOption("utf8");
-        if !(needsUtf8) && useUtf8 && preg_match("/[\\x80-\\xFF]/", pattern) {
+        if !(needsUtf8) && useUtf8 && preg_match(self::REGEX_UTF8, pattern) {
             throw new \LogicException(sprintf("Cannot use UTF-8 route patterns without setting the \"utf8\" option for route \"%s\".", route->getPath()));
         }
         if !(useUtf8) && needsUtf8 {
@@ -77,13 +82,13 @@ class RouteCompiler
         }
         // Match all variables enclosed in "{}" and iterate over them. But we only want to match the innermost variable
         // in case of nested "{}", e.g. {foo{bar}}. This in ensured because \w does not match "{" or "}" itself.
-        preg_match_all("#\\{\\w+\\}#", pattern, matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+        preg_match_all(self::REGEX_PATTERN, pattern, matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
         for match in matches {
             let varName =  substr(match[0][0], 1, -1);
             // get all static text preceding the current variable
             let precedingText =  substr(pattern, pos, match[0][1] - pos);
             let pos =  match[0][1] + strlen(match[0][0]);
-            if !(strlen(precedingText)) {
+            if strlen(precedingText) == 0 {
                 let precedingChar = "";
             } elseif useUtf8 {
                 preg_match("/.$/u", precedingText, precedingChar);
@@ -94,7 +99,7 @@ class RouteCompiler
             let isSeparator =  "" !== precedingChar && false !== strpos(self::SEPARATORS, precedingChar);
             // A PCRE subpattern name must start with a non-digit. Also a PHP variable cannot start with a digit so the
             // variable would not be usable as a Controller action argument.
-            if preg_match("/^\\d/", varName) {
+            if preg_match("/^\d/", varName) {
                 throw new \DomainException(sprintf("Variable name \"%s\" cannot start with a digit in route pattern \"%s\". Please use a different name.", varName, pattern));
             }
             if in_array(varName, variables) {
@@ -111,43 +116,36 @@ class RouteCompiler
             let regexp =  route->getRequirement(varName);
             if regexp === null {
                 let followingPattern =  (string) substr(pattern, pos);
-                // Find the next static character after the variable that functions as a separator. By default, this separator and '/'
-                // are disallowed for the variable. This default requirement makes sure that optional variables can be matched at all
-                // and that the generating-matching-combination of URLs unambiguous, i.e. the params used for generating the URL are
-                // the same that will be matched. Example: new Route('/{page}.{_format}', array('_format' => 'html'))
-                // If {page} would also match the separating dot, {_format} would never match as {page} will eagerly consume everything.
-                // Also even if {_format} was not optional the requirement prevents that {page} matches something that was originally
-                // part of {_format} when generating the URL, e.g. _format = 'mobile.html'.
                 let nextSeparator =  self::findNextSeparator(followingPattern, useUtf8);
-                let regexp =  sprintf("[^%s%s]+", preg_quote(defaultSeparator, self::REGEX_DELIMITER),  defaultSeparator !== nextSeparator && nextSeparator !== "" ? preg_quote(nextSeparator, self::REGEX_DELIMITER)  : "");
-                if nextSeparator !== "" && !(preg_match("#^\\{\\w+\\}#", followingPattern)) || followingPattern === "" {
-                    // When we have a separator, which is disallowed for the variable, we can optimize the regex with a possessive
-                    // quantifier. This prevents useless backtracking of PCRE and improves performance by 20% for matching those patterns.
-                    // Given the above example, there is no point in backtracking into {page} (that forbids the dot) when a dot must follow
-                    // after it. This optimization cannot be applied when the next char is no real separator or when the next variable is
-                    // directly adjacent, e.g. '/{x}{y}'.
+                let regexp = sprintf(
+                    "[^%s%s]+",
+                    preg_quote(defaultSeparator, self::REGEX_DELIMITER),
+                    defaultSeparator !== nextSeparator && nextSeparator !== "" ? preg_quote(nextSeparator, self::REGEX_DELIMITER) : ""
+                    );
+                if nextSeparator !== "" &&
+                    !preg_match(self::REGEX_PATTERN_START, followingPattern) ||
+                    followingPattern === "" {
                     let regexp .= "+";
                 }
             } else {
-                if !(preg_match("//u", regexp)) {
+                if !preg_match("//u", regexp) {
                     let useUtf8 =  false;
-                } elseif !(needsUtf8) && preg_match("/[\\x80-\\xFF]|(?<!\\\\)\\\\(?:\\\\\\\\)*+(?-i:X|[pP][\\{CLMNPSZ]|x\\{[A-Fa-f0-9]{3})/", regexp) {
+                } elseif !needsUtf8 && preg_match(self::REGEX_UTF8_FULL, regexp) {
                     throw new \LogicException(sprintf("Cannot use UTF-8 route requirements without setting the \"utf8\" option for variable \"%s\" in pattern \"%s\".", varName, pattern));
                 }
-                if !(useUtf8) && needsUtf8 {
+                if !useUtf8 && needsUtf8 {
                     throw new \LogicException(sprintf("Cannot mix UTF-8 requirement with non-UTF-8 charset for variable \"%s\" in pattern \"%s\".", varName, pattern));
                 }
-                let regexp =  self::transformCapturingGroupsToNonCapturings(regexp);
+                let regexp = self::transformCapturingGroupsToNonCapturings(regexp);
             }
-            let tokens[] =  ["variable",  isSeparator ? precedingChar  : "", regexp, varName];
+            let tokens[] = ["variable", isSeparator ? precedingChar : "", regexp, varName];
             let variables[] = varName;
         }
         if pos < strlen(pattern) {
-            let tokens[] =  ["text", substr(pattern, pos)];
+            let tokens[] = ["text", substr(pattern, pos)];
         }
         // find the first optional token
-        let firstOptional =  PHP_INT_MAX;
-        let i = count(tokens) - 1;
+        let firstOptional = PHP_INT_MAX;
         for i in range(count(tokens) - 1, 0) {
             let token = tokens[i];
             if token[0] === "variable" && route->hasDefault(token[3]) {
@@ -159,8 +157,7 @@ class RouteCompiler
         // compute the matching regexp
         let regexp = "";
         let i = 0;
-        let nbToken = count(tokens);
-        for i in range(0, nbToken) {
+        for i in range(0, count(tokens) - 1) {
             let regexp .= self::computeRegexp(tokens, i, firstOptional);
         }
         let regexp =  self::REGEX_DELIMITER . "^" . regexp . "$" . self::REGEX_DELIMITER . "sD";
@@ -168,15 +165,18 @@ class RouteCompiler
         if needsUtf8 {
             let regexp .= "u";
             let i = 0;
-            let nbToken = count(tokens);
-            for i in range(0, nbToken) {
+            for i in range(0, count(tokens) - 1) {
                 if tokens[i][0] === "variable" {
                     let tokens[i][] = true;
                 }
             }
         }
-        let tmpArraybd8ddaaf9600b692848ab052089377c5 = ["staticPrefix" : self::determineStaticPrefix(route, tokens), "regex" : regexp, "tokens" : array_reverse(tokens), "variables" : variables];
-        return tmpArraybd8ddaaf9600b692848ab052089377c5;
+        return [
+            "staticPrefix" : self::determineStaticPrefix(route, tokens),
+            "regex" : regexp,
+            "tokens" : array_reverse(tokens),
+            "variables" : variables
+        ];
     }
     
     /**
@@ -184,11 +184,11 @@ class RouteCompiler
      */
     protected static function determineStaticPrefix(<Route> route, array tokens)
     {
-        var prefix;
-    
         if tokens[0][0] !== "text" {
             return  route->hasDefault(tokens[0][3]) || tokens[0][1] === "/" ? ""  : tokens[0][1];
         }
+
+        var prefix;
         let prefix = tokens[0][1];
         if isset tokens[1][1] && tokens[1][1] !== "/" && route->hasDefault(tokens[1][3]) === false {
             let prefix .= tokens[1][1];
@@ -206,20 +206,17 @@ class RouteCompiler
             return "";
         }
         // first remove all placeholders from the pattern so we can find the next real static character
-        let pattern =  preg_replace("#\\{\\w+\\}#", "", pattern);
+        let pattern = preg_replace(self::REGEX_PATTERN, "", pattern);
         if pattern === "" {
             return "";
         }
         var tmp_pattern;
         let tmp_pattern = pattern;
         if useUtf8 {
-            preg_match("/^./u", tmp_pattern, tmp_pattern);
+            preg_match("/^./u", pattern, tmp_pattern);
         }
-        var ret = "";
-        if strpos(self::SEPARATORS, tmp_pattern[0]) !== false {
-            let ret = tmp_pattern[0];
-        }
-        return ret;
+
+        return strpos(self::SEPARATORS, $pattern[0]) !== false ? $pattern[0] : "";
     }
     
     /**
@@ -235,27 +232,23 @@ class RouteCompiler
     {
         var token, regexp, nbTokens;
 
-        if isset tokens[index] {
-            let token = tokens[index];
-        } else {
-            return "";
-        }
-        if self::strat(token, 0) === "text" {
-            // Text tokens
-            return preg_quote(self::strat(token, 1), self::REGEX_DELIMITER);
+        let token = tokens[index];
+        var_dump(1111111, index, token, typeof token);
+
+        if token[0] === "text" {
+            return preg_quote(token[1], self::REGEX_DELIMITER);
         } else {
             // Variable tokens
             if 0 === index && 0 === firstOptional {
                 // When the only token is an optional variable token, the separator is required
                 return sprintf("%s(?P<%s>%s)?", preg_quote(token[1], self::REGEX_DELIMITER), token[3], token[2]);
             } else {
-                //let regexp = sprintf("%s(?P<%s>%s)", preg_quote(token[1], self::REGEX_DELIMITER), token[3], token[2]);
-                let regexp = sprintf("%s(?P<%s>%s)", preg_quote(self::strat(token, 1), self::REGEX_DELIMITER), self::strat(token, 3), self::strat(token, 2));
+                let regexp = sprintf("%s(?P<%s>%s)", preg_quote(token[1], self::REGEX_DELIMITER), token[3], token[2]);
                 if index >= firstOptional {
                     // Enclose each optional token in a subpattern to make it optional.
                     // "?:" means it is non-capturing, i.e. the portion of the subject string that
                     // matched the optional subpattern is not passed back.
-                    let regexp = "(?:{regexp}";
+                    let regexp = "(?:".regexp;
                     let nbTokens = count(tokens);
                     if nbTokens - 1 == index {
                         // Close the optional subpatterns
@@ -270,24 +263,18 @@ class RouteCompiler
 
     protected static function transformCapturingGroupsToNonCapturings(string regexp)
     {
-        int i, i2;
-        var s, s2;
-
+        int i;
         let i = 0;
         for i in range(0, strlen(regexp)) {
-            let s = regexp[i];
-
-            if s === "\\" {
+            if self::at(regexp, i) === "\\" {
                 let i++;
                 continue;
             }
-            let i2 = (int)(i + 2);
-            //if s !== "(" || !(isset regexp[i2]) {
-            if s !== "(" || strlen(regexp[i2]) == 0 {
+            if self::at(regexp, i) !== "(" || self::at(regexp, i + 2) == "" {
                 continue;
             }
             let i++;
-            if s === "*" || s === "?" {
+            if self::at(regexp, i) === "*" || self::at(regexp, i) == "?" {
                 let i++;
                 continue;
             }
@@ -297,7 +284,10 @@ class RouteCompiler
         return regexp;
     }
 
-    protected static function strat(var s, int i) -> string {
+    protected static function at(var s, int i) -> string {
+        if typeof s == "array" {
+            return s[i];
+        }
         return substr(s, i, 1);
     }
 
