@@ -30,5 +30,12 @@
 
 //return $zim;
 
-$route = new \Zim\Routing\Route('/test/{page<\d+>?123}');
-var_dump($route->compile()->getRegex());
+$route = new \Zim\Routing\Route('/foo/{bar}', ['bar' => 'bar']);
+$regex = '#^/foo(?:/(?P<bar>[^/]++))?$#sD';
+$c = $route->compile();
+var_dump($c->getRegex(), $c->getVariables(), $c->getPathVariables(), $c->getStaticPrefix(), $c->getTokens());
+assert($route->compile()->getRegex() == $regex);
+
+//$route = new \Zim\Routing\Route('/foo/{bar}/{foobar}', ['bar' => 'baz', 'foobar' => '']);
+//$regex = '#^/foo(?:/(?P<bar>[^/]++)(?:/(?P<foobar>[^/]++))?)?$#sD';
+//assert($route->compile()->getRegex() == $regex);

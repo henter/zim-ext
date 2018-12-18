@@ -152,7 +152,7 @@ PHP_METHOD(Zim_Routing_Router, addRoute) {
 		zephir_json_encode(&_2$$4, methods, 0 );
 		ZEPHIR_INIT_VAR(&_3$$4);
 		ZEPHIR_CONCAT_VV(&_3$$4, &_2$$4, &uri);
-		ZEPHIR_CALL_FUNCTION(&name, "sha1", NULL, 108, &_3$$4);
+		ZEPHIR_CALL_FUNCTION(&name, "sha1", NULL, 109, &_3$$4);
 		zephir_check_call_status();
 	}
 	zephir_read_property(&_4, this_ptr, SL("routes"), PH_NOISY_CC | PH_READONLY);
@@ -293,7 +293,7 @@ PHP_METHOD(Zim_Routing_Router, createRoute) {
 		}
 	}
 	object_init_ex(return_value, zim_routing_route_ce);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 109, &uri, &defaults, &requirements, methods, &options);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 110, &uri, &defaults, &requirements, methods, &options);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -373,7 +373,7 @@ PHP_METHOD(Zim_Routing_Router, match) {
 	ZEPHIR_INIT_VAR(&_0);
 	array_init(&_0);
 	zephir_update_property_zval(this_ptr, SL("allow"), &_0);
-	ZEPHIR_CALL_FUNCTION(&_1, "rawurldecode", NULL, 110, &path);
+	ZEPHIR_CALL_FUNCTION(&_1, "rawurldecode", NULL, 111, &path);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(&route, this_ptr, "matchcollection", NULL, 0, &_1);
 	zephir_check_call_status();
@@ -403,7 +403,7 @@ PHP_METHOD(Zim_Routing_Router, match) {
 		zephir_read_property(&_7, this_ptr, SL("allow"), PH_NOISY_CC | PH_READONLY);
 		ZEPHIR_CALL_FUNCTION(&_8, "array_unique", NULL, 103, &_7);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_5, "__construct", NULL, 111, &_8);
+		ZEPHIR_CALL_METHOD(NULL, &_5, "__construct", NULL, 112, &_8);
 		zephir_check_call_status();
 	} else {
 		ZEPHIR_INIT_NVAR(&_5);
@@ -578,7 +578,7 @@ PHP_METHOD(Zim_Routing_Router, matchCollection) {
 			}
 		}
 		ZVAL_LONG(&_30$$3, 1);
-		ZEPHIR_CALL_FUNCTION(&_31$$3, "array_slice", &_32, 112, &matches, &_30$$3);
+		ZEPHIR_CALL_FUNCTION(&_31$$3, "array_slice", &_32, 113, &matches, &_30$$3);
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &route, "setparameters", NULL, 0, &_31$$3);
 		zephir_check_call_status();

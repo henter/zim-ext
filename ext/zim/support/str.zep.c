@@ -83,7 +83,7 @@ PHP_METHOD(Zim_Support_Str, after) {
 	} else {
 		ZEPHIR_INIT_VAR(&_1);
 		zephir_fast_explode(&_1, &search, &subject, 2  TSRMLS_CC);
-		ZEPHIR_CALL_FUNCTION(&_2, "array_reverse", NULL, 106, &_1);
+		ZEPHIR_CALL_FUNCTION(&_2, "array_reverse", NULL, 107, &_1);
 		zephir_check_call_status();
 		zephir_array_fetch_long(&_0, &_2, 0, PH_NOISY, "zim/support/str.zep", 32 TSRMLS_CC);
 	}
@@ -164,7 +164,7 @@ PHP_METHOD(Zim_Support_Str, camel) {
 	}
 	ZEPHIR_CALL_SELF(&_3, "studly", NULL, 0, &value);
 	zephir_check_call_status();
-	ZEPHIR_CALL_FUNCTION(&_4, "lcfirst", NULL, 114, &_3);
+	ZEPHIR_CALL_FUNCTION(&_4, "lcfirst", NULL, 115, &_3);
 	zephir_check_call_status();
 	zephir_update_static_property_array_multi_ce(zim_support_str_ce, SL("camelCache"), &_4 TSRMLS_CC, SL("z"), 1, &value);
 	zephir_read_static_property_ce(&_5, zim_support_str_ce, SL("camelCache"), PH_NOISY_CC | PH_READONLY);
@@ -210,7 +210,7 @@ PHP_METHOD(Zim_Support_Str, contains) {
 		ZVAL_COPY(&needle, _1);
 		_2$$3 = !ZEPHIR_IS_STRING_IDENTICAL(&needle, "");
 		if (_2$$3) {
-			ZEPHIR_CALL_FUNCTION(&_3$$3, "mb_strpos", &_4, 115, &haystack, &needle);
+			ZEPHIR_CALL_FUNCTION(&_3$$3, "mb_strpos", &_4, 116, &haystack, &needle);
 			zephir_check_call_status();
 			_2$$3 = !ZEPHIR_IS_FALSE_IDENTICAL(&_3$$3);
 		}
@@ -374,11 +374,11 @@ PHP_METHOD(Zim_Support_Str, length) {
 
 
 	if (!(Z_TYPE_P(&encoding) == IS_UNDEF) && Z_STRLEN_P(&encoding)) {
-		ZEPHIR_RETURN_CALL_FUNCTION("mb_strlen", &_0, 116, &value, &encoding);
+		ZEPHIR_RETURN_CALL_FUNCTION("mb_strlen", &_0, 117, &value, &encoding);
 		zephir_check_call_status();
 		RETURN_MM();
 	}
-	ZEPHIR_RETURN_CALL_FUNCTION("mb_strlen", &_0, 116, &value);
+	ZEPHIR_RETURN_CALL_FUNCTION("mb_strlen", &_0, 117, &value);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -428,7 +428,7 @@ PHP_METHOD(Zim_Support_Str, limit) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	ZVAL_STRING(&_0, "UTF-8");
-	ZEPHIR_CALL_FUNCTION(&_1, "mb_strwidth", NULL, 117, &value, &_0);
+	ZEPHIR_CALL_FUNCTION(&_1, "mb_strwidth", NULL, 118, &value, &_0);
 	zephir_check_call_status();
 	if (ZEPHIR_LE_LONG(&_1, limit)) {
 		RETURN_CTOR(&value);
@@ -440,7 +440,7 @@ PHP_METHOD(Zim_Support_Str, limit) {
 	ZVAL_STRING(&_4, "");
 	ZEPHIR_INIT_VAR(&_5);
 	ZVAL_STRING(&_5, "UTF-8");
-	ZEPHIR_CALL_FUNCTION(&_6, "mb_strimwidth", NULL, 118, &value, &_2, &_3, &_4, &_5);
+	ZEPHIR_CALL_FUNCTION(&_6, "mb_strimwidth", NULL, 119, &value, &_2, &_3, &_4, &_5);
 	zephir_check_call_status();
 	zephir_fast_trim(&_0, &_6, NULL , ZEPHIR_TRIM_RIGHT TSRMLS_CC);
 	ZEPHIR_CONCAT_VV(return_value, &_0, &end);
@@ -472,7 +472,7 @@ PHP_METHOD(Zim_Support_Str, lower) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	ZVAL_STRING(&_0, "UTF-8");
-	ZEPHIR_RETURN_CALL_FUNCTION("mb_strtolower", NULL, 119, &value, &_0);
+	ZEPHIR_RETURN_CALL_FUNCTION("mb_strtolower", NULL, 120, &value, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -596,7 +596,7 @@ PHP_METHOD(Zim_Support_Str, random) {
 		}
 		ZEPHIR_INIT_NVAR(&size);
 		ZVAL_LONG(&size, (length - zephir_get_numberval(&len)));
-		ZEPHIR_CALL_FUNCTION(&bytes, "random_bytes", &_0, 120, &size);
+		ZEPHIR_CALL_FUNCTION(&bytes, "random_bytes", &_0, 121, &size);
 		zephir_check_call_status();
 		ZEPHIR_INIT_NVAR(&_1$$3);
 		ZEPHIR_INIT_NVAR(&_2$$3);
@@ -825,7 +825,7 @@ PHP_METHOD(Zim_Support_Str, upper) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	ZVAL_STRING(&_0, "UTF-8");
-	ZEPHIR_RETURN_CALL_FUNCTION("mb_strtoupper", NULL, 121, &value, &_0);
+	ZEPHIR_RETURN_CALL_FUNCTION("mb_strtoupper", NULL, 122, &value, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -857,7 +857,7 @@ PHP_METHOD(Zim_Support_Str, title) {
 	ZVAL_LONG(&_0, 2);
 	ZEPHIR_INIT_VAR(&_1);
 	ZVAL_STRING(&_1, "UTF-8");
-	ZEPHIR_RETURN_CALL_FUNCTION("mb_convert_case", NULL, 122, &value, &_0, &_1);
+	ZEPHIR_RETURN_CALL_FUNCTION("mb_convert_case", NULL, 123, &value, &_0, &_1);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -918,7 +918,7 @@ PHP_METHOD(Zim_Support_Str, snake) {
 		zephir_array_fetch(&_4$$3, &_3$$3, &delimiter, PH_NOISY | PH_READONLY, "zim/support/str.zep", 316 TSRMLS_CC);
 		RETURN_CTOR(&_4$$3);
 	}
-	ZEPHIR_CALL_FUNCTION(&_5, "ctype_lower", NULL, 123, &value);
+	ZEPHIR_CALL_FUNCTION(&_5, "ctype_lower", NULL, 124, &value);
 	zephir_check_call_status();
 	if (!(zephir_is_true(&_5))) {
 		ZEPHIR_CALL_FUNCTION(&_6$$4, "ucwords", NULL, 16, &value);
@@ -1106,7 +1106,7 @@ PHP_METHOD(Zim_Support_Str, substr) {
 	ZVAL_LONG(&_0, start);
 	ZEPHIR_INIT_VAR(&_1);
 	ZVAL_STRING(&_1, "UTF-8");
-	ZEPHIR_RETURN_CALL_FUNCTION("mb_substr", NULL, 124, &stringg, &_0, length, &_1);
+	ZEPHIR_RETURN_CALL_FUNCTION("mb_substr", NULL, 125, &stringg, &_0, length, &_1);
 	zephir_check_call_status();
 	RETURN_MM();
 

@@ -146,7 +146,12 @@ class RouteCompiler
         }
         // find the first optional token
         let firstOptional = PHP_INT_MAX;
-        for i in range(count(tokens) - 1, 0) {
+        let i = 0;
+
+        //use aa instead of direct range. seems zephir bug ? TODO
+        var aa;
+        let aa = range(count(tokens) - 1, 0);
+        for i in aa {
             let token = tokens[i];
             if token[0] === "variable" && route->hasDefault(token[3]) {
                 let firstOptional = i;
@@ -210,13 +215,15 @@ class RouteCompiler
         if pattern === "" {
             return "";
         }
-        var tmp_pattern;
-        let tmp_pattern = pattern;
         if useUtf8 {
-            preg_match("/^./u", pattern, tmp_pattern);
+            var m;
+            preg_match("/^./u", pattern, m);
+            return strpos(self::SEPARATORS, m[0]) !== false ? m[0] : "";
         }
 
-        return strpos(self::SEPARATORS, $pattern[0]) !== false ? $pattern[0] : "";
+        var first;
+        let first = self::at(pattern, 0);
+        return strpos(self::SEPARATORS, first) !== false ? first : "";
     }
     
     /**
