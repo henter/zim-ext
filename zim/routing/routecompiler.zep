@@ -113,7 +113,7 @@ class RouteCompiler
             } elseif !isSeparator && strlen(precedingText) > 0 {
                 let tokens[] =  ["text", precedingText];
             }
-            let regexp =  route->getRequirement(varName);
+            let regexp = route->getRequirement(varName);
             if regexp === null {
                 let followingPattern =  (string) substr(pattern, pos);
                 let nextSeparator =  self::findNextSeparator(followingPattern, useUtf8);
@@ -270,8 +270,9 @@ class RouteCompiler
     protected static function transformCapturingGroupsToNonCapturings(string regexp)
     {
         int i;
-        let i = 0;
-        for i in range(0, strlen(regexp) - 1) {
+        let i = -1;
+        while i < strlen(regexp) - 1 {
+            let i++;
             if self::at(regexp, i) === "\\" {
                 let i++;
                 continue;

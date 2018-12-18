@@ -974,23 +974,23 @@ PHP_METHOD(Zim_Routing_RouteCompiler, computeRegexp) {
 
 PHP_METHOD(Zim_Routing_RouteCompiler, transformCapturingGroupsToNonCapturings) {
 
-	zend_bool _0, _7$$3, _10$$3;
-	zend_long ZEPHIR_LAST_CALL_STATUS, i = 0, _1, _2;
-	zephir_fcall_cache_entry *_4 = NULL, *_15 = NULL;
-	zval *regexp_param = NULL, _3$$3, _5$$3, _6$$3, _8$$3, _9$$3, _11$$3, _12$$3, _13$$3, _14$$3;
+	zend_bool _4$$3, _7$$3;
+	zend_long ZEPHIR_LAST_CALL_STATUS, i = 0;
+	zephir_fcall_cache_entry *_1 = NULL, *_12 = NULL;
+	zval *regexp_param = NULL, _0$$3, _2$$3, _3$$3, _5$$3, _6$$3, _8$$3, _9$$3, _10$$3, _11$$3;
 	zval regexp;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&regexp);
+	ZVAL_UNDEF(&_0$$3);
+	ZVAL_UNDEF(&_2$$3);
 	ZVAL_UNDEF(&_3$$3);
 	ZVAL_UNDEF(&_5$$3);
 	ZVAL_UNDEF(&_6$$3);
 	ZVAL_UNDEF(&_8$$3);
 	ZVAL_UNDEF(&_9$$3);
+	ZVAL_UNDEF(&_10$$3);
 	ZVAL_UNDEF(&_11$$3);
-	ZVAL_UNDEF(&_12$$3);
-	ZVAL_UNDEF(&_13$$3);
-	ZVAL_UNDEF(&_14$$3);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 0, &regexp_param);
@@ -998,65 +998,55 @@ PHP_METHOD(Zim_Routing_RouteCompiler, transformCapturingGroupsToNonCapturings) {
 	zephir_get_strval(&regexp, regexp_param);
 
 
-	i = 0;
-	_2 = (zephir_fast_strlen_ev(&regexp) - 1);
-	_1 = 0;
-	_0 = 0;
-	if (_1 <= _2) {
-		while (1) {
-			if (_0) {
-				_1++;
-				if (!(_1 <= _2)) {
-					break;
-				}
-			} else {
-				_0 = 1;
-			}
-			i = _1;
-			ZVAL_LONG(&_5$$3, i);
-			ZEPHIR_CALL_SELF(&_3$$3, "at", &_4, 0, &regexp, &_5$$3);
-			zephir_check_call_status();
-			if (ZEPHIR_IS_STRING_IDENTICAL(&_3$$3, "\\")) {
-				i++;
-				continue;
-			}
-			ZVAL_LONG(&_5$$3, i);
-			ZEPHIR_CALL_SELF(&_6$$3, "at", &_4, 0, &regexp, &_5$$3);
-			zephir_check_call_status();
-			_7$$3 = !ZEPHIR_IS_STRING_IDENTICAL(&_6$$3, "(");
-			if (!(_7$$3)) {
-				ZVAL_LONG(&_5$$3, (i + 2));
-				ZEPHIR_CALL_SELF(&_8$$3, "at", &_4, 0, &regexp, &_5$$3);
-				zephir_check_call_status();
-				_7$$3 = !zephir_is_true(&_8$$3);
-			}
-			if (_7$$3) {
-				continue;
-			}
-			i++;
-			ZVAL_LONG(&_5$$3, i);
-			ZEPHIR_CALL_SELF(&_9$$3, "at", &_4, 0, &regexp, &_5$$3);
-			zephir_check_call_status();
-			_10$$3 = ZEPHIR_IS_STRING_IDENTICAL(&_9$$3, "*");
-			if (!(_10$$3)) {
-				ZVAL_LONG(&_5$$3, i);
-				ZEPHIR_CALL_SELF(&_11$$3, "at", &_4, 0, &regexp, &_5$$3);
-				zephir_check_call_status();
-				_10$$3 = ZEPHIR_IS_STRING(&_11$$3, "?");
-			}
-			if (_10$$3) {
-				i++;
-				continue;
-			}
-			ZEPHIR_INIT_NVAR(&_12$$3);
-			ZVAL_STRING(&_12$$3, "?:");
-			ZVAL_LONG(&_5$$3, i);
-			ZVAL_LONG(&_13$$3, 0);
-			ZEPHIR_CALL_FUNCTION(&_14$$3, "substr_replace", &_15, 50, &regexp, &_12$$3, &_5$$3, &_13$$3);
-			zephir_check_call_status();
-			zephir_get_strval(&regexp, &_14$$3);
-			i++;
+	i = -1;
+	while (1) {
+		if (!(i < (zephir_fast_strlen_ev(&regexp) - 1))) {
+			break;
 		}
+		i++;
+		ZVAL_LONG(&_2$$3, i);
+		ZEPHIR_CALL_SELF(&_0$$3, "at", &_1, 0, &regexp, &_2$$3);
+		zephir_check_call_status();
+		if (ZEPHIR_IS_STRING_IDENTICAL(&_0$$3, "\\")) {
+			i++;
+			continue;
+		}
+		ZVAL_LONG(&_2$$3, i);
+		ZEPHIR_CALL_SELF(&_3$$3, "at", &_1, 0, &regexp, &_2$$3);
+		zephir_check_call_status();
+		_4$$3 = !ZEPHIR_IS_STRING_IDENTICAL(&_3$$3, "(");
+		if (!(_4$$3)) {
+			ZVAL_LONG(&_2$$3, (i + 2));
+			ZEPHIR_CALL_SELF(&_5$$3, "at", &_1, 0, &regexp, &_2$$3);
+			zephir_check_call_status();
+			_4$$3 = !zephir_is_true(&_5$$3);
+		}
+		if (_4$$3) {
+			continue;
+		}
+		i++;
+		ZVAL_LONG(&_2$$3, i);
+		ZEPHIR_CALL_SELF(&_6$$3, "at", &_1, 0, &regexp, &_2$$3);
+		zephir_check_call_status();
+		_7$$3 = ZEPHIR_IS_STRING_IDENTICAL(&_6$$3, "*");
+		if (!(_7$$3)) {
+			ZVAL_LONG(&_2$$3, i);
+			ZEPHIR_CALL_SELF(&_8$$3, "at", &_1, 0, &regexp, &_2$$3);
+			zephir_check_call_status();
+			_7$$3 = ZEPHIR_IS_STRING(&_8$$3, "?");
+		}
+		if (_7$$3) {
+			i++;
+			continue;
+		}
+		ZEPHIR_INIT_NVAR(&_9$$3);
+		ZVAL_STRING(&_9$$3, "?:");
+		ZVAL_LONG(&_2$$3, i);
+		ZVAL_LONG(&_10$$3, 0);
+		ZEPHIR_CALL_FUNCTION(&_11$$3, "substr_replace", &_12, 50, &regexp, &_9$$3, &_2$$3, &_10$$3);
+		zephir_check_call_status();
+		zephir_get_strval(&regexp, &_11$$3);
+		i++;
 	}
 	RETURN_CTOR(&regexp);
 
@@ -1079,7 +1069,7 @@ PHP_METHOD(Zim_Routing_RouteCompiler, at) {
 
 
 	if (Z_TYPE_P(s) == IS_ARRAY) {
-		zephir_array_fetch_long(&_0$$3, s, i, PH_NOISY | PH_READONLY, "zim/routing/routecompiler.zep", 295 TSRMLS_CC);
+		zephir_array_fetch_long(&_0$$3, s, i, PH_NOISY | PH_READONLY, "zim/routing/routecompiler.zep", 296 TSRMLS_CC);
 		RETURN_CTORW(&_0$$3);
 	}
 	ZVAL_LONG(&_1, i);
