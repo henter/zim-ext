@@ -152,7 +152,7 @@ PHP_METHOD(Zim_Routing_Router, addRoute) {
 		zephir_json_encode(&_2$$4, methods, 0 );
 		ZEPHIR_INIT_VAR(&_3$$4);
 		ZEPHIR_CONCAT_VV(&_3$$4, &_2$$4, &uri);
-		ZEPHIR_CALL_FUNCTION(&name, "sha1", NULL, 109, &_3$$4);
+		ZEPHIR_CALL_FUNCTION(&name, "sha1", NULL, 110, &_3$$4);
 		zephir_check_call_status();
 	}
 	zephir_read_property(&_4, this_ptr, SL("routes"), PH_NOISY_CC | PH_READONLY);
@@ -293,7 +293,7 @@ PHP_METHOD(Zim_Routing_Router, createRoute) {
 		}
 	}
 	object_init_ex(return_value, zim_routing_route_ce);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 110, &uri, &defaults, &requirements, methods, &options);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 111, &uri, &defaults, &requirements, methods, &options);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -373,7 +373,7 @@ PHP_METHOD(Zim_Routing_Router, match) {
 	ZEPHIR_INIT_VAR(&_0);
 	array_init(&_0);
 	zephir_update_property_zval(this_ptr, SL("allow"), &_0);
-	ZEPHIR_CALL_FUNCTION(&_1, "rawurldecode", NULL, 111, &path);
+	ZEPHIR_CALL_FUNCTION(&_1, "rawurldecode", NULL, 112, &path);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(&route, this_ptr, "matchcollection", NULL, 0, &_1);
 	zephir_check_call_status();
@@ -389,7 +389,7 @@ PHP_METHOD(Zim_Routing_Router, match) {
 	if (_2) {
 		ZEPHIR_INIT_VAR(&_4$$4);
 		object_init_ex(&_4$$4, zim_http_exception_notfoundexception_ce);
-		ZEPHIR_CALL_METHOD(NULL, &_4$$4, "__construct", NULL, 87);
+		ZEPHIR_CALL_METHOD(NULL, &_4$$4, "__construct", NULL, 88);
 		zephir_check_call_status();
 		zephir_throw_exception_debug(&_4$$4, "zim/routing/router.zep", 132 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
@@ -401,9 +401,9 @@ PHP_METHOD(Zim_Routing_Router, match) {
 		ZEPHIR_INIT_NVAR(&_5);
 		object_init_ex(&_5, zim_http_exception_methodnotallowedexception_ce);
 		zephir_read_property(&_7, this_ptr, SL("allow"), PH_NOISY_CC | PH_READONLY);
-		ZEPHIR_CALL_FUNCTION(&_8, "array_unique", NULL, 103, &_7);
+		ZEPHIR_CALL_FUNCTION(&_8, "array_unique", NULL, 104, &_7);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_5, "__construct", NULL, 112, &_8);
+		ZEPHIR_CALL_METHOD(NULL, &_5, "__construct", NULL, 113, &_8);
 		zephir_check_call_status();
 	} else {
 		ZEPHIR_INIT_NVAR(&_5);
@@ -412,7 +412,7 @@ PHP_METHOD(Zim_Routing_Router, match) {
 		ZVAL_STRING(&_9, "No routes found for \"%s\".");
 		ZEPHIR_CALL_FUNCTION(&_10, "sprintf", NULL, 22, &_9, &path);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_5, "__construct", NULL, 87, &_10);
+		ZEPHIR_CALL_METHOD(NULL, &_5, "__construct", NULL, 88, &_10);
 		zephir_check_call_status();
 	}
 	zephir_throw_exception_debug(&_5, "zim/routing/router.zep", 134 TSRMLS_CC);
@@ -578,7 +578,7 @@ PHP_METHOD(Zim_Routing_Router, matchCollection) {
 			}
 		}
 		ZVAL_LONG(&_30$$3, 1);
-		ZEPHIR_CALL_FUNCTION(&_31$$3, "array_slice", &_32, 113, &matches, &_30$$3);
+		ZEPHIR_CALL_FUNCTION(&_31$$3, "array_slice", &_32, 114, &matches, &_30$$3);
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &route, "setparameters", NULL, 0, &_31$$3);
 		zephir_check_call_status();

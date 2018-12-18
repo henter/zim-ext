@@ -289,22 +289,22 @@ PHP_METHOD(Zim_Http_Request, initialize) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	object_init_ex(&_0, zim_http_parameterbag_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", &_1, 88, &request);
+	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", &_1, 89, &request);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("request"), &_0);
 	ZEPHIR_INIT_VAR(&_2);
 	object_init_ex(&_2, zim_http_parameterbag_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_2, "__construct", &_1, 88, &query);
+	ZEPHIR_CALL_METHOD(NULL, &_2, "__construct", &_1, 89, &query);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("query"), &_2);
 	ZEPHIR_INIT_VAR(&_3);
 	object_init_ex(&_3, zim_http_parameterbag_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_3, "__construct", &_1, 88, &attributes);
+	ZEPHIR_CALL_METHOD(NULL, &_3, "__construct", &_1, 89, &attributes);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("attributes"), &_3);
 	ZEPHIR_INIT_VAR(&_4);
 	object_init_ex(&_4, zim_http_serverbag_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_4, "__construct", &_1, 88, &server);
+	ZEPHIR_CALL_METHOD(NULL, &_4, "__construct", &_1, 89, &server);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("server"), &_4);
 	ZEPHIR_INIT_VAR(&_5);
@@ -312,7 +312,7 @@ PHP_METHOD(Zim_Http_Request, initialize) {
 	zephir_read_property(&_6, this_ptr, SL("server"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_CALL_METHOD(&_7, &_6, "getheaders", NULL, 0);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &_5, "__construct", NULL, 89, &_7);
+	ZEPHIR_CALL_METHOD(NULL, &_5, "__construct", NULL, 90, &_7);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("headers"), &_5);
 	zephir_update_property_zval(this_ptr, SL("content"), content);
@@ -360,7 +360,7 @@ PHP_METHOD(Zim_Http_Request, createFromGlobals) {
 	object_init_ex(&request, zim_http_request_ce);
 	ZEPHIR_INIT_VAR(&_0);
 	array_init(&_0);
-	ZEPHIR_CALL_METHOD(NULL, &request, "__construct", NULL, 90, _GET, _POST, &_0, _SERVER);
+	ZEPHIR_CALL_METHOD(NULL, &request, "__construct", NULL, 91, _GET, _POST, &_0, _SERVER);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&methods);
 	zephir_create_array(&methods, 3, 0 TSRMLS_CC);
@@ -396,15 +396,15 @@ PHP_METHOD(Zim_Http_Request, createFromGlobals) {
 		_5 = zephir_fast_in_array(&_6, &methods TSRMLS_CC);
 	}
 	if (_5) {
-		ZEPHIR_CALL_METHOD(&_11$$3, &request, "getcontent", NULL, 91);
+		ZEPHIR_CALL_METHOD(&_11$$3, &request, "getcontent", NULL, 92);
 		zephir_check_call_status();
 		ZEPHIR_MAKE_REF(&data);
-		ZEPHIR_CALL_FUNCTION(NULL, "parse_str", NULL, 92, &_11$$3, &data);
+		ZEPHIR_CALL_FUNCTION(NULL, "parse_str", NULL, 93, &_11$$3, &data);
 		ZEPHIR_UNREF(&data);
 		zephir_check_call_status();
 		ZEPHIR_INIT_VAR(&_12$$3);
 		object_init_ex(&_12$$3, zim_http_parameterbag_ce);
-		ZEPHIR_CALL_METHOD(NULL, &_12$$3, "__construct", NULL, 88, &data);
+		ZEPHIR_CALL_METHOD(NULL, &_12$$3, "__construct", NULL, 89, &data);
 		zephir_check_call_status();
 		zephir_update_property_zval(&request, SL("request"), &_12$$3);
 	}
@@ -746,7 +746,7 @@ PHP_METHOD(Zim_Http_Request, __toString) {
 			zend_clear_exception(TSRMLS_C);
 			ZEPHIR_CPY_WRT(&e, &_0);
 			ZVAL_LONG(&_1$$4, 256);
-			ZEPHIR_RETURN_CALL_FUNCTION("trigger_error", NULL, 93, &e, &_1$$4);
+			ZEPHIR_RETURN_CALL_FUNCTION("trigger_error", NULL, 94, &e, &_1$$4);
 			zephir_check_call_status();
 			RETURN_MM();
 		}
@@ -802,7 +802,7 @@ PHP_METHOD(Zim_Http_Request, normalizeQueryString) {
 		RETURN_MM_STRING("");
 	}
 	ZEPHIR_MAKE_REF(&qs);
-	ZEPHIR_CALL_FUNCTION(NULL, "parse_str", NULL, 92, &qs, &qs);
+	ZEPHIR_CALL_FUNCTION(NULL, "parse_str", NULL, 93, &qs, &qs);
 	ZEPHIR_UNREF(&qs);
 	zephir_check_call_status();
 	ZEPHIR_MAKE_REF(&qs);
@@ -814,7 +814,7 @@ PHP_METHOD(Zim_Http_Request, normalizeQueryString) {
 	ZEPHIR_INIT_VAR(&_1);
 	ZVAL_STRING(&_1, "&");
 	ZVAL_LONG(&_2, 2);
-	ZEPHIR_RETURN_CALL_FUNCTION("http_build_query", NULL, 94, &qs, &_0, &_1, &_2);
+	ZEPHIR_RETURN_CALL_FUNCTION("http_build_query", NULL, 95, &qs, &_0, &_1, &_2);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -1487,7 +1487,7 @@ PHP_METHOD(Zim_Http_Request, getContent) {
 	if (asResource == 1) {
 		if (zephir_is_true(&currentContentIsResource)) {
 			zephir_read_property(&_1$$4, this_ptr, SL("content"), PH_NOISY_CC | PH_READONLY);
-			ZEPHIR_CALL_FUNCTION(NULL, "rewind", &_2, 95, &_1$$4);
+			ZEPHIR_CALL_FUNCTION(NULL, "rewind", &_2, 96, &_1$$4);
 			zephir_check_call_status();
 			RETURN_MM_MEMBER(getThis(), "content");
 		}
@@ -1497,11 +1497,11 @@ PHP_METHOD(Zim_Http_Request, getContent) {
 			ZVAL_STRING(&_4$$5, "php://temp");
 			ZEPHIR_INIT_VAR(&_5$$5);
 			ZVAL_STRING(&_5$$5, "r+");
-			ZEPHIR_CALL_FUNCTION(&resourcee, "fopen", &_6, 96, &_4$$5, &_5$$5);
+			ZEPHIR_CALL_FUNCTION(&resourcee, "fopen", &_6, 97, &_4$$5, &_5$$5);
 			zephir_check_call_status();
 			zephir_read_property(&_7$$5, this_ptr, SL("content"), PH_NOISY_CC | PH_READONLY);
 			zephir_fwrite(NULL, &resourcee, &_7$$5 TSRMLS_CC);
-			ZEPHIR_CALL_FUNCTION(NULL, "rewind", &_2, 95, &resourcee);
+			ZEPHIR_CALL_FUNCTION(NULL, "rewind", &_2, 96, &resourcee);
 			zephir_check_call_status();
 			RETURN_CCTOR(&resourcee);
 		}
@@ -1514,16 +1514,16 @@ PHP_METHOD(Zim_Http_Request, getContent) {
 		ZVAL_STRING(&_8$$3, "php://input");
 		ZEPHIR_INIT_VAR(&_9$$3);
 		ZVAL_STRING(&_9$$3, "rb");
-		ZEPHIR_RETURN_CALL_FUNCTION("fopen", &_6, 96, &_8$$3, &_9$$3);
+		ZEPHIR_RETURN_CALL_FUNCTION("fopen", &_6, 97, &_8$$3, &_9$$3);
 		zephir_check_call_status();
 		RETURN_MM();
 	}
 	if (zephir_is_true(&currentContentIsResource)) {
 		zephir_read_property(&_10$$6, this_ptr, SL("content"), PH_NOISY_CC | PH_READONLY);
-		ZEPHIR_CALL_FUNCTION(NULL, "rewind", &_2, 95, &_10$$6);
+		ZEPHIR_CALL_FUNCTION(NULL, "rewind", &_2, 96, &_10$$6);
 		zephir_check_call_status();
 		zephir_read_property(&_11$$6, this_ptr, SL("content"), PH_NOISY_CC | PH_READONLY);
-		ZEPHIR_RETURN_CALL_FUNCTION("stream_get_contents", NULL, 97, &_11$$6);
+		ZEPHIR_RETURN_CALL_FUNCTION("stream_get_contents", NULL, 98, &_11$$6);
 		zephir_check_call_status();
 		RETURN_MM();
 	}

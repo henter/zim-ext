@@ -106,9 +106,9 @@ PHP_METHOD(Zim_Routing_RouteCompiler, compile) {
 	zephir_array_fetch_string(&_1, &result, SL("staticPrefix"), PH_NOISY | PH_READONLY, "zim/routing/routecompiler.zep", 58 TSRMLS_CC);
 	zephir_array_fetch_string(&_2, &result, SL("regex"), PH_NOISY | PH_READONLY, "zim/routing/routecompiler.zep", 59 TSRMLS_CC);
 	zephir_array_fetch_string(&_3, &result, SL("tokens"), PH_NOISY | PH_READONLY, "zim/routing/routecompiler.zep", 60 TSRMLS_CC);
-	ZEPHIR_CALL_FUNCTION(&_4, "array_unique", NULL, 103, &variables);
+	ZEPHIR_CALL_FUNCTION(&_4, "array_unique", NULL, 104, &variables);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 104, &_1, &_2, &_3, &pathVariables, &_4);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 105, &_1, &_2, &_3, &pathVariables, &_4);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -387,7 +387,7 @@ PHP_METHOD(Zim_Routing_RouteCompiler, compilePattern) {
 			ZVAL_STRING(&_48$$9, "Variable name \"%s\" cannot start with a digit in route pattern \"%s\". Please use a different name.");
 			ZEPHIR_CALL_FUNCTION(&_49$$9, "sprintf", &_13, 22, &_48$$9, &varName, pattern);
 			zephir_check_call_status();
-			ZEPHIR_CALL_METHOD(NULL, &_47$$9, "__construct", &_50, 105, &_49$$9);
+			ZEPHIR_CALL_METHOD(NULL, &_47$$9, "__construct", &_50, 106, &_49$$9);
 			zephir_check_call_status();
 			zephir_throw_exception_debug(&_47$$9, "zim/routing/routecompiler.zep", 103 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
@@ -414,7 +414,7 @@ PHP_METHOD(Zim_Routing_RouteCompiler, compilePattern) {
 			ZVAL_LONG(&_56$$11, 32);
 			ZEPHIR_CALL_FUNCTION(&_57$$11, "sprintf", &_13, 22, &_55$$11, &varName, &_56$$11, pattern);
 			zephir_check_call_status();
-			ZEPHIR_CALL_METHOD(NULL, &_54$$11, "__construct", &_50, 105, &_57$$11);
+			ZEPHIR_CALL_METHOD(NULL, &_54$$11, "__construct", &_50, 106, &_57$$11);
 			zephir_check_call_status();
 			zephir_throw_exception_debug(&_54$$11, "zim/routing/routecompiler.zep", 109 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
@@ -590,7 +590,7 @@ PHP_METHOD(Zim_Routing_RouteCompiler, compilePattern) {
 	ZVAL_LONG(&i, 0);
 	ZVAL_LONG(&_103, (zephir_fast_count_int(&tokens TSRMLS_CC) - 1));
 	ZVAL_LONG(&_104, 0);
-	ZEPHIR_CALL_FUNCTION(&aa, "range", &_105, 106, &_103, &_104);
+	ZEPHIR_CALL_FUNCTION(&aa, "range", &_105, 107, &_103, &_104);
 	zephir_check_call_status();
 	zephir_is_iterable(&aa, 0, "zim/routing/routecompiler.zep", 163);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&aa), _106)
@@ -673,7 +673,7 @@ PHP_METHOD(Zim_Routing_RouteCompiler, compilePattern) {
 	zephir_check_call_status();
 	zephir_array_update_string(return_value, SL("staticPrefix"), &_123, PH_COPY | PH_SEPARATE);
 	zephir_array_update_string(return_value, SL("regex"), &regexp, PH_COPY | PH_SEPARATE);
-	ZEPHIR_CALL_FUNCTION(&_123, "array_reverse", NULL, 107, &tokens);
+	ZEPHIR_CALL_FUNCTION(&_123, "array_reverse", NULL, 108, &tokens);
 	zephir_check_call_status();
 	zephir_array_update_string(return_value, SL("tokens"), &_123, PH_COPY | PH_SEPARATE);
 	zephir_array_update_string(return_value, SL("variables"), &variables, PH_COPY | PH_SEPARATE);
@@ -960,7 +960,7 @@ PHP_METHOD(Zim_Routing_RouteCompiler, computeRegexp) {
 					ZEPHIR_INIT_VAR(&_18$$8);
 					ZVAL_STRING(&_18$$8, ")?");
 					ZVAL_LONG(&_19$$8, ((zephir_get_numberval(&nbTokens) - firstOptional) - zephir_get_numberval(&_17$$8)));
-					ZEPHIR_CALL_FUNCTION(&_20$$8, "str_repeat", NULL, 108, &_18$$8, &_19$$8);
+					ZEPHIR_CALL_FUNCTION(&_20$$8, "str_repeat", NULL, 109, &_18$$8, &_19$$8);
 					zephir_check_call_status();
 					zephir_concat_self(&regexp, &_20$$8 TSRMLS_CC);
 				}

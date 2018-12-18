@@ -93,6 +93,9 @@ class Kernel
      */
     protected function guessController(string uri)
     {
+        if !defined("APP_PATH") {
+            return false;
+        }
         var suffix, files, file, name;
     
         if class_exists("App\\Controller\\" . ucfirst(uri) . "Controller") {
