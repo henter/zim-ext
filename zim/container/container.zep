@@ -800,7 +800,7 @@ class Container
         let this->instances = [];
         let this->abstractAliases = [];
     }
-    
+
     /**
      * Set the globally available instance of the container.
      *
@@ -813,7 +813,7 @@ class Container
         }
         return self::instance;
     }
-    
+
     /**
      * Set the shared instance of the container.
      *

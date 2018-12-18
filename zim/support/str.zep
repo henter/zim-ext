@@ -68,9 +68,10 @@ class Str
      */
     public static function contains(string haystack, needles) -> bool
     {
-        var needle;
-    
-        for needle in (array) needles {
+        var needle, arr;
+        let arr = typeof needles == "array" ? needles : [needles];
+
+        for needle in arr {
             if needle !== "" && mb_strpos(haystack, needle) !== false {
                 return true;
             }
@@ -87,9 +88,10 @@ class Str
      */
     public static function endsWith(string haystack, needles) -> bool
     {
-        var needle;
-    
-        for needle in (array) needles {
+        var needle, arr;
+        let arr = typeof needles == "array" ? needles : [needles];
+
+        for needle in arr {
             if substr(haystack, -strlen(needle)) === (string) needle {
                 return true;
             }
@@ -191,7 +193,7 @@ class Str
      */
     public static function random(int length = 16) -> string
     {
-        var stringg, len, size, bytes, tmpArraycdd071ed8239c87f85f53e6ef3a608e9;
+        var stringg, len, size, bytes;
     
         let stringg = "";
         let len =  strlen(stringg);
@@ -333,9 +335,10 @@ class Str
      */
     public static function startsWith(string haystack, needles) -> bool
     {
-        var needle;
-    
-        for needle in (array) needles {
+        var needle, arr;
+        let arr = typeof needles == "array" ? needles : [needles];
+
+        for needle in arr {
             if needle !== "" && substr(haystack, 0, strlen(needle)) === (string) needle {
                 return true;
             }

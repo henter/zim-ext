@@ -12,14 +12,14 @@
 #include <Zend/zend_interfaces.h>
 
 #include "kernel/main.h"
-#include "kernel/operators.h"
 #include "kernel/memory.h"
+#include "kernel/array.h"
 #include "kernel/fcall.h"
 #include "kernel/object.h"
+#include "kernel/operators.h"
 #include "kernel/exception.h"
 #include "ext/spl/spl_exceptions.h"
 #include "kernel/concat.h"
-#include "kernel/array.h"
 
 
 /**
@@ -53,34 +53,39 @@ ZEPHIR_INIT_CLASS(Zim_Event_Dispatcher) {
  */
 PHP_METHOD(Zim_Event_Dispatcher, listen) {
 
-	zval _0;
-	zephir_fcall_cache_entry *_3 = NULL;
+	zephir_fcall_cache_entry *_2 = NULL;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *events, events_sub, *listener, listener_sub, event, *_1, _2$$3;
+	zval *events, events_sub, *listener, listener_sub, event, arr, *_0, _1$$3;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&events_sub);
 	ZVAL_UNDEF(&listener_sub);
 	ZVAL_UNDEF(&event);
-	ZVAL_UNDEF(&_2$$3);
-	ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&arr);
+	ZVAL_UNDEF(&_1$$3);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 2, 0, &events, &listener);
 
 
 
-	zephir_get_arrval(&_0, events);
-	zephir_is_iterable(&_0, 0, "zim/event/dispatcher.zep", 34);
-	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0), _1)
+	if (Z_TYPE_P(events) == IS_ARRAY) {
+		ZEPHIR_CPY_WRT(&arr, events);
+	} else {
+		ZEPHIR_INIT_NVAR(&arr);
+		zephir_create_array(&arr, 1, 0 TSRMLS_CC);
+		zephir_array_fast_append(&arr, events);
+	}
+	zephir_is_iterable(&arr, 0, "zim/event/dispatcher.zep", 34);
+	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&arr), _0)
 	{
 		ZEPHIR_INIT_NVAR(&event);
-		ZVAL_COPY(&event, _1);
-		ZEPHIR_INIT_NVAR(&_2$$3);
-		object_init_ex(&_2$$3, zim_event_listener_ce);
-		ZEPHIR_CALL_METHOD(NULL, &_2$$3, "__construct", &_3, 71, listener);
+		ZVAL_COPY(&event, _0);
+		ZEPHIR_INIT_NVAR(&_1$$3);
+		object_init_ex(&_1$$3, zim_event_listener_ce);
+		ZEPHIR_CALL_METHOD(NULL, &_1$$3, "__construct", &_2, 71, listener);
 		zephir_check_call_status();
-		zephir_update_property_array_multi(this_ptr, SL("listeners"), &_2$$3 TSRMLS_CC, SL("za"), 2, &event);
+		zephir_update_property_array_multi(this_ptr, SL("listeners"), &_1$$3 TSRMLS_CC, SL("za"), 2, &event);
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&event);
 	ZEPHIR_MM_RESTORE();
@@ -128,7 +133,7 @@ PHP_METHOD(Zim_Event_Dispatcher, on) {
 		ZEPHIR_CONCAT_SVS(&_3$$3, "event callback [", &_2$$3, "] parameter empty");
 		ZEPHIR_CALL_METHOD(NULL, &_1$$3, "__construct", NULL, 28, &_3$$3);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&_1$$3, "zim/event/dispatcher.zep", 60 TSRMLS_CC);
+		zephir_throw_exception_debug(&_1$$3, "zim/event/dispatcher.zep", 48 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}
@@ -193,14 +198,14 @@ PHP_METHOD(Zim_Event_Dispatcher, fire) {
 	ZEPHIR_CALL_METHOD(&tmpListEventPayload, this_ptr, "parseeventandpayload", NULL, 0, event, payload);
 	zephir_check_call_status();
 	ZEPHIR_OBS_NVAR(event);
-	zephir_array_fetch_long(event, &tmpListEventPayload, 0, PH_NOISY, "zim/event/dispatcher.zep", 82 TSRMLS_CC);
+	zephir_array_fetch_long(event, &tmpListEventPayload, 0, PH_NOISY, "zim/event/dispatcher.zep", 70 TSRMLS_CC);
 	ZEPHIR_OBS_NVAR(payload);
-	zephir_array_fetch_long(payload, &tmpListEventPayload, 1, PH_NOISY, "zim/event/dispatcher.zep", 83 TSRMLS_CC);
+	zephir_array_fetch_long(payload, &tmpListEventPayload, 1, PH_NOISY, "zim/event/dispatcher.zep", 71 TSRMLS_CC);
 	ZEPHIR_INIT_VAR(&responses);
 	array_init(&responses);
 	ZEPHIR_CALL_METHOD(&_0, this_ptr, "getlisteners", NULL, 0, event);
 	zephir_check_call_status();
-	zephir_is_iterable(&_0, 0, "zim/event/dispatcher.zep", 101);
+	zephir_is_iterable(&_0, 0, "zim/event/dispatcher.zep", 89);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0), _1)
 	{
 		ZEPHIR_INIT_NVAR(&listener);
@@ -217,7 +222,7 @@ PHP_METHOD(Zim_Event_Dispatcher, fire) {
 		if (ZEPHIR_IS_FALSE_IDENTICAL(&response)) {
 			break;
 		}
-		zephir_array_append(&responses, &response, PH_SEPARATE, "zim/event/dispatcher.zep", 99);
+		zephir_array_append(&responses, &response, PH_SEPARATE, "zim/event/dispatcher.zep", 87);
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&listener);
 	ZEPHIR_INIT_VAR(&_3);
@@ -239,15 +244,13 @@ PHP_METHOD(Zim_Event_Dispatcher, fire) {
  */
 PHP_METHOD(Zim_Event_Dispatcher, parseEventAndPayload) {
 
-	zval *event, event_sub, *payload = NULL, payload_sub, tmpArrayb9f26b4156eba4aa57ed39efbf00223b, tmpArraye154471971d813b647e27d35b689507f, _1, _0$$3;
+	zval *event, event_sub, *payload = NULL, payload_sub, _0$$3, _1;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&event_sub);
 	ZVAL_UNDEF(&payload_sub);
-	ZVAL_UNDEF(&tmpArrayb9f26b4156eba4aa57ed39efbf00223b);
-	ZVAL_UNDEF(&tmpArraye154471971d813b647e27d35b689507f);
-	ZVAL_UNDEF(&_1);
 	ZVAL_UNDEF(&_0$$3);
+	ZVAL_UNDEF(&_1);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 2, 0, &event, &payload);
@@ -256,13 +259,12 @@ PHP_METHOD(Zim_Event_Dispatcher, parseEventAndPayload) {
 
 
 	if (Z_TYPE_P(event) == IS_OBJECT) {
-		ZEPHIR_INIT_VAR(&tmpArrayb9f26b4156eba4aa57ed39efbf00223b);
-		zephir_create_array(&tmpArrayb9f26b4156eba4aa57ed39efbf00223b, 2, 0 TSRMLS_CC);
+		zephir_create_array(return_value, 2, 0 TSRMLS_CC);
 		ZEPHIR_INIT_VAR(&_0$$3);
 		zephir_get_class(&_0$$3, event, 0 TSRMLS_CC);
-		zephir_array_fast_append(&tmpArrayb9f26b4156eba4aa57ed39efbf00223b, &_0$$3);
-		zephir_array_fast_append(&tmpArrayb9f26b4156eba4aa57ed39efbf00223b, event);
-		RETURN_CCTOR(&tmpArrayb9f26b4156eba4aa57ed39efbf00223b);
+		zephir_array_fast_append(return_value, &_0$$3);
+		zephir_array_fast_append(return_value, event);
+		RETURN_MM();
 	}
 	ZEPHIR_INIT_VAR(&_1);
 	if (Z_TYPE_P(payload) == IS_ARRAY) {
@@ -273,11 +275,10 @@ PHP_METHOD(Zim_Event_Dispatcher, parseEventAndPayload) {
 		zephir_array_fast_append(&_1, payload);
 	}
 	ZEPHIR_CPY_WRT(payload, &_1);
-	ZEPHIR_INIT_VAR(&tmpArraye154471971d813b647e27d35b689507f);
-	zephir_create_array(&tmpArraye154471971d813b647e27d35b689507f, 2, 0 TSRMLS_CC);
-	zephir_array_fast_append(&tmpArraye154471971d813b647e27d35b689507f, event);
-	zephir_array_fast_append(&tmpArraye154471971d813b647e27d35b689507f, payload);
-	RETURN_CCTOR(&tmpArraye154471971d813b647e27d35b689507f);
+	zephir_create_array(return_value, 2, 0 TSRMLS_CC);
+	zephir_array_fast_append(return_value, event);
+	zephir_array_fast_append(return_value, payload);
+	RETURN_MM();
 
 }
 
@@ -313,7 +314,7 @@ PHP_METHOD(Zim_Event_Dispatcher, getListeners) {
 	if (zephir_array_isset(&_1, &eventName)) {
 		zephir_read_property(&_2, this_ptr, SL("listeners"), PH_NOISY_CC | PH_READONLY);
 		ZEPHIR_OBS_NVAR(&_0);
-		zephir_array_fetch(&_0, &_2, &eventName, PH_NOISY, "zim/event/dispatcher.zep", 134 TSRMLS_CC);
+		zephir_array_fetch(&_0, &_2, &eventName, PH_NOISY, "zim/event/dispatcher.zep", 118 TSRMLS_CC);
 	} else {
 		ZEPHIR_INIT_NVAR(&_0);
 		array_init(&_0);
@@ -340,8 +341,8 @@ PHP_METHOD(Zim_Event_Dispatcher, getListeners) {
 PHP_METHOD(Zim_Event_Dispatcher, addInterfaceListeners) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval listeners, _7$$5;
-	zval *eventName_param = NULL, *listeners_param = NULL, interfacee, names, _0, *_1, _2$$3, _3$$4, _4$$4, *_5$$4, _6$$5;
+	zval listeners;
+	zval *eventName_param = NULL, *listeners_param = NULL, interfacee, names, _0, *_1, _2$$3, _3$$4, _4$$4, *_5$$4, _6$$5, _7$$5;
 	zval eventName;
 	zval *this_ptr = getThis();
 
@@ -353,8 +354,8 @@ PHP_METHOD(Zim_Event_Dispatcher, addInterfaceListeners) {
 	ZVAL_UNDEF(&_3$$4);
 	ZVAL_UNDEF(&_4$$4);
 	ZVAL_UNDEF(&_6$$5);
-	ZVAL_UNDEF(&listeners);
 	ZVAL_UNDEF(&_7$$5);
+	ZVAL_UNDEF(&listeners);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 1, &eventName_param, &listeners_param);
@@ -370,7 +371,7 @@ PHP_METHOD(Zim_Event_Dispatcher, addInterfaceListeners) {
 
 	ZEPHIR_CALL_FUNCTION(&_0, "class_implements", NULL, 74, &eventName);
 	zephir_check_call_status();
-	zephir_is_iterable(&_0, 0, "zim/event/dispatcher.zep", 156);
+	zephir_is_iterable(&_0, 0, "zim/event/dispatcher.zep", 141);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0), _1)
 	{
 		ZEPHIR_INIT_NVAR(&interfacee);
@@ -378,16 +379,24 @@ PHP_METHOD(Zim_Event_Dispatcher, addInterfaceListeners) {
 		zephir_read_property(&_2$$3, this_ptr, SL("listeners"), PH_NOISY_CC | PH_READONLY);
 		if (zephir_array_isset(&_2$$3, &interfacee)) {
 			zephir_read_property(&_3$$4, this_ptr, SL("listeners"), PH_NOISY_CC | PH_READONLY);
-			zephir_array_fetch(&_4$$4, &_3$$4, &interfacee, PH_NOISY | PH_READONLY, "zim/event/dispatcher.zep", 151 TSRMLS_CC);
-			zephir_is_iterable(&_4$$4, 0, "zim/event/dispatcher.zep", 154);
+			zephir_array_fetch(&_4$$4, &_3$$4, &interfacee, PH_NOISY | PH_READONLY, "zim/event/dispatcher.zep", 135 TSRMLS_CC);
+			zephir_is_iterable(&_4$$4, 0, "zim/event/dispatcher.zep", 139);
 			ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_4$$4), _5$$4)
 			{
 				ZEPHIR_INIT_NVAR(&names);
 				ZVAL_COPY(&names, _5$$4);
-				ZEPHIR_INIT_NVAR(&_6$$5);
-				zephir_get_arrval(&_7$$5, &names);
-				zephir_fast_array_merge(&_6$$5, &listeners, &_7$$5 TSRMLS_CC);
-				ZEPHIR_CPY_WRT(&listeners, &_6$$5);
+				ZEPHIR_INIT_LNVAR(_6$$5);
+				if (Z_TYPE_P(&names) == IS_ARRAY) {
+					ZEPHIR_CPY_WRT(&_6$$5, &names);
+				} else {
+					ZEPHIR_INIT_NVAR(&_6$$5);
+					zephir_create_array(&_6$$5, 1, 0 TSRMLS_CC);
+					zephir_array_fast_append(&_6$$5, &names);
+				}
+				ZEPHIR_CPY_WRT(&names, &_6$$5);
+				ZEPHIR_INIT_NVAR(&_7$$5);
+				zephir_fast_array_merge(&_7$$5, &listeners, &names TSRMLS_CC);
+				ZEPHIR_CPY_WRT(&listeners, &_7$$5);
 			} ZEND_HASH_FOREACH_END();
 			ZEPHIR_INIT_NVAR(&names);
 		}

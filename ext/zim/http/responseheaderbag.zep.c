@@ -197,7 +197,7 @@ PHP_METHOD(Zim_Http_ResponseHeaderBag, set) {
 	zval _6$$3;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
 	zephir_fcall_cache_entry *_3 = NULL;
-	zval *key, key_sub, *values, values_sub, *replace = NULL, replace_sub, __$true, uniqueKey, tmpArrayd0d6087f950982817b4a268511aa1623, computed, _0, _1, _2, _4, _5, _7$$3, _8$$3, _9$$3, _10$$3;
+	zval *key, key_sub, *values, values_sub, *replace = NULL, replace_sub, __$true, uniqueKey, cacheHeaders, computed, _0, _1, _2, _4, _5, _7$$3, _8$$3, _9$$3, _10$$3;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&key_sub);
@@ -205,7 +205,7 @@ PHP_METHOD(Zim_Http_ResponseHeaderBag, set) {
 	ZVAL_UNDEF(&replace_sub);
 	ZVAL_BOOL(&__$true, 1);
 	ZVAL_UNDEF(&uniqueKey);
-	ZVAL_UNDEF(&tmpArrayd0d6087f950982817b4a268511aa1623);
+	ZVAL_UNDEF(&cacheHeaders);
 	ZVAL_UNDEF(&computed);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
@@ -238,21 +238,21 @@ PHP_METHOD(Zim_Http_ResponseHeaderBag, set) {
 	zephir_update_property_array(this_ptr, SL("headerNames"), &uniqueKey, key TSRMLS_CC);
 	ZEPHIR_CALL_PARENT(NULL, zim_http_responseheaderbag_ce, getThis(), "set", &_3, 0, key, values, replace);
 	zephir_check_call_status();
-	ZEPHIR_INIT_VAR(&tmpArrayd0d6087f950982817b4a268511aa1623);
-	zephir_create_array(&tmpArrayd0d6087f950982817b4a268511aa1623, 4, 0 TSRMLS_CC);
+	ZEPHIR_INIT_VAR(&cacheHeaders);
+	zephir_create_array(&cacheHeaders, 4, 0 TSRMLS_CC);
 	ZEPHIR_INIT_VAR(&_4);
 	ZVAL_STRING(&_4, "cache-control");
-	zephir_array_fast_append(&tmpArrayd0d6087f950982817b4a268511aa1623, &_4);
+	zephir_array_fast_append(&cacheHeaders, &_4);
 	ZEPHIR_INIT_NVAR(&_4);
 	ZVAL_STRING(&_4, "etag");
-	zephir_array_fast_append(&tmpArrayd0d6087f950982817b4a268511aa1623, &_4);
+	zephir_array_fast_append(&cacheHeaders, &_4);
 	ZEPHIR_INIT_NVAR(&_4);
 	ZVAL_STRING(&_4, "last-modified");
-	zephir_array_fast_append(&tmpArrayd0d6087f950982817b4a268511aa1623, &_4);
+	zephir_array_fast_append(&cacheHeaders, &_4);
 	ZEPHIR_INIT_NVAR(&_4);
 	ZVAL_STRING(&_4, "expires");
-	zephir_array_fast_append(&tmpArrayd0d6087f950982817b4a268511aa1623, &_4);
-	ZEPHIR_CALL_FUNCTION(&_5, "in_array", NULL, 80, &uniqueKey, &tmpArrayd0d6087f950982817b4a268511aa1623, &__$true);
+	zephir_array_fast_append(&cacheHeaders, &_4);
+	ZEPHIR_CALL_FUNCTION(&_5, "in_array", NULL, 80, &uniqueKey, &cacheHeaders, &__$true);
 	zephir_check_call_status();
 	if (zephir_is_true(&_5)) {
 		ZEPHIR_CALL_METHOD(&computed, this_ptr, "computecachecontrolvalue", NULL, 0);

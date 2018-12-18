@@ -23,28 +23,16 @@ class Dispatcher
      * @param  mixed  $listener
      * @return void
      */
-    public function listen(events, listener)
+    public function listen(var events, listener)
     {
         var event;
-    
-        for event in (array) events {
-            //$this->listeners[$event][] = $this->makeListener($listener);
+        var arr;
+        let arr = typeof events == "array" ? events : [events];
+        for event in arr {
             let this->listeners[event][] = new Listener(listener);
         }
     }
     
-    //    /**
-    //     * Register an event listener with the dispatcher.
-    //     *
-    //     * @param  \Closure|string  $listener
-    //     * @return \Closure
-    //     */
-    //    public function makeListener($listener)
-    //    {
-    //        return function ($event, $payload) use ($listener) {
-    //            return $listener($event, $payload);
-    //        };
-    //    }
     /**
      * sugar method to listen and callback specific event object
      *
@@ -54,12 +42,12 @@ class Dispatcher
     {
         var r, params, eventClass;
     
-        let r =  BoundMethod::getCallReflector(callback);
-        let params =  r->getParameters();
+        let r = BoundMethod::getCallReflector(callback);
+        let params = r->getParameters();
         if !(params) {
             throw new \InvalidArgumentException("event callback [" . r->getName() . "] parameter empty");
         }
-        let eventClass =  current(params)->getClass()->getName();
+        let eventClass = current(params)->getClass()->getName();
         this->listen(eventClass, new ListenerOn(callback));
     }
     
@@ -110,15 +98,11 @@ class Dispatcher
      */
     protected function parseEventAndPayload(event, payload) -> array
     {
-        var tmpArrayb9f26b4156eba4aa57ed39efbf00223b, tmpArraye154471971d813b647e27d35b689507f;
-    
         if is_object(event) {
-            let tmpArrayb9f26b4156eba4aa57ed39efbf00223b = [get_class(event), event];
-            return tmpArrayb9f26b4156eba4aa57ed39efbf00223b;
+            return [get_class(event), event];
         }
-        let payload =  is_array(payload) ? payload  : [payload];
-        let tmpArraye154471971d813b647e27d35b689507f = [event, payload];
-        return tmpArraye154471971d813b647e27d35b689507f;
+        let payload = is_array(payload) ? payload : [payload];
+        return [event, payload];
     }
     
     /**
@@ -149,7 +133,8 @@ class Dispatcher
         for interfacee in class_implements(eventName) {
             if isset this->listeners[interfacee] {
                 for names in this->listeners[interfacee] {
-                    let listeners =  array_merge(listeners, (array) names);
+                    let names = typeof names == "array" ? names : [names];
+                    let listeners =  array_merge(listeners, names);
                 }
             }
         }

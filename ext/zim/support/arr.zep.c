@@ -205,24 +205,22 @@ PHP_METHOD(Zim_Support_Arr, get) {
 PHP_METHOD(Zim_Support_Arr, has) {
 
 	zend_bool _8$$8;
-	zval _0;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
 	zephir_fcall_cache_entry *_3 = NULL, *_7 = NULL;
-	zval *myArray, myArray_sub, *keys = NULL, keys_sub, tmpArray40cd750bba9870f18aada2478b24840a, key, subKeyArray, segment, *_1, _2$$6, _4$$6, *_5$$6, _6$$8, _9$$8, _10$$9;
+	zval *myArray, myArray_sub, *keys = NULL, keys_sub, key, subKeyArray, segment, _0, *_1, _2$$6, _4$$6, *_5$$6, _6$$8, _9$$8, _10$$9;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&myArray_sub);
 	ZVAL_UNDEF(&keys_sub);
-	ZVAL_UNDEF(&tmpArray40cd750bba9870f18aada2478b24840a);
 	ZVAL_UNDEF(&key);
 	ZVAL_UNDEF(&subKeyArray);
 	ZVAL_UNDEF(&segment);
+	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_2$$6);
 	ZVAL_UNDEF(&_4$$6);
 	ZVAL_UNDEF(&_6$$8);
 	ZVAL_UNDEF(&_9$$8);
 	ZVAL_UNDEF(&_10$$9);
-	ZVAL_UNDEF(&_0);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 2, 0, &myArray, &keys);
@@ -233,17 +231,22 @@ PHP_METHOD(Zim_Support_Arr, has) {
 	if (Z_TYPE_P(keys) == IS_NULL) {
 		RETURN_MM_BOOL(0);
 	}
-	zephir_get_arrval(&_0, keys);
+	ZEPHIR_INIT_VAR(&_0);
+	if (Z_TYPE_P(keys) == IS_ARRAY) {
+		ZEPHIR_CPY_WRT(&_0, keys);
+	} else {
+		ZEPHIR_INIT_NVAR(&_0);
+		zephir_create_array(&_0, 1, 0 TSRMLS_CC);
+		zephir_array_fast_append(&_0, keys);
+	}
 	ZEPHIR_CPY_WRT(keys, &_0);
 	if (!(zephir_is_true(myArray))) {
 		RETURN_MM_BOOL(0);
 	}
-	ZEPHIR_INIT_VAR(&tmpArray40cd750bba9870f18aada2478b24840a);
-	array_init(&tmpArray40cd750bba9870f18aada2478b24840a);
-	if (ZEPHIR_IS_IDENTICAL(keys, &tmpArray40cd750bba9870f18aada2478b24840a)) {
+	if (zephir_fast_count_int(keys TSRMLS_CC) == 0) {
 		RETURN_MM_BOOL(0);
 	}
-	zephir_is_iterable(keys, 0, "zim/support/arr.zep", 102);
+	zephir_is_iterable(keys, 0, "zim/support/arr.zep", 101);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(keys), _1)
 	{
 		ZEPHIR_INIT_NVAR(&key);
@@ -256,7 +259,7 @@ PHP_METHOD(Zim_Support_Arr, has) {
 		}
 		ZEPHIR_INIT_NVAR(&_4$$6);
 		zephir_fast_explode_str(&_4$$6, SL("."), &key, LONG_MAX TSRMLS_CC);
-		zephir_is_iterable(&_4$$6, 0, "zim/support/arr.zep", 101);
+		zephir_is_iterable(&_4$$6, 0, "zim/support/arr.zep", 100);
 		ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_4$$6), _5$$6)
 		{
 			ZEPHIR_INIT_NVAR(&segment);
@@ -270,7 +273,7 @@ PHP_METHOD(Zim_Support_Arr, has) {
 				_8$$8 = zephir_is_true(&_9$$8);
 			}
 			if (_8$$8) {
-				zephir_array_fetch(&_10$$9, &subKeyArray, &segment, PH_NOISY | PH_READONLY, "zim/support/arr.zep", 96 TSRMLS_CC);
+				zephir_array_fetch(&_10$$9, &subKeyArray, &segment, PH_NOISY | PH_READONLY, "zim/support/arr.zep", 95 TSRMLS_CC);
 				ZEPHIR_CPY_WRT(&subKeyArray, &_10$$9);
 			} else {
 				RETURN_MM_BOOL(0);
@@ -397,7 +400,7 @@ PHP_METHOD(Zim_Support_Arr, _cast) {
 
 
 	if (Z_TYPE_P(ini) == IS_ARRAY) {
-		zephir_is_iterable(ini, 1, "zim/support/arr.zep", 149);
+		zephir_is_iterable(ini, 1, "zim/support/arr.zep", 148);
 		ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(ini), _1$$3, _2$$3, _0$$3)
 		{
 			ZEPHIR_INIT_NVAR(&key);

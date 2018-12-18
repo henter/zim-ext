@@ -5,7 +5,6 @@ ZEPHIR_INIT_CLASS(Zim_Zim);
 
 PHP_METHOD(Zim_Zim, __construct);
 PHP_METHOD(Zim_Zim, getInstance);
-PHP_METHOD(Zim_Zim, setInstance);
 PHP_METHOD(Zim_Zim, bootstrapContainer);
 PHP_METHOD(Zim_Zim, bootstrapConfig);
 PHP_METHOD(Zim_Zim, registerServices);
@@ -25,15 +24,19 @@ PHP_METHOD(Zim_Zim, app);
 PHP_METHOD(Zim_Zim, config);
 zend_object *zephir_init_properties_Zim_Zim(zend_class_entry *class_type TSRMLS_DC);
 
+ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_zim___construct, 0, 0, 0)
+#if PHP_VERSION_ID >= 70200
+	ZEND_ARG_TYPE_INFO(0, path, IS_STRING, 0)
+#else
+	ZEND_ARG_INFO(0, path)
+#endif
+ZEND_END_ARG_INFO()
+
 #if PHP_VERSION_ID >= 70200
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_zim_zim_getinstance, 0, 0, Zim\\Container\\Container, 0)
 #else
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_zim_getinstance, 0, 0, IS_OBJECT, "Zim\\Container\\Container", 0)
 #endif
-ZEND_END_ARG_INFO()
-
-ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_zim_setinstance, 0, 0, 0)
-	ZEND_ARG_OBJ_INFO(0, container, Zim\\Container\\Container, 1)
 ZEND_END_ARG_INFO()
 
 #if PHP_VERSION_ID >= 70200
@@ -102,9 +105,8 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_zim_config, 0, 0, 0)
 ZEND_END_ARG_INFO()
 
 ZEPHIR_INIT_FUNCS(zim_zim_method_entry) {
-	PHP_ME(Zim_Zim, __construct, NULL, ZEND_ACC_PUBLIC|ZEND_ACC_CTOR)
+	PHP_ME(Zim_Zim, __construct, arginfo_zim_zim___construct, ZEND_ACC_PUBLIC|ZEND_ACC_CTOR)
 	PHP_ME(Zim_Zim, getInstance, arginfo_zim_zim_getinstance, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
-	PHP_ME(Zim_Zim, setInstance, arginfo_zim_zim_setinstance, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(Zim_Zim, bootstrapContainer, NULL, ZEND_ACC_PROTECTED)
 	PHP_ME(Zim_Zim, bootstrapConfig, NULL, ZEND_ACC_PROTECTED)
 	PHP_ME(Zim_Zim, registerServices, NULL, ZEND_ACC_PROTECTED)

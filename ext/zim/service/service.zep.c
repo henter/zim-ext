@@ -75,16 +75,11 @@ PHP_METHOD(Zim_Service_Service, register) {
  */
 PHP_METHOD(Zim_Service_Service, provides) {
 
-	zval tmpArray40cd750bba9870f18aada2478b24840a;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&tmpArray40cd750bba9870f18aada2478b24840a);
 
-	ZEPHIR_MM_GROW();
-
-	ZEPHIR_INIT_VAR(&tmpArray40cd750bba9870f18aada2478b24840a);
-	array_init(&tmpArray40cd750bba9870f18aada2478b24840a);
-	RETURN_CCTOR(&tmpArray40cd750bba9870f18aada2478b24840a);
+	array_init(return_value);
+	return;
 
 }
 
@@ -97,16 +92,11 @@ PHP_METHOD(Zim_Service_Service, provides) {
  */
 PHP_METHOD(Zim_Service_Service, when) {
 
-	zval tmpArray40cd750bba9870f18aada2478b24840a;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&tmpArray40cd750bba9870f18aada2478b24840a);
 
-	ZEPHIR_MM_GROW();
-
-	ZEPHIR_INIT_VAR(&tmpArray40cd750bba9870f18aada2478b24840a);
-	array_init(&tmpArray40cd750bba9870f18aada2478b24840a);
-	RETURN_CCTOR(&tmpArray40cd750bba9870f18aada2478b24840a);
+	array_init(return_value);
+	return;
 
 }
 

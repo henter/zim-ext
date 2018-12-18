@@ -182,19 +182,18 @@ PHP_METHOD(Zim_Support_Str, camel) {
  */
 PHP_METHOD(Zim_Support_Str, contains) {
 
-	zend_bool _2$$3;
-	zval _0;
+	zend_bool _1$$3;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zephir_fcall_cache_entry *_4 = NULL;
-	zval *haystack_param = NULL, *needles, needles_sub, needle, *_1, _3$$3;
+	zephir_fcall_cache_entry *_3 = NULL;
+	zval *haystack_param = NULL, *needles, needles_sub, needle, arr, *_0, _2$$3;
 	zval haystack;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&haystack);
 	ZVAL_UNDEF(&needles_sub);
 	ZVAL_UNDEF(&needle);
-	ZVAL_UNDEF(&_3$$3);
-	ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&arr);
+	ZVAL_UNDEF(&_2$$3);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 2, 0, &haystack_param, &needles);
@@ -202,19 +201,25 @@ PHP_METHOD(Zim_Support_Str, contains) {
 	zephir_get_strval(&haystack, haystack_param);
 
 
-	zephir_get_arrval(&_0, needles);
-	zephir_is_iterable(&_0, 0, "zim/support/str.zep", 78);
-	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0), _1)
+	if (Z_TYPE_P(needles) == IS_ARRAY) {
+		ZEPHIR_CPY_WRT(&arr, needles);
+	} else {
+		ZEPHIR_INIT_NVAR(&arr);
+		zephir_create_array(&arr, 1, 0 TSRMLS_CC);
+		zephir_array_fast_append(&arr, needles);
+	}
+	zephir_is_iterable(&arr, 0, "zim/support/str.zep", 79);
+	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&arr), _0)
 	{
 		ZEPHIR_INIT_NVAR(&needle);
-		ZVAL_COPY(&needle, _1);
-		_2$$3 = !ZEPHIR_IS_STRING_IDENTICAL(&needle, "");
-		if (_2$$3) {
-			ZEPHIR_CALL_FUNCTION(&_3$$3, "mb_strpos", &_4, 116, &haystack, &needle);
+		ZVAL_COPY(&needle, _0);
+		_1$$3 = !ZEPHIR_IS_STRING_IDENTICAL(&needle, "");
+		if (_1$$3) {
+			ZEPHIR_CALL_FUNCTION(&_2$$3, "mb_strpos", &_3, 116, &haystack, &needle);
 			zephir_check_call_status();
-			_2$$3 = !ZEPHIR_IS_FALSE_IDENTICAL(&_3$$3);
+			_1$$3 = !ZEPHIR_IS_FALSE_IDENTICAL(&_2$$3);
 		}
-		if (_2$$3) {
+		if (_1$$3) {
 			RETURN_MM_BOOL(1);
 		}
 	} ZEND_HASH_FOREACH_END();
@@ -232,18 +237,17 @@ PHP_METHOD(Zim_Support_Str, contains) {
  */
 PHP_METHOD(Zim_Support_Str, endsWith) {
 
-	zval _0;
-	zval *haystack_param = NULL, *needles, needles_sub, needle, *_1, _2$$3, _3$$3;
-	zval haystack, _4$$3;
+	zval *haystack_param = NULL, *needles, needles_sub, needle, arr, *_0, _1$$3, _2$$3;
+	zval haystack, _3$$3;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&haystack);
-	ZVAL_UNDEF(&_4$$3);
+	ZVAL_UNDEF(&_3$$3);
 	ZVAL_UNDEF(&needles_sub);
 	ZVAL_UNDEF(&needle);
+	ZVAL_UNDEF(&arr);
+	ZVAL_UNDEF(&_1$$3);
 	ZVAL_UNDEF(&_2$$3);
-	ZVAL_UNDEF(&_3$$3);
-	ZVAL_UNDEF(&_0);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 2, 0, &haystack_param, &needles);
@@ -251,17 +255,23 @@ PHP_METHOD(Zim_Support_Str, endsWith) {
 	zephir_get_strval(&haystack, haystack_param);
 
 
-	zephir_get_arrval(&_0, needles);
-	zephir_is_iterable(&_0, 0, "zim/support/str.zep", 97);
-	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0), _1)
+	if (Z_TYPE_P(needles) == IS_ARRAY) {
+		ZEPHIR_CPY_WRT(&arr, needles);
+	} else {
+		ZEPHIR_INIT_NVAR(&arr);
+		zephir_create_array(&arr, 1, 0 TSRMLS_CC);
+		zephir_array_fast_append(&arr, needles);
+	}
+	zephir_is_iterable(&arr, 0, "zim/support/str.zep", 99);
+	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&arr), _0)
 	{
 		ZEPHIR_INIT_NVAR(&needle);
-		ZVAL_COPY(&needle, _1);
-		ZVAL_LONG(&_2$$3, -zephir_fast_strlen_ev(&needle));
-		ZEPHIR_INIT_NVAR(&_3$$3);
-		zephir_substr(&_3$$3, &haystack, zephir_get_intval(&_2$$3), 0, ZEPHIR_SUBSTR_NO_LENGTH);
-		zephir_get_strval(&_4$$3, &needle);
-		if (ZEPHIR_IS_IDENTICAL(&_3$$3, &_4$$3)) {
+		ZVAL_COPY(&needle, _0);
+		ZVAL_LONG(&_1$$3, -zephir_fast_strlen_ev(&needle));
+		ZEPHIR_INIT_NVAR(&_2$$3);
+		zephir_substr(&_2$$3, &haystack, zephir_get_intval(&_1$$3), 0, ZEPHIR_SUBSTR_NO_LENGTH);
+		zephir_get_strval(&_3$$3, &needle);
+		if (ZEPHIR_IS_IDENTICAL(&_2$$3, &_3$$3)) {
 			RETURN_MM_BOOL(1);
 		}
 	} ZEND_HASH_FOREACH_END();
@@ -534,7 +544,7 @@ PHP_METHOD(Zim_Support_Str, words) {
 	if (!(_3)) {
 		ZEPHIR_CALL_STATIC(&_4, "length", NULL, 0, &value);
 		zephir_check_call_status();
-		zephir_array_fetch_long(&_6, &matches, 0, PH_NOISY | PH_READONLY, "zim/support/str.zep", 180 TSRMLS_CC);
+		zephir_array_fetch_long(&_6, &matches, 0, PH_NOISY | PH_READONLY, "zim/support/str.zep", 182 TSRMLS_CC);
 		ZEPHIR_CALL_STATIC(&_5, "length", NULL, 0, &_6);
 		zephir_check_call_status();
 		_3 = ZEPHIR_IS_IDENTICAL(&_4, &_5);
@@ -543,7 +553,7 @@ PHP_METHOD(Zim_Support_Str, words) {
 		RETURN_CTOR(&value);
 	}
 	ZEPHIR_INIT_VAR(&_7);
-	zephir_array_fetch_long(&_8, &matches, 0, PH_NOISY | PH_READONLY, "zim/support/str.zep", 183 TSRMLS_CC);
+	zephir_array_fetch_long(&_8, &matches, 0, PH_NOISY | PH_READONLY, "zim/support/str.zep", 185 TSRMLS_CC);
 	zephir_fast_trim(&_7, &_8, NULL , ZEPHIR_TRIM_RIGHT TSRMLS_CC);
 	ZEPHIR_CONCAT_VV(return_value, &_7, &end);
 	RETURN_MM();
@@ -659,7 +669,7 @@ PHP_METHOD(Zim_Support_Str, replaceArray) {
 	zephir_get_strval(&subject, subject_param);
 
 
-	zephir_is_iterable(&replace, 0, "zim/support/str.zep", 222);
+	zephir_is_iterable(&replace, 0, "zim/support/str.zep", 224);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&replace), _0)
 	{
 		ZEPHIR_INIT_NVAR(&value);
@@ -911,11 +921,11 @@ PHP_METHOD(Zim_Support_Str, snake) {
 
 	ZEPHIR_CPY_WRT(&key, &value);
 	zephir_read_static_property_ce(&_0, zim_support_str_ce, SL("snakeCache"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch(&_1, &_0, &key, PH_READONLY, "zim/support/str.zep", 315 TSRMLS_CC);
+	zephir_array_fetch(&_1, &_0, &key, PH_READONLY, "zim/support/str.zep", 317 TSRMLS_CC);
 	if (zephir_array_isset(&_1, &delimiter)) {
 		zephir_read_static_property_ce(&_2$$3, zim_support_str_ce, SL("snakeCache"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_3$$3, &_2$$3, &key, PH_NOISY | PH_READONLY, "zim/support/str.zep", 316 TSRMLS_CC);
-		zephir_array_fetch(&_4$$3, &_3$$3, &delimiter, PH_NOISY | PH_READONLY, "zim/support/str.zep", 316 TSRMLS_CC);
+		zephir_array_fetch(&_3$$3, &_2$$3, &key, PH_NOISY | PH_READONLY, "zim/support/str.zep", 318 TSRMLS_CC);
+		zephir_array_fetch(&_4$$3, &_3$$3, &delimiter, PH_NOISY | PH_READONLY, "zim/support/str.zep", 318 TSRMLS_CC);
 		RETURN_CTOR(&_4$$3);
 	}
 	ZEPHIR_CALL_FUNCTION(&_5, "ctype_lower", NULL, 124, &value);
@@ -941,8 +951,8 @@ PHP_METHOD(Zim_Support_Str, snake) {
 	}
 	zephir_update_static_property_array_multi_ce(zim_support_str_ce, SL("snakeCache"), &value TSRMLS_CC, SL("zz"), 2, &key, &delimiter);
 	zephir_read_static_property_ce(&_12, zim_support_str_ce, SL("snakeCache"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch(&_13, &_12, &key, PH_NOISY | PH_READONLY, "zim/support/str.zep", 324 TSRMLS_CC);
-	zephir_array_fetch(&_14, &_13, &delimiter, PH_NOISY | PH_READONLY, "zim/support/str.zep", 324 TSRMLS_CC);
+	zephir_array_fetch(&_13, &_12, &key, PH_NOISY | PH_READONLY, "zim/support/str.zep", 326 TSRMLS_CC);
+	zephir_array_fetch(&_14, &_13, &delimiter, PH_NOISY | PH_READONLY, "zim/support/str.zep", 326 TSRMLS_CC);
 	RETURN_CTOR(&_14);
 
 }
@@ -956,20 +966,19 @@ PHP_METHOD(Zim_Support_Str, snake) {
  */
 PHP_METHOD(Zim_Support_Str, startsWith) {
 
-	zend_bool _2$$3;
-	zval _0;
-	zval *haystack_param = NULL, *needles, needles_sub, needle, *_1, _3$$3, _4$$3, _5$$3;
-	zval haystack, _6$$3;
+	zend_bool _1$$3;
+	zval *haystack_param = NULL, *needles, needles_sub, needle, arr, *_0, _2$$3, _3$$3, _4$$3;
+	zval haystack, _5$$3;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&haystack);
-	ZVAL_UNDEF(&_6$$3);
+	ZVAL_UNDEF(&_5$$3);
 	ZVAL_UNDEF(&needles_sub);
 	ZVAL_UNDEF(&needle);
+	ZVAL_UNDEF(&arr);
+	ZVAL_UNDEF(&_2$$3);
 	ZVAL_UNDEF(&_3$$3);
 	ZVAL_UNDEF(&_4$$3);
-	ZVAL_UNDEF(&_5$$3);
-	ZVAL_UNDEF(&_0);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 2, 0, &haystack_param, &needles);
@@ -977,22 +986,28 @@ PHP_METHOD(Zim_Support_Str, startsWith) {
 	zephir_get_strval(&haystack, haystack_param);
 
 
-	zephir_get_arrval(&_0, needles);
-	zephir_is_iterable(&_0, 0, "zim/support/str.zep", 343);
-	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0), _1)
+	if (Z_TYPE_P(needles) == IS_ARRAY) {
+		ZEPHIR_CPY_WRT(&arr, needles);
+	} else {
+		ZEPHIR_INIT_NVAR(&arr);
+		zephir_create_array(&arr, 1, 0 TSRMLS_CC);
+		zephir_array_fast_append(&arr, needles);
+	}
+	zephir_is_iterable(&arr, 0, "zim/support/str.zep", 346);
+	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&arr), _0)
 	{
 		ZEPHIR_INIT_NVAR(&needle);
-		ZVAL_COPY(&needle, _1);
-		_2$$3 = !ZEPHIR_IS_STRING_IDENTICAL(&needle, "");
-		if (_2$$3) {
-			ZVAL_LONG(&_3$$3, 0);
-			ZVAL_LONG(&_4$$3, zephir_fast_strlen_ev(&needle));
-			ZEPHIR_INIT_NVAR(&_5$$3);
-			zephir_substr(&_5$$3, &haystack, 0 , zephir_get_intval(&_4$$3), 0);
-			zephir_get_strval(&_6$$3, &needle);
-			_2$$3 = ZEPHIR_IS_IDENTICAL(&_5$$3, &_6$$3);
+		ZVAL_COPY(&needle, _0);
+		_1$$3 = !ZEPHIR_IS_STRING_IDENTICAL(&needle, "");
+		if (_1$$3) {
+			ZVAL_LONG(&_2$$3, 0);
+			ZVAL_LONG(&_3$$3, zephir_fast_strlen_ev(&needle));
+			ZEPHIR_INIT_NVAR(&_4$$3);
+			zephir_substr(&_4$$3, &haystack, 0 , zephir_get_intval(&_3$$3), 0);
+			zephir_get_strval(&_5$$3, &needle);
+			_1$$3 = ZEPHIR_IS_IDENTICAL(&_4$$3, &_5$$3);
 		}
-		if (_2$$3) {
+		if (_1$$3) {
 			RETURN_MM_BOOL(1);
 		}
 	} ZEND_HASH_FOREACH_END();
@@ -1040,7 +1055,7 @@ PHP_METHOD(Zim_Support_Str, studly) {
 	zephir_read_static_property_ce(&_0, zim_support_str_ce, SL("studlyCache"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_0, &key)) {
 		zephir_read_static_property_ce(&_1$$3, zim_support_str_ce, SL("studlyCache"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_2$$3, &_1$$3, &key, PH_NOISY | PH_READONLY, "zim/support/str.zep", 358 TSRMLS_CC);
+		zephir_array_fetch(&_2$$3, &_1$$3, &key, PH_NOISY | PH_READONLY, "zim/support/str.zep", 361 TSRMLS_CC);
 		RETURN_CTOR(&_2$$3);
 	}
 	ZEPHIR_INIT_VAR(&_3);
@@ -1066,7 +1081,7 @@ PHP_METHOD(Zim_Support_Str, studly) {
 	zephir_fast_str_replace(&_6, &_7, &_8, &value TSRMLS_CC);
 	zephir_update_static_property_array_multi_ce(zim_support_str_ce, SL("studlyCache"), &_6 TSRMLS_CC, SL("z"), 1, &key);
 	zephir_read_static_property_ce(&_9, zim_support_str_ce, SL("studlyCache"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch(&_10, &_9, &key, PH_NOISY | PH_READONLY, "zim/support/str.zep", 364 TSRMLS_CC);
+	zephir_array_fetch(&_10, &_9, &key, PH_NOISY | PH_READONLY, "zim/support/str.zep", 367 TSRMLS_CC);
 	RETURN_CTOR(&_10);
 
 }

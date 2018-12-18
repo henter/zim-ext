@@ -61,11 +61,10 @@ class Zim extends Container
      */
     protected basePath;
 
-    public function __construct() -> void
+    public function __construct(string path = "") -> void
     {
-        let this->basePath =  dirname(APP_PATH);
-        error_reporting(E_ALL);
-        //this->registerErrorHandling();
+        let this->basePath = path;
+        this->registerErrorHandling();
         this->bootstrapContainer();
         this->bootstrapConfig();
         this->registerServices();
@@ -81,18 +80,6 @@ class Zim extends Container
         if is_null(self::instance) {
             let self::instance =  new static();
         }
-        return self::instance;
-    }
-
-    /**
-     * Set the shared instance of the container.
-     *
-     * @param  self $container
-     * @return self
-     */
-    public static function setInstance(<Container> container = null)
-    {
-        let self::instance = container;
         return self::instance;
     }
 
@@ -223,13 +210,13 @@ class Zim extends Container
      */
     public function basePath(path = null) -> string
     {
-        if isset this->basePath {
+        if this->basePath {
             return this->basePath . ( path ? "/" . path  : path);
         }
         if this->inConsole() {
-            let this->basePath =  getcwd();
+            let this->basePath = getcwd();
         } else {
-            let this->basePath =  realpath(getcwd() . "/../");
+            let this->basePath = realpath(getcwd() . "/../");
         }
         return this->basePath(path);
     }
@@ -248,7 +235,7 @@ class Zim extends Container
             return;
         }
         let this->loadedConfigs[name] = true;
-        let path =  this->getConfigPath(name);
+        let path = this->getConfigPath(name);
         if path {
             this->make("config")->set(name, require path);
         }
@@ -267,21 +254,21 @@ class Zim extends Container
         var appConfigDir, path, appConfigPath;
     
         if !(name) {
-            let appConfigDir =  this->basePath("config") . "/";
+            let appConfigDir = this->basePath("config") . "/";
             if file_exists(appConfigDir) {
                 return appConfigDir;
             } else {
-                let path =  this->basePath("../config/");
+                let path = this->basePath("../config/");
                 if file_exists(path) {
                     return path;
                 }
             }
         } else {
-            let appConfigPath =  this->basePath("config") . "/" . name . ".php";
+            let appConfigPath = this->basePath("config") . "/" . name . ".php";
             if file_exists(appConfigPath) {
                 return appConfigPath;
             } else {
-                let path =  this->basePath("../config/" . name . ".php");
+                let path = this->basePath("../config/" . name . ".php");
                 if file_exists(path) {
                     return path;
                 }

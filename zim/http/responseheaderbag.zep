@@ -63,14 +63,14 @@ class ResponseHeaderBag extends HeaderBag
      */
     public function set(key, values, replace = true) -> void
     {
-        var uniqueKey, tmpArrayd0d6087f950982817b4a268511aa1623, computed;
+        var uniqueKey, cacheHeaders, computed;
     
         let uniqueKey =  str_replace("_", "-", strtolower(key));
         let this->headerNames[uniqueKey] = key;
         parent::set(key, values, replace);
         // ensure the cache-control header has sensible defaults
-        let tmpArrayd0d6087f950982817b4a268511aa1623 = ["cache-control", "etag", "last-modified", "expires"];
-        if in_array(uniqueKey, tmpArrayd0d6087f950982817b4a268511aa1623, true) {
+        let cacheHeaders = ["cache-control", "etag", "last-modified", "expires"];
+        if in_array(uniqueKey, cacheHeaders, true) {
             let computed =  this->computeCacheControlValue();
             let this->headers["cache-control"] =  [computed];
             let this->headerNames["cache-control"] = "Cache-Control";

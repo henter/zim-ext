@@ -12,11 +12,11 @@
 #include <Zend/zend_interfaces.h>
 
 #include "kernel/main.h"
-#include "kernel/memory.h"
-#include "kernel/fcall.h"
 #include "kernel/object.h"
-#include "kernel/array.h"
+#include "kernel/fcall.h"
+#include "kernel/memory.h"
 #include "kernel/operators.h"
+#include "kernel/array.h"
 #include "kernel/concat.h"
 #include "kernel/require.h"
 #include "kernel/file.h"
@@ -85,23 +85,26 @@ ZEPHIR_INIT_CLASS(Zim_Zim) {
 
 PHP_METHOD(Zim_Zim, __construct) {
 
-	zval _0, _1, _2;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
+	zval *path_param = NULL;
+	zval path;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_1);
-	ZVAL_UNDEF(&_2);
+	ZVAL_UNDEF(&path);
 
 	ZEPHIR_MM_GROW();
+	zephir_fetch_params(1, 0, 1, &path_param);
 
-	ZEPHIR_INIT_VAR(&_0);
-	ZEPHIR_GET_CONSTANT(&_0, "APP_PATH");
-	ZEPHIR_CALL_FUNCTION(&_1, "dirname", NULL, 126, &_0);
-	zephir_check_call_status();
-	zephir_update_property_zval(this_ptr, SL("basePath"), &_1);
-	ZVAL_LONG(&_2, 32767);
-	ZEPHIR_CALL_FUNCTION(NULL, "error_reporting", NULL, 39, &_2);
+	if (!path_param) {
+		ZEPHIR_INIT_VAR(&path);
+		ZVAL_STRING(&path, "");
+	} else {
+		zephir_get_strval(&path, path_param);
+	}
+
+
+	zephir_update_property_zval(this_ptr, SL("basePath"), &path);
+	ZEPHIR_CALL_METHOD(NULL, this_ptr, "registererrorhandling", NULL, 0);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "bootstrapcontainer", NULL, 0);
 	zephir_check_call_status();
@@ -134,41 +137,12 @@ PHP_METHOD(Zim_Zim, getInstance) {
 	if (Z_TYPE_P(&_0) == IS_NULL) {
 		ZEPHIR_INIT_VAR(&_1$$3);
 		object_init_ex(&_1$$3, zim_zim_ce);
-		ZEPHIR_CALL_METHOD(NULL, &_1$$3, "__construct", NULL, 127);
+		ZEPHIR_CALL_METHOD(NULL, &_1$$3, "__construct", NULL, 126);
 		zephir_check_call_status();
 		zend_update_static_property(zim_zim_ce, ZEND_STRL("instance"), &_1$$3);
 	}
 	zephir_read_static_property_ce(&_2, zim_zim_ce, SL("instance"), PH_NOISY_CC | PH_READONLY);
 	RETURN_CTOR(&_2);
-
-}
-
-/**
- * Set the shared instance of the container.
- *
- * @param  self $container
- * @return self
- */
-PHP_METHOD(Zim_Zim, setInstance) {
-
-	zval *container = NULL, container_sub, __$null, _0;
-	zval *this_ptr = getThis();
-
-	ZVAL_UNDEF(&container_sub);
-	ZVAL_NULL(&__$null);
-	ZVAL_UNDEF(&_0);
-
-	zephir_fetch_params(0, 0, 1, &container);
-
-	if (!container) {
-		container = &container_sub;
-		container = &__$null;
-	}
-
-
-	zend_update_static_property(zim_zim_ce, ZEND_STRL("instance"), container);
-	zephir_read_static_property_ce(&_0, zim_zim_ce, SL("instance"), PH_NOISY_CC | PH_READONLY);
-	RETURN_CTORW(&_0);
 
 }
 
@@ -200,7 +174,7 @@ PHP_METHOD(Zim_Zim, bootstrapContainer) {
 	zephir_check_call_status();
 	ZEPHIR_INIT_NVAR(&_0);
 	object_init_ex(&_0, zim_config_config_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 128);
+	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 127);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&_1);
 	ZVAL_STRING(&_1, "config");
@@ -218,7 +192,7 @@ PHP_METHOD(Zim_Zim, bootstrapContainer) {
 	zephir_check_call_status();
 	ZEPHIR_INIT_NVAR(&_2);
 	object_init_ex(&_2, zim_routing_router_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_2, "__construct", NULL, 129);
+	ZEPHIR_CALL_METHOD(NULL, &_2, "__construct", NULL, 128);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&_3);
 	ZVAL_STRING(&_3, "router");
@@ -300,7 +274,7 @@ PHP_METHOD(Zim_Zim, registerServices) {
 		ZEPHIR_INIT_NVAR(&services);
 		array_init(&services);
 	}
-	zephir_is_iterable(&services, 0, "zim/zim.zep", 142);
+	zephir_is_iterable(&services, 0, "zim/zim.zep", 129);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&services), _3)
 	{
 		ZEPHIR_INIT_NVAR(&service);
@@ -403,7 +377,7 @@ PHP_METHOD(Zim_Zim, boot) {
 		RETURN_MM_NULL();
 	}
 	zephir_read_property(&_1, this_ptr, SL("loadedServices"), PH_NOISY_CC | PH_READONLY);
-	zephir_is_iterable(&_1, 0, "zim/zim.zep", 191);
+	zephir_is_iterable(&_1, 0, "zim/zim.zep", 178);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_1), _2)
 	{
 		ZEPHIR_INIT_NVAR(&s);
@@ -476,11 +450,11 @@ PHP_METHOD(Zim_Zim, inConsole) {
 
 	ZEPHIR_MM_GROW();
 
-	ZEPHIR_CALL_FUNCTION(&_0, "php_sapi_name", &_1, 130);
+	ZEPHIR_CALL_FUNCTION(&_0, "php_sapi_name", &_1, 129);
 	zephir_check_call_status();
 	_2 = ZEPHIR_IS_STRING_IDENTICAL(&_0, "cli");
 	if (!(_2)) {
-		ZEPHIR_CALL_FUNCTION(&_3, "php_sapi_name", &_1, 130);
+		ZEPHIR_CALL_FUNCTION(&_3, "php_sapi_name", &_1, 129);
 		zephir_check_call_status();
 		_2 = ZEPHIR_IS_STRING_IDENTICAL(&_3, "phpdbg");
 	}
@@ -496,20 +470,21 @@ PHP_METHOD(Zim_Zim, inConsole) {
  */
 PHP_METHOD(Zim_Zim, basePath) {
 
-	zephir_fcall_cache_entry *_4 = NULL;
+	zephir_fcall_cache_entry *_5 = NULL;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *path = NULL, path_sub, __$null, _0$$3, _1$$3, _2, _3$$4, _5$$5, _6$$5, _7$$5;
+	zval *path = NULL, path_sub, __$null, _0, _3, _1$$3, _2$$3, _4$$4, _6$$5, _7$$5, _8$$5;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&path_sub);
 	ZVAL_NULL(&__$null);
-	ZVAL_UNDEF(&_0$$3);
+	ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&_3);
 	ZVAL_UNDEF(&_1$$3);
-	ZVAL_UNDEF(&_2);
-	ZVAL_UNDEF(&_3$$4);
-	ZVAL_UNDEF(&_5$$5);
+	ZVAL_UNDEF(&_2$$3);
+	ZVAL_UNDEF(&_4$$4);
 	ZVAL_UNDEF(&_6$$5);
 	ZVAL_UNDEF(&_7$$5);
+	ZVAL_UNDEF(&_8$$5);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 0, 1, &path);
@@ -520,34 +495,35 @@ PHP_METHOD(Zim_Zim, basePath) {
 	}
 
 
-	if (zephir_isset_property(this_ptr, SL("basePath"))) {
-		zephir_read_property(&_0$$3, this_ptr, SL("basePath"), PH_NOISY_CC | PH_READONLY);
-		ZEPHIR_INIT_VAR(&_1$$3);
+	zephir_read_property(&_0, this_ptr, SL("basePath"), PH_NOISY_CC | PH_READONLY);
+	if (zephir_is_true(&_0)) {
+		zephir_read_property(&_1$$3, this_ptr, SL("basePath"), PH_NOISY_CC | PH_READONLY);
+		ZEPHIR_INIT_VAR(&_2$$3);
 		if (zephir_is_true(path)) {
-			ZEPHIR_INIT_NVAR(&_1$$3);
-			ZEPHIR_CONCAT_SV(&_1$$3, "/", path);
+			ZEPHIR_INIT_NVAR(&_2$$3);
+			ZEPHIR_CONCAT_SV(&_2$$3, "/", path);
 		} else {
-			ZEPHIR_CPY_WRT(&_1$$3, path);
+			ZEPHIR_CPY_WRT(&_2$$3, path);
 		}
-		ZEPHIR_CONCAT_VV(return_value, &_0$$3, &_1$$3);
+		ZEPHIR_CONCAT_VV(return_value, &_1$$3, &_2$$3);
 		RETURN_MM();
 	}
-	ZEPHIR_CALL_METHOD(&_2, this_ptr, "inconsole", NULL, 0);
+	ZEPHIR_CALL_METHOD(&_3, this_ptr, "inconsole", NULL, 0);
 	zephir_check_call_status();
-	if (zephir_is_true(&_2)) {
-		ZEPHIR_CALL_FUNCTION(&_3$$4, "getcwd", &_4, 131);
+	if (zephir_is_true(&_3)) {
+		ZEPHIR_CALL_FUNCTION(&_4$$4, "getcwd", &_5, 130);
 		zephir_check_call_status();
-		zephir_update_property_zval(this_ptr, SL("basePath"), &_3$$4);
+		zephir_update_property_zval(this_ptr, SL("basePath"), &_4$$4);
 	} else {
-		ZEPHIR_CALL_FUNCTION(&_5$$5, "getcwd", &_4, 131);
+		ZEPHIR_CALL_FUNCTION(&_6$$5, "getcwd", &_5, 130);
 		zephir_check_call_status();
-		ZEPHIR_INIT_VAR(&_6$$5);
-		ZEPHIR_CONCAT_VS(&_6$$5, &_5$$5, "/../");
-		ZEPHIR_CALL_FUNCTION(&_7$$5, "realpath", NULL, 132, &_6$$5);
+		ZEPHIR_INIT_VAR(&_7$$5);
+		ZEPHIR_CONCAT_VS(&_7$$5, &_6$$5, "/../");
+		ZEPHIR_CALL_FUNCTION(&_8$$5, "realpath", NULL, 131, &_7$$5);
 		zephir_check_call_status();
-		zephir_update_property_zval(this_ptr, SL("basePath"), &_7$$5);
+		zephir_update_property_zval(this_ptr, SL("basePath"), &_8$$5);
 	}
-	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "basepath", NULL, 133, path);
+	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "basepath", NULL, 132, path);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -651,7 +627,7 @@ PHP_METHOD(Zim_Zim, getConfigPath) {
 		} else {
 			ZEPHIR_INIT_VAR(&_3$$5);
 			ZVAL_STRING(&_3$$5, "../config/");
-			ZEPHIR_CALL_METHOD(&path, this_ptr, "basepath", &_2, 133, &_3$$5);
+			ZEPHIR_CALL_METHOD(&path, this_ptr, "basepath", &_2, 132, &_3$$5);
 			zephir_check_call_status();
 			if ((zephir_file_exists(&path TSRMLS_CC) == SUCCESS)) {
 				RETURN_CCTOR(&path);
@@ -660,7 +636,7 @@ PHP_METHOD(Zim_Zim, getConfigPath) {
 	} else {
 		ZEPHIR_INIT_VAR(&_5$$7);
 		ZVAL_STRING(&_5$$7, "config");
-		ZEPHIR_CALL_METHOD(&_4$$7, this_ptr, "basepath", &_2, 133, &_5$$7);
+		ZEPHIR_CALL_METHOD(&_4$$7, this_ptr, "basepath", &_2, 132, &_5$$7);
 		zephir_check_call_status();
 		ZEPHIR_INIT_VAR(&appConfigPath);
 		ZEPHIR_CONCAT_VSVS(&appConfigPath, &_4$$7, "/", name, ".php");
@@ -669,7 +645,7 @@ PHP_METHOD(Zim_Zim, getConfigPath) {
 		} else {
 			ZEPHIR_INIT_VAR(&_6$$9);
 			ZEPHIR_CONCAT_SVS(&_6$$9, "../config/", name, ".php");
-			ZEPHIR_CALL_METHOD(&path, this_ptr, "basepath", &_2, 133, &_6$$9);
+			ZEPHIR_CALL_METHOD(&path, this_ptr, "basepath", &_2, 132, &_6$$9);
 			zephir_check_call_status();
 			if ((zephir_file_exists(&path TSRMLS_CC) == SUCCESS)) {
 				RETURN_CCTOR(&path);
@@ -726,7 +702,7 @@ PHP_METHOD(Zim_Zim, registerErrorHandling) {
 		ZEPHIR_INIT_VAR(&_2$$3);
 		ZVAL_STRING(&_2$$3, "display_errors");
 		ZVAL_LONG(&_3$$3, 0);
-		ZEPHIR_CALL_FUNCTION(NULL, "ini_set", NULL, 134, &_2$$3, &_3$$3);
+		ZEPHIR_CALL_FUNCTION(NULL, "ini_set", NULL, 133, &_2$$3, &_3$$3);
 		zephir_check_call_status();
 		ZVAL_BOOL(&_3$$3, 1);
 		ZEPHIR_INIT_NVAR(&_2$$3);

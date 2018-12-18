@@ -61,13 +61,13 @@ class FlattenException
     
     public function toArray()
     {
-        var exceptions, exception, tmpArray3a8f7eb4203aaee849c118da1c5666f0;
+        var exceptions, exception;
     
-        let exceptions =  [];
-        let exceptions[] =  ["message" : this->getMessage(), "class" : this->getClass(), "trace" : this->getTrace()];
+        let exceptions = [];
+        let exceptions[] = ["message" : this->getMessage(), "class" : this->getClass(), "trace" : this->getTrace()];
 
         for exception in this->getAllPrevious() {
-            let exceptions[] =  ["message" : exception->getMessage(), "class" : exception->getClass(), "trace" : exception->getTrace()];
+            let exceptions[] = ["message" : exception->getMessage(), "class" : exception->getClass(), "trace" : exception->getTrace()];
         }
         return exceptions;
     }

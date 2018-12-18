@@ -73,17 +73,16 @@ class Arr
      */
     public static function has(myArray, keys) -> bool
     {
-        var tmpArray40cd750bba9870f18aada2478b24840a, key, subKeyArray, segment;
+        var key, subKeyArray, segment;
     
         if is_null(keys) {
             return false;
         }
-        let keys =  (array) keys;
-        if !(myArray) {
+        let keys = typeof keys == "array" ? keys : [keys];
+        if !myArray {
             return false;
         }
-        let tmpArray40cd750bba9870f18aada2478b24840a = [];
-        if keys === tmpArray40cd750bba9870f18aada2478b24840a {
+        if count(keys) === 0 {
             return false;
         }
         for key in keys {

@@ -37,10 +37,7 @@ abstract class Service
      */
     public function provides() -> array
     {
-        var tmpArray40cd750bba9870f18aada2478b24840a;
-    
-        let tmpArray40cd750bba9870f18aada2478b24840a = [];
-        return tmpArray40cd750bba9870f18aada2478b24840a;
+        return [];
     }
     
     /**
@@ -52,10 +49,7 @@ abstract class Service
      */
     public function when() -> array
     {
-        var tmpArray40cd750bba9870f18aada2478b24840a;
-    
-        let tmpArray40cd750bba9870f18aada2478b24840a = [];
-        return tmpArray40cd750bba9870f18aada2478b24840a;
+        return [];
     }
 
 }

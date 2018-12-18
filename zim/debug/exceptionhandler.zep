@@ -42,11 +42,10 @@ class ExceptionHandler
      */
     public static function register(bool debug = true, fileLinkFormat = null) -> <ExceptionHandler>
     {
-        var handler, tmpArray45b76a47b5bb3fdab106b03e7c1e698d;
+        var handler;
     
-        let handler =  new static(debug, fileLinkFormat);
-        let tmpArray45b76a47b5bb3fdab106b03e7c1e698d = [handler, "handle"];
-        set_exception_handler(tmpArray45b76a47b5bb3fdab106b03e7c1e698d);
+        let handler = new static(debug, fileLinkFormat);
+        set_exception_handler([handler, "handle"]);
         return handler;
     }
     
@@ -220,7 +219,7 @@ class ExceptionHandler
     
     protected function formatPath(path, line)
     {
-        var file, fmt, i, f, k, tmpI1, link, tmpArray8a110ec4b9f0ab7193f1a4b881c4ec74;
+        var file, fmt, i, f, k, tmpI1, link;
 
         let file =  this->escapeHtml( preg_match("#[^/\\\\]*+$#", path, file) ? file[0]  : path);
         let fmt =  this->fileLinkFormat;
@@ -247,8 +246,7 @@ class ExceptionHandler
 
             let i++;
         }
-        let tmpArray8a110ec4b9f0ab7193f1a4b881c4ec74 = ["%f" : path, "%l" : line];
-        let link =  strtr(fmt[0], tmpArray8a110ec4b9f0ab7193f1a4b881c4ec74);
+        let link = strtr(fmt[0], ["%f" : path, "%l" : line]);
         return sprintf("<span class=\"block trace-file-path\">in <a href=\"%s\" title=\"Go to source\"><strong>%s</string>%s</a></span>", this->escapeHtml(link), file,  0 < line ? " line " . line  : "");
     }
 

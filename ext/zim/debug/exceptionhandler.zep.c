@@ -112,16 +112,17 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, __construct) {
  */
 PHP_METHOD(Zim_Debug_ExceptionHandler, register) {
 
+	zval _1;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *debug_param = NULL, *fileLinkFormat = NULL, fileLinkFormat_sub, __$null, handler, tmpArray45b76a47b5bb3fdab106b03e7c1e698d, _0, _1;
+	zval *debug_param = NULL, *fileLinkFormat = NULL, fileLinkFormat_sub, __$null, handler, _0, _2;
 	zend_bool debug;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&fileLinkFormat_sub);
 	ZVAL_NULL(&__$null);
 	ZVAL_UNDEF(&handler);
-	ZVAL_UNDEF(&tmpArray45b76a47b5bb3fdab106b03e7c1e698d);
 	ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&_2);
 	ZVAL_UNDEF(&_1);
 
 	ZEPHIR_MM_GROW();
@@ -147,13 +148,13 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, register) {
 	}
 	ZEPHIR_CALL_METHOD(NULL, &handler, "__construct", NULL, 45, &_0, fileLinkFormat);
 	zephir_check_call_status();
-	ZEPHIR_INIT_VAR(&tmpArray45b76a47b5bb3fdab106b03e7c1e698d);
-	zephir_create_array(&tmpArray45b76a47b5bb3fdab106b03e7c1e698d, 2, 0 TSRMLS_CC);
-	zephir_array_fast_append(&tmpArray45b76a47b5bb3fdab106b03e7c1e698d, &handler);
 	ZEPHIR_INIT_VAR(&_1);
-	ZVAL_STRING(&_1, "handle");
-	zephir_array_fast_append(&tmpArray45b76a47b5bb3fdab106b03e7c1e698d, &_1);
-	ZEPHIR_CALL_FUNCTION(NULL, "set_exception_handler", NULL, 36, &tmpArray45b76a47b5bb3fdab106b03e7c1e698d);
+	zephir_create_array(&_1, 2, 0 TSRMLS_CC);
+	zephir_array_fast_append(&_1, &handler);
+	ZEPHIR_INIT_VAR(&_2);
+	ZVAL_STRING(&_2, "handle");
+	zephir_array_fast_append(&_1, &_2);
+	ZEPHIR_CALL_FUNCTION(NULL, "set_exception_handler", NULL, 36, &_1);
 	zephir_check_call_status();
 	RETURN_CCTOR(&handler);
 
@@ -244,7 +245,7 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, sendPhpResponse) {
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(&_7$$4, exception, "getheaders", NULL, 0);
 		zephir_check_call_status();
-		zephir_is_iterable(&_7$$4, 0, "zim/debug/exceptionhandler.zep", 86);
+		zephir_is_iterable(&_7$$4, 0, "zim/debug/exceptionhandler.zep", 85);
 		ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_7$$4), _9$$4, _10$$4, _8$$4)
 		{
 			ZEPHIR_INIT_NVAR(&name);
@@ -361,7 +362,7 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, getContent) {
 		ZVAL_LONG(&total, (zephir_get_numberval(&count) + 1));
 		ZEPHIR_CALL_METHOD(&_2$$6, exception, "toarray", NULL, 0);
 		zephir_check_call_status_or_jump(try_end_1);
-		zephir_is_iterable(&_2$$6, 0, "zim/debug/exceptionhandler.zep", 128);
+		zephir_is_iterable(&_2$$6, 0, "zim/debug/exceptionhandler.zep", 127);
 		ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_2$$6), _4$$6, _5$$6, _3$$6)
 		{
 			ZEPHIR_INIT_NVAR(&position);
@@ -376,10 +377,10 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, getContent) {
 			zephir_sub_function(&_6$$7, &count, &position);
 			ZEPHIR_INIT_NVAR(&ind);
 			ZVAL_LONG(&ind, (zephir_get_numberval(&_6$$7) + 1));
-			zephir_array_fetch_string(&_7$$7, &e, SL("class"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 113 TSRMLS_CC);
+			zephir_array_fetch_string(&_7$$7, &e, SL("class"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 112 TSRMLS_CC);
 			ZEPHIR_CALL_METHOD(&classs, this_ptr, "formatclass", &_8, 0, &_7$$7);
 			zephir_check_call_status_or_jump(try_end_1);
-			zephir_array_fetch_string(&_10$$7, &e, SL("message"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 114 TSRMLS_CC);
+			zephir_array_fetch_string(&_10$$7, &e, SL("message"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 113 TSRMLS_CC);
 			ZEPHIR_CALL_METHOD(&_9$$7, this_ptr, "escapehtml", &_11, 0, &_10$$7);
 			zephir_check_call_status_or_jump(try_end_1);
 			ZEPHIR_CALL_FUNCTION(&message, "nl2br", &_12, 46, &_9$$7);
@@ -389,21 +390,21 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, getContent) {
 			ZEPHIR_CALL_FUNCTION(&_14$$7, "sprintf", &_15, 22, &_13$$7, &ind, &total, &classs, &message);
 			zephir_check_call_status_or_jump(try_end_1);
 			zephir_concat_self(&content, &_14$$7 TSRMLS_CC);
-			zephir_array_fetch_string(&_16$$7, &e, SL("trace"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 116 TSRMLS_CC);
-			zephir_is_iterable(&_16$$7, 0, "zim/debug/exceptionhandler.zep", 126);
+			zephir_array_fetch_string(&_16$$7, &e, SL("trace"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 115 TSRMLS_CC);
+			zephir_is_iterable(&_16$$7, 0, "zim/debug/exceptionhandler.zep", 125);
 			ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_16$$7), _17$$7)
 			{
 				ZEPHIR_INIT_NVAR(&trace);
 				ZVAL_COPY(&trace, _17$$7);
 				zephir_concat_self_str(&content, SL("<tr><td>") TSRMLS_CC);
-				zephir_array_fetch_string(&_18$$8, &trace, SL("function"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 118 TSRMLS_CC);
+				zephir_array_fetch_string(&_18$$8, &trace, SL("function"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 117 TSRMLS_CC);
 				if (zephir_is_true(&_18$$8)) {
-					zephir_array_fetch_string(&_20$$9, &trace, SL("class"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 119 TSRMLS_CC);
+					zephir_array_fetch_string(&_20$$9, &trace, SL("class"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 118 TSRMLS_CC);
 					ZEPHIR_CALL_METHOD(&_19$$9, this_ptr, "formatclass", &_8, 0, &_20$$9);
 					zephir_check_call_status_or_jump(try_end_1);
-					zephir_array_fetch_string(&_21$$9, &trace, SL("type"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 119 TSRMLS_CC);
-					zephir_array_fetch_string(&_22$$9, &trace, SL("function"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 119 TSRMLS_CC);
-					zephir_array_fetch_string(&_24$$9, &trace, SL("args"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 119 TSRMLS_CC);
+					zephir_array_fetch_string(&_21$$9, &trace, SL("type"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 118 TSRMLS_CC);
+					zephir_array_fetch_string(&_22$$9, &trace, SL("function"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 118 TSRMLS_CC);
+					zephir_array_fetch_string(&_24$$9, &trace, SL("args"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 118 TSRMLS_CC);
 					ZEPHIR_CALL_METHOD(&_23$$9, this_ptr, "formatargs", &_25, 0, &_24$$9);
 					zephir_check_call_status_or_jump(try_end_1);
 					ZEPHIR_INIT_NVAR(&_26$$9);
@@ -417,8 +418,8 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, getContent) {
 					_28$$8 = zephir_array_isset_string(&trace, SL("line"));
 				}
 				if (_28$$8) {
-					zephir_array_fetch_string(&_30$$10, &trace, SL("file"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 122 TSRMLS_CC);
-					zephir_array_fetch_string(&_31$$10, &trace, SL("line"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 122 TSRMLS_CC);
+					zephir_array_fetch_string(&_30$$10, &trace, SL("file"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 121 TSRMLS_CC);
+					zephir_array_fetch_string(&_31$$10, &trace, SL("line"), PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 121 TSRMLS_CC);
 					ZEPHIR_CALL_METHOD(&_29$$10, this_ptr, "formatpath", &_32, 0, &_30$$10, &_31$$10);
 					zephir_check_call_status_or_jump(try_end_1);
 					zephir_concat_self(&content, &_29$$10 TSRMLS_CC);
@@ -527,10 +528,10 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, formatClass) {
 
 PHP_METHOD(Zim_Debug_ExceptionHandler, formatPath) {
 
-	zval _19;
+	zval _19, _33;
 	zephir_fcall_cache_entry *_4 = NULL, *_8 = NULL, *_11 = NULL, *_31 = NULL;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *path = NULL, path_sub, *line, line_sub, file, fmt, i, f, k, link, tmpArray8a110ec4b9f0ab7193f1a4b881c4ec74, _0, _1, _2, _3, _9, _10, _12, _13, _14, _15, _16, _17, _18, _20, _21, _22, _23, _24, _25, _32, _33, _34, _5$$3, _6$$3, _7$$3, _26$$4, _27$$6, _28$$6, _29$$6, _30$$6;
+	zval *path = NULL, path_sub, *line, line_sub, file, fmt, i, f, k, link, _0, _1, _2, _3, _9, _10, _12, _13, _14, _15, _16, _17, _18, _20, _21, _22, _23, _24, _25, _32, _34, _35, _5$$3, _6$$3, _7$$3, _26$$4, _27$$6, _28$$6, _29$$6, _30$$6;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&path_sub);
@@ -541,7 +542,6 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, formatPath) {
 	ZVAL_UNDEF(&f);
 	ZVAL_UNDEF(&k);
 	ZVAL_UNDEF(&link);
-	ZVAL_UNDEF(&tmpArray8a110ec4b9f0ab7193f1a4b881c4ec74);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
 	ZVAL_UNDEF(&_2);
@@ -562,8 +562,8 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, formatPath) {
 	ZVAL_UNDEF(&_24);
 	ZVAL_UNDEF(&_25);
 	ZVAL_UNDEF(&_32);
-	ZVAL_UNDEF(&_33);
 	ZVAL_UNDEF(&_34);
+	ZVAL_UNDEF(&_35);
 	ZVAL_UNDEF(&_5$$3);
 	ZVAL_UNDEF(&_6$$3);
 	ZVAL_UNDEF(&_7$$3);
@@ -573,6 +573,7 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, formatPath) {
 	ZVAL_UNDEF(&_29$$6);
 	ZVAL_UNDEF(&_30$$6);
 	ZVAL_UNDEF(&_19);
+	ZVAL_UNDEF(&_33);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 2, 0, &path, &line);
@@ -589,7 +590,7 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, formatPath) {
 	zephir_preg_match(&_2, &_3, path, &file, 0, 0 , 0  TSRMLS_CC);
 	if (zephir_is_true(&_2)) {
 		ZEPHIR_OBS_NVAR(&_0);
-		zephir_array_fetch_long(&_0, &file, 0, PH_NOISY, "zim/debug/exceptionhandler.zep", 167 TSRMLS_CC);
+		zephir_array_fetch_long(&_0, &file, 0, PH_NOISY, "zim/debug/exceptionhandler.zep", 166 TSRMLS_CC);
 	} else {
 		ZEPHIR_CPY_WRT(&_0, path);
 	}
@@ -673,11 +674,11 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, formatPath) {
 		ZEPHIR_SEPARATE(&i);
 		zephir_increment(&i);
 		ZEPHIR_OBS_NVAR(&k);
-		zephir_array_fetch(&k, &fmt, &i, PH_NOISY, "zim/debug/exceptionhandler.zep", 184 TSRMLS_CC);
+		zephir_array_fetch(&k, &fmt, &i, PH_NOISY, "zim/debug/exceptionhandler.zep", 183 TSRMLS_CC);
 		ZEPHIR_INIT_NVAR(&_26$$4);
 		zephir_fast_strpos(&_26$$4, path, &k, 0 );
 		if (ZEPHIR_IS_LONG_IDENTICAL(&_26$$4, 0)) {
-			zephir_array_fetch(&_27$$6, &fmt, &i, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 186 TSRMLS_CC);
+			zephir_array_fetch(&_27$$6, &fmt, &i, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 185 TSRMLS_CC);
 			ZVAL_LONG(&_28$$6, 0);
 			ZVAL_LONG(&_29$$6, zephir_fast_strlen_ev(&k));
 			ZEPHIR_CALL_FUNCTION(&_30$$6, "substr_replace", &_31, 50, path, &_27$$6, &_28$$6, &_29$$6);
@@ -688,26 +689,26 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, formatPath) {
 		ZEPHIR_SEPARATE(&i);
 		zephir_increment(&i);
 	}
-	ZEPHIR_INIT_VAR(&tmpArray8a110ec4b9f0ab7193f1a4b881c4ec74);
-	zephir_create_array(&tmpArray8a110ec4b9f0ab7193f1a4b881c4ec74, 2, 0 TSRMLS_CC);
-	zephir_array_update_string(&tmpArray8a110ec4b9f0ab7193f1a4b881c4ec74, SL("%f"), path, PH_COPY | PH_SEPARATE);
-	zephir_array_update_string(&tmpArray8a110ec4b9f0ab7193f1a4b881c4ec74, SL("%l"), line, PH_COPY | PH_SEPARATE);
-	zephir_array_fetch_long(&_32, &fmt, 0, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 193 TSRMLS_CC);
-	ZEPHIR_CALL_FUNCTION(&link, "strtr", NULL, 51, &_32, &tmpArray8a110ec4b9f0ab7193f1a4b881c4ec74);
+	zephir_array_fetch_long(&_32, &fmt, 0, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 191 TSRMLS_CC);
+	ZEPHIR_INIT_VAR(&_33);
+	zephir_create_array(&_33, 2, 0 TSRMLS_CC);
+	zephir_array_update_string(&_33, SL("%f"), path, PH_COPY | PH_SEPARATE);
+	zephir_array_update_string(&_33, SL("%l"), line, PH_COPY | PH_SEPARATE);
+	ZEPHIR_CALL_FUNCTION(&link, "strtr", NULL, 51, &_32, &_33);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(&_33, this_ptr, "escapehtml", &_4, 0, &link);
+	ZEPHIR_CALL_METHOD(&_34, this_ptr, "escapehtml", &_4, 0, &link);
 	zephir_check_call_status();
-	ZEPHIR_INIT_VAR(&_34);
+	ZEPHIR_INIT_VAR(&_35);
 	if (ZEPHIR_GT_LONG(line, 0)) {
-		ZEPHIR_INIT_NVAR(&_34);
-		ZEPHIR_CONCAT_SV(&_34, " line ", line);
+		ZEPHIR_INIT_NVAR(&_35);
+		ZEPHIR_CONCAT_SV(&_35, " line ", line);
 	} else {
-		ZEPHIR_INIT_NVAR(&_34);
-		ZVAL_STRING(&_34, "");
+		ZEPHIR_INIT_NVAR(&_35);
+		ZVAL_STRING(&_35, "");
 	}
 	ZEPHIR_INIT_NVAR(&_22);
 	ZVAL_STRING(&_22, "<span class=\"block trace-file-path\">in <a href=\"%s\" title=\"Go to source\"><strong>%s</string>%s</a></span>");
-	ZEPHIR_RETURN_CALL_FUNCTION("sprintf", &_8, 22, &_22, &_33, &file, &_34);
+	ZEPHIR_RETURN_CALL_FUNCTION("sprintf", &_8, 22, &_22, &_34, &file, &_35);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -771,7 +772,7 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, formatArgs) {
 
 	ZEPHIR_INIT_VAR(&result);
 	array_init(&result);
-	zephir_is_iterable(&args, 0, "zim/debug/exceptionhandler.zep", 225);
+	zephir_is_iterable(&args, 0, "zim/debug/exceptionhandler.zep", 223);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&args), _1, _2, _0)
 	{
 		ZEPHIR_INIT_NVAR(&key);
@@ -782,21 +783,21 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, formatArgs) {
 		}
 		ZEPHIR_INIT_NVAR(&item);
 		ZVAL_COPY(&item, _0);
-		zephir_array_fetch_long(&_3$$3, &item, 0, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 210 TSRMLS_CC);
-		zephir_array_fetch_long(&_4$$3, &item, 0, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 212 TSRMLS_CC);
+		zephir_array_fetch_long(&_3$$3, &item, 0, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 208 TSRMLS_CC);
+		zephir_array_fetch_long(&_4$$3, &item, 0, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 210 TSRMLS_CC);
 		ZEPHIR_SINIT_NVAR(_5$$3);
 		ZVAL_STRING(&_5$$3, "array");
-		zephir_array_fetch_long(&_6$$3, &item, 0, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 214 TSRMLS_CC);
+		zephir_array_fetch_long(&_6$$3, &item, 0, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 212 TSRMLS_CC);
 		ZEPHIR_SINIT_NVAR(_7$$3);
 		ZVAL_STRING(&_7$$3, "null");
-		zephir_array_fetch_long(&_8$$3, &item, 0, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 216 TSRMLS_CC);
+		zephir_array_fetch_long(&_8$$3, &item, 0, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 214 TSRMLS_CC);
 		ZEPHIR_SINIT_NVAR(_9$$3);
 		ZVAL_STRING(&_9$$3, "boolean");
-		zephir_array_fetch_long(&_10$$3, &item, 0, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 218 TSRMLS_CC);
+		zephir_array_fetch_long(&_10$$3, &item, 0, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 216 TSRMLS_CC);
 		ZEPHIR_SINIT_NVAR(_11$$3);
 		ZVAL_STRING(&_11$$3, "resource");
 		if (ZEPHIR_IS_STRING_IDENTICAL(&_3$$3, "object")) {
-			zephir_array_fetch_long(&_13$$4, &item, 1, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 211 TSRMLS_CC);
+			zephir_array_fetch_long(&_13$$4, &item, 1, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 209 TSRMLS_CC);
 			ZEPHIR_CALL_METHOD(&_12$$4, this_ptr, "formatclass", &_14, 0, &_13$$4);
 			zephir_check_call_status();
 			ZEPHIR_INIT_NVAR(&_15$$4);
@@ -805,14 +806,14 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, formatArgs) {
 			zephir_check_call_status();
 		} else if (ZEPHIR_IS_IDENTICAL(&_5$$3, &_4$$3)) {
 			ZEPHIR_INIT_LNVAR(_17$$5);
-			zephir_array_fetch_long(&_18$$5, &item, 1, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 213 TSRMLS_CC);
+			zephir_array_fetch_long(&_18$$5, &item, 1, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 211 TSRMLS_CC);
 			if (Z_TYPE_P(&_18$$5) == IS_ARRAY) {
-				zephir_array_fetch_long(&_19$$5, &item, 1, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 213 TSRMLS_CC);
+				zephir_array_fetch_long(&_19$$5, &item, 1, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 211 TSRMLS_CC);
 				ZEPHIR_CALL_METHOD(&_17$$5, this_ptr, "formatargs", &_20, 52, &_19$$5);
 				zephir_check_call_status();
 			} else {
 				ZEPHIR_OBS_NVAR(&_17$$5);
-				zephir_array_fetch_long(&_17$$5, &item, 1, PH_NOISY, "zim/debug/exceptionhandler.zep", 213 TSRMLS_CC);
+				zephir_array_fetch_long(&_17$$5, &item, 1, PH_NOISY, "zim/debug/exceptionhandler.zep", 211 TSRMLS_CC);
 			}
 			ZEPHIR_INIT_NVAR(&_21$$5);
 			ZVAL_STRING(&_21$$5, "<em>array</em>(%s)");
@@ -824,7 +825,7 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, formatArgs) {
 		} else if (ZEPHIR_IS_IDENTICAL(&_9$$3, &_8$$3)) {
 			ZEPHIR_INIT_NVAR(&_22$$7);
 			ZEPHIR_INIT_NVAR(&_23$$7);
-			zephir_array_fetch_long(&_24$$7, &item, 1, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 217 TSRMLS_CC);
+			zephir_array_fetch_long(&_24$$7, &item, 1, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 215 TSRMLS_CC);
 			ZEPHIR_INIT_NVAR(&_23$$7);
 			zephir_var_export_ex(&_23$$7, &_24$$7 TSRMLS_CC);
 			zephir_fast_strtolower(&_22$$7, &_23$$7);
@@ -835,7 +836,7 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, formatArgs) {
 			ZVAL_STRING(&formattedValue, "<em>resource</em>");
 		} else {
 			ZEPHIR_INIT_NVAR(&_26$$9);
-			zephir_array_fetch_long(&_27$$9, &item, 1, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 221 TSRMLS_CC);
+			zephir_array_fetch_long(&_27$$9, &item, 1, PH_NOISY | PH_READONLY, "zim/debug/exceptionhandler.zep", 219 TSRMLS_CC);
 			ZEPHIR_INIT_NVAR(&_26$$9);
 			zephir_var_export_ex(&_26$$9, &_27$$9 TSRMLS_CC);
 			ZEPHIR_CALL_METHOD(&_25$$9, this_ptr, "escapehtml", &_28, 0, &_26$$9);
@@ -858,7 +859,7 @@ PHP_METHOD(Zim_Debug_ExceptionHandler, formatArgs) {
 			ZEPHIR_CALL_FUNCTION(&_31$$3, "sprintf", &_16, 22, &_33$$3, &_32$$3, &formattedValue);
 			zephir_check_call_status();
 		}
-		zephir_array_append(&result, &_31$$3, PH_SEPARATE, "zim/debug/exceptionhandler.zep", 223);
+		zephir_array_append(&result, &_31$$3, PH_SEPARATE, "zim/debug/exceptionhandler.zep", 221);
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&item);
 	ZEPHIR_INIT_NVAR(&key);

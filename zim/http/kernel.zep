@@ -122,12 +122,11 @@ class Kernel
      */
     protected function getDefaultRoute(<Request> request) -> array
     {
-        var segments, tmpArray3dce46c3c731ae50bf7848ed5d0e6e5d, c, a, tmpListCA, tmpArray22fcc7b55e175de76dd5545a6ed7e004;
+        var segments, c, a, tmpListCA;
     
         let segments =  array_filter(explode("/", trim(request->getPathInfo(), "/")));
         if !(segments) {
-            let tmpArray3dce46c3c731ae50bf7848ed5d0e6e5d = ["Index", "index"];
-            return tmpArray3dce46c3c731ae50bf7848ed5d0e6e5d;
+            return ["Index", "index"];
         }
         //list($c, $a) = isset($segments[1]) ? $segments : [$segments[0], 'index'];
         //zephir
@@ -145,8 +144,7 @@ class Kernel
             let c = "Index";
             let a = segments[0];
         }
-        let tmpArray22fcc7b55e175de76dd5545a6ed7e004 = [c, a];
-        return tmpArray22fcc7b55e175de76dd5545a6ed7e004;
+        return [c, a];
     }
     
     /**

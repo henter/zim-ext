@@ -108,7 +108,7 @@ PHP_METHOD(Zim_Container_BoundMethod, callClass) {
 	zend_long ZEPHIR_LAST_CALL_STATUS;
 	zval parameters;
 	zval target;
-	zval *container, container_sub, *target_param = NULL, *parameters_param = NULL, *defaultMethod = NULL, defaultMethod_sub, __$null, segments, method, tmpArrayfc3097742aa3c3120f5545e8f51f1abf, _0, _1;
+	zval *container, container_sub, *target_param = NULL, *parameters_param = NULL, *defaultMethod = NULL, defaultMethod_sub, __$null, segments, method, call, _0, _1;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&container_sub);
@@ -116,7 +116,7 @@ PHP_METHOD(Zim_Container_BoundMethod, callClass) {
 	ZVAL_NULL(&__$null);
 	ZVAL_UNDEF(&segments);
 	ZVAL_UNDEF(&method);
-	ZVAL_UNDEF(&tmpArrayfc3097742aa3c3120f5545e8f51f1abf);
+	ZVAL_UNDEF(&call);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
 	ZVAL_UNDEF(&target);
@@ -150,14 +150,14 @@ PHP_METHOD(Zim_Container_BoundMethod, callClass) {
 		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_InvalidArgumentException, "Method not provided.", "zim/container/boundmethod.zep", 47);
 		return;
 	}
-	ZEPHIR_INIT_VAR(&tmpArrayfc3097742aa3c3120f5545e8f51f1abf);
-	zephir_create_array(&tmpArrayfc3097742aa3c3120f5545e8f51f1abf, 2, 0 TSRMLS_CC);
+	ZEPHIR_INIT_VAR(&call);
+	zephir_create_array(&call, 2, 0 TSRMLS_CC);
 	zephir_array_fetch_long(&_1, &segments, 0, PH_NOISY | PH_READONLY, "zim/container/boundmethod.zep", 49 TSRMLS_CC);
 	ZEPHIR_CALL_METHOD(&_0, container, "make", NULL, 0, &_1);
 	zephir_check_call_status();
-	zephir_array_fast_append(&tmpArrayfc3097742aa3c3120f5545e8f51f1abf, &_0);
-	zephir_array_fast_append(&tmpArrayfc3097742aa3c3120f5545e8f51f1abf, &method);
-	ZEPHIR_RETURN_CALL_STATIC("call", NULL, 0, container, &tmpArrayfc3097742aa3c3120f5545e8f51f1abf, &parameters);
+	zephir_array_fast_append(&call, &_0);
+	zephir_array_fast_append(&call, &method);
+	ZEPHIR_RETURN_CALL_STATIC("call", NULL, 0, container, &call, &parameters);
 	zephir_check_call_status();
 	RETURN_MM();
 
