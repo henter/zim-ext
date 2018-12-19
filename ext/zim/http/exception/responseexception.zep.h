@@ -1,5 +1,0 @@
-
-extern zend_class_entry *zim_http_exception_responseexception_ce;
-
-ZEPHIR_INIT_CLASS(Zim_Http_Exception_ResponseException);
-

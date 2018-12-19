@@ -1,5 +1,0 @@
-
-extern zend_class_entry *zim_container_entrynotfoundexception_ce;
-
-ZEPHIR_INIT_CLASS(Zim_Container_EntryNotFoundException);
-
