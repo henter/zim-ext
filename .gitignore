@@ -1,5 +1,6 @@
 
 .zephir/
+ext/zim/
 ext/ltmain.sh
 ext/.deps
 ext/Makefile
