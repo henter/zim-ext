@@ -6,13 +6,12 @@ class ContainersetClosureOne
 
     public function __construct(value)
     {
-                let this->value = value;
-
+        let this->value = value;
     }
 
     public function __invoke()
     {
-    return this->value;
+        return this->value;
     }
 }
     

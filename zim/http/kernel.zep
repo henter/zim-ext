@@ -185,7 +185,7 @@ class Kernel
         } else {
             //try controller action class
             let actionClass = controller->getActionClass(a);
-            if !(class_exists(actionClass)) {
+            if !class_exists(actionClass) {
                 throw new NotFoundException("action not found");
             }
             let callablee = [this->zim->make(actionClass), "execute"];
@@ -220,12 +220,12 @@ class Kernel
      * @param array    $params
      * @return Response
      */
-    protected function doDispatch(<Request> request, callablee, array params = []) -> <Response>
+    protected function doDispatch(<Request> request, var call, array params = []) -> <Response>
     {
         var e, resp;
-    
-        if is_array(callablee) {
-            request->attributes->set("callable", [get_class(callablee[0]), callablee[1]]);
+
+        if is_array(call) {
+            request->attributes->set("callable", [get_class(call[0]), call[1]]);
         } else {
             request->attributes->set("callable", ["Closure", "Closure"]);
         }

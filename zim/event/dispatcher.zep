@@ -59,10 +59,10 @@ class Dispatcher
      * @param  bool  $halt
      * @return array|null
      */
-    public function fire(event, payload = [], bool halt = false)
+    public function fire(var event, var payload = [], bool halt = false)
     {
         var tmpListEventPayload, responses, listener, response;
-    
+
         // When the given "event" is actually an object we will assume it is an event
         // object and use the class as the event name and this event itself as the
         // payload to the handler, which makes object based events quite simple.
@@ -86,7 +86,7 @@ class Dispatcher
             }
             let responses[] = response;
         }
-        return  halt ? null : responses;
+        return halt ? null : responses;
     }
     
     /**
@@ -96,7 +96,7 @@ class Dispatcher
      * @param  mixed  $payload
      * @return array
      */
-    protected function parseEventAndPayload(event, payload) -> array
+    protected function parseEventAndPayload(var event, var payload) -> array
     {
         if is_object(event) {
             return [get_class(event), event];

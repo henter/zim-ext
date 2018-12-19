@@ -77,9 +77,9 @@ class Container
      * Define a contextual binding.
      *
      * @param  array|string  $concrete
-     * @return \Zim\Container\ContextualBindingBuilder
+     * @return ContextualBindingBuilder
      */
-    public function when(concrete) -> <\Zim\Container\ContextualBindingBuilder>
+    public function when(concrete) -> <ContextualBindingBuilder>
     {
         var aliases, concretes, c;
     
@@ -339,16 +339,15 @@ class Container
     }
 
     /**
-     * Call the given Closure / class@method and inject its dependencies.
+     * Call the given Closure / callable and inject its dependencies.
      *
-     * @param  callable|string  $callback
+     * @param  callable $callback
      * @param  array  $parameters
-     * @param  string|null  $defaultMethod
      * @return mixed
      */
-    public function call(callback, array parameters = [], defaultMethod = null)
+    public function call(var callback, array parameters = [])
     {
-        return BoundMethod::call(this, callback, parameters, defaultMethod);
+        return BoundMethod::call(this, callback, parameters);
     }
 
     /**
@@ -509,7 +508,8 @@ class Container
      */
     protected function isBuildable(var concrete, var abstractt) -> bool
     {
-        return concrete === abstractt || (typeof concrete == "object" && concrete instanceof Closure);
+        return concrete === abstractt ||
+            (typeof concrete == "object" && (concrete instanceof Closure || concrete instanceof ContainergetClosureClosureZero));
     }
 
     /**
