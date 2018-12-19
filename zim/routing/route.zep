@@ -64,10 +64,11 @@ class Route
     public function setParameters(array parameters)
     {
         let this->parameters = this->mergeDefaults(parameters);
-        //TODO
-        unset this->parameters["_controller"];
-        unset this->parameters["_action"];
-        
+        var k;
+        for k in ["_controller", "_action", "_callable"] {
+            unset this->parameters[k];
+        }
+
         return this;
     }
     
