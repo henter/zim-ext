@@ -41,11 +41,10 @@ class Dispatcher
     public function on(callback) -> void
     {
         var r, params, eventClass;
-    
-        let r = BoundMethod::getCallReflector(callback);
-        let params = r->getParameters();
-        if !(params) {
-            throw new \InvalidArgumentException("event callback [" . r->getName() . "] parameter empty");
+
+        let params = Zim::getInstance()->reflectionParams(callback);
+        if (!$params) {
+            throw new \InvalidArgumentException("event on callback parameter empty");
         }
         let eventClass = current(params)->getClass()->getName();
         this->listen(eventClass, new ListenerOn(callback));

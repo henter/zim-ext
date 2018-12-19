@@ -235,7 +235,7 @@ class Kernel
         if resp {
             return resp->prepare(request);
         }
-        return this->toResponse(this->zim->call(callablee, params));
+        return this->toResponse(this->zim->call(call, params));
     }
     
     /**

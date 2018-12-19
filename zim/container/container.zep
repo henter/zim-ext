@@ -43,18 +43,6 @@ class Container
      * @var array
      */
     protected extenders = [];
-    /**
-     * The stack of concretions currently being built.
-     *
-     * @var array
-     */
-    protected buildStack = [];
-    /**
-     * The parameter override stack.
-     *
-     * @var array
-     */
-    protected with = [];
 
     /**
      * Determine if the given abstract type has been bound.
@@ -211,30 +199,6 @@ class Container
     }
 
     /**
-     * Call the given Closure / callable and inject its dependencies.
-     *
-     * @param  callable $callback
-     * @param  array  $parameters
-     * @return mixed
-     */
-    public function call(var callback, array parameters = [])
-    {
-        return BoundMethod::call(this, callback, parameters);
-    }
-
-    /**
-     * Resolve the given type from the container.
-     *
-     * @param  string  $abstract
-     * @param  array  $parameters
-     * @return mixed
-     */
-    public function make(var abstractt, array parameters = [])
-    {
-        return this->resolve(abstractt, parameters);
-    }
-
-    /**
      * get service
      */
     public function get(id)
@@ -242,7 +206,7 @@ class Container
         var e;
 
         try {
-            return this->resolve(id);
+            return this->make(id);
         } catch Exception, e {
             if this->has(id) {
                 throw e;
@@ -258,7 +222,7 @@ class Container
      * @param  array  $parameters
      * @return mixed
      */
-    protected function resolve(var abstractt, array parameters = [])
+    public function make(var abstractt, array parameters = [])
     {
         var concrete, obj, extender;
 
@@ -267,13 +231,11 @@ class Container
             return this->instances[abstractt];
         }
 
-        let this->with[] = parameters;
-
         let concrete = this->getConcrete(abstractt);
         if this->isBuildable(concrete, abstractt) {
-            let obj = this->build(concrete);
+            let obj = this->build(concrete, parameters);
         } else {
-            let obj = this->make(concrete);
+            let obj = this->make(concrete, parameters);
         }
 
         for extender in this->getExtenders(abstractt) {
@@ -285,7 +247,6 @@ class Container
         }
 
         let this->resolved[abstractt] = true;
-        array_pop(this->with);
         return obj;
     }
 
@@ -322,128 +283,21 @@ class Container
      * Instantiate a concrete instance of the given type.
      *
      * @param  string $concrete
+     * @param  array  $parameters
      * @return mixed
      *
      * @throws \Zim\Container\BindingResolutionException
      */
-    public function build(var concrete)
+    public function build(var concrete, array parameters = [])
     {
         var reflector, constructor, dependencies, instances;
 
         if typeof concrete == "object" &&
             (concrete instanceof ContainergetClosureClosureZero || concrete instanceof Closure) {
-            return {concrete}(this, this->getLastParameterOverride());
+            return {concrete}(this, parameters);
         }
 
-        let reflector = new ReflectionClass(concrete);
-        if !(reflector->isInstantiable()) {
-            return this->notInstantiable(concrete);
-        }
-
-        let this->buildStack[] = concrete;
-
-        let constructor = reflector->getConstructor();
-        if is_null(constructor) {
-            array_pop(this->buildStack);
-            return new {concrete}();
-        }
-
-        let dependencies = constructor->getParameters();
-        let instances = this->resolveDependencies(dependencies);
-        array_pop(this->buildStack);
-        return reflector->newInstanceArgs(instances);
-    }
-
-    /**
-     * Resolve all of the dependencies from the ReflectionParameters.
-     *
-     * @param  array  $dependencies
-     * @return array
-     */
-    protected function resolveDependencies(array dependencies) -> array
-    {
-        var results, dependency;
-
-        let results = [];
-        for dependency in dependencies {
-            if this->hasParameterOverride(dependency) {
-                let results[] = this->getParameterOverride(dependency);
-                continue;
-            }
-
-            let results[] = is_null(dependency->getClass()) ? this->resolvePrimitive(dependency) : this->resolveClass(dependency);
-        }
-        return results;
-    }
-
-    /**
-     * Determine if the given dependency has a parameter override.
-     *
-     * @param  \ReflectionParameter  $dependency
-     * @return bool
-     */
-    protected function hasParameterOverride(<\ReflectionParameter> dependency) -> bool
-    {
-        return array_key_exists(dependency->name, this->getLastParameterOverride());
-    }
-
-    /**
-     * Get a parameter override for a dependency.
-     *
-     * @param  \ReflectionParameter  $dependency
-     * @return mixed
-     */
-    protected function getParameterOverride(<\ReflectionParameter> dependency)
-    {
-        return this->getLastParameterOverride()[dependency->name];
-    }
-
-    /**
-     * Get the last parameter override.
-     *
-     * @return array
-     */
-    protected function getLastParameterOverride() -> array
-    {
-        return  count(this->with) ? end(this->with) : [];
-    }
-
-    /**
-     * Resolve a non-class hinted primitive dependency.
-     *
-     * @param  \ReflectionParameter  $parameter
-     * @return mixed
-     *
-     * @throws \Zim\Container\BindingResolutionException
-     */
-    protected function resolvePrimitive(<ReflectionParameter> parameter)
-    {
-        if parameter->isDefaultValueAvailable() {
-            return parameter->getDefaultValue();
-        }
-        this->unresolvablePrimitive(parameter);
-    }
-
-    /**
-     * Resolve a class based dependency from the container.
-     *
-     * @param  \ReflectionParameter  $parameter
-     * @return mixed
-     *
-     * @throws \Zim\Container\BindingResolutionException
-     */
-    protected function resolveClass(<ReflectionParameter> parameter)
-    {
-        var e;
-
-        try {
-            return this->make(parameter->getClass()->name);
-        } catch BindingResolutionException, e {
-            if parameter->isOptional() {
-                return parameter->getDefaultValue();
-            }
-            throw e;
-        }
+        return this->buildObject(concrete, parameters);
     }
 
     /**
@@ -456,30 +310,7 @@ class Container
      */
     protected function notInstantiable(var concrete)
     {
-        var previous, message;
-
-        if !(empty(this->buildStack)) {
-            let previous = implode(", ", this->buildStack);
-            let message = "Target [{concrete}] is not instantiable while building [{previous}].";
-        } else {
-            let message = "Target [{concrete}] is not instantiable.";
-        }
-        throw new BindingResolutionException(message);
-    }
-
-    /**
-     * Throw an exception for an unresolvable primitive.
-     *
-     * @param  \ReflectionParameter  $parameter
-     * @return void
-     *
-     * @throws \Zim\Container\BindingResolutionException
-     */
-    protected function unresolvablePrimitive(<ReflectionParameter> parameter)
-    {
-        var message;
-        let message = "Unresolvable dependency resolving [{".parameter."}] in class {".parameter->getDeclaringClass()->getName()."}";
-        throw new BindingResolutionException(message);
+        throw new BindingResolutionException("Target [{".concrete."}] is not instantiable.");
     }
 
     /**
@@ -635,5 +466,96 @@ class Container
         unset this->instances[key];
         unset this->resolved[key];
     }
+
+
+        /**
+         * blow methods from Trait MagicInjection
+         *
+         * call callable
+         *
+         * @param       $callback
+         * @param array $parameters
+         * @return mixed
+         * @throws BindingResolutionException
+         * @throws \ReflectionException
+         */
+        public function call(callable callback, array parameters = [])
+        {
+            return call_user_func_array(
+                callback, this->getDependencies(callback, parameters)
+            );
+        }
+
+        /**
+         * @param string $class
+         * @param array  $params
+         * @return object
+         * @throws BindingResolutionException
+         * @throws \ReflectionException
+         */
+        public function buildObject(string c, array params = [])
+        {
+            var deps;
+            let deps = this->getDependencies(c, params);
+            return (new \ReflectionClass(c))->newInstanceArgs(deps);
+        }
+
+        /**
+         * @param       $call
+         * @param array $params
+         * @return array
+         * @throws BindingResolutionException
+         * @throws \ReflectionException
+         */
+        public function getDependencies(var call, array params = [])
+        {
+            var deps, rp;
+            let deps = [];
+
+            for rp in this->reflectionParams(call) {
+                if (array_key_exists(rp->name, params)) {
+                    let deps[] = params[rp->name];
+                    unset params[rp->name];
+                } elseif (rp->getClass() && array_key_exists(rp->getClass()->name, params)) {
+                    let deps[] = params[rp->getClass()->name];
+                    unset params[rp->getClass()->name];
+                } elseif (rp->getClass()) {
+                    let deps[] = this->make(rp->getClass()->name);
+                } elseif (rp->isDefaultValueAvailable()) {
+                    let deps[] = rp->getDefaultValue();
+                }
+            }
+
+            return array_merge(deps, params);
+        }
+
+        /**
+         * @param $call
+         * @return array|\ReflectionParameter[]
+         * @throws BindingResolutionException
+         * @throws \ReflectionException
+         */
+        public function reflectionParams(var call)
+        {
+            var r, constructor;
+            if (typeof call == "object" && call instanceof Closure) {
+                return (new \ReflectionFunction(call))->getParameters() ?: [];
+            } elseif (typeof call == "string") {
+                let r = new \ReflectionClass(call);
+                if (!r->isInstantiable()) {
+                    return this->notInstantiable(call);
+                }
+                let constructor = r->getConstructor();
+                if constructor {
+                    return constructor->getParameters();
+                }
+                return [];
+            } elseif (typeof call == "array") {
+                return (new \ReflectionMethod(call[0], call[1]))->getParameters() ?: [];
+            } else {
+                throw new InvalidArgumentException("unsupported call");
+            }
+        }
+
 
 }
