@@ -145,8 +145,8 @@ class Router
      */
     protected function matchCollection(string path)
     {
-        var name, route, compiledRoute, staticPrefix, requiredMethods, method, matches;
-        for name, route in this->routes->all() {
+        var route, compiledRoute, staticPrefix, requiredMethods, method, matches;
+        for route in this->routes->all() {
             let compiledRoute = route->compile();
             let staticPrefix = compiledRoute->getStaticPrefix();
             // check the static prefix of the URL first. Only use the more expensive preg_match when it matches

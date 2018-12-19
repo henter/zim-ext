@@ -108,7 +108,7 @@ class Registrar
      */
     public function __call(string method, array parameters)
     {
-        var k, v, all;
+        var all;
 
         if in_array(method, this->passthru) {
             let all = parameters;

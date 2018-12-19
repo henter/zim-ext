@@ -65,7 +65,7 @@ class RouteCompiler
     
     protected static function compilePattern(<Route> route, pattern)
     {
-        var tokens, variables, matches, pos, defaultSeparator, useUtf8, needsUtf8, match, varName, precedingText, precedingChar, isSeparator, regexp, followingPattern, nextSeparator, firstOptional, i, token, nbToken;
+        var tokens, variables, matches, pos, defaultSeparator, useUtf8, needsUtf8, match, varName, precedingText, precedingChar, isSeparator, regexp, followingPattern, nextSeparator, firstOptional, i, token;
     
         let tokens = [];
         let variables = [];
