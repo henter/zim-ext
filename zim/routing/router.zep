@@ -89,7 +89,7 @@ class Router
                 let action = tmpListControllerAction[1];
                 let defaults["_controller"] = "App\\Controller\\" . str_replace("/", "\\", controller) . "Controller";
                 let defaults["_action"] = action . "Action";
-            } elseif strpos(info, "@") {
+            } elseif typeof info == "string" && strpos(info, "@") {
                 let tmpListControllerAction = explode("@", info);
                 let controller = tmpListControllerAction[0];
                 let action = tmpListControllerAction[1];
@@ -97,6 +97,8 @@ class Router
                     "_controller" : "App\\Controller\\" . str_replace("/", "\\", controller) . "Controller",
                     "_action" : action . "Action"
                 ];
+            } else {
+                throw new \RuntimeException("create route failed, ".uri." not callable");
             }
         }
         return new Route(uri, defaults, requirements, methods, options);
@@ -160,8 +162,7 @@ class Router
             } else {
                 continue;
             }
-            if !(preg_match(compiledRoute->getRegex(), path, matches)) {
-            var_dump("not match", path, route->getPath(), compiledRoute->getRegex());
+            if !preg_match(compiledRoute->getRegex(), path, matches) {
                 continue;
             }
             let requiredMethods = route->getMethods();
@@ -171,7 +172,7 @@ class Router
                 if method === "HEAD" {
                     let method = "GET";
                 }
-                if !(in_array(method, requiredMethods)) {
+                if !in_array(method, requiredMethods) {
                     let this->allow = array_merge(this->allow, requiredMethods);
                     continue;
                 }

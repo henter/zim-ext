@@ -50,9 +50,9 @@ class ErrorHandler
         1: "Error",
         16: "Core Error"
     ];
-    protected thrownErrors = 8191;
+    protected thrownErrors = 0x1FFF;
     // E_ALL - E_DEPRECATED - E_USER_DEPRECATED
-    protected screamedErrors = 85;
+    protected screamedErrors = 0x55;
     // E_ERROR + E_CORE_ERROR + E_COMPILE_ERROR + E_PARSE
     protected traceReflector;
     protected exceptionHandler;
@@ -93,7 +93,7 @@ class ErrorHandler
      *
      * @return callable|null The previous exception handler
      */
-    public function setExceptionHandler(handler = null)
+    public function setExceptionHandler(var handler = null)
     {
         var prev;
     
@@ -119,8 +119,8 @@ class ErrorHandler
         var level, msg, errorAsException;
     
         let level = error_reporting();
-        let level = level | E_RECOVERABLE_ERROR | E_USER_ERROR | E_DEPRECATED | E_USER_DEPRECATED;
-        let type = type & (level | this->screamedErrors);
+        let level = level | (E_RECOVERABLE_ERROR | E_USER_ERROR | E_DEPRECATED | E_USER_DEPRECATED);
+        let type = level & (level | this->screamedErrors);
         let msg = this->levels[type] . ": " . message;
         let errorAsException = new \ErrorException(msg, 0, type, file, line);
         this->traceReflector->setValue(errorAsException, errorAsException->getTrace());
@@ -134,11 +134,11 @@ class ErrorHandler
      * @throws FatalErrorException
      * @throws \Throwable
      */
-    public function handleException(exception, array error = null)
+    public function handleException(var exception, array error = null)
     {
         var handlerException, exceptionHandler;
-    
-        if !(exception instanceof \Exception) {
+
+        if typeof exception == "object" && !(exception instanceof \Exception) {
             let exception = new FatalErrorException(exception);
         }
         let handlerException = null;

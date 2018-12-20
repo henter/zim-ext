@@ -174,7 +174,7 @@ class Request implements RequestContract
 
         let request = new static(_GET, _POST, [], server);
 
-        if strpos(request->headers->get("CONTENT_TYPE"), "application/x-www-form-urlencoded") === 0 &&
+        if strpos((string)request->headers->get("CONTENT_TYPE"), "application/x-www-form-urlencoded") === 0 &&
             in_array(strtoupper(request->server->get("REQUEST_METHOD", "GET")), ["PUT", "DELETE", "PATCH"]) {
             parse_str(request->getContent(), data);
             let request->request = new ParameterBag(data);
@@ -731,7 +731,7 @@ class Request implements RequestContract
             }
         }
 
-        let host = this->headers->get("HOST");
+        let host = this->headers->get("HOST", "");
         if host[0] === '[' {
             let pos = strpos(host, ":", strrpos(host, "]"));
         } else {

@@ -42,7 +42,7 @@ class Arr
     {
         var segment;
     
-        if !(static::accessible(myArray)) {
+        if !static::accessible(myArray) {
             return deft;
         }
         if is_null(key) {

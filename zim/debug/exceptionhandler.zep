@@ -25,7 +25,7 @@ class ExceptionHandler
     protected debug;
     protected charset;
     protected fileLinkFormat;
-    public function __construct(bool debug = true, fileLinkFormat = null) -> void
+    public function __construct(bool debug = true, var fileLinkFormat = "") -> void
     {
         let this->debug = debug;
         let this->charset = ini_get("default_charset") ? ini_get("default_charset") : "UTF-8";
@@ -40,7 +40,7 @@ class ExceptionHandler
      *
      * @return static
      */
-    public static function register(bool debug = true, fileLinkFormat = null) -> <ExceptionHandler>
+    public static function register(bool debug = true, string fileLinkFormat = "") -> <ExceptionHandler>
     {
         var handler;
     
@@ -223,7 +223,7 @@ class ExceptionHandler
 
         let file = this->escapeHtml( preg_match("#[^/\\\\]*+$#", path, file) ? file[0] : path);
         let fmt = this->fileLinkFormat;
-        if !(fmt) {
+        if !fmt {
             return sprintf("<span class=\"block trace-file-path\">in <a title=\"%s%3$s\"><strong>%s</strong>%s</a></span>", this->escapeHtml(path), file,  0 < line ? " line " . line : "");
         }
         let f = fmt;

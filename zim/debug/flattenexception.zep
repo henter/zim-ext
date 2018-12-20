@@ -108,9 +108,13 @@ class FlattenException
     /**
      * @return $this
      */
-    public function setClass(classs)
+    public function setClass(var c)
     {
-        let this->classs = classs[0] === "c" && 0 === strpos(classs, "class@anonymous\0") ? get_parent_class(classs) . "@anonymous" : classs;
+        if typeof c == "string" {
+            let this->classs = c[0] === 'c' && 0 === strpos(c, "class@anonymous\0") ? get_parent_class(c) . "@anonymous" : c;
+        } else {
+            let this->classs = c;
+        }
         return this;
     }
     
@@ -152,7 +156,7 @@ class FlattenException
      */
     public function setMessage(message)
     {
-        if strpos(message, "class@anonymous\0") !== false {
+        if strpos((string)message, "class@anonymous\0") !== false {
             let message = preg_replace_callback("/class@anonymous\\x00.*?\\.php0x?[0-9a-fA-F]++/", new FlattenExceptionsetMessageClosureOne(), message);
         }
         let this->message = message;
@@ -236,7 +240,8 @@ class FlattenException
                 "function" :  isset entry["function"] ? entry["function"] : null,
                 "file" :  isset entry["file"] ? entry["file"] : null,
                 "line" :  isset entry["line"] ? entry["line"] : null,
-                "args" :  isset entry["args"] ? this->flattenArgs(entry["args"]) : []];
+                "args" :  isset entry["args"] ? this->flattenArgs(entry["args"]) : []
+            ];
         }
         return this;
     }

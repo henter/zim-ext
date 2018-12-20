@@ -217,7 +217,7 @@ class Response implements ResponseContract
             this->setProtocolVersion("1.1");
         }
         // Check if we need to send extra expire info headers
-        if this->getProtocolVersion() == "1.0" && strpos(this->headers->get("Cache-Control"), "no-cache") !== false {
+        if this->getProtocolVersion() == "1.0" && strpos(this->headers->get("Cache-Control", ""), "no-cache") !== false {
             this->headers->set("pragma", "no-cache");
             this->headers->set("expires", -1);
         }
