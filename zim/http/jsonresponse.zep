@@ -8,7 +8,7 @@
  */
 namespace Zim\Http;
 
-use Zim\Contract\Arrayble;
+use Zim\Contract\Arrayable;
 use Zim\Contract\Jsonable;
 
 /**
@@ -147,8 +147,6 @@ class JsonResponse extends Response
      */
     public function setData(var data = [])
     {
-        let this->original = data;
-
         if typeof data == "object" {
             if (data instanceof Jsonable) {
                 let this->data = data->toJson(this->encodingOptions);
@@ -156,12 +154,14 @@ class JsonResponse extends Response
                 let this->data = json_encode(data->jsonSerialize(), this->encodingOptions);
             } elseif (data instanceof Arrayable) {
                 let this->data = json_encode(data->toArray(), this->encodingOptions);
+            } else { //ArrayObject ? empty object ?
+                let this->data = json_encode(data, this->encodingOptions);
             }
         } else {
             let this->data = json_encode(data, this->encodingOptions);
         }
 
-        if !(this->hasValidJson(json_last_error())) {
+        if !this->hasValidJson(json_last_error()) {
             throw new \InvalidArgumentException(json_last_error_msg());
         }
 
