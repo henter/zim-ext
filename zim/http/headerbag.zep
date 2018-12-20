@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 namespace Zim\Http;
+use DateTime;
 
 /**
  * HeaderBag is a container for HTTP headers.
@@ -27,6 +28,54 @@ class HeaderBag implements \IteratorAggregate, \Countable
         for key, values in headers {
             this->set(key, values);
         }
+    }
+    /**
+     * Adds a custom Cache-Control directive.
+     *
+     * @param string $key   The Cache-Control directive name
+     * @param mixed  $value The Cache-Control directive value
+     */
+    public function addCacheControlDirective(string key, var value = true)
+    {
+        let this->cacheControl[key] = value;
+
+        this->set("Cache-Control", this->getCacheControlHeader());
+    }
+
+    /**
+     * Returns true if the Cache-Control directive is defined.
+     *
+     * @param string $key The Cache-Control directive
+     *
+     * @return bool true if the directive exists, false otherwise
+     */
+    public function hasCacheControlDirective(string key)
+    {
+        return array_key_exists(key, this->cacheControl);
+    }
+
+    /**
+     * Returns a Cache-Control directive value by name.
+     *
+     * @param string $key The directive name
+     *
+     * @return mixed|null The directive value if defined, null otherwise
+     */
+    public function getCacheControlDirective(string key)
+    {
+        return array_key_exists(key, this->cacheControl) ? this->cacheControl[key] : null;
+    }
+
+    /**
+     * Removes a Cache-Control directive.
+     *
+     * @param string $key The Cache-Control directive
+     */
+    public function removeCacheControlDirective(string key)
+    {
+        unset this->cacheControl[key];
+
+        this->set("Cache-Control", this->getCacheControlHeader());
     }
 
     /**
@@ -49,7 +98,33 @@ class HeaderBag implements \IteratorAggregate, \Countable
         ksort(this->cacheControl);
         return HeaderUtils::toString(this->cacheControl, ",");
     }
-    
+
+    /**
+     * Returns the HTTP header value converted to a date.
+     *
+     * @param string    $key     The parameter key
+     * @param \DateTime $default The default value
+     *
+     * @return \DateTime|null The parsed DateTime or the default value if the header does not exist
+     *
+     * @throws \RuntimeException When the HTTP header is not parseable
+     */
+    public function getDate(string key, <DateTime> deft = null)
+    {
+        var value, date;
+        let value = this->get(key);
+        if null === value {
+            return deft;
+        }
+
+        let date = DateTime::createFromFormat(DATE_RFC2822, value);
+        if false === date {
+            throw new \RuntimeException(sprintf("The %s HTTP header is not parseable (%s).", key, value));
+        }
+
+        return date;
+    }
+
     /**
      * Returns the headers as a string.
      *
@@ -68,7 +143,7 @@ class HeaderBag implements \IteratorAggregate, \Countable
         for name, values in headers {
             let name = ucwords(name, "-");
             for value in values {
-                let content = content.name . ":". value . "\r\n";
+                let content .= name . ": " . value . "\r\n";
             }
         }
         return content;
@@ -169,6 +244,9 @@ class HeaderBag implements \IteratorAggregate, \Countable
             } else {
                 let this->headers[key][] = values;
             }
+        }
+        if key == "cache-control" {
+            let this->cacheControl = this->parseCacheControl(implode(", ", this->headers[key]));
         }
     }
     

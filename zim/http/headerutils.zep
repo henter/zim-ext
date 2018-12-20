@@ -45,20 +45,20 @@ class HeaderUtils
         let quotedSeparators = preg_quote(separators, "/");
         preg_match_all("
             /
-                (?!\\s)
+                (?!\s)
                     (?:
                         # quoted-string
                         \"(?:[^\"\\\\]|\\\\.)*(?:\"|\\\\|$)
                     |
                         # token
-                        [^\"" . quotedSeparators . "]+
+                        [^\"".quotedSeparators."]+
                     )+
-                (?<!\\s)
+                (?<!\s)
             |
                 # separator
-                \\s*
-                (?<separator>[" . quotedSeparators . "])
-                \\s*
+                \s*
+                (?<separator>[".quotedSeparators."])
+                \s*
             /x", trim(header), matches, PREG_SET_ORDER);
         return self::groupParts(matches, separators);
     }
@@ -142,13 +142,11 @@ class HeaderUtils
         return preg_replace("/\\\\(.)|\"/", "$1", s);
     }
     
-    protected static function groupParts(array tmpmatches, string separators)
+    protected static function groupParts(array matches, string separators)
     {
         var separator, partSeparators, i, partMatches, match, parts, matches;
-        //wtf ??
-        let matches = tmpmatches;
-    
-        let separator = separators[0];
+
+        let separator = substr(separators, 0, 1);
         let partSeparators = substr(separators, 1);
         let i = 0;
         let partMatches = [];

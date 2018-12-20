@@ -20,7 +20,10 @@ class ResponseHeaderBag extends HeaderBag
     public function __construct(array headers = []) -> void
     {
         parent::__construct(headers);
-        this->set("Cache-Control", "");
+        if !isset(this->headers["cache-control"]) {
+            this->set("Cache-Control", "");
+        }
+
         /* RFC2616 - 14.18 says all Responses need to have a Date */
         if !(isset this->headers["date"]) {
             this->initDate();
@@ -96,7 +99,23 @@ class ResponseHeaderBag extends HeaderBag
             this->initDate();
         }
     }
-    
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hasCacheControlDirective(string key)
+    {
+        return array_key_exists(key, this->computedCacheControl);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCacheControlDirective(string key)
+    {
+        return array_key_exists(key, this->computedCacheControl) ? this->computedCacheControl[key] : null;
+    }
+
     /**
      * Returns the calculated value of the cache-control header.
      *
@@ -109,10 +128,10 @@ class ResponseHeaderBag extends HeaderBag
     {
         var header;
     
-        if !(this->cacheControl) && !(this->has("ETag")) && !(this->has("Last-Modified")) && !(this->has("Expires")) {
+        if !this->cacheControl && !this->has("ETag") && !this->has("Last-Modified") && !this->has("Expires") {
             return "no-cache, private";
         }
-        if !(this->cacheControl) {
+        if !this->cacheControl {
             // conservative by default
             return "private, must-revalidate";
         }

@@ -152,9 +152,8 @@ class Response implements ResponseContract
      */
     public function __toString() -> string
     {
-        return sprintf("HTTP/%s %s %s", this->version, this->statusCode, this->statusText) . "
-" . this->headers . "
-" . this->getContent();
+        return sprintf("HTTP/%s %s %s", this->version, this->statusCode, this->statusText) . "\r\n" .
+        this->headers . "\r\n" . this->getContent();
     }
     
     /**
@@ -435,7 +434,74 @@ class Response implements ResponseContract
     {
         return this->charset;
     }
-    
+
+    /**
+     * Marks the response as "public".
+     *
+     * It makes the response eligible for serving other clients.
+     *
+     * @return $this
+     *
+     * @final
+     */
+    public function setPublic()
+    {
+        this->headers->addCacheControlDirective("public");
+        this->headers->removeCacheControlDirective("private");
+
+        return this;
+    }
+
+    /**
+     * Marks the response as "private".
+     *
+     * It makes the response ineligible for serving other clients.
+     *
+     * @return $this
+     *
+     * @final
+     */
+    public function setPrivate()
+    {
+        this->headers->removeCacheControlDirective("public");
+        this->headers->addCacheControlDirective("private");
+
+        return this;
+    }
+
+    /**
+     * Returns the Date header as a DateTime instance.
+     *
+     * @throws \RuntimeException When the header is not parseable
+     * @return DateTimeInterface|null
+     * @final
+     */
+    public function getDate()
+    {
+        return this->headers->getDate("Date");
+    }
+
+    /**
+     * Sets the Date header.
+     *
+     * @return $this
+     *
+     * @final
+     */
+    public function setDate(var date)
+    {
+        var d;
+        let d = date;
+        if typeof d == "object" && d instanceof \DateTime {
+            let d = \DateTimeImmutable::createFromMutable(d);
+        }
+
+        let d = d->setTimezone(new \DateTimeZone("UTC"));
+        this->headers->set("Date", d->format("D, d M Y H:i:s")." GMT");
+
+        return this;
+    }
+
     /**
      * Is response invalid?
      *
