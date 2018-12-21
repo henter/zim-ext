@@ -179,7 +179,7 @@ class Str
     {
         array matches;
         preg_match("/^\\s*+(?:\\S++\\s*+){1," . words . "}/u", value, matches);
-        if !(isset matches[0]) || static::length(value) === static::length(matches[0]) {
+        if !isset matches[0] || static::length(value) === static::length(matches[0]) {
             return value;
         }
         return rtrim(matches[0]) . end;
@@ -317,7 +317,7 @@ class Str
         if isset self::snakeCache[key][delimiter] {
             return self::snakeCache[key][delimiter];
         }
-        if !(ctype_lower(value)) {
+        if !ctype_lower(value) {
             let tmpValue = preg_replace("/\\s+/u", "", ucwords(value));
             let tmpValue = static::lower(preg_replace("/(.)(?=[A-Z])/u", "$1" . delimiter, tmpValue));
             let value = tmpValue;

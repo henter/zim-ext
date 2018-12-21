@@ -184,7 +184,7 @@ class Response implements ResponseContract
             headers->remove("Content-Length");
         } else {
             // Content-type based on the Request
-            if !(headers->has("Content-Type")) {
+            if !headers->has("Content-Type") {
                 let format = request->getRequestFormat();
                 let mimeType = request->getMimeType(format);
                 if format !== null && mimeType {
@@ -193,7 +193,7 @@ class Response implements ResponseContract
             }
             // Fix Content-Type
             let charset = this->charset ? this->charset : "UTF-8";
-            if !(headers->has("Content-Type")) {
+            if !headers->has("Content-Type") {
                 headers->set("Content-Type", "text/html; charset=" . charset);
             } elseif 0 === stripos(headers->get("Content-Type"), "text/") && false === stripos(headers->get("Content-Type"), "charset") {
                 // add the charset
@@ -287,15 +287,15 @@ class Response implements ResponseContract
      */
     public function setContent(var content)
     {
-        if (this->shouldBeJson(content)) {
+        if this->shouldBeJson(content) {
             this->headers->set("Content-Type", "application/json");
             let content = this->morphToJson(content);
         }
 
         if content !== null &&
-            !(is_string(content)) &&
-            !(is_numeric(content)) &&
-            !(is_callable([content, "__toString"])) {
+            !is_string(content) &&
+            !is_numeric(content) &&
+            !is_callable([content, "__toString"]) {
             throw new \UnexpectedValueException(sprintf("The Response content must be a string or object implementing __toString(), \"%s\" given.", gettype(content)));
         }
 
@@ -329,9 +329,9 @@ class Response implements ResponseContract
     protected function morphToJson(var content)
     {
         if typeof content == "object" {
-            if (content instanceof Jsonable) {
+            if content instanceof Jsonable {
                 return content->toJson();
-            } elseif (content instanceof Arrayable) {
+            } elseif content instanceof Arrayable {
                 return json_encode(content->toArray());
             }
         }

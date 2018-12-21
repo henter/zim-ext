@@ -366,7 +366,7 @@ class Request implements RequestContract
         var userinfo, pass;
         let userinfo = this->getUser();
         let pass = this->getPassword();
-        if (pass != "") {
+        if pass != "" {
             let userinfo .= ":".pass;
         }
 
@@ -484,7 +484,7 @@ class Request implements RequestContract
             let canonicalMimeType = trim(substr(mimeType, 0, pos));
         }
 
-        if (self::formats === null) {
+        if self::formats === null {
             static::initializeFormats();
         }
 
@@ -580,7 +580,7 @@ class Request implements RequestContract
         var request, requestOrder;
         let request = ["g": _GET, "p": _POST];
         let requestOrder = ini_get("request_order") ?: ini_get("variables_order");
-        let requestOrder = preg_replace("#[^cgp]#", "", strtolower($requestOrder)) ?: "gp";
+        let requestOrder = preg_replace("#[^cgp]#", "", strtolower(requestOrder)) ?: "gp";
 
         let _REQUEST = [[]];
 
@@ -706,7 +706,7 @@ class Request implements RequestContract
         var https;
     
         let https = this->server->get("HTTPS");
-        return !(empty(https)) && strtolower(https) !== "off";
+        return !empty(https) && strtolower(https) !== "off";
     }
     
     /**
@@ -1076,7 +1076,7 @@ class Request implements RequestContract
             let basePath = baseUrl;
         }
 
-        if ("\\" === DIRECTORY_SEPARATOR) {
+        if "\\" === DIRECTORY_SEPARATOR {
             let basePath = str_replace("\\", "/", basePath);
         }
 
@@ -1112,11 +1112,11 @@ class Request implements RequestContract
         var filename, baseUrl, requestUri, pos;
         let filename = basename(this->server->get("SCRIPT_FILENAME"));
 
-        if (basename(this->server->get("SCRIPT_NAME")) === filename) {
+        if basename(this->server->get("SCRIPT_NAME")) === filename {
             let baseUrl = this->server->get("SCRIPT_NAME");
-        } elseif (basename($this->server->get("PHP_SELF")) === filename) {
+        } elseif basename(this->server->get("PHP_SELF")) === filename {
             let baseUrl = this->server->get("PHP_SELF");
-        } elseif (basename($this->server->get("ORIG_SCRIPT_NAME")) === filename) {
+        } elseif basename(this->server->get("ORIG_SCRIPT_NAME")) === filename {
             let baseUrl = this->server->get("ORIG_SCRIPT_NAME"); // 1and1 shared hosting compatibility
         } else {
             // Backtrack up the script_filename to find the portion matching
@@ -1191,8 +1191,11 @@ class Request implements RequestContract
      *
      * @return string|false The prefix as it is encoded in $string, or false
      */
-    private function getUrlencodedPrefix(string str, string prefix)
+    private function getUrlencodedPrefix(string str, string prefix) -> string | bool
     {
+        if !prefix {
+            return "";
+        }
         if strpos(rawurldecode(str), prefix) !== 0 {
             return false;
         }

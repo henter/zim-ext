@@ -25,7 +25,7 @@ class ResponseHeaderBag extends HeaderBag
         }
 
         /* RFC2616 - 14.18 says all Responses need to have a Date */
-        if !(isset this->headers["date"]) {
+        if !isset this->headers["date"] {
             this->initDate();
         }
     }
@@ -53,10 +53,10 @@ class ResponseHeaderBag extends HeaderBag
     {
         let this->headerNames = [];
         parent::replace(headers);
-        if !(isset this->headers["cache-control"]) {
+        if !isset this->headers["cache-control"] {
             this->set("Cache-Control", "");
         }
-        if !(isset this->headers["date"]) {
+        if !isset this->headers["date"] {
             this->initDate();
         }
     }
@@ -140,7 +140,7 @@ class ResponseHeaderBag extends HeaderBag
             return header;
         }
         // public if s-maxage is defined, private otherwise
-        if !(isset this->cacheControl["s-maxage"]) {
+        if !isset this->cacheControl["s-maxage"] {
             return header . ", private";
         }
         return header;

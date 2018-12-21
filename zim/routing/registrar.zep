@@ -61,7 +61,7 @@ class Registrar
      */
     public function attribute(string key, value)
     {
-        if !(in_array(key, this->allowedAttributes)) {
+        if !in_array(key, this->allowedAttributes) {
             throw new InvalidArgumentException("Attribute [{key}] does not exist.");
         }
         let this->attributes[key] = value;

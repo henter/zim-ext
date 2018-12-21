@@ -54,7 +54,7 @@ class Router
     {
         var name;
     
-        if is_array(info) && !(empty(info["name"])) {
+        if is_array(info) && !empty(info["name"]) {
             let name = info["name"];
         } else {
             let name = sha1(json_encode(methods) . uri);
@@ -130,7 +130,7 @@ class Router
         if route {
             return route;
         }
-        if path === "/" && !(this->allow) {
+        if path === "/" && !this->allow {
             throw new NotFoundException();
         }
         throw  0 < count(this->allow) ? new MethodNotAllowedException(array_unique(this->allow)) : new NotFoundException(sprintf("No routes found for \"%s\".", path));

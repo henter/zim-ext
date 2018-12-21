@@ -77,7 +77,7 @@ class ExceptionHandler
         if !(exception instanceof FlattenException) {
             let exception = FlattenException::create(exception);
         }
-        if !(headers_sent()) {
+        if !headers_sent() {
             header(sprintf("HTTP/1.0 %s", exception->getStatusCode()));
             for name, value in exception->getHeaders() {
                 header(name . ": " . value, false);
@@ -100,7 +100,7 @@ class ExceptionHandler
         } else {
             let title = "Whoops, looks like something went wrong.";
         }
-        if !(this->debug) {
+        if !this->debug {
             return "                <div class=\"container\">\n                    <h1>{title}</h1>\n                </div>";
         }
         let content = "";

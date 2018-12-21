@@ -105,7 +105,7 @@ class JsonResponse extends Response
             let reserved = ["break", "do", "instanceof", "typeof", "case", "else", "new", "var", "catch", "finally", "return", "void", "continue", "for", "switch", "while", "debugger", "function", "this", "with", "default", "if", "throw", "delete", "in", "try", "class", "enum", "extends", "super", "const", "export", "import", "implements", "let", "private", "public", "yield", "interface", "package", "protected", "static", "null", "true", "false"];
             let parts = explode(".", callback);
             for part in parts {
-                if !(preg_match(pattern, part)) || in_array(part, reserved, true) {
+                if !preg_match(pattern, part) || in_array(part, reserved, true) {
                     throw new \InvalidArgumentException("The callback name is not valid.");
                 }
             }
@@ -148,11 +148,11 @@ class JsonResponse extends Response
     public function setData(var data = [])
     {
         if typeof data == "object" {
-            if (data instanceof Jsonable) {
+            if data instanceof Jsonable {
                 let this->data = data->toJson(this->encodingOptions);
-            } elseif (data instanceof \JsonSerializable) {
+            } elseif data instanceof \JsonSerializable {
                 let this->data = json_encode(data->jsonSerialize(), this->encodingOptions);
-            } elseif (data instanceof Arrayable) {
+            } elseif data instanceof Arrayable {
                 let this->data = json_encode(data->toArray(), this->encodingOptions);
             } else { //ArrayObject ? empty object ?
                 let this->data = json_encode(data, this->encodingOptions);
@@ -176,7 +176,7 @@ class JsonResponse extends Response
      */
     protected function hasValidJson(int jsonError)
     {
-        if (jsonError === JSON_ERROR_NONE) {
+        if jsonError === JSON_ERROR_NONE {
             return true;
         }
 
@@ -236,7 +236,7 @@ class JsonResponse extends Response
         }
         // Only set the header when there is none or when it equals 'text/javascript' (from a previous update with callback)
         // in order to not overwrite a custom definition.
-        if !(this->headers->has("Content-Type")) || this->headers->get("Content-Type") === "text/javascript" {
+        if !this->headers->has("Content-Type") || this->headers->get("Content-Type") === "text/javascript" {
             this->headers->set("Content-Type", "application/json");
         }
         return this->setContent(this->data);

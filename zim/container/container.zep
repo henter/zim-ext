@@ -119,7 +119,7 @@ class Container
         // If the factory is not a Closure, it means it is just a class name which is
         // bound into this container to the abstract type and we will just wrap it
         // up inside its own Closure to give us more convenience when extending.
-        if !(typeof concrete == "object" && concrete instanceof Closure) {
+        if !(typeof concrete == "object" && (concrete instanceof Closure || concrete instanceof ContainersetClosureOne)) {
             let concrete = this->getClosure(abstractt, concrete);
         }
         let this->bindings[abstractt] = [
@@ -468,94 +468,93 @@ class Container
     }
 
 
-        /**
-         * blow methods from Trait MagicInjection
-         *
-         * call callable
-         *
-         * @param       $callback
-         * @param array $parameters
-         * @return mixed
-         * @throws BindingResolutionException
-         * @throws \ReflectionException
-         */
-        public function call(callable callback, array parameters = [])
-        {
-            return call_user_func_array(
-                callback, this->getDependencies(callback, parameters)
-            );
-        }
+    /**
+     * blow methods from Trait MagicInjection
+     *
+     * call callable
+     *
+     * @param       $callback
+     * @param array $parameters
+     * @return mixed
+     * @throws BindingResolutionException
+     * @throws \ReflectionException
+     */
+    public function call(callable callback, array parameters = [])
+    {
+        return call_user_func_array(
+            callback, this->getDependencies(callback, parameters)
+        );
+    }
 
-        /**
-         * @param string $class
-         * @param array  $params
-         * @return object
-         * @throws BindingResolutionException
-         * @throws \ReflectionException
-         */
-        public function buildObject(string c, array params = [])
-        {
-            var deps;
-            let deps = this->getDependencies(c, params);
-            return (new \ReflectionClass(c))->newInstanceArgs(deps);
-        }
+    /**
+     * @param string $class
+     * @param array  $params
+     * @return object
+     * @throws BindingResolutionException
+     * @throws \ReflectionException
+     */
+    public function buildObject(string c, array params = [])
+    {
+        var deps;
+        let deps = this->getDependencies(c, params);
+        return (new \ReflectionClass(c))->newInstanceArgs(deps);
+    }
 
-        /**
-         * @param       $call
-         * @param array $params
-         * @return array
-         * @throws BindingResolutionException
-         * @throws \ReflectionException
-         */
-        public function getDependencies(var call, array params = [])
-        {
-            var deps, rp;
-            let deps = [];
+    /**
+     * @param       $call
+     * @param array $params
+     * @return array
+     * @throws BindingResolutionException
+     * @throws \ReflectionException
+     */
+    public function getDependencies(var call, array params = [])
+    {
+        var deps, rp;
+        let deps = [];
 
-            for rp in this->reflectionParams(call) {
-                if (array_key_exists(rp->name, params)) {
-                    let deps[] = params[rp->name];
-                    unset params[rp->name];
-                } elseif (rp->getClass() && array_key_exists(rp->getClass()->name, params)) {
-                    let deps[] = params[rp->getClass()->name];
-                    unset params[rp->getClass()->name];
-                } elseif (rp->getClass()) {
-                    let deps[] = this->make(rp->getClass()->name);
-                } elseif (rp->isDefaultValueAvailable()) {
-                    let deps[] = rp->getDefaultValue();
-                }
-            }
-
-            return array_merge(deps, params);
-        }
-
-        /**
-         * @param $call
-         * @return array|\ReflectionParameter[]
-         * @throws BindingResolutionException
-         * @throws \ReflectionException
-         */
-        public function reflectionParams(var call)
-        {
-            var r, constructor;
-            if (typeof call == "object" && call instanceof Closure) {
-                return (new \ReflectionFunction(call))->getParameters() ?: [];
-            } elseif (typeof call == "string") {
-                let r = new \ReflectionClass(call);
-                if (!r->isInstantiable()) {
-                    return this->notInstantiable(call);
-                }
-                let constructor = r->getConstructor();
-                if constructor {
-                    return constructor->getParameters();
-                }
-                return [];
-            } elseif (typeof call == "array") {
-                return (new \ReflectionMethod(call[0], call[1]))->getParameters() ?: [];
-            } else {
-                throw new InvalidArgumentException("unsupported call");
+        for rp in this->reflectionParams(call) {
+            if array_key_exists(rp->name, params) {
+                let deps[] = params[rp->name];
+                unset params[rp->name];
+            } elseif rp->getClass() && array_key_exists(rp->getClass()->name, params) {
+                let deps[] = params[rp->getClass()->name];
+                unset params[rp->getClass()->name];
+            } elseif rp->getClass() {
+                let deps[] = this->make(rp->getClass()->name);
+            } elseif rp->isDefaultValueAvailable() {
+                let deps[] = rp->getDefaultValue();
             }
         }
+        return array_merge(deps, params);
+    }
+
+    /**
+     * @param $call
+     * @return array|\ReflectionParameter[]
+     * @throws BindingResolutionException
+     * @throws \ReflectionException
+     */
+    public function reflectionParams(var call)
+    {
+        var r, constructor;
+        if typeof call == "object" && call instanceof Closure {
+            return (new \ReflectionFunction(call))->getParameters() ?: [];
+        } elseif typeof call == "string" {
+            let r = new \ReflectionClass(call);
+            if !r->isInstantiable() {
+                return this->notInstantiable(call);
+            }
+            let constructor = r->getConstructor();
+            if constructor {
+                return constructor->getParameters();
+            }
+            return [];
+        } elseif typeof call == "array" {
+            return (new \ReflectionMethod(call[0], call[1]))->getParameters() ?: [];
+        } else {
+            throw new InvalidArgumentException("unsupported call");
+        }
+    }
 
 
 }

@@ -253,7 +253,7 @@ class Zim extends Container
     {
         var appConfigDir, path, appConfigPath;
     
-        if !(name) {
+        if !name {
             let appConfigDir = this->basePath("config") . "/";
             if file_exists(appConfigDir) {
                 return appConfigDir;
@@ -291,7 +291,7 @@ class Zim extends Container
     {
         error_reporting(E_ALL);
         //do not handle for console
-        if !(this->inConsole()) {
+        if !this->inConsole() {
             ini_set("display_errors", 0);
             ExceptionHandler::register(true, "phpstorm://open?file=%f&line=%l");
             ErrorHandler::register();

@@ -10,13 +10,12 @@ use Zim\Event\Event;
 use Zim\Event\RequestEvent;
 use Zim\Event\ResponseEvent;
 use Zim\Event\TerminateEvent;
-use Zim\Http\Exception\NotFoundException;
-use Zim\Http\Exception\ResponseException;
 use Zim\Routing\Router;
 use Zim\Support\Str;
 use Zim\Zim;
 use Zim\Contract\Arrayable;
 use Zim\Contract\Jsonable;
+use Zim\Http\Exception\NotFoundException;
 
 class Kernel
 {
@@ -93,14 +92,15 @@ class Kernel
      */
     protected function guessController(string uri)
     {
-        if !defined("APP_PATH") {
-            return false;
-        }
-        var suffix, files, file, name;
-    
         if class_exists("App\\Controller\\" . ucfirst(uri) . "Controller") {
             return ucfirst(uri);
         }
+
+        if !defined("APP_PATH") {
+            return false;
+        }
+
+        var suffix, files, file, name;
         let suffix = "Controller.php";
         let files = glob(APP_PATH . "/Controller/*" . suffix);
         for file in files {
@@ -128,7 +128,7 @@ class Kernel
         var segments, c, a, tmpListCA;
     
         let segments = array_filter(explode("/", trim(request->getPathInfo(), "/")));
-        if !(segments) {
+        if !segments {
             return ["Index", "index"];
         }
         //list($c, $a) = isset($segments[1]) ? $segments : [$segments[0], 'index'];
@@ -143,7 +143,7 @@ class Kernel
         }
         //如果 FooController 不存在，则尝试调度到 IndexController@fooAction
         let c = this->guessController(c);
-        if !(c) {
+        if !c {
             let c = "Index";
             let a = segments[0];
         }
@@ -168,7 +168,7 @@ class Kernel
      */
     public function dispatchToDefault(<Request> request) -> <Response>
     {
-        var c, a, tmpListCA, controller, method, callablee, actionClass;
+        var c, a, tmpListCA, controller, method, call, actionClass;
     
         //FooController index
         let tmpListCA = this->getDefaultRoute(request);
@@ -181,16 +181,16 @@ class Kernel
         //try controller action ?
         let method = controller->getAction(a);
         if method {
-            let callablee = [controller, method];
+            let call = [controller, method];
         } else {
             //try controller action class
             let actionClass = controller->getActionClass(a);
             if !class_exists(actionClass) {
                 throw new NotFoundException("action not found");
             }
-            let callablee = [this->zim->make(actionClass), "execute"];
+            let call = [this->zim->make(actionClass), "execute"];
         }
-        return this->doDispatch(request, callablee);
+        return this->doDispatch(request, call);
     }
     
     /**
@@ -201,17 +201,20 @@ class Kernel
      */
     public function dispatchToRouter(<Request> request) -> <Response>
     {
-        var route, callablee;
+        var route, call;
     
         let route = this->router->matchRequest(request);
-        let callablee = route->getDefault("_callable");
-        if !callablee {
-            let callablee = [this->zim->make(route->getDefault("_controller")), route->getDefault("_action")];
-            if !is_callable(callablee) {
-                throw new NotFoundException("action not found " . callablee[1]);
+        let call = route->getDefault("_callable");
+        if !call {
+            let call = [
+                this->zim->make(route->getDefault("_controller")),
+                route->getDefault("_action")
+            ];
+            if !is_callable(call) {
+                throw new NotFoundException("action not found " . call[1]);
             }
         }
-        return this->doDispatch(request, callablee, route->getParameters());
+        return this->doDispatch(request, call, route->getParameters());
     }
     
     /**
@@ -242,7 +245,7 @@ class Kernel
      * @param mixed $resp
      * @return Response
      */
-    protected function toResponse(resp) -> <Response>
+    protected function toResponse(resp)
     {
         var response;
 

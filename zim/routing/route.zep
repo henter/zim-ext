@@ -63,40 +63,31 @@ class Route
      */
     public function setParameters(array parameters)
     {
-        let this->parameters = this->mergeDefaults(parameters);
+        var params, key, value;
+
+        //merge defaults, avoid mergeDefaults method via php version
+        // 'unset this->parameters[xx]' will cause segmentation fault, shit zephir !!
+        let params = this->getDefaults();
         var k;
         for k in ["_controller", "_action", "_callable"] {
-            unset this->parameters[k];
+            unset params[k];
         }
+        for key, value in parameters {
+            if !is_int(key) && value !== null {
+                let params[key] = value;
+            }
+        }
+
+        let this->parameters = params;
 
         return this;
     }
     
-    public function getParameters()
+    public function getParameters() -> array
     {
         return this->parameters;
     }
-    
-    /**
-     * Get merged default parameters.
-     *
-     * @param array $params   The parameters
-     *
-     * @return array Merged default parameters
-     */
-    protected function mergeDefaults(array params) -> array
-    {
-        var defaults, key, value;
-    
-        let defaults = this->getDefaults();
-        for key, value in params {
-            if !(is_int(key)) && value !== null {
-                let defaults[key] = value;
-            }
-        }
-        return defaults;
-    }
-    
+
     /**
      * Returns the pattern for the path.
      *
@@ -451,7 +442,7 @@ class Route
     {
         var call;
 
-        if !(self::registrar) {
+        if !self::registrar {
             let self::registrar = new Registrar(\Zim\Zim::app("router"));
         }
         let call = [self::registrar, method];

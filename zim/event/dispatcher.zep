@@ -43,7 +43,7 @@ class Dispatcher
         var r, params, eventClass;
 
         let params = Zim::getInstance()->reflectionParams(callback);
-        if (!$params) {
+        if !params {
             throw new \InvalidArgumentException("event on callback parameter empty");
         }
         let eventClass = current(params)->getClass()->getName();
@@ -74,7 +74,7 @@ class Dispatcher
             // If a response is returned from the listener and event halting is enabled
             // we will just return this response, and not call the rest of the event
             // listeners. Otherwise we will add the response on the response list.
-            if halt && !(is_null(response)) {
+            if halt && !is_null(response) {
                 return response;
             }
             // If a boolean false is returned from a listener, we will stop propagating

@@ -66,8 +66,6 @@ class Config implements ArrayAccess, \Zim\Contract\Config
         let config = [];
         for key, deft in keys {
             if is_numeric(key) {
-                //php-to-zephir error
-                //list($key, $deft) = [$deft, null];
                 let key = deft;
                 let deft = null;
             }

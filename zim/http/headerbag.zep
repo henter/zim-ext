@@ -135,7 +135,7 @@ class HeaderBag implements \IteratorAggregate, \Countable
         var headers, content, name, values, value;
     
         let headers = this->all();
-        if !(headers) {
+        if !headers {
             return "";
         }
         ksort(headers);
@@ -209,7 +209,7 @@ class HeaderBag implements \IteratorAggregate, \Countable
     
         let key = str_replace("_", "-", strtolower(key));
         let headers = this->all();
-        if !(array_key_exists(key, headers)) {
+        if !array_key_exists(key, headers) {
             if deft === null {
                 return  first ? null : [];
             }
@@ -233,13 +233,13 @@ class HeaderBag implements \IteratorAggregate, \Countable
         let key = str_replace("_", "-", strtolower(key));
         if is_array(values) {
             let values = array_values(values);
-            if replace === true || !(isset this->headers[key]) {
+            if replace === true || ! isset this->headers[key] {
                 let this->headers[key] = values;
             } else {
                 let this->headers[key] = array_merge(this->headers[key], values);
             }
         } else {
-            if replace === true || !(isset this->headers[key]) {
+            if replace === true || ! isset this->headers[key] {
                 let this->headers[key] = [values];
             } else {
                 let this->headers[key][] = values;
