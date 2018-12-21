@@ -221,10 +221,10 @@ class FlattenException
     public function setTrace(trace, file, line)
     {
         var entry, classs, namespacee, parts;
-    
+
         let this->trace = [];
         let this->trace[] = ["namespace" : "", "short_class" : "", "class" : "", "type" : "", "function" : "", "file" : file, "line" : line, "args" : []];
-        for entry in trace {
+        for entry in (array)trace {
             let classs = "";
             let namespacee = "";
             if isset entry["class"] {

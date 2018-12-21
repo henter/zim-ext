@@ -54,7 +54,7 @@ class Router
     {
         var name;
     
-        if is_array(info) && !empty(info["name"]) {
+        if is_array(info) && isset info["name"] {
             let name = info["name"];
         } else {
             let name = sha1(json_encode(methods) . uri);
@@ -84,7 +84,8 @@ class Router
                 let defaults = isset info["defaults"] ? info["defaults"] : [];
                 let requirements = isset info["requirements"] ? info["requirements"] : [];
                 let options = isset info["options"] ? info["options"] : [];
-                let tmpListControllerAction = explode("@", info["use"]);
+
+                let tmpListControllerAction = strpos(info["to"], "@") ? explode("@", info["to"]) : [info["to"], "index"];
                 let controller = tmpListControllerAction[0];
                 let action = tmpListControllerAction[1];
                 let defaults["_controller"] = "App\\Controller\\" . str_replace("/", "\\", controller) . "Controller";

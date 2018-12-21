@@ -15,10 +15,8 @@ namespace Zim\Routing;
  * @method static delete(string $uri, \Closure|array|string|null $info = null)
  * @method static patch(string $uri, \Closure|array|string|null $info = null)
  * @method static options(string $uri, \Closure|array|string|null $info = null)
- * @method static match(array|string $method, string $uri, \Closure|array|string|null $info = null)
  * @method static any(string $uri, \Closure|array|string|null $info = null)
- * @method static name(string $value)
- * @method static where(array  $where)
+ * @method static match(array|string $method, string $uri, \Closure|array|string|null $info = null)
  */
 class Route
 {

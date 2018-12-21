@@ -123,7 +123,7 @@ class ExceptionHandler
                                 <p class=\"break-long-words trace-message\">%s</p>
                             </th></tr></thead>
                             <tbody>", ind, total, classs, message);
-                for trace in e["trace"] {
+                for trace in (array)e["trace"] {
                     let content .= "<tr><td>";
                     if trace["function"] {
                         let content .= sprintf("at <span class=\"trace-class\">%s</span><span class=\"trace-type\">%s</span><span class=\"trace-method\">%s</span>(<span class=\"trace-arguments\">%s</span>)", this->formatClass(trace["class"]), trace["type"], trace["function"], this->formatArgs(trace["args"]));

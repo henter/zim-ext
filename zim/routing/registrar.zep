@@ -10,8 +10,7 @@ use InvalidArgumentException;
  * @method patch(string $uri, \Closure|array|string|null $info = null)
  * @method options(string $uri, \Closure|array|string|null $info = null)
  * @method any(string $uri, \Closure|array|string|null $info = null)
- * @method name(string $value)
- * @method where(array  $where)
+ * @method static match(array|string $method, string $uri, \Closure|array|string|null $info = null)
  */
 class Registrar
 {
@@ -21,24 +20,14 @@ class Registrar
      * @var Router
      */
     protected router;
-    /**
-     * The attributes to pass on to the router.
-     *
-     * @var array
-     */
-    protected attributes = [];
+
     /**
      * The methods to dynamically pass through to the router.
      *
      * @var array
      */
     protected passthru = ["get", "post", "put", "patch", "delete", "options", "any"];
-    /**
-     * The attributes that can be set through this class.
-     *
-     * @var array
-     */
-    protected allowedAttributes = ["name", "where"];
+
     /**
      * Create a new route registrar instance.
      *
@@ -48,24 +37,6 @@ class Registrar
     public function __construct(<Router> router)
     {
         let this->router = router;
-    }
-    
-    /**
-     * Set the value for a given attribute.
-     *
-     * @param  string  $key
-     * @param  mixed  $value
-     * @return $this
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function attribute(string key, value)
-    {
-        if !in_array(key, this->allowedAttributes) {
-            throw new InvalidArgumentException("Attribute [{key}] does not exist.");
-        }
-        let this->attributes[key] = value;
-        return this;
     }
     
     /**
@@ -113,12 +84,9 @@ class Registrar
         if in_array(method, this->passthru) {
             let all = parameters;
             array_unshift(all, method);
-            //return this->registrarRoute(method, ...parameters);
             return call_user_func_array([this, "registrarRoute"], all);
         }
-        if in_array(method, this->allowedAttributes) {
-            return this->attribute(method, parameters[0]);
-        }
+
         if method == "match" {
             //return this->doMatch(...parameters);
             return call_user_func_array([this, "doMatch"], parameters);
