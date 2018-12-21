@@ -1,5 +1,7 @@
 
 .zephir/
+doc/
+ide/
 ext/
 ext/ltmain.sh
 ext/.deps
