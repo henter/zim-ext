@@ -146,7 +146,15 @@ class ExceptionHandler
                 let title = "Whoops, looks like something went wrong.";
             }
         }
-        return "            <div class=\"exception-summary\">\n                <div class=\"container\">\n                    <div class=\"exception-message-wrapper\">\n                        <h1 class=\"break-long-words exception-message\">{".title."}</h1>\n                        <div class=\"exception-illustration hidden-xs-down\">Zim v1.0.0</div>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"container\">\n                {".content."}\n            </div>";
+        return "<div class=\"exception-summary\">
+                    <div class=\"container\">
+                    <div class=\"exception-message-wrapper\">
+                        <h1 class=\"break-long-words exception-message\">".title."</h1>
+                        <div class=\"exception-illustration hidden-xs-down\">Zim v1.0.0</div>
+                    </div>
+                    </div>
+                </div>
+                <div class=\"container\">".content."</div>";
     }
     
     /**
@@ -156,7 +164,7 @@ class ExceptionHandler
      */
     public function getStylesheet() -> string
     {
-        return "            body { background-color: #F9F9F9; color: #222; font: 14px/1.4 Helvetica, Arial, sans-serif; margin: 0; padding-bottom: 45px; }
+        return "body { background-color: #F9F9F9; color: #222; font: 14px/1.4 Helvetica, Arial, sans-serif; margin: 0; padding-bottom: 45px; }
 
             a { cursor: pointer; text-decoration: none; }
             a:hover { text-decoration: underline; }
@@ -204,12 +212,20 @@ class ExceptionHandler
             }";
     }
     
-    protected function decorate(content, css)
+    protected function decorate(string content, string css) -> string
     {
-        return "<!DOCTYPE html>\n<html>\n    <head>\n        <meta charset=\"".this->charset."\" />\n        <meta name=\"robots\" content=\"noindex,nofollow\" />\n        <style>{".css."}</style>\n    </head>\n    <body>\n        {".content."}\n    </body>\n</html>";
+        return "
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=\"".this->charset."\" />
+<meta name=\"robots\" content=\"noindex,nofollow\" />
+<style>".css."</style>
+</head>
+<body>".content."</body></html>";
     }
     
-    protected function formatClass(classs)
+    protected function formatClass(string classs)
     {
         var parts;
     

@@ -110,8 +110,8 @@ class FlattenException
      */
     public function setClass(var c)
     {
-        if typeof c == "string" {
-            let this->classs = c[0] === 'c' && 0 === strpos(c, "class@anonymous\0") ? get_parent_class(c) . "@anonymous" : c;
+        if substr(c, 0, 1) === "c" && 0 === strpos(c, "class@anonymous\0") {
+            let this->classs = get_parent_class(c);
         } else {
             let this->classs = c;
         }
@@ -249,13 +249,13 @@ class FlattenException
     protected function flattenArgs(args, level = 0, count = 0)
     {
         var result, key, value;
-    
+
         let result = [];
         for key, value in args {
             if count > 10000 {
                 return ["array", "*SKIPPED over 10000 entries*"];
             }
-            if value instanceof \__PHP_Incomplete_Class {
+            if typeof value == "object" && value instanceof \__PHP_Incomplete_Class {
                 // is_object() returns false on PHP<=7.1
                 let result[key] = ["incomplete-object", this->getClassNameFromIncomplete(value)];
             } elseif is_object(value) {

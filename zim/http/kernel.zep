@@ -185,7 +185,7 @@ class Kernel
         } else {
             //try controller action class
             let actionClass = controller->getActionClass(a);
-            if !class_exists(actionClass) {
+            if !actionClass || !class_exists(actionClass) {
                 throw new NotFoundException("action not found");
             }
             let call = [this->zim->make(actionClass), "execute"];

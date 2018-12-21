@@ -48,14 +48,14 @@ class Controller
      */
     public function getActionClass(uri)
     {
-        return  isset this->actions[uri] ? this->actions[uri] : null;
+        return isset this->actions[uri] ? this->actions[uri] : null;
     }
     
     /**
      * @param $uri
      * @return null
      */
-    public function getAction(uri) -> null
+    public function getAction(uri) -> string|null
     {
         var method;
     

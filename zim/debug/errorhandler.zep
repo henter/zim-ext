@@ -137,7 +137,6 @@ class ErrorHandler
     public function handleException(var exception, array error = null)
     {
         var handlerException, exceptionHandler;
-
         if typeof exception == "object" && !(exception instanceof \Exception) {
             let exception = new FatalErrorException(exception);
         }
