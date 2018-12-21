@@ -258,8 +258,6 @@ class Container
      */
     protected function getConcrete(var abstractt)
     {
-        var concrete;
-
         if isset this->bindings[abstractt] {
             return this->bindings[abstractt]["concrete"];
         }
@@ -290,8 +288,6 @@ class Container
      */
     public function build(var concrete, array parameters = [])
     {
-        var reflector, constructor, dependencies, instances;
-
         if typeof concrete == "object" &&
             (concrete instanceof ContainergetClosureClosureZero || concrete instanceof Closure) {
             return {concrete}(this, parameters);

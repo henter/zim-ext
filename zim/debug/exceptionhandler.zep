@@ -95,7 +95,7 @@ class ExceptionHandler
     {
         var title, content, count, total, position, e, ind, classs, message, trace;
     
-        if 404 {
+        if exception->getStatusCode() == 404 {
             let title = "Sorry, the page you are looking for could not be found.";
         } else {
             let title = "Whoops, looks like something went wrong.";
@@ -146,7 +146,7 @@ class ExceptionHandler
                 let title = "Whoops, looks like something went wrong.";
             }
         }
-        return "            <div class=\"exception-summary\">\n                <div class=\"container\">\n                    <div class=\"exception-message-wrapper\">\n                        <h1 class=\"break-long-words exception-message\">{title}</h1>\n                        <div class=\"exception-illustration hidden-xs-down\">Zim v1.0.0</div>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"container\">\n                {content}\n            </div>";
+        return "            <div class=\"exception-summary\">\n                <div class=\"container\">\n                    <div class=\"exception-message-wrapper\">\n                        <h1 class=\"break-long-words exception-message\">{".title."}</h1>\n                        <div class=\"exception-illustration hidden-xs-down\">Zim v1.0.0</div>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"container\">\n                {".content."}\n            </div>";
     }
     
     /**
@@ -206,7 +206,7 @@ class ExceptionHandler
     
     protected function decorate(content, css)
     {
-        return "<!DOCTYPE html>\n<html>\n    <head>\n        <meta charset=\"{this->charset}\" />\n        <meta name=\"robots\" content=\"noindex,nofollow\" />\n        <style>{css}</style>\n    </head>\n    <body>\n        {content}\n    </body>\n</html>";
+        return "<!DOCTYPE html>\n<html>\n    <head>\n        <meta charset=\"".this->charset."\" />\n        <meta name=\"robots\" content=\"noindex,nofollow\" />\n        <style>{".css."}</style>\n    </head>\n    <body>\n        {".content."}\n    </body>\n</html>";
     }
     
     protected function formatClass(classs)
@@ -219,7 +219,7 @@ class ExceptionHandler
     
     protected function formatPath(path, line)
     {
-        var file, fmt, i, f, k, tmpI1, link;
+        var file, fmt, i, f, k, link;
 
         let file = this->escapeHtml( preg_match("#[^/\\\\]*+$#", path, file) ? file[0] : path);
         let fmt = this->fileLinkFormat;

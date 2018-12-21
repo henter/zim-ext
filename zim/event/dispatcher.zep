@@ -40,7 +40,7 @@ class Dispatcher
      */
     public function on(callback) -> void
     {
-        var r, params, eventClass;
+        var params, eventClass;
 
         let params = Zim::getInstance()->reflectionParams(callback);
         if !params {

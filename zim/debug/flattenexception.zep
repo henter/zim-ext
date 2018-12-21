@@ -31,16 +31,16 @@ class FlattenException
         return static::createFromThrowable(exception, statusCode, headers);
     }
     
-    public static function createFromThrowable(<Throwable> exception, int statusCode = 0, array headers = [])
+    public static function createFromThrowable(<Throwable> exception, int _statusCode = 0, array headers = [])
     {
-        var e, previous, scode;
+        var e, previous, statusCode;
+        let statusCode = _statusCode;
     
         let e = new static();
         e->setMessage(exception->getMessage());
         e->setCode(exception->getCode());
         if exception instanceof \Zim\Http\Exception\ExceptionInterface {
-            let scode = exception->getStatusCode();
-            let statusCode = scode;
+            let statusCode = exception->getStatusCode();
             let headers = array_merge(headers, exception->getHeaders());
         }
         if !statusCode {
