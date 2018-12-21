@@ -31,7 +31,7 @@ class Router
      */
     public function __construct(<RouteCollection> routes = null) -> void
     {
-        let this->routes = routes ? routes : new RouteCollection();
+        let this->routes = routes ?: new RouteCollection();
     }
     
     /**

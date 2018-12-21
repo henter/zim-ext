@@ -119,10 +119,8 @@ class Zim extends Container
     {
         var services, service;
     
-        //base services
-        this->register("Zim\\Service\\LogService");
         //services from config
-        let services = self::config("app.services") ? self::config("app.services") : [];
+        let services = self::config("app.services") ?: [];
         for service in services {
             this->register(service);
         }

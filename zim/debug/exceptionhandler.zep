@@ -28,7 +28,7 @@ class ExceptionHandler
     public function __construct(bool debug = true, var fileLinkFormat = "") -> void
     {
         let this->debug = debug;
-        let this->charset = ini_get("default_charset") ? ini_get("default_charset") : "UTF-8";
+        let this->charset = ini_get("default_charset") ?: "UTF-8";
         let this->fileLinkFormat = fileLinkFormat;
     }
     
