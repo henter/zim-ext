@@ -129,12 +129,11 @@ class ErrorHandler
     
     /**
      * @param $exception
-     * @param array|null $error
      * @return mixed
      * @throws FatalErrorException
      * @throws \Throwable
      */
-    public function handleException(var exception, array error = null)
+    public function handleException(var exception)
     {
         var handlerException, exceptionHandler;
         if typeof exception == "object" && !(exception instanceof \Exception) {
@@ -147,7 +146,7 @@ class ErrorHandler
             if exceptionHandler !== null {
                 return call_user_func(exceptionHandler, exception);
             }
-            let handlerException = handlerException ? handlerException : exception;
+            let handlerException = handlerException ?: exception;
         } catch \Throwable, handlerException {
         }
         if exception === handlerException {

@@ -24,12 +24,14 @@ class ExceptionHandler
 {
     protected debug;
     protected charset;
-    protected fileLinkFormat;
+    protected fileLinkFormat = "phpstorm://open?file=%f&line=%l";
     public function __construct(bool debug = true, var fileLinkFormat = "") -> void
     {
         let this->debug = debug;
         let this->charset = ini_get("default_charset") ?: "UTF-8";
-        let this->fileLinkFormat = fileLinkFormat;
+        if fileLinkFormat {
+            let this->fileLinkFormat = fileLinkFormat;
+        }
     }
     
     /**
@@ -101,7 +103,7 @@ class ExceptionHandler
             let title = "Whoops, looks like something went wrong.";
         }
         if !this->debug {
-            return "                <div class=\"container\">\n                    <h1>{title}</h1>\n                </div>";
+            return "<div class=\"container\"><h1>".title."</h1></div>";
         }
         let content = "";
         try {
@@ -150,7 +152,7 @@ class ExceptionHandler
                     <div class=\"container\">
                     <div class=\"exception-message-wrapper\">
                         <h1 class=\"break-long-words exception-message\">".title."</h1>
-                        <div class=\"exception-illustration hidden-xs-down\">Zim v1.0.0</div>
+                        <div class=\"exception-illustration hidden-xs-down\">".\Zim\Zim::VERSION."</div>
                     </div>
                     </div>
                 </div>
@@ -164,6 +166,9 @@ class ExceptionHandler
      */
     public function getStylesheet() -> string
     {
+        if !$this->debug {
+            return "";
+        }
         return "body { background-color: #F9F9F9; color: #222; font: 14px/1.4 Helvetica, Arial, sans-serif; margin: 0; padding-bottom: 45px; }
 
             a { cursor: pointer; text-decoration: none; }
@@ -227,14 +232,14 @@ class ExceptionHandler
     
     protected function formatClass(string classs)
     {
-        var parts;
-    
-        let parts = explode("\\", classs);
-        return sprintf("<abbr title=\"%s\">%s</abbr>", classs, array_pop(parts));
+        return sprintf("<abbr title=\"%s\">%s</abbr>", classs, classs);
     }
     
     protected function formatPath(path, line)
     {
+        if path == "" {
+            return "<span class=\"block trace-arguments\"> [in zim extension] </span>";
+        }
         var file, fmt, i, f, k, link;
 
         let file = this->escapeHtml( preg_match("#[^/\\\\]*+$#", path, file) ? file[0] : path);

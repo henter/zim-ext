@@ -199,7 +199,16 @@ class Zim extends Container
     {
         return php_sapi_name() === "cli" || php_sapi_name() === "phpdbg";
     }
-    
+
+    /**
+     * @return bool
+     */
+    public function inExtension() -> bool
+    {
+        //return extension_loaded("zim");
+        return true;
+    }
+
     /**
      * Get the base path for the application.
      *
@@ -291,7 +300,7 @@ class Zim extends Container
         //do not handle for console
         if !this->inConsole() {
             ini_set("display_errors", 0);
-            ExceptionHandler::register(true, "phpstorm://open?file=%f&line=%l");
+            ExceptionHandler::register();
             ErrorHandler::register();
         }
     }
