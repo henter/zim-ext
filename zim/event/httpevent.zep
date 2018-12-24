@@ -41,7 +41,17 @@ abstract class HttpEvent
         let this->response = response;
         return this;
     }
-    
+
+    /**
+     * Returns whether a response was set.
+     *
+     * @return bool Whether a response was set
+     */
+    public function hasResponse() -> bool
+    {
+        return null !== this->response;
+    }
+
     /**
      * @return Request
      */

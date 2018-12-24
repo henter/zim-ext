@@ -73,18 +73,43 @@ class Kernel
         if resp {
             return resp->prepare(request);
         }
+
         try {
-            let response = this->dispatchToRouter(request);
-        } catch NotFoundException, e {
-            let response = this->dispatchToDefault(request);
+            try {
+                let response = this->dispatchToRouter(request);
+            } catch NotFoundException, e {
+                let response = this->dispatchToDefault(request);
+            }
+            let respEvent = new ResponseEvent(request, response);
+            Event::fire(respEvent);
+            let response = respEvent->getResponse();
         } catch \Throwable, e {
+            let response = this->handleException(e, request);
+        }
+        return response->prepare(request);
+    }
+
+    /**
+     * Handles an exception by trying to convert it to a Response.
+     *
+     * @param \Throwable $e       An \Exception instance
+     * @param Request    $request A Request instance
+     * @return Response
+     * @throws \Exception
+     */
+    private function handleException(<\Throwable> e, <Request> request) -> <Response>
+    {
+        var event, resp;
+        let event = new ExceptionEvent(e, request);
+        Event::fire(event, null, true);
+        let resp = event->getResponse();
+        if !resp {
             throw e;
         }
-        let respEvent = new ResponseEvent(request, response);
-        Event::fire(respEvent);
-        return respEvent->getResponse()->prepare(request);
+
+        return resp;
     }
-    
+
     /**
      * 根据 uri 猜测 controller 类名
      * @param string $uri
@@ -182,6 +207,7 @@ class Kernel
         let method = controller->getAction(a);
         if method {
             let call = [controller, method];
+            //mayby private method ?
             if !is_callable(call) {
                 throw new NotFoundException("action not found " . call[1]);
             }

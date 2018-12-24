@@ -6,12 +6,16 @@
  */
 
 namespace Zim\Event;
+use Zim\Http\Request;
+use Zim\Http\Response;
 
-use Zim\Contract\Request;
-use Zim\Contract\Response;
-
-class TerminateEvent
+class ExceptionEvent
 {
+    /**
+     * @var \Throwable
+     */
+    protected e;
+
     /**
      * @var Request
      */
@@ -22,18 +26,37 @@ class TerminateEvent
      */
     protected response;
 
-    public function __construct(<Request> request, <Response> response = null)
+    public function __construct(<\Throwable> e, <Request> request, <Response> response = null)
     {
+        let this->e = e;
         let this->request = request;
         let this->response = response;
     }
 
     /**
+     * @return \Throwable
+     */
+    public function getThrowable() -> <\Throable>
+    {
+        return this->e;
+    }
+
+   /**
      * @return Response
      */
     public function getResponse() -> <Response>
     {
         return this->response;
+    }
+
+    /**
+     * @param Response $response
+     * @return $this
+     */
+    public function setResponse(<Response> response)
+    {
+        let this->response = response;
+        return this;
     }
 
     /**

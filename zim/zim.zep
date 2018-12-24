@@ -356,4 +356,19 @@ class Zim extends Container
         return self::app("config")->get(key, deft);
     }
 
+    /**
+     * 默认启动入口
+     */
+    public static function run()
+    {
+        var zim, http, request, response;
+        let zim = self::getInstance();
+        zim->singleton("Zim\\Http\\Kernel");
+
+        let http = zim->make("Zim\\Http\\Kernel");
+        let request = Request::createFromGlobals();
+        let response = http->handle(request);
+        response->send();
+        http->terminate(request, response);
+    }
 }
