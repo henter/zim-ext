@@ -182,6 +182,9 @@ class Kernel
         let method = controller->getAction(a);
         if method {
             let call = [controller, method];
+            if !is_callable(call) {
+                throw new NotFoundException("action not found " . call[1]);
+            }
         } else {
             //try controller action class
             let actionClass = controller->getActionClass(a);
