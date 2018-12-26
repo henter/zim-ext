@@ -14,12 +14,6 @@ class Container
      */
     protected static instance;
     /**
-     * An array of the types that have been resolved.
-     *
-     * @var array
-     */
-    protected resolved = [];
-    /**
      * The container's bindings.
      *
      * @var array
@@ -61,20 +55,6 @@ class Container
     public function has(id)
     {
         return this->bound(id);
-    }
-
-    /**
-     * Determine if the given abstract type has been resolved.
-     *
-     * @param  string  $abstract
-     * @return bool
-     */
-    public function resolved(var abstractt) -> bool
-    {
-        if this->isAlias(abstractt) {
-            let abstractt = this->getAlias(abstractt);
-        }
-        return isset this->resolved[abstractt] || isset this->instances[abstractt];
     }
 
     /**
@@ -246,7 +226,6 @@ class Container
             let this->instances[abstractt] = obj;
         }
 
-        let this->resolved[abstractt] = true;
         return obj;
     }
 
@@ -408,7 +387,6 @@ class Container
     public function flush()
     {
         let this->aliases = [];
-        let this->resolved = [];
         let this->bindings = [];
         let this->instances = [];
     }
@@ -460,7 +438,6 @@ class Container
     {
         unset this->bindings[key];
         unset this->instances[key];
-        unset this->resolved[key];
     }
 
 

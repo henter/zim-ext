@@ -8,6 +8,6 @@ namespace Zim\Contract;
 
 interface Response
 {
-    public function prepare(<Request> request) -> void;
+    public function prepare(<Request> request);
 
 }

@@ -331,9 +331,9 @@ class Zim extends Container
     public static function app(var name = null)
     {
         if is_null(name) {
-            return self::instance;
+            return self::getInstance();
         }
-        return self::instance->make(name);
+        return self::getInstance()->make(name);
     }
     
     /**

@@ -32,23 +32,24 @@ class Dispatcher
             let this->listeners[event][] = new Listener(listener);
         }
     }
-    
-    /**
-     * sugar method to listen and callback specific event object
-     *
-     * @param callable $callback
-     */
-    public function on(callback) -> void
-    {
-        var params, eventClass;
 
-        let params = Zim::getInstance()->reflectionParams(callback);
-        if !params {
-            throw new \InvalidArgumentException("event on callback parameter empty");
-        }
-        let eventClass = current(params)->getClass()->getName();
-        this->listen(eventClass, new ListenerOn(callback));
-    }
+    //BUG, TODO
+//    /**
+//     * sugar method to listen and callback specific event object
+//     *
+//     * @param callable $callback
+//     */
+//    public function on(callback) -> void
+//    {
+//        var params, eventClass;
+//
+//        let params = Zim::getInstance()->reflectionParams(callback);
+//        if !params {
+//            throw new \InvalidArgumentException("event on callback parameter empty");
+//        }
+//        let eventClass = current(params)->getClass()->getName();
+//        this->listen(eventClass, new ListenerOn(callback));
+//    }
     
     /**
      * Fire an event and call the listeners.

@@ -8,6 +8,6 @@ namespace Zim\Contract;
 
 interface Action
 {
-    public function execute() -> void;
+    public function execute();
 
 }
