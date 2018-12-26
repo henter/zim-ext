@@ -17,9 +17,9 @@ class ListenerOn
     public function __invoke(event, payload)
     {
         var callback;
-    
+
         let callback = this->callback;
-        return {callback}(event, payload);
+        return {callback}(payload);
     }
 
 }

@@ -66,7 +66,7 @@ PHP_METHOD(Zim_Event_ListenerOn, __invoke) {
 
 	zephir_read_property(&_0, this_ptr, SL("callback"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_CPY_WRT(&callback, &_0);
-	ZEPHIR_RETURN_CALL_ZVAL_FUNCTION(&callback, NULL, 0, event, payload);
+	ZEPHIR_RETURN_CALL_ZVAL_FUNCTION(&callback, NULL, 0, payload, event);
 	zephir_check_call_status();
 	RETURN_MM();
 

@@ -275,7 +275,7 @@ PHP_METHOD(Zim_Routing_Route, setPath) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	ZVAL_STRING(&_0, "?<");
-	ZEPHIR_CALL_FUNCTION(&_1, "strpbrk", NULL, 112, &pattern, &_0);
+	ZEPHIR_CALL_FUNCTION(&_1, "strpbrk", NULL, 113, &pattern, &_0);
 	zephir_check_call_status();
 	if (!ZEPHIR_IS_FALSE_IDENTICAL(&_1)) {
 		ZEPHIR_INIT_VAR(&_2$$3);
@@ -411,7 +411,7 @@ PHP_METHOD(Zim_Routing_Route, setMethods) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	ZVAL_STRING(&_0, "strtoupper");
-	ZEPHIR_CALL_FUNCTION(&_1, "array_map", NULL, 76, &_0, &methods);
+	ZEPHIR_CALL_FUNCTION(&_1, "array_map", NULL, 78, &_0, &methods);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("methods"), &_1);
 	zephir_update_property_zval(this_ptr, SL("compiled"), &__$null);
@@ -1113,7 +1113,7 @@ PHP_METHOD(Zim_Routing_Route, __callStatic) {
 		ZVAL_STRING(&_4$$3, "router");
 		ZEPHIR_CALL_CE_STATIC(&_2$$3, zim_zim_ce, "app", &_3, 0, &_4$$3);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_1$$3, "__construct", NULL, 113, &_2$$3);
+		ZEPHIR_CALL_METHOD(NULL, &_1$$3, "__construct", NULL, 114, &_2$$3);
 		zephir_check_call_status();
 		zend_update_static_property(zim_routing_route_ce, ZEND_STRL("registrar"), &_1$$3);
 	}

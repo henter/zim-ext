@@ -17,6 +17,8 @@
 #include "kernel/fcall.h"
 #include "kernel/object.h"
 #include "kernel/operators.h"
+#include "kernel/exception.h"
+#include "ext/spl/spl_exceptions.h"
 
 
 /**
@@ -90,6 +92,55 @@ PHP_METHOD(Zim_Event_Dispatcher, listen) {
 }
 
 /**
+ * sugar method to listen and callback specific event object
+ *
+ * @param callable $callback
+ */
+PHP_METHOD(Zim_Event_Dispatcher, on) {
+
+	zend_long ZEPHIR_LAST_CALL_STATUS;
+	zephir_fcall_cache_entry *_1 = NULL;
+	zval *callback, callback_sub, params, eventClass, _0, _2, _3, _4;
+	zval *this_ptr = getThis();
+
+	ZVAL_UNDEF(&callback_sub);
+	ZVAL_UNDEF(&params);
+	ZVAL_UNDEF(&eventClass);
+	ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&_2);
+	ZVAL_UNDEF(&_3);
+	ZVAL_UNDEF(&_4);
+
+	ZEPHIR_MM_GROW();
+	zephir_fetch_params(1, 1, 0, &callback);
+
+
+
+	ZEPHIR_CALL_CE_STATIC(&_0, zim_zim_ce, "getinstance", &_1, 0);
+	zephir_check_call_status();
+	ZEPHIR_CALL_METHOD(&params, &_0, "reflectionparams", NULL, 0, callback);
+	zephir_check_call_status();
+	if (!(zephir_is_true(&params))) {
+		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_InvalidArgumentException, "event on callback parameter empty", "zim/event/dispatcher.zep", 47);
+		return;
+	}
+	ZEPHIR_CALL_FUNCTION(&_2, "current", NULL, 75, &params);
+	zephir_check_call_status();
+	ZEPHIR_CALL_METHOD(&_3, &_2, "getclass", NULL, 0);
+	zephir_check_call_status();
+	ZEPHIR_CALL_METHOD(&eventClass, &_3, "getname", NULL, 0);
+	zephir_check_call_status();
+	ZEPHIR_INIT_VAR(&_4);
+	object_init_ex(&_4, zim_event_listeneron_ce);
+	ZEPHIR_CALL_METHOD(NULL, &_4, "__construct", NULL, 76, callback);
+	zephir_check_call_status();
+	ZEPHIR_CALL_METHOD(NULL, this_ptr, "listen", NULL, 0, &eventClass, &_4);
+	zephir_check_call_status();
+	ZEPHIR_MM_RESTORE();
+
+}
+
+/**
  * Fire an event and call the listeners.
  *
  * @param  string|object  $event
@@ -134,14 +185,14 @@ PHP_METHOD(Zim_Event_Dispatcher, fire) {
 	ZEPHIR_CALL_METHOD(&tmpListEventPayload, this_ptr, "parseeventandpayload", NULL, 0, event, payload);
 	zephir_check_call_status();
 	ZEPHIR_OBS_NVAR(event);
-	zephir_array_fetch_long(event, &tmpListEventPayload, 0, PH_NOISY, "zim/event/dispatcher.zep", 70 TSRMLS_CC);
+	zephir_array_fetch_long(event, &tmpListEventPayload, 0, PH_NOISY, "zim/event/dispatcher.zep", 69 TSRMLS_CC);
 	ZEPHIR_OBS_NVAR(payload);
-	zephir_array_fetch_long(payload, &tmpListEventPayload, 1, PH_NOISY, "zim/event/dispatcher.zep", 71 TSRMLS_CC);
+	zephir_array_fetch_long(payload, &tmpListEventPayload, 1, PH_NOISY, "zim/event/dispatcher.zep", 70 TSRMLS_CC);
 	ZEPHIR_INIT_VAR(&responses);
 	array_init(&responses);
 	ZEPHIR_CALL_METHOD(&_0, this_ptr, "getlisteners", NULL, 0, event);
 	zephir_check_call_status();
-	zephir_is_iterable(&_0, 0, "zim/event/dispatcher.zep", 89);
+	zephir_is_iterable(&_0, 0, "zim/event/dispatcher.zep", 88);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0), _1)
 	{
 		ZEPHIR_INIT_NVAR(&listener);
@@ -158,7 +209,7 @@ PHP_METHOD(Zim_Event_Dispatcher, fire) {
 		if (ZEPHIR_IS_FALSE_IDENTICAL(&response)) {
 			break;
 		}
-		zephir_array_append(&responses, &response, PH_SEPARATE, "zim/event/dispatcher.zep", 87);
+		zephir_array_append(&responses, &response, PH_SEPARATE, "zim/event/dispatcher.zep", 86);
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&listener);
 	ZEPHIR_INIT_VAR(&_3);
@@ -250,7 +301,7 @@ PHP_METHOD(Zim_Event_Dispatcher, getListeners) {
 	if (zephir_array_isset(&_1, &eventName)) {
 		zephir_read_property(&_2, this_ptr, SL("listeners"), PH_NOISY_CC | PH_READONLY);
 		ZEPHIR_OBS_NVAR(&_0);
-		zephir_array_fetch(&_0, &_2, &eventName, PH_NOISY, "zim/event/dispatcher.zep", 118 TSRMLS_CC);
+		zephir_array_fetch(&_0, &_2, &eventName, PH_NOISY, "zim/event/dispatcher.zep", 117 TSRMLS_CC);
 	} else {
 		ZEPHIR_INIT_NVAR(&_0);
 		array_init(&_0);
@@ -305,9 +356,9 @@ PHP_METHOD(Zim_Event_Dispatcher, addInterfaceListeners) {
 	}
 
 
-	ZEPHIR_CALL_FUNCTION(&_0, "class_implements", NULL, 75, &eventName);
+	ZEPHIR_CALL_FUNCTION(&_0, "class_implements", NULL, 77, &eventName);
 	zephir_check_call_status();
-	zephir_is_iterable(&_0, 0, "zim/event/dispatcher.zep", 141);
+	zephir_is_iterable(&_0, 0, "zim/event/dispatcher.zep", 140);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0), _1)
 	{
 		ZEPHIR_INIT_NVAR(&interfacee);
@@ -315,8 +366,8 @@ PHP_METHOD(Zim_Event_Dispatcher, addInterfaceListeners) {
 		zephir_read_property(&_2$$3, this_ptr, SL("listeners"), PH_NOISY_CC | PH_READONLY);
 		if (zephir_array_isset(&_2$$3, &interfacee)) {
 			zephir_read_property(&_3$$4, this_ptr, SL("listeners"), PH_NOISY_CC | PH_READONLY);
-			zephir_array_fetch(&_4$$4, &_3$$4, &interfacee, PH_NOISY | PH_READONLY, "zim/event/dispatcher.zep", 135 TSRMLS_CC);
-			zephir_is_iterable(&_4$$4, 0, "zim/event/dispatcher.zep", 139);
+			zephir_array_fetch(&_4$$4, &_3$$4, &interfacee, PH_NOISY | PH_READONLY, "zim/event/dispatcher.zep", 134 TSRMLS_CC);
+			zephir_is_iterable(&_4$$4, 0, "zim/event/dispatcher.zep", 138);
 			ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_4$$4), _5$$4)
 			{
 				ZEPHIR_INIT_NVAR(&names);

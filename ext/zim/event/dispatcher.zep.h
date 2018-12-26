@@ -4,6 +4,7 @@ extern zend_class_entry *zim_event_dispatcher_ce;
 ZEPHIR_INIT_CLASS(Zim_Event_Dispatcher);
 
 PHP_METHOD(Zim_Event_Dispatcher, listen);
+PHP_METHOD(Zim_Event_Dispatcher, on);
 PHP_METHOD(Zim_Event_Dispatcher, fire);
 PHP_METHOD(Zim_Event_Dispatcher, parseEventAndPayload);
 PHP_METHOD(Zim_Event_Dispatcher, getListeners);
@@ -15,6 +16,10 @@ zend_object *zephir_init_properties_Zim_Event_Dispatcher(zend_class_entry *class
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_event_dispatcher_listen, 0, 0, 2)
 	ZEND_ARG_INFO(0, events)
 	ZEND_ARG_INFO(0, listener)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_event_dispatcher_on, 0, 0, 1)
+	ZEND_ARG_INFO(0, callback)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_event_dispatcher_fire, 0, 0, 1)
@@ -83,6 +88,7 @@ ZEND_END_ARG_INFO()
 
 ZEPHIR_INIT_FUNCS(zim_event_dispatcher_method_entry) {
 	PHP_ME(Zim_Event_Dispatcher, listen, arginfo_zim_event_dispatcher_listen, ZEND_ACC_PUBLIC)
+	PHP_ME(Zim_Event_Dispatcher, on, arginfo_zim_event_dispatcher_on, ZEND_ACC_PUBLIC)
 	PHP_ME(Zim_Event_Dispatcher, fire, arginfo_zim_event_dispatcher_fire, ZEND_ACC_PUBLIC)
 	PHP_ME(Zim_Event_Dispatcher, parseEventAndPayload, arginfo_zim_event_dispatcher_parseeventandpayload, ZEND_ACC_PROTECTED)
 	PHP_ME(Zim_Event_Dispatcher, getListeners, arginfo_zim_event_dispatcher_getlisteners, ZEND_ACC_PUBLIC)
