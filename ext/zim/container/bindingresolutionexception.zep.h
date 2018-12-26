@@ -1,0 +1,5 @@
+
+extern zend_class_entry *zim_container_bindingresolutionexception_ce;
+
+ZEPHIR_INIT_CLASS(Zim_Container_BindingResolutionException);
+

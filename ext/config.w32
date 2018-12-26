@@ -1,0 +1,27 @@
+ARG_ENABLE("zim", "enable zim", "no");
+
+if (PHP_ZIM != "no") {
+  EXTENSION("zim", "zim.c", null, "-I"+configure_module_dirname);
+  ADD_SOURCES(configure_module_dirname + "/kernel", "main.c memory.c exception.c debug.c backtrace.c object.c array.c string.c fcall.c require.c file.c operators.c math.c concat.c variables.c filter.c iterator.c exit.c time.c", "zim");
+  /* PCRE is always included on WIN32 */
+  AC_DEFINE("ZEPHIR_USE_PHP_PCRE", 1, "Whether PHP pcre extension is present at compile time");
+  if (PHP_JSON != "no") {
+    ADD_EXTENSION_DEP("zim", "json");
+    AC_DEFINE("ZEPHIR_USE_PHP_JSON", 1, "Whether PHP json extension is present at compile time");
+  }
+  
+  ADD_SOURCES(configure_module_dirname + "/zim/event", "httpevent.zep.c dispatcher.zep.c dispatchevent.zep.c event.zep.c exceptionevent.zep.c listener.zep.c listeneron.zep.c requestevent.zep.c responseevent.zep.c terminateevent.zep.c", "zim");
+	ADD_SOURCES(configure_module_dirname + "/zim/http/exception", "exceptioninterface.zep.c exception.zep.c methodnotallowedexception.zep.c notfoundexception.zep.c responseexception.zep.c", "zim");
+	ADD_SOURCES(configure_module_dirname + "/zim/contract", "response.zep.c action.zep.c config.zep.c request.zep.c arrayable.zep.c jsonable.zep.c", "zim");
+	ADD_SOURCES(configure_module_dirname + "/zim/container", "container.zep.c bindingresolutionexception.zep.c containergetclosureclosurezero.zep.c containersetclosureone.zep.c entrynotfoundexception.zep.c", "zim");
+	ADD_SOURCES(configure_module_dirname + "/zim/http", "controller.zep.c headerbag.zep.c parameterbag.zep.c response.zep.c action.zep.c headerutils.zep.c jsonresponse.zep.c kernel.zep.c request.zep.c responseheaderbag.zep.c serverbag.zep.c", "zim");
+	ADD_SOURCES(configure_module_dirname + "/zim/config", "config.zep.c", "zim");
+	ADD_SOURCES(configure_module_dirname + "/zim/debug", "errorhandler.zep.c exceptionhandler.zep.c fatalerrorexception.zep.c flattenexception.zep.c flattenexceptionsetmessageclosurezero.zep.c", "zim");
+	ADD_SOURCES(configure_module_dirname + "/zim/routing", "compiledroute.zep.c registrar.zep.c route.zep.c routecollection.zep.c routecompiler.zep.c router.zep.c", "zim");
+	ADD_SOURCES(configure_module_dirname + "/zim/service", "service.zep.c", "zim");
+	ADD_SOURCES(configure_module_dirname + "/zim/support", "arr.zep.c str.zep.c", "zim");
+	ADD_SOURCES(configure_module_dirname + "/zim", "zim.zep.c", "zim");
+  ADD_FLAG("CFLAGS_ZIM", "/D ZEPHIR_RELEASE /Oi /Ot /Oy /Ob2 /Gs /GF /Gy /GL");
+  ADD_FLAG("CFLAGS", "/D ZEPHIR_RELEASE /Oi /Ot /Oy /Ob2 /Gs /GF /Gy /GL");
+  ADD_FLAG("LDFLAGS", "/LTCG");
+}
