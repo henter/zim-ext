@@ -6,6 +6,7 @@ ZEPHIR_INIT_CLASS(Zim_Http_Kernel);
 PHP_METHOD(Zim_Http_Kernel, __construct);
 PHP_METHOD(Zim_Http_Kernel, bootstrapRoutes);
 PHP_METHOD(Zim_Http_Kernel, handle);
+PHP_METHOD(Zim_Http_Kernel, handleRequest);
 PHP_METHOD(Zim_Http_Kernel, handleException);
 PHP_METHOD(Zim_Http_Kernel, guessController);
 PHP_METHOD(Zim_Http_Kernel, getDefaultRoute);
@@ -26,6 +27,10 @@ ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_zim_http_kernel_handle, 0, 1, Zim
 #else
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_zim_http_kernel_handle, 0, 1, IS_OBJECT, "Zim\\Http\\Response", 0)
 #endif
+	ZEND_ARG_OBJ_INFO(0, request, Zim\\Http\\Request, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_zim_http_kernel_handlerequest, 0, 0, 1)
 	ZEND_ARG_OBJ_INFO(0, request, Zim\\Http\\Request, 0)
 ZEND_END_ARG_INFO()
 
@@ -97,6 +102,7 @@ ZEPHIR_INIT_FUNCS(zim_http_kernel_method_entry) {
 	PHP_ME(Zim_Http_Kernel, __construct, arginfo_zim_http_kernel___construct, ZEND_ACC_PUBLIC|ZEND_ACC_CTOR)
 	PHP_ME(Zim_Http_Kernel, bootstrapRoutes, NULL, ZEND_ACC_PROTECTED)
 	PHP_ME(Zim_Http_Kernel, handle, arginfo_zim_http_kernel_handle, ZEND_ACC_PUBLIC)
+	PHP_ME(Zim_Http_Kernel, handleRequest, arginfo_zim_http_kernel_handlerequest, ZEND_ACC_PRIVATE)
 	PHP_ME(Zim_Http_Kernel, handleException, arginfo_zim_http_kernel_handleexception, ZEND_ACC_PRIVATE)
 	PHP_ME(Zim_Http_Kernel, guessController, arginfo_zim_http_kernel_guesscontroller, ZEND_ACC_PROTECTED)
 	PHP_ME(Zim_Http_Kernel, getDefaultRoute, arginfo_zim_http_kernel_getdefaultroute, ZEND_ACC_PROTECTED)

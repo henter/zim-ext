@@ -101,7 +101,7 @@ PHP_METHOD(Zim_Http_Kernel, bootstrapRoutes) {
 	if (Z_TYPE_P(&configs) != IS_ARRAY) {
 		RETURN_MM_BOOL(0);
 	}
-	zephir_is_iterable(&configs, 0, "zim/http/kernel.zep", 56);
+	zephir_is_iterable(&configs, 0, "zim/http/kernel.zep", 57);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&configs), _3, _4, _2)
 	{
 		ZEPHIR_INIT_NVAR(&pattern);
@@ -133,7 +133,7 @@ PHP_METHOD(Zim_Http_Kernel, handle) {
 
 	zephir_fcall_cache_entry *_3 = NULL;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *request, request_sub, requestEvent, resp, response, e, respEvent, _0, _1, _2, _4$$4;
+	zval *request, request_sub, requestEvent, resp, response, e, respEvent, _4, _0$$3, _1$$3, _2$$3;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&request_sub);
@@ -142,84 +142,107 @@ PHP_METHOD(Zim_Http_Kernel, handle) {
 	ZVAL_UNDEF(&response);
 	ZVAL_UNDEF(&e);
 	ZVAL_UNDEF(&respEvent);
-	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_1);
-	ZVAL_UNDEF(&_2);
-	ZVAL_UNDEF(&_4$$4);
+	ZVAL_UNDEF(&_4);
+	ZVAL_UNDEF(&_0$$3);
+	ZVAL_UNDEF(&_1$$3);
+	ZVAL_UNDEF(&_2$$3);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 0, &request);
 
 
 
-	zephir_read_property(&_0, this_ptr, SL("zim"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_INIT_VAR(&_1);
-	ZVAL_STRING(&_1, "request");
-	ZEPHIR_CALL_METHOD(NULL, &_0, "instance", NULL, 0, &_1, request);
-	zephir_check_call_status();
-	zephir_read_property(&_2, this_ptr, SL("zim"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_METHOD(NULL, &_2, "boot", NULL, 0);
-	zephir_check_call_status();
-	ZEPHIR_INIT_VAR(&requestEvent);
-	object_init_ex(&requestEvent, zim_event_requestevent_ce);
-	ZEPHIR_CALL_METHOD(NULL, &requestEvent, "__construct", NULL, 85, request);
-	zephir_check_call_status();
-	ZEPHIR_CALL_CE_STATIC(NULL, zim_event_event_ce, "fire", &_3, 0, &requestEvent);
-	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(&resp, &requestEvent, "getresponse", NULL, 86);
-	zephir_check_call_status();
-	if (zephir_is_true(&resp)) {
-		ZEPHIR_RETURN_CALL_METHOD(&resp, "prepare", NULL, 0, request);
-		zephir_check_call_status();
-		RETURN_MM();
-	}
 
 	/* try_start_1: */
 
-
-		/* try_start_2: */
-
-			ZEPHIR_CALL_METHOD(&response, this_ptr, "dispatchtorouter", NULL, 0, request);
-			zephir_check_call_status_or_jump(try_end_2);
-
-		try_end_2:
-
-		if (EG(exception)) {
-			ZEPHIR_INIT_VAR(&_4$$4);
-			ZVAL_OBJ(&_4$$4, EG(exception));
-			Z_ADDREF_P(&_4$$4);
-			if (zephir_instance_of_ev(&_4$$4, zim_http_exception_notfoundexception_ce TSRMLS_CC)) {
-				zend_clear_exception(TSRMLS_C);
-				ZEPHIR_CPY_WRT(&e, &_4$$4);
-				ZEPHIR_CALL_METHOD(&response, this_ptr, "dispatchtodefault", NULL, 0, request);
-				zephir_check_call_status_or_jump(try_end_2);
-			}
+		zephir_read_property(&_0$$3, this_ptr, SL("zim"), PH_NOISY_CC | PH_READONLY);
+		ZEPHIR_INIT_VAR(&_1$$3);
+		ZVAL_STRING(&_1$$3, "request");
+		ZEPHIR_CALL_METHOD(NULL, &_0$$3, "instance", NULL, 0, &_1$$3, request);
+		zephir_check_call_status_or_jump(try_end_1);
+		zephir_read_property(&_2$$3, this_ptr, SL("zim"), PH_NOISY_CC | PH_READONLY);
+		ZEPHIR_CALL_METHOD(NULL, &_2$$3, "boot", NULL, 0);
+		zephir_check_call_status_or_jump(try_end_1);
+		ZEPHIR_INIT_VAR(&requestEvent);
+		object_init_ex(&requestEvent, zim_event_requestevent_ce);
+		ZEPHIR_CALL_METHOD(NULL, &requestEvent, "__construct", NULL, 85, request);
+		zephir_check_call_status_or_jump(try_end_1);
+		ZEPHIR_CALL_CE_STATIC(NULL, zim_event_event_ce, "fire", &_3, 0, &requestEvent);
+		zephir_check_call_status_or_jump(try_end_1);
+		ZEPHIR_CALL_METHOD(&resp, &requestEvent, "getresponse", NULL, 86);
+		zephir_check_call_status_or_jump(try_end_1);
+		if (zephir_is_true(&resp)) {
+			ZEPHIR_RETURN_CALL_METHOD(&resp, "prepare", NULL, 0, request);
+			zephir_check_call_status_or_jump(try_end_1);
+			RETURN_MM();
 		}
+		ZEPHIR_CALL_METHOD(&response, this_ptr, "handlerequest", NULL, 87, request);
+		zephir_check_call_status_or_jump(try_end_1);
 		ZEPHIR_INIT_VAR(&respEvent);
 		object_init_ex(&respEvent, zim_event_responseevent_ce);
 		ZEPHIR_CALL_METHOD(NULL, &respEvent, "__construct", NULL, 85, request, &response);
-		zephir_check_call_status_or_jump(try_end_2);
+		zephir_check_call_status_or_jump(try_end_1);
 		ZEPHIR_CALL_CE_STATIC(NULL, zim_event_event_ce, "fire", &_3, 0, &respEvent);
-		zephir_check_call_status_or_jump(try_end_2);
+		zephir_check_call_status_or_jump(try_end_1);
 		ZEPHIR_CALL_METHOD(&response, &respEvent, "getresponse", NULL, 86);
-		zephir_check_call_status_or_jump(try_end_2);
+		zephir_check_call_status_or_jump(try_end_1);
 
 	try_end_1:
 
 	if (EG(exception)) {
-		ZEPHIR_INIT_NVAR(&_1);
-		ZVAL_OBJ(&_1, EG(exception));
-		Z_ADDREF_P(&_1);
-		if (zephir_is_instance_of(&_1, SL("Throwable") TSRMLS_CC)) {
+		ZEPHIR_INIT_VAR(&_4);
+		ZVAL_OBJ(&_4, EG(exception));
+		Z_ADDREF_P(&_4);
+		if (zephir_is_instance_of(&_4, SL("Throwable") TSRMLS_CC)) {
 			zend_clear_exception(TSRMLS_C);
-			ZEPHIR_CPY_WRT(&e, &_1);
-			ZEPHIR_CALL_METHOD(&response, this_ptr, "handleexception", NULL, 87, &e, request);
+			ZEPHIR_CPY_WRT(&e, &_4);
+			ZEPHIR_CALL_METHOD(&response, this_ptr, "handleexception", NULL, 88, &e, request);
 			zephir_check_call_status();
 		}
 	}
 	ZEPHIR_RETURN_CALL_METHOD(&response, "prepare", NULL, 0, request);
 	zephir_check_call_status();
 	RETURN_MM();
+
+}
+
+PHP_METHOD(Zim_Http_Kernel, handleRequest) {
+
+	zend_long ZEPHIR_LAST_CALL_STATUS;
+	zval *request, request_sub, response, _0, _1;
+	zval *this_ptr = getThis();
+
+	ZVAL_UNDEF(&request_sub);
+	ZVAL_UNDEF(&response);
+	ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&_1);
+
+	ZEPHIR_MM_GROW();
+	zephir_fetch_params(1, 1, 0, &request);
+
+
+
+
+	/* try_start_1: */
+
+		ZEPHIR_CALL_METHOD(&response, this_ptr, "dispatchtorouter", NULL, 0, request);
+		zephir_check_call_status_or_jump(try_end_1);
+
+	try_end_1:
+
+	if (EG(exception)) {
+		ZEPHIR_INIT_VAR(&_0);
+		ZVAL_OBJ(&_0, EG(exception));
+		Z_ADDREF_P(&_0);
+		ZEPHIR_INIT_VAR(&_1);
+		if (zephir_instance_of_ev(&_0, zim_http_exception_notfoundexception_ce TSRMLS_CC)) {
+			zend_clear_exception(TSRMLS_C);
+			ZEPHIR_CPY_WRT(&_1, &_0);
+			ZEPHIR_CALL_METHOD(&response, this_ptr, "dispatchtodefault", NULL, 0, request);
+			zephir_check_call_status();
+		}
+	}
+	RETURN_CCTOR(&response);
 
 }
 
@@ -233,18 +256,17 @@ PHP_METHOD(Zim_Http_Kernel, handle) {
  */
 PHP_METHOD(Zim_Http_Kernel, handleException) {
 
-	zend_class_entry *_0 = NULL;
-	zephir_fcall_cache_entry *_1 = NULL;
+	zephir_fcall_cache_entry *_0 = NULL;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *e, e_sub, *request, request_sub, event, resp, _2, _3;
+	zval *e, e_sub, *request, request_sub, event, resp, _1, _2;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&e_sub);
 	ZVAL_UNDEF(&request_sub);
 	ZVAL_UNDEF(&event);
 	ZVAL_UNDEF(&resp);
+	ZVAL_UNDEF(&_1);
 	ZVAL_UNDEF(&_2);
-	ZVAL_UNDEF(&_3);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 2, 0, &e, &request);
@@ -252,22 +274,17 @@ PHP_METHOD(Zim_Http_Kernel, handleException) {
 
 
 	ZEPHIR_INIT_VAR(&event);
-	if (!_0) {
-	_0 = zephir_fetch_class_str_ex(SL("Zim\\Http\\ExceptionEvent"), ZEND_FETCH_CLASS_AUTO);
-	}
-	object_init_ex(&event, _0);
-	if (zephir_has_constructor(&event TSRMLS_CC)) {
-		ZEPHIR_CALL_METHOD(NULL, &event, "__construct", NULL, 0, e, request);
-		zephir_check_call_status();
-	}
-	ZVAL_NULL(&_2);
-	ZVAL_BOOL(&_3, 1);
-	ZEPHIR_CALL_CE_STATIC(NULL, zim_event_event_ce, "fire", &_1, 0, &event, &_2, &_3);
+	object_init_ex(&event, zim_event_exceptionevent_ce);
+	ZEPHIR_CALL_METHOD(NULL, &event, "__construct", NULL, 89, e, request);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(&resp, &event, "getresponse", NULL, 0);
+	ZVAL_NULL(&_1);
+	ZVAL_BOOL(&_2, 1);
+	ZEPHIR_CALL_CE_STATIC(NULL, zim_event_event_ce, "fire", &_0, 0, &event, &_1, &_2);
+	zephir_check_call_status();
+	ZEPHIR_CALL_METHOD(&resp, &event, "getresponse", NULL, 90);
 	zephir_check_call_status();
 	if (!(zephir_is_true(&resp))) {
-		zephir_throw_exception_debug(e, "zim/http/kernel.zep", 107 TSRMLS_CC);
+		zephir_throw_exception_debug(e, "zim/http/kernel.zep", 113 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}
@@ -317,7 +334,7 @@ PHP_METHOD(Zim_Http_Kernel, guessController) {
 	}
 	ZEPHIR_INIT_VAR(&_2);
 	ZVAL_STRING(&_2, "APP_PATH");
-	ZEPHIR_CALL_FUNCTION(&_3, "defined", NULL, 88, &_2);
+	ZEPHIR_CALL_FUNCTION(&_3, "defined", NULL, 91, &_2);
 	zephir_check_call_status();
 	if (!(zephir_is_true(&_3))) {
 		RETURN_MM_BOOL(0);
@@ -328,9 +345,9 @@ PHP_METHOD(Zim_Http_Kernel, guessController) {
 	ZEPHIR_GET_CONSTANT(&_2, "APP_PATH");
 	ZEPHIR_INIT_VAR(&_4);
 	ZEPHIR_CONCAT_VSV(&_4, &_2, "/Controller/*", &suffix);
-	ZEPHIR_CALL_FUNCTION(&files, "glob", NULL, 89, &_4);
+	ZEPHIR_CALL_FUNCTION(&files, "glob", NULL, 92, &_4);
 	zephir_check_call_status();
-	zephir_is_iterable(&files, 0, "zim/http/kernel.zep", 137);
+	zephir_is_iterable(&files, 0, "zim/http/kernel.zep", 143);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&files), _5)
 	{
 		ZEPHIR_INIT_NVAR(&file);
@@ -394,7 +411,7 @@ PHP_METHOD(Zim_Http_Kernel, getDefaultRoute) {
 	ZVAL_STRING(&_3, "/");
 	zephir_fast_trim(&_1, &_2, &_3, ZEPHIR_TRIM_BOTH TSRMLS_CC);
 	zephir_fast_explode_str(&_0, SL("/"), &_1, LONG_MAX TSRMLS_CC);
-	ZEPHIR_CALL_FUNCTION(&segments, "array_filter", NULL, 90, &_0);
+	ZEPHIR_CALL_FUNCTION(&segments, "array_filter", NULL, 93, &_0);
 	zephir_check_call_status();
 	if (!(zephir_is_true(&segments))) {
 		zephir_create_array(return_value, 2, 0 TSRMLS_CC);
@@ -409,12 +426,12 @@ PHP_METHOD(Zim_Http_Kernel, getDefaultRoute) {
 	if (zephir_array_isset_long(&segments, 1)) {
 		ZEPHIR_CPY_WRT(&tmpListCA, &segments);
 		ZEPHIR_OBS_VAR(&c);
-		zephir_array_fetch_long(&c, &tmpListCA, 0, PH_NOISY, "zim/http/kernel.zep", 163 TSRMLS_CC);
+		zephir_array_fetch_long(&c, &tmpListCA, 0, PH_NOISY, "zim/http/kernel.zep", 169 TSRMLS_CC);
 		ZEPHIR_OBS_VAR(&a);
-		zephir_array_fetch_long(&a, &tmpListCA, 1, PH_NOISY, "zim/http/kernel.zep", 164 TSRMLS_CC);
+		zephir_array_fetch_long(&a, &tmpListCA, 1, PH_NOISY, "zim/http/kernel.zep", 170 TSRMLS_CC);
 	} else {
 		ZEPHIR_OBS_NVAR(&c);
-		zephir_array_fetch_long(&c, &segments, 0, PH_NOISY, "zim/http/kernel.zep", 166 TSRMLS_CC);
+		zephir_array_fetch_long(&c, &segments, 0, PH_NOISY, "zim/http/kernel.zep", 172 TSRMLS_CC);
 		ZEPHIR_INIT_NVAR(&a);
 		ZVAL_STRING(&a, "index");
 	}
@@ -425,7 +442,7 @@ PHP_METHOD(Zim_Http_Kernel, getDefaultRoute) {
 		ZEPHIR_INIT_NVAR(&c);
 		ZVAL_STRING(&c, "Index");
 		ZEPHIR_OBS_NVAR(&a);
-		zephir_array_fetch_long(&a, &segments, 0, PH_NOISY, "zim/http/kernel.zep", 173 TSRMLS_CC);
+		zephir_array_fetch_long(&a, &segments, 0, PH_NOISY, "zim/http/kernel.zep", 179 TSRMLS_CC);
 	}
 	zephir_create_array(return_value, 2, 0 TSRMLS_CC);
 	zephir_array_fast_append(return_value, &c);
@@ -483,9 +500,9 @@ PHP_METHOD(Zim_Http_Kernel, dispatchToDefault) {
 	ZEPHIR_CALL_METHOD(&tmpListCA, this_ptr, "getdefaultroute", NULL, 0, request);
 	zephir_check_call_status();
 	ZEPHIR_OBS_VAR(&c);
-	zephir_array_fetch_long(&c, &tmpListCA, 0, PH_NOISY, "zim/http/kernel.zep", 200 TSRMLS_CC);
+	zephir_array_fetch_long(&c, &tmpListCA, 0, PH_NOISY, "zim/http/kernel.zep", 206 TSRMLS_CC);
 	ZEPHIR_OBS_VAR(&a);
-	zephir_array_fetch_long(&a, &tmpListCA, 1, PH_NOISY, "zim/http/kernel.zep", 201 TSRMLS_CC);
+	zephir_array_fetch_long(&a, &tmpListCA, 1, PH_NOISY, "zim/http/kernel.zep", 207 TSRMLS_CC);
 	zephir_read_property(&_0, this_ptr, SL("zim"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_INIT_VAR(&_1);
 	ZEPHIR_CONCAT_SVS(&_1, "App\\Controller\\", &c, "Controller");
@@ -501,12 +518,12 @@ PHP_METHOD(Zim_Http_Kernel, dispatchToDefault) {
 		if (!(zephir_is_callable(&call TSRMLS_CC))) {
 			ZEPHIR_INIT_VAR(&_2$$4);
 			object_init_ex(&_2$$4, zim_http_exception_notfoundexception_ce);
-			zephir_array_fetch_long(&_3$$4, &call, 1, PH_NOISY | PH_READONLY, "zim/http/kernel.zep", 212 TSRMLS_CC);
+			zephir_array_fetch_long(&_3$$4, &call, 1, PH_NOISY | PH_READONLY, "zim/http/kernel.zep", 218 TSRMLS_CC);
 			ZEPHIR_INIT_VAR(&_4$$4);
 			ZEPHIR_CONCAT_SV(&_4$$4, "action not found ", &_3$$4);
-			ZEPHIR_CALL_METHOD(NULL, &_2$$4, "__construct", &_5, 91, &_4$$4);
+			ZEPHIR_CALL_METHOD(NULL, &_2$$4, "__construct", &_5, 94, &_4$$4);
 			zephir_check_call_status();
-			zephir_throw_exception_debug(&_2$$4, "zim/http/kernel.zep", 212 TSRMLS_CC);
+			zephir_throw_exception_debug(&_2$$4, "zim/http/kernel.zep", 218 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
 			return;
 		}
@@ -518,7 +535,7 @@ PHP_METHOD(Zim_Http_Kernel, dispatchToDefault) {
 			_6$$5 = !(zephir_class_exists(&actionClass, 1 TSRMLS_CC));
 		}
 		if (_6$$5) {
-			ZEPHIR_THROW_EXCEPTION_DEBUG_STR(zim_http_exception_notfoundexception_ce, "action not found", "zim/http/kernel.zep", 218);
+			ZEPHIR_THROW_EXCEPTION_DEBUG_STR(zim_http_exception_notfoundexception_ce, "action not found", "zim/http/kernel.zep", 224);
 			return;
 		}
 		zephir_create_array(&call, 2, 0 TSRMLS_CC);
@@ -593,12 +610,12 @@ PHP_METHOD(Zim_Http_Kernel, dispatchToRouter) {
 		if (!(zephir_is_callable(&call TSRMLS_CC))) {
 			ZEPHIR_INIT_VAR(&_6$$4);
 			object_init_ex(&_6$$4, zim_http_exception_notfoundexception_ce);
-			zephir_array_fetch_long(&_7$$4, &call, 1, PH_NOISY | PH_READONLY, "zim/http/kernel.zep", 243 TSRMLS_CC);
+			zephir_array_fetch_long(&_7$$4, &call, 1, PH_NOISY | PH_READONLY, "zim/http/kernel.zep", 249 TSRMLS_CC);
 			ZEPHIR_INIT_VAR(&_8$$4);
 			ZEPHIR_CONCAT_SV(&_8$$4, "action not found ", &_7$$4);
-			ZEPHIR_CALL_METHOD(NULL, &_6$$4, "__construct", NULL, 91, &_8$$4);
+			ZEPHIR_CALL_METHOD(NULL, &_6$$4, "__construct", NULL, 94, &_8$$4);
 			zephir_check_call_status();
-			zephir_throw_exception_debug(&_6$$4, "zim/http/kernel.zep", 243 TSRMLS_CC);
+			zephir_throw_exception_debug(&_6$$4, "zim/http/kernel.zep", 249 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
 			return;
 		}
@@ -657,11 +674,11 @@ PHP_METHOD(Zim_Http_Kernel, doDispatch) {
 		ZEPHIR_INIT_VAR(&_1$$3);
 		zephir_create_array(&_1$$3, 2, 0 TSRMLS_CC);
 		ZEPHIR_INIT_VAR(&_2$$3);
-		zephir_array_fetch_long(&_3$$3, call, 0, PH_NOISY | PH_READONLY, "zim/http/kernel.zep", 260 TSRMLS_CC);
+		zephir_array_fetch_long(&_3$$3, call, 0, PH_NOISY | PH_READONLY, "zim/http/kernel.zep", 266 TSRMLS_CC);
 		zephir_get_class(&_2$$3, &_3$$3, 0 TSRMLS_CC);
 		zephir_array_fast_append(&_1$$3, &_2$$3);
 		ZEPHIR_OBS_VAR(&_4$$3);
-		zephir_array_fetch_long(&_4$$3, call, 1, PH_NOISY, "zim/http/kernel.zep", 260 TSRMLS_CC);
+		zephir_array_fetch_long(&_4$$3, call, 1, PH_NOISY, "zim/http/kernel.zep", 266 TSRMLS_CC);
 		zephir_array_fast_append(&_1$$3, &_4$$3);
 		ZEPHIR_INIT_NVAR(&_2$$3);
 		ZVAL_STRING(&_2$$3, "callable");
@@ -813,7 +830,7 @@ PHP_METHOD(Zim_Http_Kernel, terminate) {
 
 	ZEPHIR_INIT_VAR(&_1);
 	object_init_ex(&_1, zim_event_terminateevent_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_1, "__construct", NULL, 92, request, response);
+	ZEPHIR_CALL_METHOD(NULL, &_1, "__construct", NULL, 95, request, response);
 	zephir_check_call_status();
 	ZEPHIR_CALL_CE_STATIC(NULL, zim_event_event_ce, "fire", &_0, 0, &_1);
 	zephir_check_call_status();

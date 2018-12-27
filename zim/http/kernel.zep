@@ -5,11 +5,12 @@
  */
 namespace Zim\Http;
 
-use Zim\Event\DispatchEvent;
 use Zim\Event\Event;
+use Zim\Event\DispatchEvent;
 use Zim\Event\RequestEvent;
 use Zim\Event\ResponseEvent;
 use Zim\Event\TerminateEvent;
+use Zim\Event\ExceptionEvent;
 use Zim\Routing\Router;
 use Zim\Support\Str;
 use Zim\Zim;
@@ -64,22 +65,17 @@ class Kernel
     public function handle(<Request> request) -> <Response>
     {
         var requestEvent, resp, response, e, respEvent;
-    
-        this->zim->instance("request", request);
-        this->zim->boot();
-        let requestEvent = new RequestEvent(request);
-        Event::fire(requestEvent);
-        let resp = requestEvent->getResponse();
-        if resp {
-            return resp->prepare(request);
-        }
-
         try {
-            try {
-                let response = this->dispatchToRouter(request);
-            } catch NotFoundException, e {
-                let response = this->dispatchToDefault(request);
+            this->zim->instance("request", request);
+            this->zim->boot();
+            let requestEvent = new RequestEvent(request);
+            Event::fire(requestEvent);
+            let resp = requestEvent->getResponse();
+            if resp {
+                return resp->prepare(request);
             }
+
+            let response = this->handleRequest(request);
             let respEvent = new ResponseEvent(request, response);
             Event::fire(respEvent);
             let response = respEvent->getResponse();
@@ -87,6 +83,16 @@ class Kernel
             let response = this->handleException(e, request);
         }
         return response->prepare(request);
+    }
+
+    private function handleRequest(<Request> request) {
+        var response;
+        try {
+            let response = this->dispatchToRouter(request);
+        } catch NotFoundException {
+            let response = this->dispatchToDefault(request);
+        }
+        return response;
     }
 
     /**
