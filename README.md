@@ -20,7 +20,7 @@ The demo project [zim-demo](https://github.com/henter/zim-demo)
 git clone https://github.com/henter/zim
 cd zim/ext
 ```
-run `install` to compile && enable by default 
+run `install` to compile && install zim.so file
 ```
 ./install
 ```
