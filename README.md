@@ -15,15 +15,34 @@ The demo project [zim-demo](https://github.com/henter/zim-demo)
 
 ### Install
 
+* require `phpize`, `php-config` (from via `php-devel` extension)
 ```
 git clone https://github.com/henter/zim
 cd zim/ext
+```
+run `install` to compile && enable by default 
+```
 ./install
-
-php -m|grep zim
 ```
 
 or build the extension manually, follow `ext/install` shell script
+
+```
+/path/to/phpize
+./configure --with-php-config=/path/to/php-config
+make && make install
+```
+
+Then enable zim extension to your php.ini (after json.so)
+
+```
+extension=zim.so
+```
+
+check if is installed successful
+```
+php -m|grep zim
+```
 
 ### Usage
 
