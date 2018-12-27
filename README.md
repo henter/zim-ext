@@ -16,8 +16,8 @@ The demo project [zim-demo](https://github.com/henter/zim-demo)
 ### Install
 
 ```
-git clone https://github.com/henter/zim-ext
-cd zim-ext/ext
+git clone https://github.com/henter/zim
+cd zim/ext
 ./install
 
 php -m|grep zim
