@@ -114,7 +114,7 @@ PHP_METHOD(Zim_Http_JsonResponse, __construct) {
 	if (Z_TYPE_P(data) == IS_NULL) {
 		ZEPHIR_INIT_NVAR(data);
 		object_init_ex(data, spl_ce_ArrayObject);
-		ZEPHIR_CALL_METHOD(NULL, data, "__construct", NULL, 73);
+		ZEPHIR_CALL_METHOD(NULL, data, "__construct", NULL, 52);
 		zephir_check_call_status();
 	}
 	if (json) {
@@ -176,7 +176,7 @@ PHP_METHOD(Zim_Http_JsonResponse, create) {
 
 	object_init_ex(return_value, zim_http_jsonresponse_ce);
 	ZVAL_LONG(&_0, status);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 81, data, &_0, &headers);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 78, data, &_0, &headers);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -218,7 +218,7 @@ PHP_METHOD(Zim_Http_JsonResponse, fromJsonString) {
 
 	object_init_ex(return_value, zim_http_jsonresponse_ce);
 	ZVAL_BOOL(&_0, 1);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 81, data, status, headers, &_0);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 78, data, status, headers, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -414,7 +414,7 @@ PHP_METHOD(Zim_Http_JsonResponse, setCallback) {
 			zephir_preg_match(&_3$$4, &pattern, &part, &_2$$4, 0, 0 , 0  TSRMLS_CC);
 			_4$$4 = !zephir_is_true(&_3$$4);
 			if (!(_4$$4)) {
-				ZEPHIR_CALL_FUNCTION(&_5$$4, "in_array", &_6, 82, &part, &reserved, &__$true);
+				ZEPHIR_CALL_FUNCTION(&_5$$4, "in_array", &_6, 79, &part, &reserved, &__$true);
 				zephir_check_call_status();
 				_4$$4 = zephir_is_true(&_5$$4);
 			}
@@ -573,14 +573,14 @@ PHP_METHOD(Zim_Http_JsonResponse, setData) {
 		zephir_json_encode(&_10$$8, data, zephir_get_intval(&_11$$8) );
 		zephir_update_property_zval(this_ptr, SL("data"), &_10$$8);
 	}
-	ZEPHIR_CALL_FUNCTION(&_13, "json_last_error", NULL, 83);
+	ZEPHIR_CALL_FUNCTION(&_13, "json_last_error", NULL, 80);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(&_12, this_ptr, "hasvalidjson", NULL, 0, &_13);
 	zephir_check_call_status();
 	if (!(zephir_is_true(&_12))) {
 		ZEPHIR_INIT_VAR(&_14$$9);
 		object_init_ex(&_14$$9, spl_ce_InvalidArgumentException);
-		ZEPHIR_CALL_FUNCTION(&_15$$9, "json_last_error_msg", NULL, 84);
+		ZEPHIR_CALL_FUNCTION(&_15$$9, "json_last_error_msg", NULL, 81);
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &_14$$9, "__construct", NULL, 32, &_15$$9);
 		zephir_check_call_status();

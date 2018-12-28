@@ -15,7 +15,7 @@ The demo project [zim-demo](https://github.com/henter/zim-demo)
 
 ### Install
 
-* require `phpize`, `php-config` (from via `php-devel` extension)
+* requires `phpize`, `php-config` (from `php-devel` extension)
 ```
 git clone https://github.com/henter/zim
 cd zim/ext

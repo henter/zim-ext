@@ -256,7 +256,7 @@ PHP_METHOD(Zim_Http_ResponseHeaderBag, set) {
 	ZEPHIR_INIT_NVAR(&_4);
 	ZVAL_STRING(&_4, "expires");
 	zephir_array_fast_append(&cacheHeaders, &_4);
-	ZEPHIR_CALL_FUNCTION(&_5, "in_array", NULL, 82, &uniqueKey, &cacheHeaders, &__$true);
+	ZEPHIR_CALL_FUNCTION(&_5, "in_array", NULL, 79, &uniqueKey, &cacheHeaders, &__$true);
 	zephir_check_call_status();
 	if (zephir_is_true(&_5)) {
 		ZEPHIR_CALL_METHOD(&computed, this_ptr, "computecachecontrolvalue", NULL, 0);

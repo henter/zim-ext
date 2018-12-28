@@ -16,7 +16,7 @@ if (PHP_ZIM != "no") {
 	ADD_SOURCES(configure_module_dirname + "/zim/container", "container.zep.c bindingresolutionexception.zep.c containergetclosureclosurezero.zep.c containersetclosureone.zep.c entrynotfoundexception.zep.c", "zim");
 	ADD_SOURCES(configure_module_dirname + "/zim/http", "controller.zep.c headerbag.zep.c parameterbag.zep.c response.zep.c action.zep.c headerutils.zep.c jsonresponse.zep.c kernel.zep.c request.zep.c responseheaderbag.zep.c serverbag.zep.c", "zim");
 	ADD_SOURCES(configure_module_dirname + "/zim/config", "config.zep.c", "zim");
-	ADD_SOURCES(configure_module_dirname + "/zim/debug", "errorhandler.zep.c exceptionhandler.zep.c fatalerrorexception.zep.c flattenexception.zep.c flattenexceptionsetmessageclosurezero.zep.c", "zim");
+	ADD_SOURCES(configure_module_dirname + "/zim/debug", "fatalerrorexception.zep.c flattenexception.zep.c flattenexceptionsetmessageclosurezero.zep.c handler.zep.c", "zim");
 	ADD_SOURCES(configure_module_dirname + "/zim/routing", "compiledroute.zep.c registrar.zep.c route.zep.c routecollection.zep.c routecompiler.zep.c router.zep.c", "zim");
 	ADD_SOURCES(configure_module_dirname + "/zim/service", "service.zep.c", "zim");
 	ADD_SOURCES(configure_module_dirname + "/zim/support", "arr.zep.c str.zep.c", "zim");

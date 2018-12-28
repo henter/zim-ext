@@ -118,12 +118,12 @@ PHP_METHOD(Zim_Debug_FatalErrorException, setTrace) {
 	ZVAL_STRING(&_0, "Exception");
 	ZEPHIR_INIT_VAR(&_1);
 	ZVAL_STRING(&_1, "trace");
-	ZEPHIR_CALL_METHOD(NULL, &traceReflector, "__construct", NULL, 39, &_0, &_1);
+	ZEPHIR_CALL_METHOD(NULL, &traceReflector, "__construct", NULL, 34, &_0, &_1);
 	zephir_check_call_status();
 	ZVAL_BOOL(&_2, 1);
-	ZEPHIR_CALL_METHOD(NULL, &traceReflector, "setaccessible", NULL, 56, &_2);
+	ZEPHIR_CALL_METHOD(NULL, &traceReflector, "setaccessible", NULL, 35, &_2);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &traceReflector, "setvalue", NULL, 57, this_ptr, trace);
+	ZEPHIR_CALL_METHOD(NULL, &traceReflector, "setvalue", NULL, 36, this_ptr, trace);
 	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();
 

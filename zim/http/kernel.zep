@@ -110,7 +110,9 @@ class Kernel
         Event::fire(event, null, true);
         let resp = event->getResponse();
         if !resp {
-            throw e;
+            //seems zehpir bug, exception handler cannot catch exception in a try-catch flow
+            //throw e;
+            let resp = new Response(\Zim\Debug\Handler::getInstance()->getHtml(e));
         }
 
         return resp;

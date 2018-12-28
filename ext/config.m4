@@ -28,11 +28,10 @@ if test "$PHP_ZIM" = "yes"; then
 	zim/container/entrynotfoundexception.zep.c
 	zim/contract/arrayable.zep.c
 	zim/contract/jsonable.zep.c
-	zim/debug/errorhandler.zep.c
-	zim/debug/exceptionhandler.zep.c
 	zim/debug/fatalerrorexception.zep.c
 	zim/debug/flattenexception.zep.c
 	zim/debug/flattenexceptionsetmessageclosurezero.zep.c
+	zim/debug/handler.zep.c
 	zim/event/dispatcher.zep.c
 	zim/event/dispatchevent.zep.c
 	zim/event/event.zep.c

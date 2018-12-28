@@ -10,8 +10,7 @@ use Zim\Container\Container;
 use Zim\Event\Event;
 use Zim\Service\LogService;
 use Zim\Service\Service;
-use Zim\Debug\ErrorHandler;
-use Zim\Debug\ExceptionHandler;
+use Zim\Debug\Handler as DebugHandler;
 use Zim\Event\Dispatcher;
 use Zim\Routing\Router;
 use Zim\Http\Request;
@@ -300,8 +299,7 @@ class Zim extends Container
         //do not handle for console
         if !this->inConsole() {
             ini_set("display_errors", 0);
-            ExceptionHandler::register();
-            ErrorHandler::register();
+            DebugHandler::register();
         }
     }
 
