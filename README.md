@@ -1,12 +1,12 @@
-# [WIP] The Zim Framework
+# The Zim Framework
 
 ### About
 
-Zim is a simple framework inspired by Yaf, Laravel, Symfony, based on Zephir Language.
+Zim is a simple framework inspired(copy/paste 😄) by Yaf, Laravel, Symfony, based on Zephir Language.
 
-Delivered as a C extension for the PHP language, or you can choose the pure php implementation [zim-php](https://github.com/henter/zim-php)
+Delivered as a C extension for the PHP language via [zim-ext](https://github.com/henter/zim-ext) , or you can choose the pure php implementation [zim-php](https://github.com/henter/zim-php)
 
-The demo project [zim-demo](https://github.com/henter/zim-demo)
+The demo project [zim](https://github.com/henter/zim)
 
 ### Requirements
 
@@ -17,7 +17,7 @@ The demo project [zim-demo](https://github.com/henter/zim-demo)
 
 * requires `phpize`, `php-config` (from `php-devel` extension)
 ```
-git clone https://github.com/henter/zim
+git clone https://github.com/henter/zim-ext
 cd zim/ext
 ```
 run `install` to compile && install zim.so file
@@ -69,7 +69,7 @@ start simple server:
 
 open [http://localhost:8888](http://localhost:8888)
 
-more usage at [zim-demo](https://github.com/henter/zim-demo)
+more usage at [zim](https://github.com/henter/zim)
 
 ### Tests
 
