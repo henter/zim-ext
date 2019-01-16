@@ -404,7 +404,7 @@ PHP_METHOD(Zim_Http_JsonResponse, setCallback) {
 		zephir_array_fast_append(&reserved, &_0$$3);
 		ZEPHIR_INIT_VAR(&parts);
 		zephir_fast_explode_str(&parts, SL("."), callback, LONG_MAX TSRMLS_CC);
-		zephir_is_iterable(&parts, 0, "zim/http/jsonresponse.zep", 112);
+		zephir_is_iterable(&parts, 0, "/Users/henter/Dev/zim/zim/http/jsonresponse.zep", 112);
 		ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&parts), _1$$3)
 		{
 			ZEPHIR_INIT_NVAR(&part);
@@ -419,7 +419,7 @@ PHP_METHOD(Zim_Http_JsonResponse, setCallback) {
 				_4$$4 = zephir_is_true(&_5$$4);
 			}
 			if (_4$$4) {
-				ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_InvalidArgumentException, "The callback name is not valid.", "zim/http/jsonresponse.zep", 109);
+				ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_InvalidArgumentException, "The callback name is not valid.", "/Users/henter/Dev/zim/zim/http/jsonresponse.zep", 109);
 				return;
 			}
 		} ZEND_HASH_FOREACH_END();
@@ -584,7 +584,7 @@ PHP_METHOD(Zim_Http_JsonResponse, setData) {
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &_14$$9, "__construct", NULL, 32, &_15$$9);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&_14$$9, "zim/http/jsonresponse.zep", 165 TSRMLS_CC);
+		zephir_throw_exception_debug(&_14$$9, "/Users/henter/Dev/zim/zim/http/jsonresponse.zep", 165 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}

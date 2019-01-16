@@ -156,12 +156,12 @@ PHP_METHOD(Zim_Container_Container, isShared) {
 	_1 = zephir_array_isset(&_0, abstractt);
 	if (!(_1)) {
 		zephir_read_property(&_2, this_ptr, SL("bindings"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_3, &_2, abstractt, PH_READONLY, "zim/container/container.zep", 68 TSRMLS_CC);
+		zephir_array_fetch(&_3, &_2, abstractt, PH_READONLY, "/Users/henter/Dev/zim/zim/container/container.zep", 68 TSRMLS_CC);
 		_4 = zephir_array_isset_string(&_3, SL("shared"));
 		if (_4) {
 			zephir_read_property(&_5, this_ptr, SL("bindings"), PH_NOISY_CC | PH_READONLY);
-			zephir_array_fetch(&_6, &_5, abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 68 TSRMLS_CC);
-			zephir_array_fetch_string(&_7, &_6, SL("shared"), PH_NOISY | PH_READONLY, "zim/container/container.zep", 68 TSRMLS_CC);
+			zephir_array_fetch(&_6, &_5, abstractt, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/container/container.zep", 68 TSRMLS_CC);
+			zephir_array_fetch_string(&_7, &_6, SL("shared"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/container/container.zep", 68 TSRMLS_CC);
 			_4 = ZEPHIR_IS_TRUE_IDENTICAL(&_7);
 		}
 		_1 = _4;
@@ -358,7 +358,7 @@ PHP_METHOD(Zim_Container_Container, extend) {
 	zephir_read_property(&_1, this_ptr, SL("instances"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_1, abstractt)) {
 		zephir_read_property(&_2$$3, this_ptr, SL("instances"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_3$$3, &_2$$3, abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 148 TSRMLS_CC);
+		zephir_array_fetch(&_3$$3, &_2$$3, abstractt, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/container/container.zep", 148 TSRMLS_CC);
 		ZEPHIR_CALL_ZVAL_FUNCTION(&_4$$3, closure, NULL, 0, &_3$$3, this_ptr);
 		zephir_check_call_status();
 		zephir_update_property_array(this_ptr, SL("instances"), abstractt, &_4$$3 TSRMLS_CC);
@@ -459,7 +459,7 @@ PHP_METHOD(Zim_Container_Container, get) {
 			ZEPHIR_CALL_METHOD(&_1$$4, this_ptr, "has", NULL, 0, id);
 			zephir_check_call_status();
 			if (zephir_is_true(&_1$$4)) {
-				zephir_throw_exception_debug(&e, "zim/container/container.zep", 192 TSRMLS_CC);
+				zephir_throw_exception_debug(&e, "/Users/henter/Dev/zim/zim/container/container.zep", 192 TSRMLS_CC);
 				ZEPHIR_MM_RESTORE();
 				return;
 			}
@@ -467,7 +467,7 @@ PHP_METHOD(Zim_Container_Container, get) {
 			object_init_ex(&_2$$4, zim_container_entrynotfoundexception_ce);
 			ZEPHIR_CALL_METHOD(NULL, &_2$$4, "__construct", NULL, 2);
 			zephir_check_call_status();
-			zephir_throw_exception_debug(&_2$$4, "zim/container/container.zep", 194 TSRMLS_CC);
+			zephir_throw_exception_debug(&_2$$4, "/Users/henter/Dev/zim/zim/container/container.zep", 194 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
 			return;
 		}
@@ -520,7 +520,7 @@ PHP_METHOD(Zim_Container_Container, make) {
 	zephir_read_property(&_1, this_ptr, SL("instances"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_1, abstractt)) {
 		zephir_read_property(&_2$$3, this_ptr, SL("instances"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_3$$3, &_2$$3, abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 211 TSRMLS_CC);
+		zephir_array_fetch(&_3$$3, &_2$$3, abstractt, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/container/container.zep", 211 TSRMLS_CC);
 		RETURN_CTOR(&_3$$3);
 	}
 	ZEPHIR_CALL_METHOD(&concrete, this_ptr, "getconcrete", NULL, 0, abstractt);
@@ -536,7 +536,7 @@ PHP_METHOD(Zim_Container_Container, make) {
 	}
 	ZEPHIR_CALL_METHOD(&_4, this_ptr, "getextenders", NULL, 0, abstractt);
 	zephir_check_call_status();
-	zephir_is_iterable(&_4, 0, "zim/container/container.zep", 225);
+	zephir_is_iterable(&_4, 0, "/Users/henter/Dev/zim/zim/container/container.zep", 225);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_4), _5)
 	{
 		ZEPHIR_INIT_NVAR(&extender);
@@ -579,8 +579,8 @@ PHP_METHOD(Zim_Container_Container, getConcrete) {
 	zephir_read_property(&_0, this_ptr, SL("bindings"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_0, abstractt)) {
 		zephir_read_property(&_1$$3, this_ptr, SL("bindings"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_2$$3, &_1$$3, abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 241 TSRMLS_CC);
-		zephir_array_fetch_string(&_3$$3, &_2$$3, SL("concrete"), PH_NOISY | PH_READONLY, "zim/container/container.zep", 241 TSRMLS_CC);
+		zephir_array_fetch(&_2$$3, &_1$$3, abstractt, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/container/container.zep", 241 TSRMLS_CC);
+		zephir_array_fetch_string(&_3$$3, &_2$$3, SL("concrete"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/container/container.zep", 241 TSRMLS_CC);
 		RETURN_CTORW(&_3$$3);
 	}
 	RETVAL_ZVAL(abstractt, 1, 0);
@@ -703,7 +703,7 @@ PHP_METHOD(Zim_Container_Container, notInstantiable) {
 	ZEPHIR_CONCAT_SVS(&_1, "Target [{", concrete, "}] is not instantiable.");
 	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 2, &_1);
 	zephir_check_call_status();
-	zephir_throw_exception_debug(&_0, "zim/container/container.zep", 288 TSRMLS_CC);
+	zephir_throw_exception_debug(&_0, "/Users/henter/Dev/zim/zim/container/container.zep", 288 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 	return;
 
@@ -757,7 +757,7 @@ PHP_METHOD(Zim_Container_Container, getAlias) {
 		RETURN_MM();
 	}
 	zephir_read_property(&_1, this_ptr, SL("aliases"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch(&_2, &_1, abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 314 TSRMLS_CC);
+	zephir_array_fetch(&_2, &_1, abstractt, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/container/container.zep", 314 TSRMLS_CC);
 	if (ZEPHIR_IS_IDENTICAL(&_2, abstractt)) {
 		ZEPHIR_INIT_VAR(&_3$$4);
 		object_init_ex(&_3$$4, spl_ce_LogicException);
@@ -765,12 +765,12 @@ PHP_METHOD(Zim_Container_Container, getAlias) {
 		ZEPHIR_CONCAT_SVS(&_4$$4, "[{", abstractt, "}] is aliased to itself.");
 		ZEPHIR_CALL_METHOD(NULL, &_3$$4, "__construct", NULL, 4, &_4$$4);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&_3$$4, "zim/container/container.zep", 315 TSRMLS_CC);
+		zephir_throw_exception_debug(&_3$$4, "/Users/henter/Dev/zim/zim/container/container.zep", 315 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}
 	zephir_read_property(&_5, this_ptr, SL("aliases"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch(&_6, &_5, abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 317 TSRMLS_CC);
+	zephir_array_fetch(&_6, &_5, abstractt, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/container/container.zep", 317 TSRMLS_CC);
 	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "getalias", NULL, 5, &_6);
 	zephir_check_call_status();
 	RETURN_MM();
@@ -807,7 +807,7 @@ PHP_METHOD(Zim_Container_Container, getExtenders) {
 	zephir_read_property(&_1, this_ptr, SL("extenders"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_1, abstractt)) {
 		zephir_read_property(&_2$$3, this_ptr, SL("extenders"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_3$$3, &_2$$3, abstractt, PH_NOISY | PH_READONLY, "zim/container/container.zep", 330 TSRMLS_CC);
+		zephir_array_fetch(&_3$$3, &_2$$3, abstractt, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/container/container.zep", 330 TSRMLS_CC);
 		RETURN_CTOR(&_3$$3);
 	}
 	array_init(return_value);
@@ -1212,7 +1212,7 @@ PHP_METHOD(Zim_Container_Container, getDependencies) {
 	array_init(&deps);
 	ZEPHIR_CALL_METHOD(&_0, this_ptr, "reflectionparams", NULL, 0, call);
 	zephir_check_call_status();
-	zephir_is_iterable(&_0, 0, "zim/container/container.zep", 501);
+	zephir_is_iterable(&_0, 0, "/Users/henter/Dev/zim/zim/container/container.zep", 501);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0), _1)
 	{
 		ZEPHIR_INIT_NVAR(&rp);
@@ -1234,8 +1234,8 @@ PHP_METHOD(Zim_Container_Container, getDependencies) {
 		if (zephir_array_key_exists(&params, &_2$$3 TSRMLS_CC)) {
 			ZEPHIR_OBS_NVAR(&_10$$4);
 			zephir_read_property(&_10$$4, &rp, SL("name"), PH_NOISY_CC);
-			zephir_array_fetch(&_9$$4, &params, &_10$$4, PH_NOISY | PH_READONLY, "zim/container/container.zep", 490 TSRMLS_CC);
-			zephir_array_append(&deps, &_9$$4, PH_SEPARATE, "zim/container/container.zep", 490);
+			zephir_array_fetch(&_9$$4, &params, &_10$$4, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/container/container.zep", 490 TSRMLS_CC);
+			zephir_array_append(&deps, &_9$$4, PH_SEPARATE, "/Users/henter/Dev/zim/zim/container/container.zep", 490);
 			zephir_read_property(&_11$$4, &rp, SL("name"), PH_NOISY_CC | PH_READONLY);
 			zephir_array_unset(&params, &_11$$4, PH_SEPARATE);
 		} else if (_4$$3) {
@@ -1243,8 +1243,8 @@ PHP_METHOD(Zim_Container_Container, getDependencies) {
 			zephir_check_call_status();
 			ZEPHIR_OBS_NVAR(&_14$$5);
 			zephir_read_property(&_14$$5, &_13$$5, SL("name"), PH_NOISY_CC);
-			zephir_array_fetch(&_12$$5, &params, &_14$$5, PH_NOISY | PH_READONLY, "zim/container/container.zep", 493 TSRMLS_CC);
-			zephir_array_append(&deps, &_12$$5, PH_SEPARATE, "zim/container/container.zep", 493);
+			zephir_array_fetch(&_12$$5, &params, &_14$$5, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/container/container.zep", 493 TSRMLS_CC);
+			zephir_array_append(&deps, &_12$$5, PH_SEPARATE, "/Users/henter/Dev/zim/zim/container/container.zep", 493);
 			ZEPHIR_CALL_METHOD(&_15$$5, &rp, "getclass", NULL, 0);
 			zephir_check_call_status();
 			zephir_read_property(&_16$$5, &_15$$5, SL("name"), PH_NOISY_CC | PH_READONLY);
@@ -1255,11 +1255,11 @@ PHP_METHOD(Zim_Container_Container, getDependencies) {
 			zephir_read_property(&_19$$6, &_18$$6, SL("name"), PH_NOISY_CC | PH_READONLY);
 			ZEPHIR_CALL_METHOD(&_17$$6, this_ptr, "make", &_20, 0, &_19$$6);
 			zephir_check_call_status();
-			zephir_array_append(&deps, &_17$$6, PH_SEPARATE, "zim/container/container.zep", 496);
+			zephir_array_append(&deps, &_17$$6, PH_SEPARATE, "/Users/henter/Dev/zim/zim/container/container.zep", 496);
 		} else if (zephir_is_true(&_8$$3)) {
 			ZEPHIR_CALL_METHOD(&_21$$7, &rp, "getdefaultvalue", NULL, 0);
 			zephir_check_call_status();
-			zephir_array_append(&deps, &_21$$7, PH_SEPARATE, "zim/container/container.zep", 498);
+			zephir_array_append(&deps, &_21$$7, PH_SEPARATE, "/Users/henter/Dev/zim/zim/container/container.zep", 498);
 		}
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&rp);
@@ -1354,8 +1354,8 @@ PHP_METHOD(Zim_Container_Container, reflectionParams) {
 		ZEPHIR_INIT_VAR(&_6$$9);
 		ZEPHIR_INIT_VAR(&_7$$9);
 		object_init_ex(&_7$$9, zephir_get_internal_ce(SL("reflectionmethod")));
-		zephir_array_fetch_long(&_8$$9, call, 0, PH_NOISY | PH_READONLY, "zim/container/container.zep", 526 TSRMLS_CC);
-		zephir_array_fetch_long(&_9$$9, call, 1, PH_NOISY | PH_READONLY, "zim/container/container.zep", 526 TSRMLS_CC);
+		zephir_array_fetch_long(&_8$$9, call, 0, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/container/container.zep", 526 TSRMLS_CC);
+		zephir_array_fetch_long(&_9$$9, call, 1, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/container/container.zep", 526 TSRMLS_CC);
 		ZEPHIR_CALL_METHOD(NULL, &_7$$9, "__construct", NULL, 13, &_8$$9, &_9$$9);
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(&_10$$9, &_7$$9, "getparameters", NULL, 14);
@@ -1365,8 +1365,8 @@ PHP_METHOD(Zim_Container_Container, reflectionParams) {
 		} else {
 			ZEPHIR_INIT_VAR(&_11$$11);
 			object_init_ex(&_11$$11, zephir_get_internal_ce(SL("reflectionmethod")));
-			zephir_array_fetch_long(&_12$$11, call, 0, PH_NOISY | PH_READONLY, "zim/container/container.zep", 526 TSRMLS_CC);
-			zephir_array_fetch_long(&_13$$11, call, 1, PH_NOISY | PH_READONLY, "zim/container/container.zep", 526 TSRMLS_CC);
+			zephir_array_fetch_long(&_12$$11, call, 0, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/container/container.zep", 526 TSRMLS_CC);
+			zephir_array_fetch_long(&_13$$11, call, 1, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/container/container.zep", 526 TSRMLS_CC);
 			ZEPHIR_CALL_METHOD(NULL, &_11$$11, "__construct", NULL, 13, &_12$$11, &_13$$11);
 			zephir_check_call_status();
 			ZEPHIR_CALL_METHOD(&_6$$9, &_11$$11, "getparameters", NULL, 14);
@@ -1385,7 +1385,7 @@ PHP_METHOD(Zim_Container_Container, reflectionParams) {
 			ZEPHIR_CALL_METHOD(NULL, &_14$$12, "__construct", NULL, 0, &_16$$12);
 			zephir_check_call_status();
 		}
-		zephir_throw_exception_debug(&_14$$12, "zim/container/container.zep", 528 TSRMLS_CC);
+		zephir_throw_exception_debug(&_14$$12, "/Users/henter/Dev/zim/zim/container/container.zep", 528 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}

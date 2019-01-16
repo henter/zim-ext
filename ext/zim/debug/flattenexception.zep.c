@@ -218,10 +218,10 @@ PHP_METHOD(Zim_Debug_FlattenException, toArray) {
 	ZEPHIR_CALL_METHOD(&_1, this_ptr, "gettrace", NULL, 0);
 	zephir_check_call_status();
 	zephir_array_update_string(&_0, SL("trace"), &_1, PH_COPY | PH_SEPARATE);
-	zephir_array_append(&exceptions, &_0, PH_SEPARATE, "zim/debug/flattenexception.zep", 67);
+	zephir_array_append(&exceptions, &_0, PH_SEPARATE, "/Users/henter/Dev/zim/zim/debug/flattenexception.zep", 67);
 	ZEPHIR_CALL_METHOD(&_1, this_ptr, "getallprevious", NULL, 0);
 	zephir_check_call_status();
-	zephir_is_iterable(&_1, 0, "zim/debug/flattenexception.zep", 72);
+	zephir_is_iterable(&_1, 0, "/Users/henter/Dev/zim/zim/debug/flattenexception.zep", 72);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_1), _2)
 	{
 		ZEPHIR_INIT_NVAR(&exception);
@@ -237,7 +237,7 @@ PHP_METHOD(Zim_Debug_FlattenException, toArray) {
 		ZEPHIR_CALL_METHOD(&_4$$3, &exception, "gettrace", NULL, 0);
 		zephir_check_call_status();
 		zephir_array_update_string(&_3$$3, SL("trace"), &_4$$3, PH_COPY | PH_SEPARATE);
-		zephir_array_append(&exceptions, &_3$$3, PH_SEPARATE, "zim/debug/flattenexception.zep", 70);
+		zephir_array_append(&exceptions, &_3$$3, PH_SEPARATE, "/Users/henter/Dev/zim/zim/debug/flattenexception.zep", 70);
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&exception);
 	RETURN_CCTOR(&exceptions);
@@ -553,7 +553,7 @@ PHP_METHOD(Zim_Debug_FlattenException, getAllPrevious) {
 		if (!(zephir_is_true(&e))) {
 			break;
 		}
-		zephir_array_append(&exceptions, &e, PH_SEPARATE, "zim/debug/flattenexception.zep", 202);
+		zephir_array_append(&exceptions, &e, PH_SEPARATE, "/Users/henter/Dev/zim/zim/debug/flattenexception.zep", 202);
 		ZEPHIR_CALL_METHOD(&_1$$3, &e, "getprevious", NULL, 0);
 		zephir_check_call_status();
 		ZEPHIR_CPY_WRT(&e, &_1$$3);
@@ -648,7 +648,7 @@ PHP_METHOD(Zim_Debug_FlattenException, setTrace) {
 	zephir_array_update_string(&_1, SL("args"), &_2, PH_COPY | PH_SEPARATE);
 	zephir_update_property_array_append(this_ptr, SL("trace"), &_1 TSRMLS_CC);
 	zephir_get_arrval(&_3, trace);
-	zephir_is_iterable(&_3, 0, "zim/debug/flattenexception.zep", 246);
+	zephir_is_iterable(&_3, 0, "/Users/henter/Dev/zim/zim/debug/flattenexception.zep", 246);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_3), _4)
 	{
 		ZEPHIR_INIT_NVAR(&entry);
@@ -658,7 +658,7 @@ PHP_METHOD(Zim_Debug_FlattenException, setTrace) {
 		ZEPHIR_INIT_NVAR(&namespacee);
 		ZVAL_STRING(&namespacee, "");
 		if (zephir_array_isset_string(&entry, SL("class"))) {
-			zephir_array_fetch_string(&_5$$4, &entry, SL("class"), PH_NOISY | PH_READONLY, "zim/debug/flattenexception.zep", 231 TSRMLS_CC);
+			zephir_array_fetch_string(&_5$$4, &entry, SL("class"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/flattenexception.zep", 231 TSRMLS_CC);
 			ZEPHIR_INIT_NVAR(&parts);
 			zephir_fast_explode_str(&parts, SL("\\"), &_5$$4, LONG_MAX TSRMLS_CC);
 			ZEPHIR_MAKE_REF(&parts);
@@ -675,7 +675,7 @@ PHP_METHOD(Zim_Debug_FlattenException, setTrace) {
 		ZEPHIR_INIT_LNVAR(_8$$3);
 		if (zephir_array_isset_string(&entry, SL("class"))) {
 			ZEPHIR_OBS_NVAR(&_8$$3);
-			zephir_array_fetch_string(&_8$$3, &entry, SL("class"), PH_NOISY, "zim/debug/flattenexception.zep", 238 TSRMLS_CC);
+			zephir_array_fetch_string(&_8$$3, &entry, SL("class"), PH_NOISY, "/Users/henter/Dev/zim/zim/debug/flattenexception.zep", 238 TSRMLS_CC);
 		} else {
 			ZEPHIR_INIT_NVAR(&_8$$3);
 			ZVAL_STRING(&_8$$3, "");
@@ -684,7 +684,7 @@ PHP_METHOD(Zim_Debug_FlattenException, setTrace) {
 		ZEPHIR_INIT_LNVAR(_8$$3);
 		if (zephir_array_isset_string(&entry, SL("type"))) {
 			ZEPHIR_OBS_NVAR(&_8$$3);
-			zephir_array_fetch_string(&_8$$3, &entry, SL("type"), PH_NOISY, "zim/debug/flattenexception.zep", 239 TSRMLS_CC);
+			zephir_array_fetch_string(&_8$$3, &entry, SL("type"), PH_NOISY, "/Users/henter/Dev/zim/zim/debug/flattenexception.zep", 239 TSRMLS_CC);
 		} else {
 			ZEPHIR_INIT_NVAR(&_8$$3);
 			ZVAL_STRING(&_8$$3, "");
@@ -693,7 +693,7 @@ PHP_METHOD(Zim_Debug_FlattenException, setTrace) {
 		ZEPHIR_INIT_LNVAR(_8$$3);
 		if (zephir_array_isset_string(&entry, SL("function"))) {
 			ZEPHIR_OBS_NVAR(&_8$$3);
-			zephir_array_fetch_string(&_8$$3, &entry, SL("function"), PH_NOISY, "zim/debug/flattenexception.zep", 240 TSRMLS_CC);
+			zephir_array_fetch_string(&_8$$3, &entry, SL("function"), PH_NOISY, "/Users/henter/Dev/zim/zim/debug/flattenexception.zep", 240 TSRMLS_CC);
 		} else {
 			ZEPHIR_INIT_NVAR(&_8$$3);
 			ZVAL_NULL(&_8$$3);
@@ -702,7 +702,7 @@ PHP_METHOD(Zim_Debug_FlattenException, setTrace) {
 		ZEPHIR_INIT_LNVAR(_8$$3);
 		if (zephir_array_isset_string(&entry, SL("file"))) {
 			ZEPHIR_OBS_NVAR(&_8$$3);
-			zephir_array_fetch_string(&_8$$3, &entry, SL("file"), PH_NOISY, "zim/debug/flattenexception.zep", 241 TSRMLS_CC);
+			zephir_array_fetch_string(&_8$$3, &entry, SL("file"), PH_NOISY, "/Users/henter/Dev/zim/zim/debug/flattenexception.zep", 241 TSRMLS_CC);
 		} else {
 			ZEPHIR_INIT_NVAR(&_8$$3);
 			ZVAL_NULL(&_8$$3);
@@ -711,7 +711,7 @@ PHP_METHOD(Zim_Debug_FlattenException, setTrace) {
 		ZEPHIR_INIT_LNVAR(_8$$3);
 		if (zephir_array_isset_string(&entry, SL("line"))) {
 			ZEPHIR_OBS_NVAR(&_8$$3);
-			zephir_array_fetch_string(&_8$$3, &entry, SL("line"), PH_NOISY, "zim/debug/flattenexception.zep", 242 TSRMLS_CC);
+			zephir_array_fetch_string(&_8$$3, &entry, SL("line"), PH_NOISY, "/Users/henter/Dev/zim/zim/debug/flattenexception.zep", 242 TSRMLS_CC);
 		} else {
 			ZEPHIR_INIT_NVAR(&_8$$3);
 			ZVAL_NULL(&_8$$3);
@@ -719,7 +719,7 @@ PHP_METHOD(Zim_Debug_FlattenException, setTrace) {
 		zephir_array_update_string(&_7$$3, SL("line"), &_8$$3, PH_COPY | PH_SEPARATE);
 		ZEPHIR_INIT_LNVAR(_8$$3);
 		if (zephir_array_isset_string(&entry, SL("args"))) {
-			zephir_array_fetch_string(&_9$$3, &entry, SL("args"), PH_NOISY | PH_READONLY, "zim/debug/flattenexception.zep", 243 TSRMLS_CC);
+			zephir_array_fetch_string(&_9$$3, &entry, SL("args"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/flattenexception.zep", 243 TSRMLS_CC);
 			ZEPHIR_CALL_METHOD(&_8$$3, this_ptr, "flattenargs", &_10, 0, &_9$$3);
 			zephir_check_call_status();
 		} else {
@@ -799,7 +799,7 @@ PHP_METHOD(Zim_Debug_FlattenException, flattenArgs) {
 
 	ZEPHIR_INIT_VAR(&result);
 	array_init(&result);
-	zephir_is_iterable(args, 0, "zim/debug/flattenexception.zep", 283);
+	zephir_is_iterable(args, 0, "/Users/henter/Dev/zim/zim/debug/flattenexception.zep", 283);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(args), _1, _2, _0)
 	{
 		ZEPHIR_INIT_NVAR(&key);
@@ -948,7 +948,7 @@ PHP_METHOD(Zim_Debug_FlattenException, getClassNameFromIncomplete) {
 	object_init_ex(&myArray, spl_ce_ArrayObject);
 	ZEPHIR_CALL_METHOD(NULL, &myArray, "__construct", NULL, 52, value);
 	zephir_check_call_status();
-	zephir_array_fetch_string(&_0, &myArray, SL("__PHP_Incomplete_Class_Name"), PH_NOISY | PH_READONLY, "zim/debug/flattenexception.zep", 291 TSRMLS_CC);
+	zephir_array_fetch_string(&_0, &myArray, SL("__PHP_Incomplete_Class_Name"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/flattenexception.zep", 291 TSRMLS_CC);
 	RETURN_CTOR(&_0);
 
 }

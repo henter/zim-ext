@@ -169,7 +169,7 @@ PHP_METHOD(Zim_Http_Controller, getActionClass) {
 	zephir_read_property(&_1, this_ptr, SL("actions"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_1, uri)) {
 		zephir_read_property(&_2, this_ptr, SL("actions"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_0, &_2, uri, PH_NOISY, "zim/http/controller.zep", 51 TSRMLS_CC);
+		zephir_array_fetch(&_0, &_2, uri, PH_NOISY, "/Users/henter/Dev/zim/zim/http/controller.zep", 51 TSRMLS_CC);
 	} else {
 		ZVAL_NULL(&_0);
 	}
@@ -208,7 +208,7 @@ PHP_METHOD(Zim_Http_Controller, getAction) {
 	}
 	ZEPHIR_CALL_FUNCTION(&_1, "get_class_methods", NULL, 15, this_ptr);
 	zephir_check_call_status();
-	zephir_is_iterable(&_1, 0, "zim/http/controller.zep", 70);
+	zephir_is_iterable(&_1, 0, "/Users/henter/Dev/zim/zim/http/controller.zep", 70);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_1), _2)
 	{
 		ZEPHIR_INIT_NVAR(&method);

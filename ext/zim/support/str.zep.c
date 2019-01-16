@@ -85,7 +85,7 @@ PHP_METHOD(Zim_Support_Str, after) {
 		zephir_fast_explode(&_1, &search, &subject, 2  TSRMLS_CC);
 		ZEPHIR_CALL_FUNCTION(&_2, "array_reverse", NULL, 107, &_1);
 		zephir_check_call_status();
-		zephir_array_fetch_long(&_0, &_2, 0, PH_NOISY, "zim/support/str.zep", 32 TSRMLS_CC);
+		zephir_array_fetch_long(&_0, &_2, 0, PH_NOISY, "/Users/henter/Dev/zim/zim/support/str.zep", 32 TSRMLS_CC);
 	}
 	RETURN_CCTOR(&_0);
 
@@ -122,7 +122,7 @@ PHP_METHOD(Zim_Support_Str, before) {
 	} else {
 		ZEPHIR_INIT_VAR(&_1);
 		zephir_fast_explode(&_1, &search, &subject, LONG_MAX TSRMLS_CC);
-		zephir_array_fetch_long(&_0, &_1, 0, PH_NOISY, "zim/support/str.zep", 44 TSRMLS_CC);
+		zephir_array_fetch_long(&_0, &_1, 0, PH_NOISY, "/Users/henter/Dev/zim/zim/support/str.zep", 44 TSRMLS_CC);
 	}
 	RETURN_CCTOR(&_0);
 
@@ -159,7 +159,7 @@ PHP_METHOD(Zim_Support_Str, camel) {
 	zephir_read_static_property_ce(&_0, zim_support_str_ce, SL("camelCache"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_0, &value)) {
 		zephir_read_static_property_ce(&_1$$3, zim_support_str_ce, SL("camelCache"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_2$$3, &_1$$3, &value, PH_NOISY | PH_READONLY, "zim/support/str.zep", 56 TSRMLS_CC);
+		zephir_array_fetch(&_2$$3, &_1$$3, &value, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/support/str.zep", 56 TSRMLS_CC);
 		RETURN_CTOR(&_2$$3);
 	}
 	ZEPHIR_CALL_SELF(&_3, "studly", NULL, 0, &value);
@@ -168,7 +168,7 @@ PHP_METHOD(Zim_Support_Str, camel) {
 	zephir_check_call_status();
 	zephir_update_static_property_array_multi_ce(zim_support_str_ce, SL("camelCache"), &_4 TSRMLS_CC, SL("z"), 1, &value);
 	zephir_read_static_property_ce(&_5, zim_support_str_ce, SL("camelCache"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch(&_6, &_5, &value, PH_NOISY | PH_READONLY, "zim/support/str.zep", 59 TSRMLS_CC);
+	zephir_array_fetch(&_6, &_5, &value, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/support/str.zep", 59 TSRMLS_CC);
 	RETURN_CTOR(&_6);
 
 }
@@ -208,7 +208,7 @@ PHP_METHOD(Zim_Support_Str, contains) {
 		zephir_create_array(&arr, 1, 0 TSRMLS_CC);
 		zephir_array_fast_append(&arr, needles);
 	}
-	zephir_is_iterable(&arr, 0, "zim/support/str.zep", 79);
+	zephir_is_iterable(&arr, 0, "/Users/henter/Dev/zim/zim/support/str.zep", 79);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&arr), _0)
 	{
 		ZEPHIR_INIT_NVAR(&needle);
@@ -262,7 +262,7 @@ PHP_METHOD(Zim_Support_Str, endsWith) {
 		zephir_create_array(&arr, 1, 0 TSRMLS_CC);
 		zephir_array_fast_append(&arr, needles);
 	}
-	zephir_is_iterable(&arr, 0, "zim/support/str.zep", 99);
+	zephir_is_iterable(&arr, 0, "/Users/henter/Dev/zim/zim/support/str.zep", 99);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&arr), _0)
 	{
 		ZEPHIR_INIT_NVAR(&needle);
@@ -544,7 +544,7 @@ PHP_METHOD(Zim_Support_Str, words) {
 	if (!(_3)) {
 		ZEPHIR_CALL_STATIC(&_4, "length", NULL, 0, &value);
 		zephir_check_call_status();
-		zephir_array_fetch_long(&_6, &matches, 0, PH_NOISY | PH_READONLY, "zim/support/str.zep", 182 TSRMLS_CC);
+		zephir_array_fetch_long(&_6, &matches, 0, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/support/str.zep", 182 TSRMLS_CC);
 		ZEPHIR_CALL_STATIC(&_5, "length", NULL, 0, &_6);
 		zephir_check_call_status();
 		_3 = ZEPHIR_IS_IDENTICAL(&_4, &_5);
@@ -553,7 +553,7 @@ PHP_METHOD(Zim_Support_Str, words) {
 		RETURN_CTOR(&value);
 	}
 	ZEPHIR_INIT_VAR(&_7);
-	zephir_array_fetch_long(&_8, &matches, 0, PH_NOISY | PH_READONLY, "zim/support/str.zep", 185 TSRMLS_CC);
+	zephir_array_fetch_long(&_8, &matches, 0, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/support/str.zep", 185 TSRMLS_CC);
 	zephir_fast_trim(&_7, &_8, NULL , ZEPHIR_TRIM_RIGHT TSRMLS_CC);
 	ZEPHIR_CONCAT_VV(return_value, &_7, &end);
 	RETURN_MM();
@@ -669,7 +669,7 @@ PHP_METHOD(Zim_Support_Str, replaceArray) {
 	zephir_get_strval(&subject, subject_param);
 
 
-	zephir_is_iterable(&replace, 0, "zim/support/str.zep", 224);
+	zephir_is_iterable(&replace, 0, "/Users/henter/Dev/zim/zim/support/str.zep", 224);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&replace), _0)
 	{
 		ZEPHIR_INIT_NVAR(&value);
@@ -921,11 +921,11 @@ PHP_METHOD(Zim_Support_Str, snake) {
 
 	ZEPHIR_CPY_WRT(&key, &value);
 	zephir_read_static_property_ce(&_0, zim_support_str_ce, SL("snakeCache"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch(&_1, &_0, &key, PH_READONLY, "zim/support/str.zep", 317 TSRMLS_CC);
+	zephir_array_fetch(&_1, &_0, &key, PH_READONLY, "/Users/henter/Dev/zim/zim/support/str.zep", 317 TSRMLS_CC);
 	if (zephir_array_isset(&_1, &delimiter)) {
 		zephir_read_static_property_ce(&_2$$3, zim_support_str_ce, SL("snakeCache"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_3$$3, &_2$$3, &key, PH_NOISY | PH_READONLY, "zim/support/str.zep", 318 TSRMLS_CC);
-		zephir_array_fetch(&_4$$3, &_3$$3, &delimiter, PH_NOISY | PH_READONLY, "zim/support/str.zep", 318 TSRMLS_CC);
+		zephir_array_fetch(&_3$$3, &_2$$3, &key, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/support/str.zep", 318 TSRMLS_CC);
+		zephir_array_fetch(&_4$$3, &_3$$3, &delimiter, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/support/str.zep", 318 TSRMLS_CC);
 		RETURN_CTOR(&_4$$3);
 	}
 	ZEPHIR_CALL_FUNCTION(&_5, "ctype_lower", NULL, 134, &value);
@@ -951,8 +951,8 @@ PHP_METHOD(Zim_Support_Str, snake) {
 	}
 	zephir_update_static_property_array_multi_ce(zim_support_str_ce, SL("snakeCache"), &value TSRMLS_CC, SL("zz"), 2, &key, &delimiter);
 	zephir_read_static_property_ce(&_12, zim_support_str_ce, SL("snakeCache"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch(&_13, &_12, &key, PH_NOISY | PH_READONLY, "zim/support/str.zep", 326 TSRMLS_CC);
-	zephir_array_fetch(&_14, &_13, &delimiter, PH_NOISY | PH_READONLY, "zim/support/str.zep", 326 TSRMLS_CC);
+	zephir_array_fetch(&_13, &_12, &key, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/support/str.zep", 326 TSRMLS_CC);
+	zephir_array_fetch(&_14, &_13, &delimiter, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/support/str.zep", 326 TSRMLS_CC);
 	RETURN_CTOR(&_14);
 
 }
@@ -993,7 +993,7 @@ PHP_METHOD(Zim_Support_Str, startsWith) {
 		zephir_create_array(&arr, 1, 0 TSRMLS_CC);
 		zephir_array_fast_append(&arr, needles);
 	}
-	zephir_is_iterable(&arr, 0, "zim/support/str.zep", 346);
+	zephir_is_iterable(&arr, 0, "/Users/henter/Dev/zim/zim/support/str.zep", 346);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&arr), _0)
 	{
 		ZEPHIR_INIT_NVAR(&needle);
@@ -1055,7 +1055,7 @@ PHP_METHOD(Zim_Support_Str, studly) {
 	zephir_read_static_property_ce(&_0, zim_support_str_ce, SL("studlyCache"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_0, &key)) {
 		zephir_read_static_property_ce(&_1$$3, zim_support_str_ce, SL("studlyCache"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_2$$3, &_1$$3, &key, PH_NOISY | PH_READONLY, "zim/support/str.zep", 361 TSRMLS_CC);
+		zephir_array_fetch(&_2$$3, &_1$$3, &key, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/support/str.zep", 361 TSRMLS_CC);
 		RETURN_CTOR(&_2$$3);
 	}
 	ZEPHIR_INIT_VAR(&_3);
@@ -1081,7 +1081,7 @@ PHP_METHOD(Zim_Support_Str, studly) {
 	zephir_fast_str_replace(&_6, &_7, &_8, &value TSRMLS_CC);
 	zephir_update_static_property_array_multi_ce(zim_support_str_ce, SL("studlyCache"), &_6 TSRMLS_CC, SL("z"), 1, &key);
 	zephir_read_static_property_ce(&_9, zim_support_str_ce, SL("studlyCache"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch(&_10, &_9, &key, PH_NOISY | PH_READONLY, "zim/support/str.zep", 367 TSRMLS_CC);
+	zephir_array_fetch(&_10, &_9, &key, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/support/str.zep", 367 TSRMLS_CC);
 	RETURN_CTOR(&_10);
 
 }

@@ -250,7 +250,7 @@ PHP_METHOD(Zim_Debug_Handler, handleShutdown) {
 	zephir_check_call_status();
 	_0 = !(Z_TYPE_P(&error) == IS_NULL);
 	if (_0) {
-		zephir_array_fetch_string(&_2, &error, SL("type"), PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 101 TSRMLS_CC);
+		zephir_array_fetch_string(&_2, &error, SL("type"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 101 TSRMLS_CC);
 		ZEPHIR_CALL_METHOD(&_1, this_ptr, "isfatal", NULL, 0, &_2);
 		zephir_check_call_status();
 		_0 = zephir_is_true(&_1);
@@ -258,10 +258,10 @@ PHP_METHOD(Zim_Debug_Handler, handleShutdown) {
 	if (_0) {
 		ZEPHIR_INIT_VAR(&_3$$3);
 		object_init_ex(&_3$$3, zephir_get_internal_ce(SL("errorexception")));
-		zephir_array_fetch_string(&_4$$3, &error, SL("message"), PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 102 TSRMLS_CC);
-		zephir_array_fetch_string(&_5$$3, &error, SL("type"), PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 102 TSRMLS_CC);
-		zephir_array_fetch_string(&_6$$3, &error, SL("file"), PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 102 TSRMLS_CC);
-		zephir_array_fetch_string(&_7$$3, &error, SL("line"), PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 102 TSRMLS_CC);
+		zephir_array_fetch_string(&_4$$3, &error, SL("message"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 102 TSRMLS_CC);
+		zephir_array_fetch_string(&_5$$3, &error, SL("type"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 102 TSRMLS_CC);
+		zephir_array_fetch_string(&_6$$3, &error, SL("file"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 102 TSRMLS_CC);
+		zephir_array_fetch_string(&_7$$3, &error, SL("line"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 102 TSRMLS_CC);
 		ZVAL_LONG(&_8$$3, 0);
 		ZEPHIR_CALL_METHOD(NULL, &_3$$3, "__construct", NULL, 59, &_4$$3, &_5$$3, &_8$$3, &_6$$3, &_7$$3);
 		zephir_check_call_status();
@@ -376,7 +376,7 @@ PHP_METHOD(Zim_Debug_Handler, handleError) {
 	zephir_check_call_status();
 	if (((int) (zephir_get_numberval(&_0)) & level)) {
 		zephir_read_property(&_1$$3, this_ptr, SL("errorLevels"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch_long(&_2$$3, &_1$$3, level, PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 134 TSRMLS_CC);
+		zephir_array_fetch_long(&_2$$3, &_1$$3, level, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 134 TSRMLS_CC);
 		ZEPHIR_INIT_VAR(&msg$$3);
 		ZEPHIR_CONCAT_VSV(&msg$$3, &_2$$3, ": ", &message);
 		ZEPHIR_INIT_VAR(&errorAsException$$3);
@@ -391,7 +391,7 @@ PHP_METHOD(Zim_Debug_Handler, handleError) {
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &_3$$3, "setvalue", NULL, 0, &errorAsException$$3, &_6$$3);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&errorAsException$$3, "zim/debug/handler.zep", 137 TSRMLS_CC);
+		zephir_throw_exception_debug(&errorAsException$$3, "/Users/henter/Dev/zim/zim/debug/handler.zep", 137 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}
@@ -453,11 +453,11 @@ PHP_METHOD(Zim_Debug_Handler, handleException) {
 		}
 	}
 	if (ZEPHIR_IS_IDENTICAL(exception, &handlerException)) {
-		zephir_throw_exception_debug(exception, "zim/debug/handler.zep", 160 TSRMLS_CC);
+		zephir_throw_exception_debug(exception, "/Users/henter/Dev/zim/zim/debug/handler.zep", 160 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}
-	zephir_throw_exception_debug(&handlerException, "zim/debug/handler.zep", 163 TSRMLS_CC);
+	zephir_throw_exception_debug(&handlerException, "/Users/henter/Dev/zim/zim/debug/handler.zep", 163 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 	return;
 
@@ -521,7 +521,7 @@ PHP_METHOD(Zim_Debug_Handler, sendPhpResponse) {
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(&_7$$4, exception, "getheaders", NULL, 0);
 		zephir_check_call_status();
-		zephir_is_iterable(&_7$$4, 0, "zim/debug/handler.zep", 186);
+		zephir_is_iterable(&_7$$4, 0, "/Users/henter/Dev/zim/zim/debug/handler.zep", 186);
 		ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_7$$4), _9$$4, _10$$4, _8$$4)
 		{
 			ZEPHIR_INIT_NVAR(&name);
@@ -684,7 +684,7 @@ PHP_METHOD(Zim_Debug_Handler, getContent) {
 		ZVAL_LONG(&total, (zephir_get_numberval(&count) + 1));
 		ZEPHIR_CALL_METHOD(&_3$$6, exception, "toarray", NULL, 0);
 		zephir_check_call_status_or_jump(try_end_1);
-		zephir_is_iterable(&_3$$6, 0, "zim/debug/handler.zep", 244);
+		zephir_is_iterable(&_3$$6, 0, "/Users/henter/Dev/zim/zim/debug/handler.zep", 244);
 		ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_3$$6), _5$$6, _6$$6, _4$$6)
 		{
 			ZEPHIR_INIT_NVAR(&position);
@@ -699,10 +699,10 @@ PHP_METHOD(Zim_Debug_Handler, getContent) {
 			zephir_sub_function(&_7$$7, &count, &position);
 			ZEPHIR_INIT_NVAR(&ind);
 			ZVAL_LONG(&ind, (zephir_get_numberval(&_7$$7) + 1));
-			zephir_array_fetch_string(&_8$$7, &e, SL("class"), PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 229 TSRMLS_CC);
+			zephir_array_fetch_string(&_8$$7, &e, SL("class"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 229 TSRMLS_CC);
 			ZEPHIR_CALL_METHOD(&classs, this_ptr, "formatclass", &_9, 0, &_8$$7);
 			zephir_check_call_status_or_jump(try_end_1);
-			zephir_array_fetch_string(&_11$$7, &e, SL("message"), PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 230 TSRMLS_CC);
+			zephir_array_fetch_string(&_11$$7, &e, SL("message"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 230 TSRMLS_CC);
 			ZEPHIR_CALL_METHOD(&_10$$7, this_ptr, "escapehtml", &_12, 0, &_11$$7);
 			zephir_check_call_status_or_jump(try_end_1);
 			ZEPHIR_CALL_FUNCTION(&message, "nl2br", &_13, 63, &_10$$7);
@@ -713,22 +713,22 @@ PHP_METHOD(Zim_Debug_Handler, getContent) {
 			zephir_check_call_status_or_jump(try_end_1);
 			zephir_concat_self(&content, &_15$$7 TSRMLS_CC);
 			ZEPHIR_OBS_NVAR(&_17$$7);
-			zephir_array_fetch_string(&_17$$7, &e, SL("trace"), PH_NOISY, "zim/debug/handler.zep", 232 TSRMLS_CC);
+			zephir_array_fetch_string(&_17$$7, &e, SL("trace"), PH_NOISY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 232 TSRMLS_CC);
 			zephir_get_arrval(&_18$$7, &_17$$7);
-			zephir_is_iterable(&_18$$7, 0, "zim/debug/handler.zep", 242);
+			zephir_is_iterable(&_18$$7, 0, "/Users/henter/Dev/zim/zim/debug/handler.zep", 242);
 			ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_18$$7), _19$$7)
 			{
 				ZEPHIR_INIT_NVAR(&trace);
 				ZVAL_COPY(&trace, _19$$7);
 				zephir_concat_self_str(&content, SL("<tr><td>") TSRMLS_CC);
-				zephir_array_fetch_string(&_20$$8, &trace, SL("function"), PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 234 TSRMLS_CC);
+				zephir_array_fetch_string(&_20$$8, &trace, SL("function"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 234 TSRMLS_CC);
 				if (zephir_is_true(&_20$$8)) {
-					zephir_array_fetch_string(&_22$$9, &trace, SL("class"), PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 235 TSRMLS_CC);
+					zephir_array_fetch_string(&_22$$9, &trace, SL("class"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 235 TSRMLS_CC);
 					ZEPHIR_CALL_METHOD(&_21$$9, this_ptr, "formatclass", &_9, 0, &_22$$9);
 					zephir_check_call_status_or_jump(try_end_1);
-					zephir_array_fetch_string(&_23$$9, &trace, SL("type"), PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 235 TSRMLS_CC);
-					zephir_array_fetch_string(&_24$$9, &trace, SL("function"), PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 235 TSRMLS_CC);
-					zephir_array_fetch_string(&_26$$9, &trace, SL("args"), PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 235 TSRMLS_CC);
+					zephir_array_fetch_string(&_23$$9, &trace, SL("type"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 235 TSRMLS_CC);
+					zephir_array_fetch_string(&_24$$9, &trace, SL("function"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 235 TSRMLS_CC);
+					zephir_array_fetch_string(&_26$$9, &trace, SL("args"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 235 TSRMLS_CC);
 					ZEPHIR_CALL_METHOD(&_25$$9, this_ptr, "formatargs", &_27, 0, &_26$$9);
 					zephir_check_call_status_or_jump(try_end_1);
 					ZEPHIR_INIT_NVAR(&_28$$9);
@@ -742,8 +742,8 @@ PHP_METHOD(Zim_Debug_Handler, getContent) {
 					_30$$8 = zephir_array_isset_string(&trace, SL("line"));
 				}
 				if (_30$$8) {
-					zephir_array_fetch_string(&_32$$10, &trace, SL("file"), PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 238 TSRMLS_CC);
-					zephir_array_fetch_string(&_33$$10, &trace, SL("line"), PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 238 TSRMLS_CC);
+					zephir_array_fetch_string(&_32$$10, &trace, SL("file"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 238 TSRMLS_CC);
+					zephir_array_fetch_string(&_33$$10, &trace, SL("line"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 238 TSRMLS_CC);
 					ZEPHIR_CALL_METHOD(&_31$$10, this_ptr, "formatpath", &_34, 0, &_32$$10, &_33$$10);
 					zephir_check_call_status_or_jump(try_end_1);
 					zephir_concat_self(&content, &_31$$10 TSRMLS_CC);
@@ -926,7 +926,7 @@ PHP_METHOD(Zim_Debug_Handler, formatPath) {
 	zephir_preg_match(&_2, &_3, path, &file, 0, 0 , 0  TSRMLS_CC);
 	if (zephir_is_true(&_2)) {
 		ZEPHIR_OBS_NVAR(&_0);
-		zephir_array_fetch_long(&_0, &file, 0, PH_NOISY, "zim/debug/handler.zep", 286 TSRMLS_CC);
+		zephir_array_fetch_long(&_0, &file, 0, PH_NOISY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 286 TSRMLS_CC);
 	} else {
 		ZEPHIR_CPY_WRT(&_0, path);
 	}
@@ -1010,11 +1010,11 @@ PHP_METHOD(Zim_Debug_Handler, formatPath) {
 		ZEPHIR_SEPARATE(&i);
 		zephir_increment(&i);
 		ZEPHIR_OBS_NVAR(&k);
-		zephir_array_fetch(&k, &fmt, &i, PH_NOISY, "zim/debug/handler.zep", 303 TSRMLS_CC);
+		zephir_array_fetch(&k, &fmt, &i, PH_NOISY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 303 TSRMLS_CC);
 		ZEPHIR_INIT_NVAR(&_26$$5);
 		zephir_fast_strpos(&_26$$5, path, &k, 0 );
 		if (ZEPHIR_IS_LONG_IDENTICAL(&_26$$5, 0)) {
-			zephir_array_fetch(&_27$$7, &fmt, &i, PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 305 TSRMLS_CC);
+			zephir_array_fetch(&_27$$7, &fmt, &i, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 305 TSRMLS_CC);
 			ZVAL_LONG(&_28$$7, 0);
 			ZVAL_LONG(&_29$$7, zephir_fast_strlen_ev(&k));
 			ZEPHIR_CALL_FUNCTION(&_30$$7, "substr_replace", &_31, 67, path, &_27$$7, &_28$$7, &_29$$7);
@@ -1025,7 +1025,7 @@ PHP_METHOD(Zim_Debug_Handler, formatPath) {
 		ZEPHIR_SEPARATE(&i);
 		zephir_increment(&i);
 	}
-	zephir_array_fetch_long(&_32, &fmt, 0, PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 311 TSRMLS_CC);
+	zephir_array_fetch_long(&_32, &fmt, 0, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 311 TSRMLS_CC);
 	ZEPHIR_INIT_VAR(&_33);
 	zephir_create_array(&_33, 2, 0 TSRMLS_CC);
 	zephir_array_update_string(&_33, SL("%f"), path, PH_COPY | PH_SEPARATE);
@@ -1108,7 +1108,7 @@ PHP_METHOD(Zim_Debug_Handler, formatArgs) {
 
 	ZEPHIR_INIT_VAR(&result);
 	array_init(&result);
-	zephir_is_iterable(&args, 0, "zim/debug/handler.zep", 343);
+	zephir_is_iterable(&args, 0, "/Users/henter/Dev/zim/zim/debug/handler.zep", 343);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&args), _1, _2, _0)
 	{
 		ZEPHIR_INIT_NVAR(&key);
@@ -1119,21 +1119,21 @@ PHP_METHOD(Zim_Debug_Handler, formatArgs) {
 		}
 		ZEPHIR_INIT_NVAR(&item);
 		ZVAL_COPY(&item, _0);
-		zephir_array_fetch_long(&_3$$3, &item, 0, PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 328 TSRMLS_CC);
-		zephir_array_fetch_long(&_4$$3, &item, 0, PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 330 TSRMLS_CC);
+		zephir_array_fetch_long(&_3$$3, &item, 0, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 328 TSRMLS_CC);
+		zephir_array_fetch_long(&_4$$3, &item, 0, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 330 TSRMLS_CC);
 		ZEPHIR_SINIT_NVAR(_5$$3);
 		ZVAL_STRING(&_5$$3, "array");
-		zephir_array_fetch_long(&_6$$3, &item, 0, PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 332 TSRMLS_CC);
+		zephir_array_fetch_long(&_6$$3, &item, 0, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 332 TSRMLS_CC);
 		ZEPHIR_SINIT_NVAR(_7$$3);
 		ZVAL_STRING(&_7$$3, "null");
-		zephir_array_fetch_long(&_8$$3, &item, 0, PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 334 TSRMLS_CC);
+		zephir_array_fetch_long(&_8$$3, &item, 0, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 334 TSRMLS_CC);
 		ZEPHIR_SINIT_NVAR(_9$$3);
 		ZVAL_STRING(&_9$$3, "boolean");
-		zephir_array_fetch_long(&_10$$3, &item, 0, PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 336 TSRMLS_CC);
+		zephir_array_fetch_long(&_10$$3, &item, 0, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 336 TSRMLS_CC);
 		ZEPHIR_SINIT_NVAR(_11$$3);
 		ZVAL_STRING(&_11$$3, "resource");
 		if (ZEPHIR_IS_STRING_IDENTICAL(&_3$$3, "object")) {
-			zephir_array_fetch_long(&_13$$4, &item, 1, PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 329 TSRMLS_CC);
+			zephir_array_fetch_long(&_13$$4, &item, 1, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 329 TSRMLS_CC);
 			ZEPHIR_CALL_METHOD(&_12$$4, this_ptr, "formatclass", &_14, 0, &_13$$4);
 			zephir_check_call_status();
 			ZEPHIR_INIT_NVAR(&_15$$4);
@@ -1142,14 +1142,14 @@ PHP_METHOD(Zim_Debug_Handler, formatArgs) {
 			zephir_check_call_status();
 		} else if (ZEPHIR_IS_IDENTICAL(&_5$$3, &_4$$3)) {
 			ZEPHIR_INIT_LNVAR(_17$$5);
-			zephir_array_fetch_long(&_18$$5, &item, 1, PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 331 TSRMLS_CC);
+			zephir_array_fetch_long(&_18$$5, &item, 1, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 331 TSRMLS_CC);
 			if (Z_TYPE_P(&_18$$5) == IS_ARRAY) {
-				zephir_array_fetch_long(&_19$$5, &item, 1, PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 331 TSRMLS_CC);
+				zephir_array_fetch_long(&_19$$5, &item, 1, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 331 TSRMLS_CC);
 				ZEPHIR_CALL_METHOD(&_17$$5, this_ptr, "formatargs", &_20, 69, &_19$$5);
 				zephir_check_call_status();
 			} else {
 				ZEPHIR_OBS_NVAR(&_17$$5);
-				zephir_array_fetch_long(&_17$$5, &item, 1, PH_NOISY, "zim/debug/handler.zep", 331 TSRMLS_CC);
+				zephir_array_fetch_long(&_17$$5, &item, 1, PH_NOISY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 331 TSRMLS_CC);
 			}
 			ZEPHIR_INIT_NVAR(&_21$$5);
 			ZVAL_STRING(&_21$$5, "<em>array</em>(%s)");
@@ -1161,7 +1161,7 @@ PHP_METHOD(Zim_Debug_Handler, formatArgs) {
 		} else if (ZEPHIR_IS_IDENTICAL(&_9$$3, &_8$$3)) {
 			ZEPHIR_INIT_NVAR(&_22$$7);
 			ZEPHIR_INIT_NVAR(&_23$$7);
-			zephir_array_fetch_long(&_24$$7, &item, 1, PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 335 TSRMLS_CC);
+			zephir_array_fetch_long(&_24$$7, &item, 1, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 335 TSRMLS_CC);
 			ZEPHIR_INIT_NVAR(&_23$$7);
 			zephir_var_export_ex(&_23$$7, &_24$$7 TSRMLS_CC);
 			zephir_fast_strtolower(&_22$$7, &_23$$7);
@@ -1172,7 +1172,7 @@ PHP_METHOD(Zim_Debug_Handler, formatArgs) {
 			ZVAL_STRING(&formattedValue, "<em>resource</em>");
 		} else {
 			ZEPHIR_INIT_NVAR(&_26$$9);
-			zephir_array_fetch_long(&_27$$9, &item, 1, PH_NOISY | PH_READONLY, "zim/debug/handler.zep", 339 TSRMLS_CC);
+			zephir_array_fetch_long(&_27$$9, &item, 1, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/handler.zep", 339 TSRMLS_CC);
 			ZEPHIR_INIT_NVAR(&_26$$9);
 			zephir_var_export_ex(&_26$$9, &_27$$9 TSRMLS_CC);
 			ZEPHIR_CALL_METHOD(&_25$$9, this_ptr, "escapehtml", &_28, 0, &_26$$9);
@@ -1195,7 +1195,7 @@ PHP_METHOD(Zim_Debug_Handler, formatArgs) {
 			ZEPHIR_CALL_FUNCTION(&_31$$3, "sprintf", &_16, 17, &_33$$3, &_32$$3, &formattedValue);
 			zephir_check_call_status();
 		}
-		zephir_array_append(&result, &_31$$3, PH_SEPARATE, "zim/debug/handler.zep", 341);
+		zephir_array_append(&result, &_31$$3, PH_SEPARATE, "/Users/henter/Dev/zim/zim/debug/handler.zep", 341);
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&item);
 	ZEPHIR_INIT_NVAR(&key);

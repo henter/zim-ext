@@ -271,7 +271,7 @@ PHP_METHOD(Zim_Zim, registerServices) {
 		ZEPHIR_CALL_SELF(&services, "config", NULL, 0, &_2$$4);
 		zephir_check_call_status();
 	}
-	zephir_is_iterable(&services, 0, "zim/zim.zep", 126);
+	zephir_is_iterable(&services, 0, "/Users/henter/Dev/zim/zim/zim.zep", 126);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&services), _3)
 	{
 		ZEPHIR_INIT_NVAR(&service);
@@ -374,7 +374,7 @@ PHP_METHOD(Zim_Zim, boot) {
 		RETURN_MM_NULL();
 	}
 	zephir_read_property(&_1, this_ptr, SL("loadedServices"), PH_NOISY_CC | PH_READONLY);
-	zephir_is_iterable(&_1, 0, "zim/zim.zep", 175);
+	zephir_is_iterable(&_1, 0, "/Users/henter/Dev/zim/zim/zim.zep", 175);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_1), _2)
 	{
 		ZEPHIR_INIT_NVAR(&s);

@@ -73,7 +73,7 @@ PHP_METHOD(Zim_Http_HeaderBag, __construct) {
 	}
 
 
-	zephir_is_iterable(&headers, 0, "zim/http/headerbag.zep", 31);
+	zephir_is_iterable(&headers, 0, "/Users/henter/Dev/zim/zim/http/headerbag.zep", 31);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&headers), _1, _2, _0)
 	{
 		ZEPHIR_INIT_NVAR(&key);
@@ -188,7 +188,7 @@ PHP_METHOD(Zim_Http_HeaderBag, getCacheControlDirective) {
 	zephir_read_property(&_1, this_ptr, SL("cacheControl"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_key_exists(&_1, &key TSRMLS_CC)) {
 		zephir_read_property(&_2, this_ptr, SL("cacheControl"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_0, &_2, &key, PH_NOISY, "zim/http/headerbag.zep", 66 TSRMLS_CC);
+		zephir_array_fetch(&_0, &_2, &key, PH_NOISY, "/Users/henter/Dev/zim/zim/http/headerbag.zep", 66 TSRMLS_CC);
 	} else {
 		ZVAL_NULL(&_0);
 	}
@@ -351,7 +351,7 @@ PHP_METHOD(Zim_Http_HeaderBag, getDate) {
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &_2$$4, "__construct", NULL, 18, &_4$$4);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&_2$$4, "zim/http/headerbag.zep", 122 TSRMLS_CC);
+		zephir_throw_exception_debug(&_2$$4, "/Users/henter/Dev/zim/zim/http/headerbag.zep", 122 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}
@@ -395,7 +395,7 @@ PHP_METHOD(Zim_Http_HeaderBag, __toString) {
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&content);
 	ZVAL_STRING(&content, "");
-	zephir_is_iterable(&headers, 0, "zim/http/headerbag.zep", 149);
+	zephir_is_iterable(&headers, 0, "/Users/henter/Dev/zim/zim/http/headerbag.zep", 149);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&headers), _1, _2, _0)
 	{
 		ZEPHIR_INIT_NVAR(&name);
@@ -411,7 +411,7 @@ PHP_METHOD(Zim_Http_HeaderBag, __toString) {
 		ZEPHIR_CALL_FUNCTION(&_4$$4, "ucwords", &_5, 19, &name, &_3$$4);
 		zephir_check_call_status();
 		ZEPHIR_CPY_WRT(&name, &_4$$4);
-		zephir_is_iterable(&values, 0, "zim/http/headerbag.zep", 148);
+		zephir_is_iterable(&values, 0, "/Users/henter/Dev/zim/zim/http/headerbag.zep", 148);
 		ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&values), _6$$4)
 		{
 			ZEPHIR_INIT_NVAR(&value);
@@ -524,7 +524,7 @@ PHP_METHOD(Zim_Http_HeaderBag, add) {
 	zephir_get_arrval(&headers, headers_param);
 
 
-	zephir_is_iterable(&headers, 0, "zim/http/headerbag.zep", 195);
+	zephir_is_iterable(&headers, 0, "/Users/henter/Dev/zim/zim/http/headerbag.zep", 195);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&headers), _1, _2, _0)
 	{
 		ZEPHIR_INIT_NVAR(&key);
@@ -621,16 +621,16 @@ PHP_METHOD(Zim_Http_HeaderBag, get) {
 	}
 	if (first) {
 		ZEPHIR_INIT_VAR(&_5$$5);
-		zephir_array_fetch(&_6$$5, &headers, &key, PH_NOISY | PH_READONLY, "zim/http/headerbag.zep", 219 TSRMLS_CC);
+		zephir_array_fetch(&_6$$5, &headers, &key, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/headerbag.zep", 219 TSRMLS_CC);
 		if (zephir_fast_count_int(&_6$$5 TSRMLS_CC)) {
-			zephir_array_fetch(&_7$$5, &headers, &key, PH_NOISY | PH_READONLY, "zim/http/headerbag.zep", 219 TSRMLS_CC);
-			zephir_array_fetch_long(&_5$$5, &_7$$5, 0, PH_NOISY, "zim/http/headerbag.zep", 219 TSRMLS_CC);
+			zephir_array_fetch(&_7$$5, &headers, &key, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/headerbag.zep", 219 TSRMLS_CC);
+			zephir_array_fetch_long(&_5$$5, &_7$$5, 0, PH_NOISY, "/Users/henter/Dev/zim/zim/http/headerbag.zep", 219 TSRMLS_CC);
 		} else {
 			ZEPHIR_CPY_WRT(&_5$$5, deft);
 		}
 		RETURN_CCTOR(&_5$$5);
 	}
-	zephir_array_fetch(&_8, &headers, &key, PH_NOISY | PH_READONLY, "zim/http/headerbag.zep", 221 TSRMLS_CC);
+	zephir_array_fetch(&_8, &headers, &key, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/headerbag.zep", 221 TSRMLS_CC);
 	RETURN_CTOR(&_8);
 
 }
@@ -702,7 +702,7 @@ PHP_METHOD(Zim_Http_HeaderBag, set) {
 		} else {
 			ZEPHIR_INIT_VAR(&_6$$5);
 			zephir_read_property(&_7$$5, this_ptr, SL("headers"), PH_NOISY_CC | PH_READONLY);
-			zephir_array_fetch(&_8$$5, &_7$$5, &key, PH_NOISY | PH_READONLY, "zim/http/headerbag.zep", 239 TSRMLS_CC);
+			zephir_array_fetch(&_8$$5, &_7$$5, &key, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/headerbag.zep", 239 TSRMLS_CC);
 			zephir_fast_array_merge(&_6$$5, &_8$$5, values TSRMLS_CC);
 			zephir_update_property_array(this_ptr, SL("headers"), &key, &_6$$5 TSRMLS_CC);
 		}
@@ -724,7 +724,7 @@ PHP_METHOD(Zim_Http_HeaderBag, set) {
 	if (ZEPHIR_IS_STRING(&key, "cache-control")) {
 		ZEPHIR_INIT_VAR(&_13$$9);
 		zephir_read_property(&_14$$9, this_ptr, SL("headers"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_15$$9, &_14$$9, &key, PH_NOISY | PH_READONLY, "zim/http/headerbag.zep", 249 TSRMLS_CC);
+		zephir_array_fetch(&_15$$9, &_14$$9, &key, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/headerbag.zep", 249 TSRMLS_CC);
 		zephir_fast_join_str(&_13$$9, SL(", "), &_15$$9 TSRMLS_CC);
 		ZEPHIR_CALL_METHOD(&_12$$9, this_ptr, "parsecachecontrol", NULL, 0, &_13$$9);
 		zephir_check_call_status();

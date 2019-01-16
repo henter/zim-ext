@@ -137,17 +137,17 @@ PHP_METHOD(Zim_Http_HeaderUtils, combine) {
 
 	ZEPHIR_INIT_VAR(&assoc);
 	array_init(&assoc);
-	zephir_is_iterable(&parts, 0, "zim/http/headerutils.zep", 73);
+	zephir_is_iterable(&parts, 0, "/Users/henter/Dev/zim/zim/http/headerutils.zep", 73);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&parts), _0)
 	{
 		ZEPHIR_INIT_NVAR(&part);
 		ZVAL_COPY(&part, _0);
-		zephir_array_fetch_long(&_1$$3, &part, 0, PH_NOISY | PH_READONLY, "zim/http/headerutils.zep", 69 TSRMLS_CC);
+		zephir_array_fetch_long(&_1$$3, &part, 0, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/headerutils.zep", 69 TSRMLS_CC);
 		ZEPHIR_INIT_NVAR(&name);
 		zephir_fast_strtolower(&name, &_1$$3);
 		if (zephir_array_isset_long(&part, 1)) {
 			ZEPHIR_OBS_NVAR(&value);
-			zephir_array_fetch_long(&value, &part, 1, PH_NOISY, "zim/http/headerutils.zep", 70 TSRMLS_CC);
+			zephir_array_fetch_long(&value, &part, 1, PH_NOISY, "/Users/henter/Dev/zim/zim/http/headerutils.zep", 70 TSRMLS_CC);
 		} else {
 			ZEPHIR_INIT_NVAR(&value);
 			ZVAL_BOOL(&value, 1);
@@ -200,7 +200,7 @@ PHP_METHOD(Zim_Http_HeaderUtils, toString) {
 
 	ZEPHIR_INIT_VAR(&parts);
 	array_init(&parts);
-	zephir_is_iterable(&assoc, 0, "zim/http/headerutils.zep", 100);
+	zephir_is_iterable(&assoc, 0, "/Users/henter/Dev/zim/zim/http/headerutils.zep", 100);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&assoc), _1, _2, _0)
 	{
 		ZEPHIR_INIT_NVAR(&name);
@@ -212,13 +212,13 @@ PHP_METHOD(Zim_Http_HeaderUtils, toString) {
 		ZEPHIR_INIT_NVAR(&value);
 		ZVAL_COPY(&value, _0);
 		if (ZEPHIR_IS_TRUE_IDENTICAL(&value)) {
-			zephir_array_append(&parts, &name, PH_SEPARATE, "zim/http/headerutils.zep", 95);
+			zephir_array_append(&parts, &name, PH_SEPARATE, "/Users/henter/Dev/zim/zim/http/headerutils.zep", 95);
 		} else {
 			ZEPHIR_CALL_SELF(&_3$$5, "quote", &_4, 0, &value);
 			zephir_check_call_status();
 			ZEPHIR_INIT_LNVAR(_5$$5);
 			ZEPHIR_CONCAT_VSV(&_5$$5, &name, "=", &_3$$5);
-			zephir_array_append(&parts, &_5$$5, PH_SEPARATE, "zim/http/headerutils.zep", 97);
+			zephir_array_append(&parts, &_5$$5, PH_SEPARATE, "/Users/henter/Dev/zim/zim/http/headerutils.zep", 97);
 		}
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&value);
@@ -352,14 +352,14 @@ PHP_METHOD(Zim_Http_HeaderUtils, groupParts) {
 	i = 0;
 	ZEPHIR_INIT_VAR(&partMatches);
 	array_init(&partMatches);
-	zephir_is_iterable(&matches, 0, "zim/http/headerutils.zep", 144);
+	zephir_is_iterable(&matches, 0, "/Users/henter/Dev/zim/zim/http/headerutils.zep", 144);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&matches), _3)
 	{
 		ZEPHIR_INIT_NVAR(&match);
 		ZVAL_COPY(&match, _3);
 		_4$$3 = zephir_array_isset_string(&match, SL("separator"));
 		if (_4$$3) {
-			zephir_array_fetch_string(&_5$$3, &match, SL("separator"), PH_NOISY | PH_READONLY, "zim/http/headerutils.zep", 138 TSRMLS_CC);
+			zephir_array_fetch_string(&_5$$3, &match, SL("separator"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/headerutils.zep", 138 TSRMLS_CC);
 			_4$$3 = ZEPHIR_IS_IDENTICAL(&_5$$3, &separator);
 		}
 		if (_4$$3) {
@@ -372,27 +372,27 @@ PHP_METHOD(Zim_Http_HeaderUtils, groupParts) {
 	ZEPHIR_INIT_VAR(&parts);
 	array_init(&parts);
 	if (zephir_is_true(&partSeparators)) {
-		zephir_is_iterable(&partMatches, 0, "zim/http/headerutils.zep", 149);
+		zephir_is_iterable(&partMatches, 0, "/Users/henter/Dev/zim/zim/http/headerutils.zep", 149);
 		ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&partMatches), _6$$6)
 		{
 			ZEPHIR_INIT_NVAR(&matches);
 			ZVAL_COPY(&matches, _6$$6);
 			ZEPHIR_CALL_SELF(&_7$$7, "groupparts", &_8, 0, &matches, &partSeparators);
 			zephir_check_call_status();
-			zephir_array_append(&parts, &_7$$7, PH_SEPARATE, "zim/http/headerutils.zep", 147);
+			zephir_array_append(&parts, &_7$$7, PH_SEPARATE, "/Users/henter/Dev/zim/zim/http/headerutils.zep", 147);
 		} ZEND_HASH_FOREACH_END();
 		ZEPHIR_INIT_NVAR(&matches);
 	} else {
-		zephir_is_iterable(&partMatches, 0, "zim/http/headerutils.zep", 153);
+		zephir_is_iterable(&partMatches, 0, "/Users/henter/Dev/zim/zim/http/headerutils.zep", 153);
 		ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&partMatches), _9$$8)
 		{
 			ZEPHIR_INIT_NVAR(&matches);
 			ZVAL_COPY(&matches, _9$$8);
-			zephir_array_fetch_long(&_12$$9, &matches, 0, PH_NOISY | PH_READONLY, "zim/http/headerutils.zep", 151 TSRMLS_CC);
-			zephir_array_fetch_long(&_13$$9, &_12$$9, 0, PH_NOISY | PH_READONLY, "zim/http/headerutils.zep", 151 TSRMLS_CC);
+			zephir_array_fetch_long(&_12$$9, &matches, 0, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/headerutils.zep", 151 TSRMLS_CC);
+			zephir_array_fetch_long(&_13$$9, &_12$$9, 0, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/headerutils.zep", 151 TSRMLS_CC);
 			ZEPHIR_CALL_SELF(&_10$$9, "unquote", &_11, 0, &_13$$9);
 			zephir_check_call_status();
-			zephir_array_append(&parts, &_10$$9, PH_SEPARATE, "zim/http/headerutils.zep", 151);
+			zephir_array_append(&parts, &_10$$9, PH_SEPARATE, "/Users/henter/Dev/zim/zim/http/headerutils.zep", 151);
 		} ZEND_HASH_FOREACH_END();
 		ZEPHIR_INIT_NVAR(&matches);
 	}

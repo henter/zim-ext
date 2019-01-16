@@ -202,7 +202,7 @@ PHP_METHOD(Zim_Http_ParameterBag, get) {
 	zephir_read_property(&_1, this_ptr, SL("parameters"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_key_exists(&_1, &key TSRMLS_CC)) {
 		zephir_read_property(&_2, this_ptr, SL("parameters"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_0, &_2, &key, PH_NOISY, "zim/http/parameterbag.zep", 72 TSRMLS_CC);
+		zephir_array_fetch(&_0, &_2, &key, PH_NOISY, "/Users/henter/Dev/zim/zim/http/parameterbag.zep", 72 TSRMLS_CC);
 	} else {
 		ZEPHIR_CPY_WRT(&_0, deft);
 	}

@@ -175,7 +175,7 @@ PHP_METHOD(Zim_Config_Config, getMany) {
 
 	ZEPHIR_INIT_VAR(&config);
 	array_init(&config);
-	zephir_is_iterable(&keys, 0, "zim/config/config.zep", 74);
+	zephir_is_iterable(&keys, 0, "/Users/henter/Dev/zim/zim/config/config.zep", 74);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&keys), _1, _2, _0)
 	{
 		ZEPHIR_INIT_NVAR(&key);
@@ -244,7 +244,7 @@ PHP_METHOD(Zim_Config_Config, set) {
 		zephir_create_array(&keys, 1, 0 TSRMLS_CC);
 		zephir_array_update_zval(&keys, key, value, PH_COPY);
 	}
-	zephir_is_iterable(&keys, 0, "zim/config/config.zep", 92);
+	zephir_is_iterable(&keys, 0, "/Users/henter/Dev/zim/zim/config/config.zep", 92);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&keys), _1, _2, _0)
 	{
 		ZEPHIR_INIT_NVAR(key);
@@ -328,7 +328,7 @@ PHP_METHOD(Zim_Config_Config, push) {
 
 	ZEPHIR_CALL_METHOD(&myArray, this_ptr, "get", NULL, 0, &key);
 	zephir_check_call_status();
-	zephir_array_append(&myArray, value, PH_SEPARATE, "zim/config/config.zep", 122);
+	zephir_array_append(&myArray, value, PH_SEPARATE, "/Users/henter/Dev/zim/zim/config/config.zep", 122);
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "set", NULL, 0, &key, &myArray);
 	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();

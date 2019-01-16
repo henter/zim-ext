@@ -55,14 +55,14 @@ PHP_METHOD(Zim_Debug_FlattenExceptionsetMessageClosureZero, __invoke) {
 
 
 	ZEPHIR_INIT_VAR(&_0);
-	zephir_array_fetch_long(&_1, m, 0, PH_NOISY | PH_READONLY, "zim/debug/flattenexceptionsetmessageclosurezero.zep", 13 TSRMLS_CC);
+	zephir_array_fetch_long(&_1, m, 0, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/flattenexceptionsetmessageclosurezero.zep", 13 TSRMLS_CC);
 	if (zephir_class_exists(&_1, zephir_is_true(&__$false)  TSRMLS_CC)) {
-		zephir_array_fetch_long(&_2, m, 0, PH_NOISY | PH_READONLY, "zim/debug/flattenexceptionsetmessageclosurezero.zep", 13 TSRMLS_CC);
+		zephir_array_fetch_long(&_2, m, 0, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/debug/flattenexceptionsetmessageclosurezero.zep", 13 TSRMLS_CC);
 		ZEPHIR_CALL_FUNCTION(&_3, "get_parent_class", NULL, 46, &_2);
 		zephir_check_call_status();
 		ZEPHIR_CONCAT_VS(&_0, &_3, "@anonymous");
 	} else {
-		zephir_array_fetch_long(&_0, m, 0, PH_NOISY, "zim/debug/flattenexceptionsetmessageclosurezero.zep", 13 TSRMLS_CC);
+		zephir_array_fetch_long(&_0, m, 0, PH_NOISY, "/Users/henter/Dev/zim/zim/debug/flattenexceptionsetmessageclosurezero.zep", 13 TSRMLS_CC);
 	}
 	RETURN_CCTOR(&_0);
 

@@ -237,7 +237,7 @@ PHP_METHOD(Zim_Routing_Registrar, __call) {
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, &_5, "__construct", NULL, 112, &_8);
 	zephir_check_call_status();
-	zephir_throw_exception_debug(&_5, "zim/routing/registrar.zep", 94 TSRMLS_CC);
+	zephir_throw_exception_debug(&_5, "/Users/henter/Dev/zim/zim/routing/registrar.zep", 94 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 	return;
 

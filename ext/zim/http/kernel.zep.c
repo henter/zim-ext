@@ -101,7 +101,7 @@ PHP_METHOD(Zim_Http_Kernel, bootstrapRoutes) {
 	if (Z_TYPE_P(&configs) != IS_ARRAY) {
 		RETURN_MM_BOOL(0);
 	}
-	zephir_is_iterable(&configs, 0, "zim/http/kernel.zep", 57);
+	zephir_is_iterable(&configs, 0, "/Users/henter/Dev/zim/zim/http/kernel.zep", 57);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&configs), _3, _4, _2)
 	{
 		ZEPHIR_INIT_NVAR(&pattern);
@@ -354,7 +354,7 @@ PHP_METHOD(Zim_Http_Kernel, guessController) {
 	ZEPHIR_CONCAT_VSV(&_4, &_2, "/Controller/*", &suffix);
 	ZEPHIR_CALL_FUNCTION(&files, "glob", NULL, 89, &_4);
 	zephir_check_call_status();
-	zephir_is_iterable(&files, 0, "zim/http/kernel.zep", 145);
+	zephir_is_iterable(&files, 0, "/Users/henter/Dev/zim/zim/http/kernel.zep", 145);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&files), _5)
 	{
 		ZEPHIR_INIT_NVAR(&file);
@@ -433,12 +433,12 @@ PHP_METHOD(Zim_Http_Kernel, getDefaultRoute) {
 	if (zephir_array_isset_long(&segments, 1)) {
 		ZEPHIR_CPY_WRT(&tmpListCA, &segments);
 		ZEPHIR_OBS_VAR(&c);
-		zephir_array_fetch_long(&c, &tmpListCA, 0, PH_NOISY, "zim/http/kernel.zep", 171 TSRMLS_CC);
+		zephir_array_fetch_long(&c, &tmpListCA, 0, PH_NOISY, "/Users/henter/Dev/zim/zim/http/kernel.zep", 171 TSRMLS_CC);
 		ZEPHIR_OBS_VAR(&a);
-		zephir_array_fetch_long(&a, &tmpListCA, 1, PH_NOISY, "zim/http/kernel.zep", 172 TSRMLS_CC);
+		zephir_array_fetch_long(&a, &tmpListCA, 1, PH_NOISY, "/Users/henter/Dev/zim/zim/http/kernel.zep", 172 TSRMLS_CC);
 	} else {
 		ZEPHIR_OBS_NVAR(&c);
-		zephir_array_fetch_long(&c, &segments, 0, PH_NOISY, "zim/http/kernel.zep", 174 TSRMLS_CC);
+		zephir_array_fetch_long(&c, &segments, 0, PH_NOISY, "/Users/henter/Dev/zim/zim/http/kernel.zep", 174 TSRMLS_CC);
 		ZEPHIR_INIT_NVAR(&a);
 		ZVAL_STRING(&a, "index");
 	}
@@ -449,7 +449,7 @@ PHP_METHOD(Zim_Http_Kernel, getDefaultRoute) {
 		ZEPHIR_INIT_NVAR(&c);
 		ZVAL_STRING(&c, "Index");
 		ZEPHIR_OBS_NVAR(&a);
-		zephir_array_fetch_long(&a, &segments, 0, PH_NOISY, "zim/http/kernel.zep", 181 TSRMLS_CC);
+		zephir_array_fetch_long(&a, &segments, 0, PH_NOISY, "/Users/henter/Dev/zim/zim/http/kernel.zep", 181 TSRMLS_CC);
 	}
 	zephir_create_array(return_value, 2, 0 TSRMLS_CC);
 	zephir_array_fast_append(return_value, &c);
@@ -507,9 +507,9 @@ PHP_METHOD(Zim_Http_Kernel, dispatchToDefault) {
 	ZEPHIR_CALL_METHOD(&tmpListCA, this_ptr, "getdefaultroute", NULL, 0, request);
 	zephir_check_call_status();
 	ZEPHIR_OBS_VAR(&c);
-	zephir_array_fetch_long(&c, &tmpListCA, 0, PH_NOISY, "zim/http/kernel.zep", 208 TSRMLS_CC);
+	zephir_array_fetch_long(&c, &tmpListCA, 0, PH_NOISY, "/Users/henter/Dev/zim/zim/http/kernel.zep", 208 TSRMLS_CC);
 	ZEPHIR_OBS_VAR(&a);
-	zephir_array_fetch_long(&a, &tmpListCA, 1, PH_NOISY, "zim/http/kernel.zep", 209 TSRMLS_CC);
+	zephir_array_fetch_long(&a, &tmpListCA, 1, PH_NOISY, "/Users/henter/Dev/zim/zim/http/kernel.zep", 209 TSRMLS_CC);
 	zephir_read_property(&_0, this_ptr, SL("zim"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_INIT_VAR(&_1);
 	ZEPHIR_CONCAT_SVS(&_1, "App\\Controller\\", &c, "Controller");
@@ -525,12 +525,12 @@ PHP_METHOD(Zim_Http_Kernel, dispatchToDefault) {
 		if (!(zephir_is_callable(&call TSRMLS_CC))) {
 			ZEPHIR_INIT_VAR(&_2$$4);
 			object_init_ex(&_2$$4, zim_http_exception_notfoundexception_ce);
-			zephir_array_fetch_long(&_3$$4, &call, 1, PH_NOISY | PH_READONLY, "zim/http/kernel.zep", 220 TSRMLS_CC);
+			zephir_array_fetch_long(&_3$$4, &call, 1, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/kernel.zep", 220 TSRMLS_CC);
 			ZEPHIR_INIT_VAR(&_4$$4);
 			ZEPHIR_CONCAT_SV(&_4$$4, "action not found ", &_3$$4);
 			ZEPHIR_CALL_METHOD(NULL, &_2$$4, "__construct", &_5, 91, &_4$$4);
 			zephir_check_call_status();
-			zephir_throw_exception_debug(&_2$$4, "zim/http/kernel.zep", 220 TSRMLS_CC);
+			zephir_throw_exception_debug(&_2$$4, "/Users/henter/Dev/zim/zim/http/kernel.zep", 220 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
 			return;
 		}
@@ -542,7 +542,7 @@ PHP_METHOD(Zim_Http_Kernel, dispatchToDefault) {
 			_6$$5 = !(zephir_class_exists(&actionClass, 1 TSRMLS_CC));
 		}
 		if (_6$$5) {
-			ZEPHIR_THROW_EXCEPTION_DEBUG_STR(zim_http_exception_notfoundexception_ce, "action not found", "zim/http/kernel.zep", 226);
+			ZEPHIR_THROW_EXCEPTION_DEBUG_STR(zim_http_exception_notfoundexception_ce, "action not found", "/Users/henter/Dev/zim/zim/http/kernel.zep", 226);
 			return;
 		}
 		zephir_create_array(&call, 2, 0 TSRMLS_CC);
@@ -617,12 +617,12 @@ PHP_METHOD(Zim_Http_Kernel, dispatchToRouter) {
 		if (!(zephir_is_callable(&call TSRMLS_CC))) {
 			ZEPHIR_INIT_VAR(&_6$$4);
 			object_init_ex(&_6$$4, zim_http_exception_notfoundexception_ce);
-			zephir_array_fetch_long(&_7$$4, &call, 1, PH_NOISY | PH_READONLY, "zim/http/kernel.zep", 251 TSRMLS_CC);
+			zephir_array_fetch_long(&_7$$4, &call, 1, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/kernel.zep", 251 TSRMLS_CC);
 			ZEPHIR_INIT_VAR(&_8$$4);
 			ZEPHIR_CONCAT_SV(&_8$$4, "action not found ", &_7$$4);
 			ZEPHIR_CALL_METHOD(NULL, &_6$$4, "__construct", NULL, 91, &_8$$4);
 			zephir_check_call_status();
-			zephir_throw_exception_debug(&_6$$4, "zim/http/kernel.zep", 251 TSRMLS_CC);
+			zephir_throw_exception_debug(&_6$$4, "/Users/henter/Dev/zim/zim/http/kernel.zep", 251 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
 			return;
 		}
@@ -681,11 +681,11 @@ PHP_METHOD(Zim_Http_Kernel, doDispatch) {
 		ZEPHIR_INIT_VAR(&_1$$3);
 		zephir_create_array(&_1$$3, 2, 0 TSRMLS_CC);
 		ZEPHIR_INIT_VAR(&_2$$3);
-		zephir_array_fetch_long(&_3$$3, call, 0, PH_NOISY | PH_READONLY, "zim/http/kernel.zep", 268 TSRMLS_CC);
+		zephir_array_fetch_long(&_3$$3, call, 0, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/kernel.zep", 268 TSRMLS_CC);
 		zephir_get_class(&_2$$3, &_3$$3, 0 TSRMLS_CC);
 		zephir_array_fast_append(&_1$$3, &_2$$3);
 		ZEPHIR_OBS_VAR(&_4$$3);
-		zephir_array_fetch_long(&_4$$3, call, 1, PH_NOISY, "zim/http/kernel.zep", 268 TSRMLS_CC);
+		zephir_array_fetch_long(&_4$$3, call, 1, PH_NOISY, "/Users/henter/Dev/zim/zim/http/kernel.zep", 268 TSRMLS_CC);
 		zephir_array_fast_append(&_1$$3, &_4$$3);
 		ZEPHIR_INIT_NVAR(&_2$$3);
 		ZVAL_STRING(&_2$$3, "callable");

@@ -633,7 +633,7 @@ PHP_METHOD(Zim_Http_Response, sendHeaders) {
 	zephir_read_property(&_1, this_ptr, SL("headers"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_CALL_METHOD(&_2, &_1, "allpreservecase", NULL, 0);
 	zephir_check_call_status();
-	zephir_is_iterable(&_2, 0, "zim/http/response.zep", 247);
+	zephir_is_iterable(&_2, 0, "/Users/henter/Dev/zim/zim/http/response.zep", 247);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_2), _4, _5, _3)
 	{
 		ZEPHIR_INIT_NVAR(&name);
@@ -644,7 +644,7 @@ PHP_METHOD(Zim_Http_Response, sendHeaders) {
 		}
 		ZEPHIR_INIT_NVAR(&values);
 		ZVAL_COPY(&values, _3);
-		zephir_is_iterable(&values, 0, "zim/http/response.zep", 245);
+		zephir_is_iterable(&values, 0, "/Users/henter/Dev/zim/zim/http/response.zep", 245);
 		ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&values), _6$$4)
 		{
 			ZEPHIR_INIT_NVAR(&value);
@@ -800,7 +800,7 @@ PHP_METHOD(Zim_Http_Response, setContent) {
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &_10$$4, "__construct", NULL, 31, &_13$$4);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&_10$$4, "zim/http/response.zep", 299 TSRMLS_CC);
+		zephir_throw_exception_debug(&_10$$4, "/Users/henter/Dev/zim/zim/http/response.zep", 299 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}
@@ -999,7 +999,7 @@ PHP_METHOD(Zim_Http_Response, setStatusCode) {
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &_2$$3, "__construct", NULL, 32, &_5$$3);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&_2$$3, "zim/http/response.zep", 391 TSRMLS_CC);
+		zephir_throw_exception_debug(&_2$$3, "/Users/henter/Dev/zim/zim/http/response.zep", 391 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}
@@ -1009,7 +1009,7 @@ PHP_METHOD(Zim_Http_Response, setStatusCode) {
 		if (zephir_array_isset_long(&_7$$4, code)) {
 			zephir_read_static_property_ce(&_8$$4, zim_http_response_ce, SL("statusTexts"), PH_NOISY_CC | PH_READONLY);
 			ZEPHIR_OBS_NVAR(&_6$$4);
-			zephir_array_fetch_long(&_6$$4, &_8$$4, code, PH_NOISY, "zim/http/response.zep", 394 TSRMLS_CC);
+			zephir_array_fetch_long(&_6$$4, &_8$$4, code, PH_NOISY, "/Users/henter/Dev/zim/zim/http/response.zep", 394 TSRMLS_CC);
 		} else {
 			ZEPHIR_INIT_NVAR(&_6$$4);
 			ZVAL_STRING(&_6$$4, "unknown status");

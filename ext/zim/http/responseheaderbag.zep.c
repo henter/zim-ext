@@ -113,7 +113,7 @@ PHP_METHOD(Zim_Http_ResponseHeaderBag, allPreserveCase) {
 	array_init(&headers);
 	ZEPHIR_CALL_METHOD(&_0, this_ptr, "all", NULL, 0);
 	zephir_check_call_status();
-	zephir_is_iterable(&_0, 0, "zim/http/responseheaderbag.zep", 46);
+	zephir_is_iterable(&_0, 0, "/Users/henter/Dev/zim/zim/http/responseheaderbag.zep", 46);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_0), _2, _3, _1)
 	{
 		ZEPHIR_INIT_NVAR(&name);
@@ -129,7 +129,7 @@ PHP_METHOD(Zim_Http_ResponseHeaderBag, allPreserveCase) {
 		if (zephir_array_isset(&_5$$3, &name)) {
 			zephir_read_property(&_6$$3, this_ptr, SL("headerNames"), PH_NOISY_CC | PH_READONLY);
 			ZEPHIR_OBS_NVAR(&_4$$3);
-			zephir_array_fetch(&_4$$3, &_6$$3, &name, PH_NOISY, "zim/http/responseheaderbag.zep", 44 TSRMLS_CC);
+			zephir_array_fetch(&_4$$3, &_6$$3, &name, PH_NOISY, "/Users/henter/Dev/zim/zim/http/responseheaderbag.zep", 44 TSRMLS_CC);
 		} else {
 			ZEPHIR_CPY_WRT(&_4$$3, &name);
 		}
@@ -375,7 +375,7 @@ PHP_METHOD(Zim_Http_ResponseHeaderBag, getCacheControlDirective) {
 	zephir_read_property(&_1, this_ptr, SL("computedCacheControl"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_key_exists(&_1, &key TSRMLS_CC)) {
 		zephir_read_property(&_2, this_ptr, SL("computedCacheControl"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_0, &_2, &key, PH_NOISY, "zim/http/responseheaderbag.zep", 116 TSRMLS_CC);
+		zephir_array_fetch(&_0, &_2, &key, PH_NOISY, "/Users/henter/Dev/zim/zim/http/responseheaderbag.zep", 116 TSRMLS_CC);
 	} else {
 		ZVAL_NULL(&_0);
 	}

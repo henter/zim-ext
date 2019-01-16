@@ -182,7 +182,7 @@ PHP_METHOD(Zim_Routing_Route, setParameters) {
 	ZEPHIR_INIT_NVAR(&_1);
 	ZVAL_STRING(&_1, "_callable");
 	zephir_array_fast_append(&_0, &_1);
-	zephir_is_iterable(&_0, 0, "zim/routing/route.zep", 73);
+	zephir_is_iterable(&_0, 0, "/Users/henter/Dev/zim/zim/routing/route.zep", 73);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0), _2)
 	{
 		ZEPHIR_INIT_NVAR(&k);
@@ -190,7 +190,7 @@ PHP_METHOD(Zim_Routing_Route, setParameters) {
 		zephir_array_unset(&params, &k, PH_SEPARATE);
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&k);
-	zephir_is_iterable(&parameters, 0, "zim/routing/route.zep", 79);
+	zephir_is_iterable(&parameters, 0, "/Users/henter/Dev/zim/zim/routing/route.zep", 79);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&parameters), _4, _5, _3)
 	{
 		ZEPHIR_INIT_NVAR(&key);
@@ -332,13 +332,13 @@ PHP_METHOD(Zim_Routing_Route, setPathCallback) {
 	zephir_get_arrval(&m, m_param);
 
 
-	zephir_array_fetch_long(&_0, &m, 3, PH_NOISY | PH_READONLY, "zim/routing/route.zep", 120 TSRMLS_CC);
+	zephir_array_fetch_long(&_0, &m, 3, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/routing/route.zep", 120 TSRMLS_CC);
 	if (zephir_fast_strlen_ev(&_0) > 0) {
-		zephir_array_fetch_long(&_1$$3, &m, 1, PH_NOISY | PH_READONLY, "zim/routing/route.zep", 121 TSRMLS_CC);
+		zephir_array_fetch_long(&_1$$3, &m, 1, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/routing/route.zep", 121 TSRMLS_CC);
 		ZEPHIR_INIT_VAR(&_2$$3);
-		zephir_array_fetch_long(&_3$$3, &m, 3, PH_NOISY | PH_READONLY, "zim/routing/route.zep", 121 TSRMLS_CC);
+		zephir_array_fetch_long(&_3$$3, &m, 3, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/routing/route.zep", 121 TSRMLS_CC);
 		if (!ZEPHIR_IS_STRING_IDENTICAL(&_3$$3, "?")) {
-			zephir_array_fetch_long(&_4$$3, &m, 3, PH_NOISY | PH_READONLY, "zim/routing/route.zep", 121 TSRMLS_CC);
+			zephir_array_fetch_long(&_4$$3, &m, 3, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/routing/route.zep", 121 TSRMLS_CC);
 			ZVAL_LONG(&_5$$3, 1);
 			ZEPHIR_INIT_NVAR(&_2$$3);
 			zephir_substr(&_2$$3, &_4$$3, 1 , 0, ZEPHIR_SUBSTR_NO_LENGTH);
@@ -349,10 +349,10 @@ PHP_METHOD(Zim_Routing_Route, setPathCallback) {
 		ZEPHIR_CALL_METHOD(NULL, this_ptr, "setdefault", NULL, 0, &_1$$3, &_2$$3);
 		zephir_check_call_status();
 	}
-	zephir_array_fetch_long(&_6, &m, 2, PH_NOISY | PH_READONLY, "zim/routing/route.zep", 124 TSRMLS_CC);
+	zephir_array_fetch_long(&_6, &m, 2, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/routing/route.zep", 124 TSRMLS_CC);
 	if (zephir_fast_strlen_ev(&_6) > 0) {
-		zephir_array_fetch_long(&_7$$4, &m, 1, PH_NOISY | PH_READONLY, "zim/routing/route.zep", 125 TSRMLS_CC);
-		zephir_array_fetch_long(&_8$$4, &m, 2, PH_NOISY | PH_READONLY, "zim/routing/route.zep", 125 TSRMLS_CC);
+		zephir_array_fetch_long(&_7$$4, &m, 1, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/routing/route.zep", 125 TSRMLS_CC);
+		zephir_array_fetch_long(&_8$$4, &m, 2, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/routing/route.zep", 125 TSRMLS_CC);
 		ZVAL_LONG(&_9$$4, 1);
 		ZVAL_LONG(&_10$$4, -1);
 		ZEPHIR_INIT_VAR(&_11$$4);
@@ -360,7 +360,7 @@ PHP_METHOD(Zim_Routing_Route, setPathCallback) {
 		ZEPHIR_CALL_METHOD(NULL, this_ptr, "setrequirement", NULL, 0, &_7$$4, &_11$$4);
 		zephir_check_call_status();
 	}
-	zephir_array_fetch_long(&_12, &m, 1, PH_NOISY | PH_READONLY, "zim/routing/route.zep", 127 TSRMLS_CC);
+	zephir_array_fetch_long(&_12, &m, 1, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/routing/route.zep", 127 TSRMLS_CC);
 	ZEPHIR_CONCAT_SVS(return_value, "{", &_12, "}");
 	RETURN_MM();
 
@@ -461,7 +461,7 @@ PHP_METHOD(Zim_Routing_Route, addOptions) {
 	zephir_get_arrval(&options, options_param);
 
 
-	zephir_is_iterable(&options, 0, "zim/routing/route.zep", 184);
+	zephir_is_iterable(&options, 0, "/Users/henter/Dev/zim/zim/routing/route.zep", 184);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&options), _1, _2, _0)
 	{
 		ZEPHIR_INIT_NVAR(&name);
@@ -541,7 +541,7 @@ PHP_METHOD(Zim_Routing_Route, getOption) {
 	zephir_read_property(&_1, this_ptr, SL("options"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_1, &name)) {
 		zephir_read_property(&_2, this_ptr, SL("options"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_0, &_2, &name, PH_NOISY, "zim/routing/route.zep", 214 TSRMLS_CC);
+		zephir_array_fetch(&_0, &_2, &name, PH_NOISY, "/Users/henter/Dev/zim/zim/routing/route.zep", 214 TSRMLS_CC);
 	} else {
 		ZVAL_NULL(&_0);
 	}
@@ -652,7 +652,7 @@ PHP_METHOD(Zim_Routing_Route, addDefaults) {
 	zephir_get_arrval(&defaults, defaults_param);
 
 
-	zephir_is_iterable(&defaults, 0, "zim/routing/route.zep", 270);
+	zephir_is_iterable(&defaults, 0, "/Users/henter/Dev/zim/zim/routing/route.zep", 270);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&defaults), _1, _2, _0)
 	{
 		ZEPHIR_INIT_NVAR(&name);
@@ -700,7 +700,7 @@ PHP_METHOD(Zim_Routing_Route, getDefault) {
 	zephir_read_property(&_1, this_ptr, SL("defaults"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_1, &name)) {
 		zephir_read_property(&_2, this_ptr, SL("defaults"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_0, &_2, &name, PH_NOISY, "zim/routing/route.zep", 283 TSRMLS_CC);
+		zephir_array_fetch(&_0, &_2, &name, PH_NOISY, "/Users/henter/Dev/zim/zim/routing/route.zep", 283 TSRMLS_CC);
 	} else {
 		ZVAL_NULL(&_0);
 	}
@@ -844,7 +844,7 @@ PHP_METHOD(Zim_Routing_Route, addRequirements) {
 	zephir_get_arrval(&requirements, requirements_param);
 
 
-	zephir_is_iterable(&requirements, 0, "zim/routing/route.zep", 354);
+	zephir_is_iterable(&requirements, 0, "/Users/henter/Dev/zim/zim/routing/route.zep", 354);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&requirements), _1, _2, _0)
 	{
 		ZEPHIR_INIT_NVAR(&key);
@@ -894,7 +894,7 @@ PHP_METHOD(Zim_Routing_Route, getRequirement) {
 	zephir_read_property(&_1, this_ptr, SL("requirements"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_1, &key)) {
 		zephir_read_property(&_2, this_ptr, SL("requirements"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_0, &_2, &key, PH_NOISY, "zim/routing/route.zep", 367 TSRMLS_CC);
+		zephir_array_fetch(&_0, &_2, &key, PH_NOISY, "/Users/henter/Dev/zim/zim/routing/route.zep", 367 TSRMLS_CC);
 	} else {
 		ZVAL_NULL(&_0);
 	}
@@ -1063,7 +1063,7 @@ PHP_METHOD(Zim_Routing_Route, sanitizeRequirement) {
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &_12$$5, "__construct", NULL, 32, &_14$$5);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&_12$$5, "zim/routing/route.zep", 425 TSRMLS_CC);
+		zephir_throw_exception_debug(&_12$$5, "/Users/henter/Dev/zim/zim/routing/route.zep", 425 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}

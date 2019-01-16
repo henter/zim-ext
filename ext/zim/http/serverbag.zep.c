@@ -102,7 +102,7 @@ PHP_METHOD(Zim_Http_ServerBag, getHeaders) {
 	zephir_array_update_string(&contentHeaders, SL("CONTENT_MD5"), &__$true, PH_COPY | PH_SEPARATE);
 	zephir_array_update_string(&contentHeaders, SL("CONTENT_TYPE"), &__$true, PH_COPY | PH_SEPARATE);
 	zephir_read_property(&_0, this_ptr, SL("parameters"), PH_NOISY_CC | PH_READONLY);
-	zephir_is_iterable(&_0, 0, "zim/http/serverbag.zep", 41);
+	zephir_is_iterable(&_0, 0, "/Users/henter/Dev/zim/zim/http/serverbag.zep", 41);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_0), _2, _3, _1)
 	{
 		ZEPHIR_INIT_NVAR(&key);
@@ -132,14 +132,14 @@ PHP_METHOD(Zim_Http_ServerBag, getHeaders) {
 	zephir_read_property(&_8, this_ptr, SL("parameters"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset_string(&_8, SL("PHP_AUTH_USER"))) {
 		zephir_read_property(&_9$$6, this_ptr, SL("parameters"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch_string(&_10$$6, &_9$$6, SL("PHP_AUTH_USER"), PH_NOISY | PH_READONLY, "zim/http/serverbag.zep", 42 TSRMLS_CC);
+		zephir_array_fetch_string(&_10$$6, &_9$$6, SL("PHP_AUTH_USER"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/serverbag.zep", 42 TSRMLS_CC);
 		zephir_array_update_string(&headers, SL("PHP_AUTH_USER"), &_10$$6, PH_COPY | PH_SEPARATE);
 		ZEPHIR_INIT_VAR(&_11$$6);
 		zephir_read_property(&_12$$6, this_ptr, SL("parameters"), PH_NOISY_CC | PH_READONLY);
 		if (zephir_array_isset_string(&_12$$6, SL("PHP_AUTH_PW"))) {
 			zephir_read_property(&_13$$6, this_ptr, SL("parameters"), PH_NOISY_CC | PH_READONLY);
 			ZEPHIR_OBS_NVAR(&_11$$6);
-			zephir_array_fetch_string(&_11$$6, &_13$$6, SL("PHP_AUTH_PW"), PH_NOISY, "zim/http/serverbag.zep", 43 TSRMLS_CC);
+			zephir_array_fetch_string(&_11$$6, &_13$$6, SL("PHP_AUTH_PW"), PH_NOISY, "/Users/henter/Dev/zim/zim/http/serverbag.zep", 43 TSRMLS_CC);
 		} else {
 			ZEPHIR_INIT_NVAR(&_11$$6);
 			ZVAL_STRING(&_11$$6, "");
@@ -153,11 +153,11 @@ PHP_METHOD(Zim_Http_ServerBag, getHeaders) {
 		if (zephir_array_isset_string(&_14$$7, SL("HTTP_AUTHORIZATION"))) {
 			zephir_read_property(&_16$$8, this_ptr, SL("parameters"), PH_NOISY_CC | PH_READONLY);
 			ZEPHIR_OBS_NVAR(&authorizationHeader);
-			zephir_array_fetch_string(&authorizationHeader, &_16$$8, SL("HTTP_AUTHORIZATION"), PH_NOISY, "zim/http/serverbag.zep", 60 TSRMLS_CC);
+			zephir_array_fetch_string(&authorizationHeader, &_16$$8, SL("HTTP_AUTHORIZATION"), PH_NOISY, "/Users/henter/Dev/zim/zim/http/serverbag.zep", 60 TSRMLS_CC);
 		} else if (zephir_array_isset_string(&_15$$7, SL("REDIRECT_HTTP_AUTHORIZATION"))) {
 			zephir_read_property(&_17$$9, this_ptr, SL("parameters"), PH_NOISY_CC | PH_READONLY);
 			ZEPHIR_OBS_NVAR(&authorizationHeader);
-			zephir_array_fetch_string(&authorizationHeader, &_17$$9, SL("REDIRECT_HTTP_AUTHORIZATION"), PH_NOISY, "zim/http/serverbag.zep", 62 TSRMLS_CC);
+			zephir_array_fetch_string(&authorizationHeader, &_17$$9, SL("REDIRECT_HTTP_AUTHORIZATION"), PH_NOISY, "/Users/henter/Dev/zim/zim/http/serverbag.zep", 62 TSRMLS_CC);
 		}
 		if (Z_TYPE_P(&authorizationHeader) != IS_NULL) {
 			ZEPHIR_INIT_VAR(&_18$$10);
@@ -166,7 +166,7 @@ PHP_METHOD(Zim_Http_ServerBag, getHeaders) {
 			zephir_check_call_status();
 			zephir_read_property(&_20$$10, this_ptr, SL("parameters"), PH_NOISY_CC | PH_READONLY);
 			ZEPHIR_OBS_VAR(&_21$$10);
-			zephir_array_fetch_string(&_21$$10, &_20$$10, SL("PHP_AUTH_DIGEST"), PH_NOISY, "zim/http/serverbag.zep", 73 TSRMLS_CC);
+			zephir_array_fetch_string(&_21$$10, &_20$$10, SL("PHP_AUTH_DIGEST"), PH_NOISY, "/Users/henter/Dev/zim/zim/http/serverbag.zep", 73 TSRMLS_CC);
 			_22$$10 = ZEPHIR_IS_EMPTY(&_21$$10);
 			if (_22$$10) {
 				ZEPHIR_INIT_NVAR(&_18$$10);
@@ -189,9 +189,9 @@ PHP_METHOD(Zim_Http_ServerBag, getHeaders) {
 				zephir_fast_explode_str(&exploded, SL(":"), &_27$$11, 2  TSRMLS_CC);
 				if (2 == zephir_fast_count_int(&exploded TSRMLS_CC)) {
 					ZEPHIR_CPY_WRT(&tmpListHeadersPHP_AUTH_USERHeadersPHP_AUTH_PW, &exploded);
-					zephir_array_fetch_long(&_28$$12, &tmpListHeadersPHP_AUTH_USERHeadersPHP_AUTH_PW, 0, PH_NOISY | PH_READONLY, "zim/http/serverbag.zep", 70 TSRMLS_CC);
+					zephir_array_fetch_long(&_28$$12, &tmpListHeadersPHP_AUTH_USERHeadersPHP_AUTH_PW, 0, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/serverbag.zep", 70 TSRMLS_CC);
 					zephir_array_update_string(&headers, SL("PHP_AUTH_USER"), &_28$$12, PH_COPY | PH_SEPARATE);
-					zephir_array_fetch_long(&_29$$12, &tmpListHeadersPHP_AUTH_USERHeadersPHP_AUTH_PW, 1, PH_NOISY | PH_READONLY, "zim/http/serverbag.zep", 71 TSRMLS_CC);
+					zephir_array_fetch_long(&_29$$12, &tmpListHeadersPHP_AUTH_USERHeadersPHP_AUTH_PW, 1, PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/serverbag.zep", 71 TSRMLS_CC);
 					zephir_array_update_string(&headers, SL("PHP_AUTH_PW"), &_29$$12, PH_COPY | PH_SEPARATE);
 				}
 			} else if (_22$$10) {
@@ -208,8 +208,8 @@ PHP_METHOD(Zim_Http_ServerBag, getHeaders) {
 		RETURN_CCTOR(&headers);
 	}
 	if (zephir_array_isset_string(&headers, SL("PHP_AUTH_USER"))) {
-		zephir_array_fetch_string(&_31$$16, &headers, SL("PHP_AUTH_USER"), PH_NOISY | PH_READONLY, "zim/http/serverbag.zep", 92 TSRMLS_CC);
-		zephir_array_fetch_string(&_32$$16, &headers, SL("PHP_AUTH_PW"), PH_NOISY | PH_READONLY, "zim/http/serverbag.zep", 92 TSRMLS_CC);
+		zephir_array_fetch_string(&_31$$16, &headers, SL("PHP_AUTH_USER"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/serverbag.zep", 92 TSRMLS_CC);
+		zephir_array_fetch_string(&_32$$16, &headers, SL("PHP_AUTH_PW"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/serverbag.zep", 92 TSRMLS_CC);
 		ZEPHIR_INIT_VAR(&_33$$16);
 		ZEPHIR_CONCAT_VSV(&_33$$16, &_31$$16, ":", &_32$$16);
 		ZEPHIR_CALL_FUNCTION(&_34$$16, "base64_encode", NULL, 111, &_33$$16);
@@ -218,7 +218,7 @@ PHP_METHOD(Zim_Http_ServerBag, getHeaders) {
 		ZEPHIR_CONCAT_SV(&_35$$16, "Basic ", &_34$$16);
 		zephir_array_update_string(&headers, SL("AUTHORIZATION"), &_35$$16, PH_COPY | PH_SEPARATE);
 	} else if (zephir_array_isset_string(&headers, SL("PHP_AUTH_DIGEST"))) {
-		zephir_array_fetch_string(&_36$$17, &headers, SL("PHP_AUTH_DIGEST"), PH_NOISY | PH_READONLY, "zim/http/serverbag.zep", 94 TSRMLS_CC);
+		zephir_array_fetch_string(&_36$$17, &headers, SL("PHP_AUTH_DIGEST"), PH_NOISY | PH_READONLY, "/Users/henter/Dev/zim/zim/http/serverbag.zep", 94 TSRMLS_CC);
 		zephir_array_update_string(&headers, SL("AUTHORIZATION"), &_36$$17, PH_COPY | PH_SEPARATE);
 	}
 	RETURN_CCTOR(&headers);

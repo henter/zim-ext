@@ -120,7 +120,7 @@ class Arr
             return myArray;
         }
         let ret = static::_parseIniString(key, value);
-        return array_merge_recursive(myArray, ret);
+        return array_replace_recursive(myArray, ret);
     }
     
     protected static function _parseIniString(string path, value)
